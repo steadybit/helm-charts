@@ -1,0 +1,5 @@
+# See https://github.com/helm/chart-testing#configuration
+remote: origin
+chart-dirs:
+  - charts
+helm-extra-args: --set agent.key=STEADYBIT_AGENT_KEY
