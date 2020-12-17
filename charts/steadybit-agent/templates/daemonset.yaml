@@ -46,6 +46,13 @@ spec:
               mountPath: /var/run
             - name: log
               mountPath: /var/log
+            {{- if .Values.agent.additionalVolumes }}
+            {{- range $index,$backend := .Values.agent.additionalVolumes }}
+            {{ $volumeIndex :=add $index 2 -}}
+            - name: {{ $backend.name }}
+              mountPath: {{ $backend.mountPath }}
+            {{- end }}
+      {{- end }}
       imagePullSecrets:
         - name: docker-steadybit-io
       volumes:
@@ -55,4 +62,12 @@ spec:
         - name: log
           hostPath:
             path: /var/log
+        {{- if .Values.agent.additionalVolumes }}
+        {{- range $index,$backend := .Values.agent.additionalVolumes }}
+        {{ $volumeIndex :=add $index 2 -}}
+        - name: {{ $backend.name }}
+          hostPath:
+            path: {{ $backend.hostPath }}
+        {{- end }}
+  {{- end }}
   {{- end -}}
