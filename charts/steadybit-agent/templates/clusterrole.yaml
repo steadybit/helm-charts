@@ -1,0 +1,42 @@
+{{- if .Values.rbac.create -}}
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ template "steadybit-agent.fullname" . }}
+  labels:
+  {{- include "steadybit-agent.commonLabels" . | nindent 4 }}
+rules:
+  - apiGroups: [ "batch" ]
+    resources:
+      - "jobs"
+    verbs: [ "get", "list", "watch" ]
+  - apiGroups: [ "extensions" ]
+    resources:
+      - "deployments"
+      - "replicasets"
+      - "ingresses"
+    verbs: [ "get", "list", "watch" ]
+  - apiGroups: [ "apps" ]
+    resources:
+      - "deployments"
+      - "replicasets"
+      - "daemonsets"
+      - "statefulsets"
+    verbs: [ "get", "list", "watch" ]
+  - apiGroups: [ "" ]
+    resources:
+      - "namespaces"
+      - "services"
+      - "endpoints"
+      - "nodes"
+      - "pods"
+      - "replicationcontrollers"
+    verbs: [ "get", "list", "watch" ]
+  {{- if .Values.podSecurityPolicy.enable}}
+  - apiGroups: [ "policy" ]
+    resources: [ "podsecuritypolicies" ]
+    verbs: [ "use" ]
+    resourceNames:
+      - {{ template "steadybit-agent.podSecurityPolicyName" . }}
+  {{- end -}}
+  {{- end -}}
