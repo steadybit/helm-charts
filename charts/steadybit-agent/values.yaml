@@ -8,7 +8,7 @@ agent:
   # agent.registerUrl is the URL of the steadybit server your agents will connect to.
   registerUrl: https://platform.steadybit.io
   # These are additional volumes to which the agent container will be mounted.
-  additionalVolumes: [ ]
+  additionalVolumes: []
   # additionalVolumes:
   #  - name: tmp # Volume's name.
   #    mountPath: /tmp # Path within the container at which the volume should be mounted.
