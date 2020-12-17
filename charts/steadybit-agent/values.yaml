@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 agent:
-  # key is the secret token which your agent uses to authenticate to steadybit's servers.
+  # key is the secret token which your agent uses to authenticate to steadybit's servers. See https://platform.steadybit.io/settings/agents/setup.
   key: null
   # agent.registerUrl is the URL of the steadybit server your agents will connect to.
   registerUrl: https://platform.steadybit.io

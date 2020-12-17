@@ -43,7 +43,7 @@ The following table lists the configurable parameters of the steadybit agent cha
 
 |             Parameter              |            Description                                                  |                    Default                                                                                  |
 |------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| `agent.key`                        | Your steadybit Agent key                                                | `null` This key is mandatory!                                                                               |
+| `agent.key`                        | Your steadybit Agent key                                                | `null` This key is mandatory!  Get it from https://platform.steadybit.io/settings/agents/setup              |
 | `agent.registerUrl`                | steadybit Agent register URL                                            | `https://platform.steadybit.io`                                                                             |
 | `image.name`                       | The image name to pull                                                  | `docker.steadybit.io/steadybit/agent`                                                                       |
 | `image.tag`                        | The image tag to pull                                                   | `latest`                                                                                                    |
@@ -53,6 +53,19 @@ The following table lists the configurable parameters of the steadybit agent cha
 | `rbac.create`                      | Whether RBAC resources should be created                                | `true`                                                                                                      |
 | `serviceAccount.create`            | Whether a ServiceAccount should be created                              | `true`                                                                                                      |
 | `serviceAccount.name`              | Name of the ServiceAccount to use                                       | `steadybit-agent`                                                                                           |
+
+### YAML file 
+
+If you have to modify more than 1 property (e.g. agent key), it makes maybe sense to consider to configure the Helm chart with a YAML file and pass it to the install/upgrade command.
+
+1. **Copy the default [`steadybit-values.yaml`](values.yaml) value file.**
+2. Set the `agent.key` parameter with your [steadybit API key](https://platform.steadybit.io/settings/agents/setup).
+3. Modify more parameter for your own needs.
+4. Upgrade the Helm chart with the new `steadybit-values.yaml` file:
+
+```bash
+$ helm install -f steadybit-values.yaml steadybit-agent --namespace steadybit-agent steadybit/steadybit-agent
+```
 
 ## Uninstallation
 
