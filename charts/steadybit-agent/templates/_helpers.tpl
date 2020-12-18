@@ -81,3 +81,45 @@ Generates the dockerconfig for the credentials to pull from docker.steadybit.io.
 {{- $password := .Values.agent.key }}
 {{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" $registry (printf "%s:%s" $username $password | b64enc) | b64enc }}
 {{- end }}
+
+{{/*
+checks the agent.containerRuntime for valid values
+*/}}
+{{- define "validContainerRuntime" -}}
+{{- if .Values.agent.containerRuntime -}}
+{{- $valid := list "docker" "crio" "containerd" -}}
+{{- if has .Values.agent.containerRuntime $valid -}}
+{{- .Values.agent.containerRuntime -}}
+{{- else -}}
+{{- fail (printf "unknown container driver: %s (must be one of %s)" .Values.agent.containerRuntime (join ", " $valid)) -}}
+{{- end -}}
+{{- else -}}
+{{- "docker" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Determine the runc runtime root dir to mount
+*/}}
+{{- define "runc-root" -}}
+{{- if eq "containerd" (include "validContainerRuntime" .) -}}
+{{- "/run/containerd/runc/k8s.io" -}}
+{{- else if eq "crio" (include "validContainerRuntime" .) -}}
+{{- "/run/runc" -}}
+{{- else -}}
+{{- "" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Determine the container runtime socket to mount
+*/}}
+{{- define "container-sock" -}}
+{{- if eq "containerd" (include "validContainerRuntime" .) -}}
+{{- "/run/containerd/containerd.sock" -}}
+{{- else if eq "crio" (include "validContainerRuntime" .) -}}
+{{- "/run/crio/crio.sock" -}}
+{{- else -}}
+{{- "/var/run/docker.sock" -}}
+{{- end -}}
+{{- end -}}
