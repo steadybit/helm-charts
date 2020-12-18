@@ -42,10 +42,17 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
-            - name: var-run
-              mountPath: /var/run
-            - name: log
-              mountPath: /var/log
+            - name: steadybit-agent-state
+              mountPath: /var/lib/steadybit-agent
+            - name: container-sock
+              mountPath: {{ include "container-sock" . }}
+            - name: cgroup-root
+              mountPath: /sys/fs/cgroup
+              readOnly: true
+            {{- if include "runc-root" . }}
+            - name: runc-root
+              mountPath: {{ include "runc-root" . }}
+            {{- end }}
             {{- if .Values.agent.additionalVolumes }}
             {{- range $index,$backend := .Values.agent.additionalVolumes }}
             {{ $volumeIndex :=add $index 2 -}}
@@ -56,12 +63,20 @@ spec:
       imagePullSecrets:
         - name: docker-steadybit-io
       volumes:
-        - name: var-run
+        - name: steadybit-agent-state
           hostPath:
-            path: /var/run
-        - name: log
+            path: /var/lib/steadybit-agent
+        - name: container-sock
           hostPath:
-            path: /var/log
+            path: {{ include "container-sock" . }}
+        - name: cgroup-root
+          hostPath:
+            path: /sys/fs/cgroup
+        {{- if include "runc-root" . }}
+        - name: runc-root
+          hostPath:
+            path: {{ include "runc-root" . }}
+        {{- end }}
         {{- if .Values.agent.additionalVolumes }}
         {{- range $index,$backend := .Values.agent.additionalVolumes }}
         {{ $volumeIndex :=add $index 2 -}}
