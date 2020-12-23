@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "steadybit-platform.fullname" . }}
+  labels:
+    {{- include "steadybit-platform.commonLabels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "steadybit-platform.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "steadybit-platform.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+        - name: docker-steadybit-io
+      serviceAccountName: {{ include "steadybit-platform.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: ui-port
+              containerPort: 8080
+              protocol: TCP
+            - name: websocket-port
+              containerPort: 7878
+              protocol: TCP
+          env:
+            - name: STEADYBIT_TENANT_AGENTKEY
+              value: {{ .Values.agent.key }}
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.platform.database.url }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.platform.database.user }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.platform.database.password }}
+            - name: STEADYBIT_TENANT_KEY
+              value: {{ .Values.platform.tenant.key }}
+            - name: STEADYBIT_TENANT_NAME
+              value: {{ .Values.platform.tenant.name }}
+            {{- range $key, $value := .Values.platform.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}

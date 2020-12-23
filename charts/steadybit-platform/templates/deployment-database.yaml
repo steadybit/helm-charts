@@ -1,0 +1,33 @@
+{{- if .Values.platform.database.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      serviceAccountName: {{ include "steadybit-platform.serviceAccountName" . }}
+      containers:
+        - name: {{ .Values.platform.database.name }}
+          image: "{{ .Values.platform.database.image.name }}:{{ .Values.platform.database.image.tag }}"
+          imagePullPolicy: {{ .Values.platform.database.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.platform.database.port }}
+          env:
+            - name: POSTGRES_DB
+              value: {{ .Values.platform.database.name }}
+            - name: POSTGRES_USER
+              value: {{ .Values.platform.database.user }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.platform.database.password }}
+{{- end }}

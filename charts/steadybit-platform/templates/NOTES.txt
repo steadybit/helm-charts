@@ -1,0 +1,29 @@
+{{- if not .Values.agent.key -}}
+
+##################################################################################
+####    ERROR: You did not specify your secret agent key (agent.key).         ####
+##################################################################################
+
+{{- else -}}
+
+The steadybit platform server can be accessed via port {{ .Values.platform.uiPort }} on the following DNS name from within your cluster:
+{{ template "steadybit-platform.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+
+{{ if and .Values.ingress.enabled .Values.ingress.hosts -}}
+From outside the cluster, the server URL(s) are:
+{{- range .Values.ingress.hosts }}
+http://{{ . }}
+{{- end }}
+{{- else }}
+NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+        You can watch the status of by running 'kubectl get svc --namespace {{ .Release.Namespace }} -w {{ template "steadybit-platform.fullname" . }}'
+
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "steadybit-platform.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  echo http://$SERVICE_IP:{{ .Values.platform.uiPort }}
+{{- end }}
+
+
+{{- end }}
+
+For more information on running Prometheus, visit:
+https://docs.steadybit.io/installation-platform
