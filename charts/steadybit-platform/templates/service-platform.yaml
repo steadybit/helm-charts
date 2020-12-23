@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "steadybit-platform.fullname" . }}
+  labels:
+    {{- include "steadybit-platform.commonLabels" . | nindent 4 }}
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      name: ui-port
+      protocol: TCP
+      targetPort: 8080
+    - port: 7878
+      name: websocket-port
+      protocol: TCP
+      targetPort: 7878
+  selector:
+    {{- include "steadybit-platform.selectorLabels" . | nindent 4 }}
