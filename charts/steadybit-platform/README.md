@@ -43,18 +43,18 @@ The following table lists the configurable parameters of the steadybit platform 
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers (See https://platform.steadybit.io/settings/agents/setup) |
-| image.name | string | `"docker.steadybit.io/steadybit/platform"` | The container image  to use of the steadybit platform |
-| image.pullPolicy | string | `"Always"` | Specifies when to pull the image container |
-| image.tag | string | `"latest"` | Tag name of the platform container image to use |
+| agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup. |
+| image.name | string | `"docker.steadybit.io/steadybit/platform"` | The container image  to use of the steadybit platform. |
+| image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |
+| image.tag | string | `"latest"` | Tag name of the platform container image to use. |
 | ingress | object | `{"annotations":null,"enabled":true,"hosts":[]}` | Ingress configuration properties |
-| platform.database | object | `{"enabled":true,"image":{"name":"postgres","pullPolicy":"Always","tag":11.5},"name":"steadybitdb","password":"postgres","port":5432,"url":"jdbc:postgresql://postgres.steadybit-platform:5432/steadybitdb","user":"postgres"}` | Specific configuration for the database |
-| platform.env | object | `{"STEADYBIT_AUTH_PROVIDER":"static","STEADYBIT_AUTH_STATIC_0_PASSWORD":"{noop}admin","STEADYBIT_AUTH_STATIC_0_USERNAME":"admin"}` | Use this to set additional environment variables (See https://docs.steadybit.io/installation-platform/3-advanced-configuration) |
-| platform.tenant.key | string | `"onprem"` | Name for the tenant assigned to you |
-| platform.tenant.name | string | `"onprem"` | Key for the tenant assigned to you |
-| platform.uiPort | int | `80` | Web-UI port for the user interface |
-| platform.websocketPort | int | `7878` | Websocket port for communication between platform and agents |
-| serviceAccount.create | bool | `true` | Specifies whether a ServiceAccount should be created |
+| platform.database | object | `{"enabled":true,"image":{"name":"postgres","pullPolicy":"Always","tag":11.5},"name":"steadybitdb","password":"postgres","port":5432,"url":"jdbc:postgresql://postgres.steadybit-platform:5432/steadybitdb","user":"postgres"}` | Specific configuration for the database. |
+| platform.env | object | `{"STEADYBIT_AUTH_PROVIDER":"static","STEADYBIT_AUTH_STATIC_0_PASSWORD":"{noop}admin","STEADYBIT_AUTH_STATIC_0_USERNAME":"admin"}` | Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration. |
+| platform.tenant.key | string | `"onprem"` | Name for the tenant assigned to you. |
+| platform.tenant.name | string | `"onprem"` | Key for the tenant assigned to you. |
+| platform.uiPort | int | `80` | Web-UI port for the user interface. |
+| platform.websocketPort | int | `7878` | Websocket port for communication between platform and agents. |
+| serviceAccount.create | bool | `true` | Specifies whether a ServiceAccount should be created. |
 
 ### YAML file 
 

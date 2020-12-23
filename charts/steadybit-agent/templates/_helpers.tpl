@@ -75,10 +75,10 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{/*
 Generates the dockerconfig for the credentials to pull from docker.steadybit.io.
 */}}
-{{- define "imagePullSecretDockerSteadybitIo" }}
-{{- $registry := "docker.steadybit.io" }}
-{{- $username := "_" }}
-{{- $password := .Values.agent.key }}
+{{- define "imagePullSecretDockerRegistry" }}
+{{- $registry := default "docker.steadybit.io" .Values.image.registry.url -}}
+{{- $username := default "_" .Values.image.registry.user -}}
+{{- $password := default .Values.agent.key .Values.image.registry.password -}}
 {{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" $registry (printf "%s:%s" $username $password | b64enc) | b64enc }}
 {{- end }}
 
