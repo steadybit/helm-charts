@@ -47,6 +47,7 @@ The following table lists the configurable parameters of the steadybit agent cha
 | agent.containerRuntime | string | `"docker"` | The container runtime to be used. Valid values:    docker     = uses the docker runtime.                 Will mount [/var/run/docker.sock] |
 | agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
 | agent.registerUrl | string | `"https://platform.steadybit.io"` | The URL of the steadybit server your agents will connect to. |
+| agent.env | object | `{}` | Additional environment variables for the steadybit agent. |
 | image.name | string | `"docker.steadybit.io/steadybit/agent"` | The container image  to use of the steadybit agent. registry: url: https://index.docker.io/v1/ user: foo password: bar |
 | image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |
 | image.tag | string | `"latest"` | tag name of the agent container image to use. |
@@ -81,6 +82,16 @@ agent:
     - name: tmp # Volume's name.
       mountPath: /tmp # Path within the container at which the volume should be mounted.
       hostPath: /tmp # Pre-existing file or directory on the host machine
+```
+
+### Configuring Additional Environment Variables
+
+You may want to do some [advanced configuration](https://docs.steadybit.io/installation-agent/4-advanced-configuration) of the agent, e.g. for debugging purposes.
+
+```yaml
+agent:
+  env:
+    STEADYBIT_LOG_LEVEL: DEBUG
 ```
 
 ## Uninstallation
