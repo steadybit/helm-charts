@@ -5,7 +5,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   name: postgres
   labels:
-    app: postgres
+    {{- include "steadybit-platform.commonLabels" . | nindent 4 }}
+  {{- range $key, $value := .Values.platform.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
 spec:
   replicas: 1
   selector:
@@ -13,6 +16,10 @@ spec:
       app: postgres
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         app: postgres
     spec:
@@ -30,4 +37,16 @@ spec:
               value: {{ .Values.platform.database.user }}
             - name: POSTGRES_PASSWORD
               value: {{ .Values.platform.database.password }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{- end }}

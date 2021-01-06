@@ -43,20 +43,25 @@ The following table lists the configurable parameters of the steadybit agent cha
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| affinity | object | `{}` | Affinities to influence agent pod assignment. |
 | agent.additionalVolumes | list | `[]` | Additional volumes to which the agent container will be mounted. |
 | agent.containerRuntime | string | `"docker"` | The container runtime to be used. Valid values:    docker     = uses the docker runtime.                 Will mount [/var/run/docker.sock] |
+| agent.env | object | `{}` | Additional environment variables for the steadybit agent |
+| agent.extraLabels | object | `{}` | Additional labels |
 | agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
 | agent.registerUrl | string | `"https://platform.steadybit.io"` | The URL of the steadybit server your agents will connect to. |
-| agent.env | object | `{}` | Additional environment variables for the steadybit agent. |
-| image.name | string | `"docker.steadybit.io/steadybit/agent"` | The container image  to use of the steadybit agent. registry: url: https://index.docker.io/v1/ user: foo password: bar |
+| image.name | string | `"docker.steadybit.io/steadybit/agent"` | The container image  to use of the steadybit agent. |
 | image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |
 | image.tag | string | `"latest"` | tag name of the agent container image to use. |
+| nodeSelector | object | `{}` | Node labels for pod assignment |
+| podAnnotations | object | `{}` | Additional annotations to be added to the agent pods. |
 | podSecurityPolicy.enable | bool | `false` | Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods. Requires `rbac.create` to be `true` as well. |
 | podSecurityPolicy.name | string | `nil` | The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods. If not set and `enable` is true, a PodSecurityPolicy will be created with a name generated using the fullname template. |
 | rbac.create | bool | `true` | Specifies whether RBAC resources should be created. |
 | serviceAccount.create | bool | `true` | Specifies whether a ServiceAccount should be created. |
 | serviceAccount.name | string | `"steadybit-agent"` | The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template. |
-| updateStrategy.rollingUpdate.maxUnavailable | int | `1` |  |
+| tolerations | list | `[]` | Tolerations to influence agent pod assignment. |
+| updateStrategy.rollingUpdate.maxUnavailable | int | `1` | |
 | updateStrategy.type | string | `"RollingUpdate"` | Which type of `updateStrategy` should be used. |
 
 ### YAML file 
