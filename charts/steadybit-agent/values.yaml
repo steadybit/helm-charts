@@ -26,7 +26,7 @@ agent:
   #
   containerRuntime: docker
   # agent.env -- Additional environment variables for the steadybit agent
-  env: { }
+  env: {}
 
 image:
   # image.name -- The container image  to use of the steadybit agent.
@@ -35,7 +35,7 @@ image:
   tag: latest
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
-  registry: { }
+  registry: {}
 
 updateStrategy:
   # updateStrategy.type -- Which type of `updateStrategy` should be used.
