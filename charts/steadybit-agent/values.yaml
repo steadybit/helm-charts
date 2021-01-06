@@ -27,6 +27,8 @@ agent:
   containerRuntime: docker
   # agent.env -- Additional environment variables for the steadybit agent
   env: {}
+  # agent.extraLabels -- Additional labels
+  extraLabels: {}
 
 image:
   # image.name -- The container image  to use of the steadybit agent.
@@ -53,6 +55,9 @@ serviceAccount:
   # serviceAccount.name -- The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template.
   name: steadybit-agent
 
+# podAnnotations -- Additional annotations to be added to the agent pods.
+podAnnotations: {}
+
 podSecurityPolicy:
   # podSecurityPolicy.enable -- Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods.
   # Requires `rbac.create` to be `true` as well.
@@ -61,3 +66,12 @@ podSecurityPolicy:
   # podSecurityPolicy.name -- The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods.
   # If not set and `enable` is true, a PodSecurityPolicy will be created with a name generated using the fullname template.
   name: null
+
+# nodeSelector -- Node labels for pod assignment
+nodeSelector: {}
+
+# tolerations -- Tolerations to influence agent pod assignment.
+tolerations: []
+
+# affinity -- Affinities to influence agent pod assignment.
+affinity: {}

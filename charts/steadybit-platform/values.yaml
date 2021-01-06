@@ -21,6 +21,8 @@ platform:
     STEADYBIT_AUTH_PROVIDER: "static"
     STEADYBIT_AUTH_STATIC_0_USERNAME: "admin"
     STEADYBIT_AUTH_STATIC_0_PASSWORD: "{noop}admin"
+  ## platform.extraLabels -- Additional labels
+  extraLabels: {}
 
   # -- Specific configuration for the database.
   database:
@@ -51,9 +53,21 @@ serviceAccount:
   # If not set and `create` is true, a name is generated using the fullname template.
   # name: steadybit-platform
 
+# podAnnotations -- Additional annotations to be added to the platform pod.
+podAnnotations: {}
+
 # -- Ingress configuration properties
 ingress:
   enabled: true
   annotations:
   hosts: []
     # - platform.steadybit.local
+
+# nodeSelector -- Node labels for pod assignment
+nodeSelector: {}
+
+# tolerations -- Tolerations to influence platform pod assignment.
+tolerations: []
+
+# affinity -- Affinities to influence platform pod assignment.
+affinity: {}

@@ -55,13 +55,12 @@ Create PodSecurityPolicy to be used.
 Add Helm metadata to labels.
 */}}
 {{- define "steadybit-agent.commonLabels" -}}
+com.steadybit.agent: "true"
 app.kubernetes.io/name: {{ include "steadybit-agent.name" . }}
 app.kubernetes.io/version: {{ .Chart.Version }}
-{{ if not .Values.templating -}}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 helm.sh/chart: {{ include "steadybit-agent.chart" . }}
-{{- end -}}
 {{- end -}}
 
 {{/*

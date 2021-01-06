@@ -5,6 +5,9 @@ metadata:
   name: {{ include "steadybit-platform.fullname" . }}
   labels:
     {{- include "steadybit-platform.commonLabels" . | nindent 4 }}
+  {{- range $key, $value := .Values.platform.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
 spec:
   replicas: 1
   selector:
@@ -12,6 +15,10 @@ spec:
       {{- include "steadybit-platform.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "steadybit-platform.selectorLabels" . | nindent 8 }}
     spec:
@@ -46,3 +53,15 @@ spec:
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}

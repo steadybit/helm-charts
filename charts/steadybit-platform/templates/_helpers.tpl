@@ -48,11 +48,9 @@ Add Helm metadata to labels.
 {{- define "steadybit-platform.commonLabels" -}}
 app.kubernetes.io/name: {{ include "steadybit-platform.name" . }}
 app.kubernetes.io/version: {{ .Chart.Version }}
-{{ if not .Values.templating -}}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 helm.sh/chart: {{ include "steadybit-platform.chart" . }}
-{{- end -}}
 {{- end -}}
 
 {{/*

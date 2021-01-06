@@ -5,11 +5,14 @@ metadata:
   namespace: {{ .Release.Namespace }}
   name: postgres
   labels:
-    app: postgres
+    {{- include "steadybit-platform.commonLabels" . | nindent 4 }}
+  {{- range $key, $value := .Values.platform.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
 spec:
   type: NodePort
   ports:
     - port: 5432
   selector:
     app: postgres
-{{- end }}
+  {{- end }}
