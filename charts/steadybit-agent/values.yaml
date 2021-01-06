@@ -3,24 +3,18 @@
 # Declare variables to be passed into your templates.
 
 agent:
-  # agent.key -
-  # The secret token which your agent uses to authenticate to steadybit's servers. See https://platform.steadybit.io/settings/agents/setup.
+  # agent.key -- The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup.
   key: null
 
-  # agent.registerUrl -
-  # The URL of the steadybit server your agents will connect to.
+  # agent.registerUrl -- The URL of the steadybit server your agents will connect to.
   registerUrl: https://platform.steadybit.io
-
-  # agent.additionalVolumes -
-  # additional volumes to which the agent container will be mounted.
+  # agent.additionalVolumes -- Additional volumes to which the agent container will be mounted.
   additionalVolumes: []
   # additionalVolumes:
   #  - name: tmp # Volume's name.
   #    mountPath: /tmp # Path within the container at which the volume should be mounted.
   #    hostPath: /tmp # Pre-existing file or directory on the host machine
-
-  # agent.additionalVolumes -
-  # The container runtime to be used. Valid values:
+  # agent.containerRuntime -- The container runtime to be used. Valid values:
   #    docker     = uses the docker runtime.
   #                 Will mount [/var/run/docker.sock]
   #
@@ -31,47 +25,39 @@ agent:
   #                 Will mount [/run/containerd/containerd.sock, /run/containerd/runc/k8s.io]
   #
   containerRuntime: docker
+  # agent.env -- Additional environment variables for the steadybit agent
+  env: {}
 
 image:
-  # image.name -
-  # the container image  to use of the steadybit agent.
+  # image.name -- The container image  to use of the steadybit agent.
   name: docker.steadybit.io/steadybit/agent
-
-  # image.tag -
-  # tag name of the agent container image to use.
+  # image.tag -- tag name of the agent container image to use.
   tag: latest
-
-  # image.pullPolicy -
-  # Specifies when to pull the image container.
+  # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
+  registry: {}
 
 updateStrategy:
+  # updateStrategy.type -- Which type of `updateStrategy` should be used.
   type: RollingUpdate
   rollingUpdate:
     maxUnavailable: 1
 
 rbac:
-  # rbac-create -
-  # Specifies whether RBAC resources should be created
+  # rbac.create -- Specifies whether RBAC resources should be created.
   create: true
 
 serviceAccount:
-  # serviceAccount.create -
-  # Specifies whether a ServiceAccount should be created
+  # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
   create: true
-
-  # serviceAccount.name -
-  # The name of the ServiceAccount to use.
-  # If not set and `create` is true, a name is generated using the fullname template
-  # name: steadybit-agent
+  # serviceAccount.name -- The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template.
+  name: steadybit-agent
 
 podSecurityPolicy:
-  # podSecurityPolicy.enable -
-  # Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods.
+  # podSecurityPolicy.enable -- Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods.
   # Requires `rbac.create` to be `true` as well.
   enable: false
 
-  # podSecurityPolicy.name -
-  # The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods.
+  # podSecurityPolicy.name -- The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods.
   # If not set and `enable` is true, a PodSecurityPolicy will be created with a name generated using the fullname template.
   name: null

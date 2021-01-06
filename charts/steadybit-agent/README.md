@@ -41,20 +41,23 @@ $ helm show values steadybit-agent
 
 The following table lists the configurable parameters of the steadybit agent chart and their default values.
 
-|             Parameter              |            Description                                                  |                    Default                                                                                  |
-|------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| `agent.key`                        | Your steadybit Agent key                                                | `null` This key is mandatory!  Get it from https://platform.steadybit.io/settings/agents/setup              |
-| `agent.registerUrl`                | steadybit Agent register URL                                            | `https://platform.steadybit.io`                                                                             |
-| `agent.containerRuntime`           | Then container runtime to use `docker`, `crio` or `containderd`         | `docker`                                                                                                    |
-| `agent.additionalVolumes`          | See [Configuring Additional Volumes](#configuring-additional-volumes)   | `[]`                                                                                                        |
-| `image.name`                       | The image name to pull                                                  | `docker.steadybit.io/steadybit/agent`                                                                       |
-| `image.tag`                        | The image tag to pull                                                   | `latest`                                                                                                    |
-| `image.pullPolicy`                 | Image pull policy                                                       | `Always`                                                                                                    |
-| `podSecurityPolicy.enable`         | Whether a PodSecurityPolicy should be enabled.                          | `true`                                                                                                      |
-| `podSecurityPolicy.name`           | Name of an already existing PodSecurityPolicy                           | `null`                                                                                                      |
-| `rbac.create`                      | Whether RBAC resources should be created                                | `true`                                                                                                      |
-| `serviceAccount.create`            | Whether a ServiceAccount should be created                              | `true`                                                                                                      |
-| `serviceAccount.name`              | Name of the ServiceAccount to use                                       | `steadybit-agent`                                                                                           |
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| agent.additionalVolumes | list | `[]` | Additional volumes to which the agent container will be mounted. |
+| agent.containerRuntime | string | `"docker"` | The container runtime to be used. Valid values:    docker     = uses the docker runtime.                 Will mount [/var/run/docker.sock] |
+| agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
+| agent.registerUrl | string | `"https://platform.steadybit.io"` | The URL of the steadybit server your agents will connect to. |
+| agent.env | object | `{}` | Additional environment variables for the steadybit agent. |
+| image.name | string | `"docker.steadybit.io/steadybit/agent"` | The container image  to use of the steadybit agent. registry: url: https://index.docker.io/v1/ user: foo password: bar |
+| image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |
+| image.tag | string | `"latest"` | tag name of the agent container image to use. |
+| podSecurityPolicy.enable | bool | `false` | Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods. Requires `rbac.create` to be `true` as well. |
+| podSecurityPolicy.name | string | `nil` | The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods. If not set and `enable` is true, a PodSecurityPolicy will be created with a name generated using the fullname template. |
+| rbac.create | bool | `true` | Specifies whether RBAC resources should be created. |
+| serviceAccount.create | bool | `true` | Specifies whether a ServiceAccount should be created. |
+| serviceAccount.name | string | `"steadybit-agent"` | The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template. |
+| updateStrategy.rollingUpdate.maxUnavailable | int | `1` |  |
+| updateStrategy.type | string | `"RollingUpdate"` | Which type of `updateStrategy` should be used. |
 
 ### YAML file 
 
@@ -79,6 +82,16 @@ agent:
     - name: tmp # Volume's name.
       mountPath: /tmp # Path within the container at which the volume should be mounted.
       hostPath: /tmp # Pre-existing file or directory on the host machine
+```
+
+### Configuring Additional Environment Variables
+
+You may want to do some [advanced configuration](https://docs.steadybit.io/installation-agent/4-advanced-configuration) of the agent, e.g. for debugging purposes.
+
+```yaml
+agent:
+  env:
+    STEADYBIT_LOG_LEVEL: DEBUG
 ```
 
 ## Uninstallation

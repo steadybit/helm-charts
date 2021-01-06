@@ -3,29 +3,26 @@
 # Declare variables to be passed into your templates.
 
 agent:
-  # -- The secret token which your agent uses to authenticate to steadybit's servers (See https://platform.steadybit.io/settings/agents/setup)
+  # -- The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup.
   key: null
 
 platform:
-
   tenant:
-    # platform.tenant.key -- Name for the tenant assigned to you
+    # platform.tenant.key -- Name for the tenant assigned to you.
     key: onprem
-    # platform.tenant.name -- Key for the tenant assigned to you
+    # platform.tenant.name -- Key for the tenant assigned to you.
     name: onprem
-
-  # platform.uiPort -- Web-UI port for the user interface
+  # platform.uiPort -- Web-UI port for the user interface.
   uiPort: 80
-  # platform.websocketPort -- Websocket port for communication between platform and agents
+  # platform.websocketPort -- Websocket port for communication between platform and agents.
   websocketPort: 7878
-
-  # -- Use this to set additional environment variables (See https://docs.steadybit.io/installation-platform/3-advanced-configuration)
+  # -- Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration.
   env:
     STEADYBIT_AUTH_PROVIDER: "static"
     STEADYBIT_AUTH_STATIC_0_USERNAME: "admin"
     STEADYBIT_AUTH_STATIC_0_PASSWORD: "{noop}admin"
 
-  # -- Specific configuration for the database
+  # -- Specific configuration for the database.
   database:
     enabled: true
     url: "jdbc:postgresql://postgres.steadybit-platform:5432/steadybitdb"
@@ -39,18 +36,19 @@ platform:
       pullPolicy: Always
 
 image:
-  # image.name -- The container image  to use of the steadybit platform
+  # image.name -- The container image  to use of the steadybit platform.
   name: docker.steadybit.io/steadybit/platform
-  # image.tag -- Tag name of the platform container image to use
+  # image.tag -- Tag name of the platform container image to use.
   tag: latest
-  # image.pullPolicy -- Specifies when to pull the image container
+  # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
+  registry: {}
 
 serviceAccount:
-  # serviceAccount.create -- Specifies whether a ServiceAccount should be created
+  # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
   create: true
-  # serviceAccount.name -- The name of the ServiceAccount to use
-  # If not set and `create` is true, a name is generated using the fullname template
+  # serviceAccount.name -- The name of the ServiceAccount to use.
+  # If not set and `create` is true, a name is generated using the fullname template.
   # name: steadybit-platform
 
 # -- Ingress configuration properties
