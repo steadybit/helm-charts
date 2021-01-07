@@ -91,12 +91,16 @@ agent:
 
 ### Configuring Additional Environment Variables
 
-You may want to do some [advanced configuration](https://docs.steadybit.io/installation-agent/4-advanced-configuration) of the agent, e.g. for debugging purposes.
+You may want to do some [advanced configuration](https://docs.steadybit.io/installation-agent/4-advanced-configuration) of the agent, e.g. for debugging purposes or adding a Maven proxy.
 
 ```yaml
 agent:
   env:
     STEADYBIT_LOG_LEVEL: DEBUG
+    STEADYBIT_REPOSITORY_PROXY_HOST: localhost
+    STEADYBIT_REPOSITORY_PROXY_PORT: 8080
+    STEADYBIT_REPOSITORY_PROXY_USERNAME: foo
+    STEADYBIT_REPOSITORY_PROXY_PASSWORD: bar
 ```
 
 ## Uninstallation
