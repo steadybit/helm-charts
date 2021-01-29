@@ -38,7 +38,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: steadybit-agent
-          image: "{{ .Values.image.name }}:{{ .Chart.AppVersion }}"
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: STEADYBIT_AGENT_REGISTER_URL
