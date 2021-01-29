@@ -14,8 +14,16 @@ spec:
   privileged: true
   allowPrivilegeEscalation: true
   allowedHostPaths:
-    - pathPrefix: "/var/run"
-    - pathPrefix: "/var/log"
+    - pathPrefix: /var/lib/steadybit-agent
+      readOnly: false
+    - pathPrefix: {{ include "container-sock" . }}
+      readOnly: false
+    - pathPrefix: /sys/fs/cgroup
+      readOnly: true
+    {{- if include "runc-root" . }}
+    - pathPrefix: {{ include "runc-root" . }}
+      readOnly: false
+    {{- end }}
   volumes:
     - configMap
     - downwardAPI
