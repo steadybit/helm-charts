@@ -24,36 +24,36 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: /
+            path: /ws
             backend:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $uiPort }}
+                  number: {{ $websocketPort }}
           - pathType: Prefix
             path: /
             backend:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $websocketPort }}
+                  number: {{ $uiPort }}
     {{- end }}
     {{- else }}
     - http:
         paths:
           - pathType: Prefix
-            path: /
+            path: /ws
             backend:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $uiPort }}
+                  number: {{ $websocketPort }}
           - pathType: Prefix
             path: /
             backend:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $websocketPort }}
+                  number: {{ $uiPort }}
   {{- end }}
 {{- end }}

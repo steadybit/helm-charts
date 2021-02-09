@@ -49,6 +49,8 @@ spec:
               value: {{ .Values.platform.tenant.key }}
             - name: STEADYBIT_TENANT_NAME
               value: {{ .Values.platform.tenant.name }}
+            - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
+              value: {{ .Values.platform.publicWebsocketPort }}
             {{- range $key, $value := .Values.platform.env }}
             - name: {{ $key }}
               value: {{ $value | quote }}
