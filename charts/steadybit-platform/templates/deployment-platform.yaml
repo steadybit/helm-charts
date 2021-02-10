@@ -38,19 +38,19 @@ spec:
               protocol: TCP
           env:
             - name: STEADYBIT_TENANT_AGENTKEY
-              value: {{ .Values.agent.key }}
+              value: {{ .Values.agent.key | quote }}
             - name: SPRING_DATASOURCE_URL
-              value: {{ .Values.platform.database.url }}
+              value: {{ .Values.platform.database.url | quote }}
             - name: SPRING_DATASOURCE_USERNAME
-              value: {{ .Values.platform.database.user }}
+              value: {{ .Values.platform.database.user | quote }}
             - name: SPRING_DATASOURCE_PASSWORD
-              value: {{ .Values.platform.database.password }}
+              value: {{ .Values.platform.database.password | quote }}
             - name: STEADYBIT_TENANT_KEY
-              value: {{ .Values.platform.tenant.key }}
+              value: {{ .Values.platform.tenant.key | quote }}
             - name: STEADYBIT_TENANT_NAME
-              value: {{ .Values.platform.tenant.name }}
+              value: {{ .Values.platform.tenant.name | quote }}
             - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
-              value: {{ .Values.platform.publicWebsocketPort }}
+              value: {{ .Values.platform.publicWebsocketPort | quote }}
             {{- range $key, $value := .Values.platform.env }}
             - name: {{ $key }}
               value: {{ $value | quote }}
