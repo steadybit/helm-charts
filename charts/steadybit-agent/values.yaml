@@ -31,13 +31,31 @@ agent:
   extraLabels: {}
 
 image:
-  # image.name -- The container image  to use of the steadybit agent.
+  # image.name -- The container image to use of the steadybit agent.
   name: docker.steadybit.io/steadybit/agent
   # image.tag -- tag name of the agent container image to use.
   tag: latest
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
   registry: {}
+
+priorityClassName:
+  # priorityClassName.use -- use a priorityClassName
+  use: false
+  # priorityClassName.name -- The name of the priority class to be used
+  name: high-priority
+
+resources:
+  requests:
+    # requests.memory -- The minimal amount of memory needed 
+    memory: "512Mi"
+    # requests.cpu -- The minimal amount of cpu shares needed
+    cpu: "500m"
+  limits:
+    # requests.memory -- The limit of memory to be used 
+    memory: "512Mi"
+    # requests.cpu -- The limit of cpu share to be used during its interval 
+    cpu: "1500m"
 
 updateStrategy:
   # updateStrategy.type -- Which type of `updateStrategy` should be used.
