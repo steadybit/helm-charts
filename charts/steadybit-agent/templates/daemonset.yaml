@@ -58,6 +58,8 @@ spec:
                 secretKeyRef:
                   name: {{ template "steadybit-agent.fullname" . }}
                   key: key
+            - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+              value: {{ .Values.cluster.name | quote }}
             - name: POD_IP
               valueFrom:
                 fieldRef:
@@ -65,7 +67,7 @@ spec:
             {{- range $key, $value := .Values.agent.env }}
             - name: {{ $key }}
               value: {{ $value | quote }}
-            {{- end }}
+          {{- end }}
           securityContext:
             privileged: true
           volumeMounts:

@@ -30,6 +30,10 @@ agent:
   # agent.extraLabels -- Additional labels
   extraLabels: {}
 
+cluster:
+  # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit
+  name: null
+
 image:
   # image.name -- The container image to use of the steadybit agent.
   name: docker.steadybit.io/steadybit/agent
@@ -47,14 +51,14 @@ priorityClassName:
 
 resources:
   requests:
-    # requests.memory -- The minimal amount of memory needed 
+    # requests.memory -- The minimal amount of memory needed
     memory: "512Mi"
     # requests.cpu -- The minimal amount of cpu shares needed
     cpu: "500m"
   limits:
-    # requests.memory -- The limit of memory to be used 
+    # requests.memory -- The limit of memory to be used
     memory: "512Mi"
-    # requests.cpu -- The limit of cpu share to be used during its interval 
+    # requests.cpu -- The limit of cpu share to be used during its interval
     cpu: "1500m"
 
 updateStrategy:
