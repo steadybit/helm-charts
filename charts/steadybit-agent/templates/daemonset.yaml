@@ -36,10 +36,20 @@ spec:
       hostNetwork: true
       hostPID: true
       dnsPolicy: ClusterFirstWithHostNet
+      {{ if .Values.priorityClassName.use }}
+      priorityClassName: {{ .Values.priorityClassName.name }}
+      {{ end }}
       containers:
         - name: steadybit-agent
           image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
           env:
             - name: STEADYBIT_AGENT_REGISTER_URL
               value: {{ .Values.agent.registerUrl | quote }}
