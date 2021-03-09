@@ -35,6 +35,12 @@ rules:
       - "pods"
       - "replicationcontrollers"
     verbs: [ "get", "list", "watch" ]
+  {{- if not .Values.rbac.readonly }}
+  - apiGroups: [ "" ]
+    resources:
+      - "pods"
+    verbs: [ "delete" ]
+  {{- end }}
   {{- if .Values.podSecurityPolicy.enable}}
   - apiGroups: [ "policy" ]
     resources: [ "podsecuritypolicies" ]
