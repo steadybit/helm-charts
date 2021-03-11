@@ -54,7 +54,7 @@ resources:
     # requests.memory -- The minimal amount of memory needed
     memory: "512Mi"
     # requests.cpu -- The minimal amount of cpu shares needed
-    cpu: "500m"
+    cpu: "250m"
   limits:
     # requests.memory -- The limit of memory to be used
     memory: "512Mi"
@@ -70,6 +70,8 @@ updateStrategy:
 rbac:
   # rbac.create -- Specifies whether RBAC resources should be created.
   create: true
+  # rbac.readonly -- Specifies if Kubernetes API access should only be read only.
+  readonly: false
 
 serviceAccount:
   # serviceAccount.create -- Specifies whether a ServiceAccount should be created.

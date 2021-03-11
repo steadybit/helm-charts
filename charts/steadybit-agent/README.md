@@ -59,6 +59,7 @@ The following table lists the configurable parameters of the steadybit agent cha
 | podSecurityPolicy.enable | bool | `false` | Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods. Requires `rbac.create` to be `true` as well. |
 | podSecurityPolicy.name | string | `nil` | The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods. If not set and `enable` is true, a PodSecurityPolicy will be created with a name generated using the fullname template. |
 | rbac.create | bool | `true` | Specifies whether RBAC resources should be created. |
+| rbac.readonly | bool | `true` | Specifies if Kubernetes API access should only be read only. |
 | serviceAccount.create | bool | `true` | Specifies whether a ServiceAccount should be created. |
 | serviceAccount.name | string | `"steadybit-agent"` | The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template. |
 | tolerations | list | `[]` | Tolerations to influence agent pod assignment. |
