@@ -57,7 +57,7 @@ resources:
     cpu: "250m"
   limits:
     # requests.memory -- The limit of memory to be used
-    memory: "512Mi"
+    memory: "768Mi"
     # requests.cpu -- The limit of cpu share to be used during its interval
     cpu: "1500m"
 
