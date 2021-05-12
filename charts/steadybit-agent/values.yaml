@@ -9,11 +9,10 @@ agent:
   # agent.registerUrl -- The URL of the steadybit server your agents will connect to.
   registerUrl: https://platform.steadybit.io
   # agent.additionalVolumes -- Additional volumes to which the agent container will be mounted.
-  additionalVolumes: []
-  # additionalVolumes:
   #  - name: tmp # Volume's name.
   #    mountPath: /tmp # Path within the container at which the volume should be mounted.
   #    hostPath: /tmp # Pre-existing file or directory on the host machine
+  additionalVolumes: []
   # agent.containerRuntime -- The container runtime to be used. Valid values:
   #    docker     = uses the docker runtime.
   #                 Will mount [/var/run/docker.sock]
@@ -25,6 +24,9 @@ agent:
   #                 Will mount [/run/containerd/containerd.sock, /run/containerd/runc/k8s.io]
   #
   containerRuntime: docker
+  # agent.containerRuntimeSocket -- use this to override the host path for the container runtime socket to mount. By default it is derived from containerRuntime
+  containerRuntimeSocket: null
+
   # agent.env -- Additional environment variables for the steadybit agent
   env: {}
   # agent.extraLabels -- Additional labels

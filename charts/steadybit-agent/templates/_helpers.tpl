@@ -122,3 +122,14 @@ Determine the container runtime socket to mount
 {{- "/var/run/docker.sock" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Determine the host path for the container runtime socket to mount
+*/}}
+{{- define "container-sock-host-path" -}}
+{{- if .Values.agent.containerRuntimeSocket -}}
+{{- .Values.agent.containerRuntimeSocket -}}
+{{- else -}}
+{{- include "container-sock" . -}}
+{{- end -}}
+{{- end -}}

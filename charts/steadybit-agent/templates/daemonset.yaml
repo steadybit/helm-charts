@@ -109,7 +109,7 @@ spec:
             path: /var/lib/steadybit-agent
         - name: container-sock
           hostPath:
-            path: {{ include "container-sock" . }}
+            path: {{ include "container-sock-host-path" . }}
         - name: cgroup-root
           hostPath:
             path: /sys/fs/cgroup
