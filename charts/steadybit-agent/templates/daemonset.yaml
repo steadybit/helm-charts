@@ -116,7 +116,7 @@ spec:
         {{- if include "runc-root" . }}
         - name: runc-root
           hostPath:
-            path: {{ include "runc-root" . }}
+            path: {{ include "runc-root-host-path" . }}
         {{- end }}
         {{- if .Values.agent.additionalVolumes }}
         {{- range $index,$backend := .Values.agent.additionalVolumes }}
