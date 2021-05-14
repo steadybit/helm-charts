@@ -111,6 +111,18 @@ Determine the runc runtime root dir to mount
 {{- end -}}
 
 {{/*
+Determine the host path for the runc runtime root dir to mount
+*/}}
+{{- define "runc-root-host-path" -}}
+{{- if .Values.agent.runcRoot -}}
+{{- .Values.agent.runcRoot -}}
+{{- else -}}
+{{- include "runc-root" . -}}
+{{- end -}}
+{{- end -}}
+
+
+{{/*
 Determine the container runtime socket to mount
 */}}
 {{- define "container-sock" -}}

@@ -26,6 +26,8 @@ agent:
   containerRuntime: docker
   # agent.containerRuntimeSocket -- use this to override the host path for the container runtime socket to mount. By default it is derived from containerRuntime
   containerRuntimeSocket: null
+  # agent.runcRoot -- use this to override the host path for the runc root path to mount. By default it is derived from containerRuntime
+  runcRoot: null
 
   # agent.env -- Additional environment variables for the steadybit agent
   env: {}
