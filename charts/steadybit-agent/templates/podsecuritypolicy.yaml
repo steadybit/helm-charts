@@ -16,12 +16,12 @@ spec:
   allowedHostPaths:
     - pathPrefix: /var/lib/steadybit-agent
       readOnly: false
-    - pathPrefix: {{ include "container-sock" . }}
+    - pathPrefix: {{ include "container-sock-host-path" . }}
       readOnly: false
     - pathPrefix: /sys/fs/cgroup
       readOnly: true
     {{- if include "runc-root" . }}
-    - pathPrefix: {{ include "runc-root" . }}
+    - pathPrefix: {{ include "runc-root-host-path" . }}
       readOnly: false
     {{- end }}
   volumes:
