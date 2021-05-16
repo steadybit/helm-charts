@@ -1,4 +1,34 @@
-{{- if not .Values.agent.key -}}
+{{- if (and (not .Values.agent.key) (not .Values.cluster.name)) }}
+##############################################################################
+####    ERROR: You did not specify your secret agent key.                 ####
+####    ERROR: You also did not specify a name for this cluster.          ####
+##############################################################################
+
+This agent deployment will be incomplete until you set your agent key and a name for this cluster:
+
+    helm upgrade {{ .Release.Name }} --reuse-values \
+        --set agent.key=$(YOUR_SECRET_AGENT_KEY) \
+        --set cluster.name=$(YOUR_CLUSTER_NAME) steadybit-agent
+
+- STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
+- YOUR_CLUSTER_NAME should be the custom name of your cluster.
+
+This cluster will be reported as 'unknown' unless you specify a cluster name.
+
+{{- else if not .Values.cluster.name }}
+##############################################################################
+####    ERROR: You also did not specify a name for this cluster.          ####
+##############################################################################
+
+This agent deployment will be incomplete until you set your agent key and a name for this cluster:
+
+    helm upgrade {{ .Release.Name }} --reuse-values \
+        --set cluster.name=$(YOUR_CLUSTER_NAME) steadybit-agent
+
+- YOUR_CLUSTER_NAME should be the custom name of your cluster.
+
+This cluster will be reported as 'unknown' unless you specify a cluster name.
+{{- else if not .Values.agent.key -}}
 ##############################################################################
 ####    ERROR: You did not specify your secret agent key.                 ####
 ##############################################################################
@@ -6,7 +36,7 @@
 This agent deployment will be incomplete until you set your agent key:
 
     helm upgrade {{ .Release.Name }} --reuse-values \
-        --set agent.key=$(STEADYBIT_AGENT_KEY)
+        --set agent.key=$(STEADYBIT_AGENT_KEY) steadybit-agent
 
 - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
 
