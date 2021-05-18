@@ -17,7 +17,7 @@ This cluster will be reported as 'unknown' unless you specify a cluster name.
 
 {{- else if not .Values.cluster.name }}
 ##############################################################################
-####    ERROR: You also did not specify a name for this cluster.          ####
+####    ERROR: You did not specify a name for this cluster.               ####
 ##############################################################################
 
 This agent deployment will be incomplete until you set your agent key and a name for this cluster:
