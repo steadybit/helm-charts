@@ -18,8 +18,7 @@ spec:
       readOnly: false
     - pathPrefix: {{ include "container-sock-host-path" . }}
       readOnly: false
-    - pathPrefix: /sys/fs/cgroup
-      readOnly: true
+    - pathPrefix: /sys
     {{- if include "runc-root" . }}
     - pathPrefix: {{ include "runc-root-host-path" . }}
       readOnly: false
