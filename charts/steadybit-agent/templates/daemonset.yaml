@@ -83,6 +83,8 @@ spec:
               mountPath: /var/lib/steadybit-agent
             - name: container-sock
               mountPath: {{ include "container-sock" . }}
+            - name: cgroup-root
+              mountPath: /sys/fs/cgroup
             - name: sys
               mountPath: /sys
             {{- if include "runc-root" . }}
@@ -117,6 +119,9 @@ spec:
         - name: container-sock
           hostPath:
             path: {{ include "container-sock-host-path" . }}
+        - name: cgroup-root
+          hostPath:
+            path: /sys/fs/cgroup
         - name: sys
           hostPath:
             path: /sys
