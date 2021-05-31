@@ -26,6 +26,10 @@ rules:
       - "daemonsets"
       - "statefulsets"
     verbs: [ "get", "list", "watch" ]
+  - apiGroups: [ "autoscaling" ]
+    resources:
+      - "horizontalpodautoscalers"
+    verbs: [ "get", "list", "watch" ]
   - apiGroups: [ "" ]
     resources:
       - "events"
