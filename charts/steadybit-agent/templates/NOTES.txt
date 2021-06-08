@@ -8,7 +8,7 @@ This agent deployment will be incomplete until you set your agent key and a name
 
     helm upgrade {{ .Release.Name }} --reuse-values \
         --set agent.key=$(YOUR_SECRET_AGENT_KEY) \
-        --set cluster.name=$(YOUR_CLUSTER_NAME) steadybit-agent
+        --set cluster.name=$(YOUR_CLUSTER_NAME) steadybit/steadybit-agent
 
 - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
 - YOUR_CLUSTER_NAME should be the custom name of your cluster.
@@ -23,7 +23,7 @@ This cluster will be reported as 'unknown' unless you specify a cluster name.
 This agent deployment will be incomplete until you set your agent key and a name for this cluster:
 
     helm upgrade {{ .Release.Name }} --reuse-values \
-        --set cluster.name=$(YOUR_CLUSTER_NAME) steadybit-agent
+        --set cluster.name=$(YOUR_CLUSTER_NAME) steadybit/steadybit-agent
 
 - YOUR_CLUSTER_NAME should be the custom name of your cluster.
 
@@ -36,7 +36,7 @@ This cluster will be reported as 'unknown' unless you specify a cluster name.
 This agent deployment will be incomplete until you set your agent key:
 
     helm upgrade {{ .Release.Name }} --reuse-values \
-        --set agent.key=$(STEADYBIT_AGENT_KEY) steadybit-agent
+        --set agent.key=$(STEADYBIT_AGENT_KEY) steadybit/steadybit-agent
 
 - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
 
