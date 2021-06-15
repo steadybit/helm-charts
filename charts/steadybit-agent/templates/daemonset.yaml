@@ -95,6 +95,14 @@ spec:
             - name: runc-root
               mountPath: {{ include "runc-root" . }}
             {{- end }}
+            {{- if eq .Values.agent.openshift true }}
+            - name: run-containers
+              mountPath: /run/containers
+            - name: var-lib-containers
+              mountPath: /var/lib/containers
+            - name: var-run
+              mountPath: /var/run
+            {{- end }}
             {{- if .Values.agent.additionalVolumes }}
             {{- range $index,$backend := .Values.agent.additionalVolumes }}
             {{ $volumeIndex :=add $index 2 -}}
@@ -133,6 +141,17 @@ spec:
         - name: runc-root
           hostPath:
             path: {{ include "runc-root-host-path" . }}
+        {{- end }}
+        {{- if eq .Values.agent.openshift true }}
+        - name: run-containers
+          hostPath:
+            path: /run/containers
+        - name: var-lib-containers
+          hostPath:
+            path: /var/lib/containers
+        - name: var-run
+          hostPath:
+            path: /var/run
         {{- end }}
         {{- if .Values.agent.additionalVolumes }}
         {{- range $index,$backend := .Values.agent.additionalVolumes }}

@@ -35,6 +35,8 @@ agent:
   extraLabels: {}
   # agent.leaderElection -- On kubernetes <= 1.11 you we need to use configmaps for the leader election. Valid values: leases, configmaps
   leaderElection: leases
+  # agent.openshift -- Set to true if running on openshift 4.x
+  openshift: false
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit
