@@ -145,3 +145,16 @@ Determine the host path for the container runtime socket to mount
 {{- include "container-sock" . -}}
 {{- end -}}
 {{- end -}}
+
+
+{{/*
+checks the agent.leaderElection for valid values
+*/}}
+{{- define "validLeaderElection" -}}
+{{- $valid := list "configmaps" "leases" -}}
+{{- if has .Values.agent.leaderElection $valid -}}
+{{- .Values.agent.leaderElection -}}
+{{- else -}}
+{{- fail (printf "unknown leader election: %s (must be one of %s)" .Values.agent.leaderElection (join ", " $valid)) -}}
+{{- end -}}
+{{- end -}}
