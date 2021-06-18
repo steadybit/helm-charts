@@ -37,6 +37,8 @@ agent:
   leaderElection: leases
   # agent.openshift -- Set to true if running on openshift 4.x
   openshift: false
+ # agent.remoteDebug -- Set to true for starting in debug mode and exposing port 5005
+  remoteDebug: false
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit
