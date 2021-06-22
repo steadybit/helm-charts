@@ -50,6 +50,12 @@ spec:
             limits:
               memory: {{ .Values.resources.limits.memory }}
               cpu: {{ .Values.resources.limits.cpu }}
+          {{ if eq .Values.agent.remoteDebug true }}
+          command: ["./bin/run.sh", "debug"]
+          ports:
+            - containerPort: 5005
+              protocol: TCP
+          {{ end }}
           env:
             - name: STEADYBIT_AGENT_REGISTER_URL
               value: {{ .Values.agent.registerUrl | quote }}
