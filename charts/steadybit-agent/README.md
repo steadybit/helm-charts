@@ -55,6 +55,7 @@ The following table lists the configurable parameters of the steadybit agent cha
 | image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |
 | image.tag | string | `"latest"` | tag name of the agent container image to use. |
 | nodeSelector | object | `{}` | Node labels for pod assignment |
+| openshift | bool | `false` | Needs to be activated when running in OpenShift |
 | podAnnotations | object | `{}` | Additional annotations to be added to the agent pods. |
 | podSecurityPolicy.enable | bool | `false` | Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods. Requires `rbac.create` to be `true` as well. |
 | podSecurityPolicy.name | string | `nil` | The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods. If not set and `enable` is true, a PodSecurityPolicy will be created with a name generated using the fullname template. |
