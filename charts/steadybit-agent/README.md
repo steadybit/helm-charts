@@ -50,12 +50,12 @@ The following table lists the configurable parameters of the steadybit agent cha
 | agent.extraLabels | object | `{}` | Additional labels |
 | agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
 | agent.registerUrl | string | `"https://platform.steadybit.io"` | The URL of the steadybit server your agents will connect to. |
+| agent.openshift | bool | `false` | Needs to be activated when running in OpenShift |
 | cluster.name | string | `nil` | Represents the name that will be assigned to this Kubernetes cluster in steadybit. |
 | image.name | string | `"docker.steadybit.io/steadybit/agent"` | The container image  to use of the steadybit agent. |
 | image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |
 | image.tag | string | `"latest"` | tag name of the agent container image to use. |
 | nodeSelector | object | `{}` | Node labels for pod assignment |
-| openshift | bool | `false` | Needs to be activated when running in OpenShift |
 | podAnnotations | object | `{}` | Additional annotations to be added to the agent pods. |
 | podSecurityPolicy.enable | bool | `false` | Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods. Requires `rbac.create` to be `true` as well. |
 | podSecurityPolicy.name | string | `nil` | The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods. If not set and `enable` is true, a PodSecurityPolicy will be created with a name generated using the fullname template. |
