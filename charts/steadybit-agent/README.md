@@ -22,13 +22,13 @@ kubectl create namespace steadybit-agent
 To install the chart with the name `steadybit-agent` and set the values on the command line run:
 
 ```bash
-$ helm install steadybit-agent --namespace steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=foo steadybit/steadybit-agent
+$ helm install steadybit-agent --namespace steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=CLUSTER_NAME steadybit/steadybit-agent
 ```
 
 For local development:
 
 ```bash
-$ helm install steadybit-agent --namespace steadybit-agent ./charts/steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=foo
+$ helm install steadybit-agent --namespace steadybit-agent ./charts/steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=CLUSTER_NAME
 ```
 
 ## Configuration
