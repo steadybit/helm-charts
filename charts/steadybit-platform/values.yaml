@@ -36,7 +36,7 @@ platform:
     password: "postgres"
     image:
       name: postgres
-      tag: 11.5
+      tag: 11
       pullPolicy: Always
 
 image:
