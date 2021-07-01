@@ -101,7 +101,7 @@ spec:
             - name: runc-root
               mountPath: {{ include "runc-root" . }}
             {{- end }}
-            {{- if eq .Values.agent.openshift true }}
+            {{- if or .Values.agent.openshift (.Capabilities.APIVersions.Has "apps.openshift.io/v1") }}
             - name: run-containers
               mountPath: /run/containers
             - name: var-lib-containers
@@ -148,7 +148,7 @@ spec:
           hostPath:
             path: {{ include "runc-root-host-path" . }}
         {{- end }}
-        {{- if eq .Values.agent.openshift true }}
+        {{- if or .Values.agent.openshift (.Capabilities.APIVersions.Has "apps.openshift.io/v1") }}
         - name: run-containers
           hostPath:
             path: /run/containers
