@@ -26,8 +26,11 @@ platform:
       value: "admin"
     - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
       value: "{noop}admin"
-  ## platform.extraLabels -- Additional labels
+  # platform.extraLabels -- Additional labels
   extraLabels: {}
+  service:
+  ## platform.service.type -- Type for the service to use
+    type: NodePort
 
   # -- Specific configuration for the database.
   database:
@@ -41,6 +44,8 @@ platform:
       name: postgres
       tag: 11
       pullPolicy: Always
+    service:
+      type: NodePort
 
 image:
   # image.name -- The container image  to use of the steadybit platform.

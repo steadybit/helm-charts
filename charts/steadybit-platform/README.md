@@ -57,6 +57,7 @@ The following table lists the configurable parameters of the steadybit platform 
 | platform.tenant.name | string | `"onprem"` | Key for the tenant assigned to you. |
 | platform.uiPort | int | `80` | Web-UI port for the user interface. |
 | platform.websocketPort | int | `7878` | Websocket port for communication between platform and agents. |
+| platform.service.type | string | `NodePort` | Service Type to use for the platform |
 | podAnnotations | object | `{}` | Additional annotations to be added to the platform pod. |
 | serviceAccount.create | bool | `true` | Specifies whether a ServiceAccount should be created. |
 | tolerations | list | `[]` | Tolerations to influence platform pod assignment. |
