@@ -51,6 +51,7 @@ The following table lists the configurable parameters of the steadybit agent cha
 | agent.extraLabels | object | `{}` | Additional labels |
 | agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
 | agent.registerUrl | string | `"https://platform.steadybit.io"` | The URL of the steadybit server your agents will connect to. |
+| agent.openshift | bool | `false` | Needs to be activated when running in OpenShift 4.x |
 | cluster.name | string | `nil` | Represents the name that will be assigned to this Kubernetes cluster in steadybit. |
 | image.name | string | `"docker.steadybit.io/steadybit/agent"` | The container image  to use of the steadybit agent. |
 | image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |

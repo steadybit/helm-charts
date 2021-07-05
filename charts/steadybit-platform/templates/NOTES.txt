@@ -25,5 +25,5 @@ NOTE: It may take a few minutes for the LoadBalancer IP to be available.
 
 {{- end }}
 
-For more information on running Prometheus, visit:
-https://docs.steadybit.io/installation-platform
+For more information on next steps with steadybit, check out:
+https://docs.steadybit.io/getting-started
