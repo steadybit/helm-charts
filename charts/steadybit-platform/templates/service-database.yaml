@@ -10,7 +10,7 @@ metadata:
     {{ $key }}: {{ $value }}
   {{- end }}
 spec:
-  type: NodePort
+  type: {{ .Values.platform.database.service.type }}
   ports:
     - port: 5432
   selector:

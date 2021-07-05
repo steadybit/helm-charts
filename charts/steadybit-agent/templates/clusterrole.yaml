@@ -50,6 +50,12 @@ rules:
       - "pods"
     verbs: [ "delete" ]
   {{- end }}
+  {{- if or .Values.agent.openshift (.Capabilities.APIVersions.Has "apps.openshift.io/v1") }}
+  - apiGroups: ["security.openshift.io"]
+    resourceNames: ["privileged"]
+    resources: ["securitycontextconstraints"]
+    verbs: ["use"]
+  {{- end }}
   {{- if .Values.podSecurityPolicy.enable}}
   - apiGroups: [ "policy" ]
     resources: [ "podsecuritypolicies" ]

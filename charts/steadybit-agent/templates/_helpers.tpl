@@ -158,3 +158,17 @@ checks the agent.leaderElection for valid values
 {{- fail (printf "unknown leader election: %s (must be one of %s)" .Values.agent.leaderElection (join ", " $valid)) -}}
 {{- end -}}
 {{- end -}}
+
+
+{{/*
+checks if a volumne extra-cert is avaiable
+*/}}
+{{- define "steadybit-agent.hasVolumeExtraCerts" -}}
+  {{- $result := "false" -}}
+  {{- range $vol := .Values.agent.extraVolumes -}}
+    {{- if eq $vol.name "extra-certs" -}}
+     {{- $result = "true" -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $result -}}
+{{- end -}}

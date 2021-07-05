@@ -51,12 +51,13 @@ The following table lists the configurable parameters of the steadybit platform 
 | ingress | object | `{"annotations":null,"enabled":true,"hosts":[]}` | Ingress configuration properties |
 | nodeSelector | object | `{}` | Node labels for pod assignment |
 | platform.database | object | `{"enabled":true,"image":{"name":"postgres","pullPolicy":"Always","tag":11.5},"name":"steadybitdb","password":"postgres","port":5432,"url":"jdbc:postgresql://postgres.steadybit-platform:5432/steadybitdb","user":"postgres"}` | Specific configuration for the database. |
-| platform.env | object | `{"STEADYBIT_AUTH_PROVIDER":"static","STEADYBIT_AUTH_STATIC_0_PASSWORD":"{noop}admin","STEADYBIT_AUTH_STATIC_0_USERNAME":"admin"}` | Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration. |
+| platform.env | array | `[{"name:", "STEADYBIT_AUTH_PROVIDER", "value": "static"},{"name":"STEADYBIT_AUTH_STATIC_0_PASSWORD", "value": "{noop}admin"},{"name":"STEADYBIT_AUTH_STATIC_0_USERNAME", "value":"admin"}]` | Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration. |
 | platform.extraLabels | object | `{}` | Additional labels |
 | platform.tenant.key | string | `"onprem"` | Name for the tenant assigned to you. |
 | platform.tenant.name | string | `"onprem"` | Key for the tenant assigned to you. |
 | platform.uiPort | int | `80` | Web-UI port for the user interface. |
 | platform.websocketPort | int | `7878` | Websocket port for communication between platform and agents. |
+| platform.service.type | string | `NodePort` | Service Type to use for the platform |
 | podAnnotations | object | `{}` | Additional annotations to be added to the platform pod. |
 | serviceAccount.create | bool | `true` | Specifies whether a ServiceAccount should be created. |
 | tolerations | list | `[]` | Tolerations to influence platform pod assignment. |

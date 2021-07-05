@@ -51,9 +51,8 @@ spec:
               value: {{ .Values.platform.tenant.name | quote }}
             - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
               value: {{ .Values.platform.publicWebsocketPort | quote }}
-            {{- range $key, $value := .Values.platform.env }}
-            - name: {{ $key }}
-              value: {{ $value | quote }}
+            {{- if .Values.platform.env }}
+{{ toYaml .Values.platform.env | indent 12}}
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

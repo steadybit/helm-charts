@@ -22,13 +22,13 @@ kubectl create namespace steadybit-agent
 To install the chart with the name `steadybit-agent` and set the values on the command line run:
 
 ```bash
-$ helm install steadybit-agent --namespace steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=foo steadybit/steadybit-agent
+$ helm install steadybit-agent --namespace steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=CLUSTER_NAME steadybit/steadybit-agent
 ```
 
 For local development:
 
 ```bash
-$ helm install steadybit-agent --namespace steadybit-agent ./charts/steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=foo
+$ helm install steadybit-agent --namespace steadybit-agent ./charts/steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=CLUSTER_NAME
 ```
 
 ## Configuration
@@ -44,9 +44,10 @@ The following table lists the configurable parameters of the steadybit agent cha
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinities to influence agent pod assignment. |
-| agent.additionalVolumes | list | `[]` | Additional volumes to which the agent container will be mounted. |
+| agent.extraVolumes | list | `[]` | Additional volumes to which the agent container will be mounted. |
+| agent.extraVolumeMounts | list | `[]` | Additional volumeMounts to which the agent container will be mounted. |
 | agent.containerRuntime | string | `"docker"` | The container runtime to be used. Valid values:    docker     = uses the docker runtime.                 Will mount [/var/run/docker.sock] |
-| agent.env | object | `{}` | Additional environment variables for the steadybit agent |
+| agent.env | array | `[]` | Additional environment variables for the steadybit agent |
 | agent.extraLabels | object | `{}` | Additional labels |
 | agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
 | agent.registerUrl | string | `"https://platform.steadybit.io"` | The URL of the steadybit server your agents will connect to. |
@@ -80,15 +81,41 @@ If you have to modify more than 1 property (e.g. agent key), it makes maybe sens
 $ helm install -f steadybit-values.yaml steadybit-agent --namespace steadybit-agent steadybit/steadybit-agent
 ```
 
+### Importing your own certificates
+
+You may want to import your own certificates. You just need the to provide a volume named `extra-certs`.
+
+This example uses a config map to store the `*.crt`-files in a configmap:
+
+```
+kubectl create configmap -n steadybit-agent self-signed-ca --from-file=./self-signed-ca.crt
+```
+
+```yaml
+agent:
+  extraVolumes:
+    - name: extra-certs
+      configMap:
+        name: self-signed-ca #uses a certificates from the secret "self-signed-ca"
+```
+-OR-
+```yaml
+agent:
+  extraVolumeMounts:
+    - name: extra-certs
+      hostPath: /ssca/ca # path with additional certificates
+```
 ### Configuring Additional Volumes
 
 You may want to have additional volumes to be mounted to the agent container, e.g. for SSL certificates.
 
 ```yaml
 agent:
-  additionalVolumes:
+  extraVolumes:
     - name: tmp # Volume's name.
       mountPath: /tmp # Path within the container at which the volume should be mounted.
+  extraVolumeMounts:
+    - name: tmp # Volume's name.
       hostPath: /tmp # Pre-existing file or directory on the host machine
 ```
 
@@ -99,11 +126,16 @@ You may want to do some [advanced configuration](https://docs.steadybit.io/insta
 ```yaml
 agent:
   env:
-    STEADYBIT_LOG_LEVEL: DEBUG
-    STEADYBIT_REPOSITORY_PROXY_HOST: localhost
-    STEADYBIT_REPOSITORY_PROXY_PORT: 8080
-    STEADYBIT_REPOSITORY_PROXY_USERNAME: foo
-    STEADYBIT_REPOSITORY_PROXY_PASSWORD: bar
+    - name: STEADYBIT_LOG_LEVEL
+      value: "DEBUG"
+    - name: STEADYBIT_REPOSITORY_PROXY_HOST
+      value: "localhost"
+    - name: STEADYBIT_REPOSITORY_PROXY_PORT
+      value: "8080"
+    - name: STEADYBIT_REPOSITORY_PROXY_USERNAME
+      value: "foo"
+    - name: STEADYBIT_REPOSITORY_PROXY_PASSWORD
+      value: "bar"
 ```
 
 ## Uninstallation

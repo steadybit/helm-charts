@@ -20,11 +20,17 @@ platform:
   publicWebsocketPort: 80
   # -- Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration.
   env:
-    STEADYBIT_AUTH_PROVIDER: "static"
-    STEADYBIT_AUTH_STATIC_0_USERNAME: "admin"
-    STEADYBIT_AUTH_STATIC_0_PASSWORD: "{noop}admin"
-  ## platform.extraLabels -- Additional labels
+    - name: STEADYBIT_AUTH_PROVIDER
+      value: "static"
+    - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+      value: "admin"
+    - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+      value: "{noop}admin"
+  # platform.extraLabels -- Additional labels
   extraLabels: {}
+  service:
+  ## platform.service.type -- Type for the service to use
+    type: NodePort
 
   # -- Specific configuration for the database.
   database:
@@ -36,8 +42,10 @@ platform:
     password: "postgres"
     image:
       name: postgres
-      tag: 11.5
+      tag: 11
       pullPolicy: Always
+    service:
+      type: NodePort
 
 image:
   # image.name -- The container image  to use of the steadybit platform.
