@@ -101,7 +101,7 @@ agent:
 -OR-
 ```yaml
 agent:
-  extraVolumeMounts:
+  extraVolumes:
     - name: extra-certs
       hostPath: /ssca/ca # path with additional certificates
 ```
