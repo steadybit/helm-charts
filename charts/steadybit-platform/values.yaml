@@ -20,9 +20,12 @@ platform:
   publicWebsocketPort: 80
   # -- Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration.
   env:
-    STEADYBIT_AUTH_PROVIDER: "static"
-    STEADYBIT_AUTH_STATIC_0_USERNAME: "admin"
-    STEADYBIT_AUTH_STATIC_0_PASSWORD: "{noop}admin"
+    - name: STEADYBIT_AUTH_PROVIDER
+      value: "static"
+    - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+      value: "admin"
+    - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+      value: "{noop}admin"
   ## platform.extraLabels -- Additional labels
   extraLabels: {}
 

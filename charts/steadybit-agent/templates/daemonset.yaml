@@ -82,10 +82,9 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-            {{- range $key, $value := .Values.agent.env }}
-            - name: {{ $key }}
-              value: {{ $value | quote }}
-          {{- end }}
+            {{- with .Values.agent.env }}
+{{ toYaml . | indent 12}}
+            {{- end }}
           securityContext:
             privileged: true
           volumeMounts:

@@ -46,7 +46,7 @@ The following table lists the configurable parameters of the steadybit agent cha
 | affinity | object | `{}` | Affinities to influence agent pod assignment. |
 | agent.additionalVolumes | list | `[]` | Additional volumes to which the agent container will be mounted. |
 | agent.containerRuntime | string | `"docker"` | The container runtime to be used. Valid values:    docker     = uses the docker runtime.                 Will mount [/var/run/docker.sock] |
-| agent.env | object | `{}` | Additional environment variables for the steadybit agent |
+| agent.env | array | `[]` | Additional environment variables for the steadybit agent |
 | agent.extraLabels | object | `{}` | Additional labels |
 | agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
 | agent.registerUrl | string | `"https://platform.steadybit.io"` | The URL of the steadybit server your agents will connect to. |
@@ -98,11 +98,16 @@ You may want to do some [advanced configuration](https://docs.steadybit.io/insta
 ```yaml
 agent:
   env:
-    STEADYBIT_LOG_LEVEL: DEBUG
-    STEADYBIT_REPOSITORY_PROXY_HOST: localhost
-    STEADYBIT_REPOSITORY_PROXY_PORT: 8080
-    STEADYBIT_REPOSITORY_PROXY_USERNAME: foo
-    STEADYBIT_REPOSITORY_PROXY_PASSWORD: bar
+    - name: STEADYBIT_LOG_LEVEL
+      value: "DEBUG"
+    - name: STEADYBIT_REPOSITORY_PROXY_HOST
+      value: "localhost"
+    - name: STEADYBIT_REPOSITORY_PROXY_PORT
+      value: "8080"
+    - name: STEADYBIT_REPOSITORY_PROXY_USERNAME
+      value: "foo"
+    - name: STEADYBIT_REPOSITORY_PROXY_PASSWORD
+      value: "bar"
 ```
 
 ## Uninstallation

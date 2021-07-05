@@ -30,7 +30,7 @@ agent:
   runcRoot: null
 
   # agent.env -- Additional environment variables for the steadybit agent
-  env: {}
+  env: []
   # agent.extraLabels -- Additional labels
   extraLabels: {}
   # agent.leaderElection -- On kubernetes <= 1.11 you we need to use configmaps for the leader election. Valid values: leases, configmaps
