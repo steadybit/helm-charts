@@ -116,7 +116,8 @@ agent:
       mountPath: /tmp # Path within the container at which the volume should be mounted.
   extraVolumeMounts:
     - name: tmp # Volume's name.
-      hostPath: /tmp # Pre-existing file or directory on the host machine
+      hostPath:
+        path: /tmp # Pre-existing file or directory on the host machine
 ```
 
 ### Configuring Additional Environment Variables

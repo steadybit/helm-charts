@@ -21,7 +21,7 @@ agent:
   #    containerd = uses the containerd runtime.
   #                 Will mount [/run/containerd/containerd.sock, /run/containerd/runc/k8s.io]
   #
-  containerRuntime: docker
+  containerRuntime: null
   # agent.containerRuntimeSocket -- use this to override the host path for the container runtime socket to mount. By default it is derived from containerRuntime
   containerRuntimeSocket: null
   # agent.runcRoot -- use this to override the host path for the runc root path to mount. By default it is derived from containerRuntime
