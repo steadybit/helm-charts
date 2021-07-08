@@ -46,7 +46,7 @@ The following table lists the configurable parameters of the steadybit agent cha
 | affinity | object | `{}` | Affinities to influence agent pod assignment. |
 | agent.extraVolumes | list | `[]` | Additional volumes to which the agent container will be mounted. |
 | agent.extraVolumeMounts | list | `[]` | Additional volumeMounts to which the agent container will be mounted. |
-| agent.containerRuntime | string | `"docker"` | The container runtime to be used. Valid values:    docker     = uses the docker runtime.                 Will mount [/var/run/docker.sock] |
+| agent.containerRuntime | string | `"docker"` | The container runtime to be used. Valid values: <br><br>docker     = uses the docker runtime. Will mount [/var/run/docker.sock] <br><br>crio       = uses the cri-o runtime. Will mount [/run/crio/crio.sock, /run/runc] <br><br>containerd = uses the containerd runtime. Will mount [/run/containerd/containerd.sock, /run/containerd/runc/k8s.io]|
 | agent.env | array | `[]` | Additional environment variables for the steadybit agent |
 | agent.extraLabels | object | `{}` | Additional labels |
 | agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
@@ -116,7 +116,8 @@ agent:
       mountPath: /tmp # Path within the container at which the volume should be mounted.
   extraVolumeMounts:
     - name: tmp # Volume's name.
-      hostPath: /tmp # Pre-existing file or directory on the host machine
+      hostPath:
+        path: /tmp # Pre-existing file or directory on the host machine
 ```
 
 ### Configuring Additional Environment Variables

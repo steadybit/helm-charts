@@ -81,19 +81,26 @@ Generates the dockerconfig for the credentials to pull from docker.steadybit.io.
 {{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" $registry (printf "%s:%s" $username $password | b64enc) | b64enc }}
 {{- end }}
 
+
+{{- define "defaultedRuntime" -}}
+{{- if or .Values.agent.openshift (.Capabilities.APIVersions.Has "apps.openshift.io/v1") -}}
+    {{- default "crio" .Values.agent.containerRuntime -}}
+{{- else -}}
+    {{- default "docker" .Values.agent.containerRuntime -}}
+{{- end -}}
+{{- end -}}
+
+
 {{/*
 checks the agent.containerRuntime for valid values
 */}}
 {{- define "validContainerRuntime" -}}
-{{- if .Values.agent.containerRuntime -}}
 {{- $valid := list "docker" "crio" "containerd" -}}
-{{- if has .Values.agent.containerRuntime $valid -}}
-{{- .Values.agent.containerRuntime -}}
+{{- $runtime := (include "defaultedRuntime" .) -}}
+{{- if has $runtime $valid -}}
+{{- $runtime -}}
 {{- else -}}
-{{- fail (printf "unknown container driver: %s (must be one of %s)" .Values.agent.containerRuntime (join ", " $valid)) -}}
-{{- end -}}
-{{- else -}}
-{{- "docker" -}}
+{{- fail (printf "unknown container driver: %s (must be one of %s)" $runtime (join ", " $valid)) -}}
 {{- end -}}
 {{- end -}}
 
@@ -146,6 +153,44 @@ Determine the host path for the container runtime socket to mount
 {{- end -}}
 {{- end -}}
 
+{{/*
+extra mounts for using containerd/crio
+*/}}
+{{- define "containerRuntimeVolumes" -}}
+{{- if eq "containerd" (include "validContainerRuntime" .) -}}
+- name: container-run
+  hostPath:
+    path: /run/containerd
+{{- else if eq "crio" (include "validContainerRuntime" .) -}}
+- name: container-run
+  hostPath:
+    path: /run/containers
+- name: container-lib
+  hostPath:
+    path: /var/lib/containers
+- name: container-namespaces
+  hostPath:
+    path: /var/run
+{{- else -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+extra mounts for using containerd/crio
+*/}}
+{{- define "containerRuntimeVolumeMounts" -}}
+{{- if eq "containerd" (include "validContainerRuntime" .) -}}
+- name: container-run
+  mountPath: /run/containerd
+{{- else if eq "crio" (include "validContainerRuntime" .) -}}
+- name: container-run
+  mountPath: /run/containers
+- name: container-lib
+  mountPath: /var/lib/containers
+- name: container-namespaces
+  mountPath: /var/run
+{{- end -}}
+{{- end -}}
 
 {{/*
 checks the agent.leaderElection for valid values

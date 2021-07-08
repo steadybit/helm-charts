@@ -100,14 +100,7 @@ spec:
             - name: runc-root
               mountPath: {{ include "runc-root" . }}
             {{- end }}
-            {{- if or .Values.agent.openshift (.Capabilities.APIVersions.Has "apps.openshift.io/v1") }}
-            - name: run-containers
-              mountPath: /run/containers
-            - name: var-lib-containers
-              mountPath: /var/lib/containers
-            - name: var-run
-              mountPath: /var/run
-            {{- end }}
+            {{-  include "containerRuntimeVolumeMounts" . | nindent 12 }}
             {{- if eq (include "steadybit-agent.hasVolumeExtraCerts" . ) "true" }}
             - name: extra-certs
               mountPath: /opt/steadybit/agent/etc/extra-certs
@@ -147,17 +140,7 @@ spec:
           hostPath:
             path: {{ include "runc-root-host-path" . }}
         {{- end }}
-        {{- if or .Values.agent.openshift (.Capabilities.APIVersions.Has "apps.openshift.io/v1") }}
-        - name: run-containers
-          hostPath:
-            path: /run/containers
-        - name: var-lib-containers
-          hostPath:
-            path: /var/lib/containers
-        - name: var-run
-          hostPath:
-            path: /var/run
-        {{- end }}
+        {{-  include "containerRuntimeVolumes" . | nindent 8 }}
 {{- with .Values.agent.extraVolumes  }}
 {{ toYaml . | indent 8 }}
 {{- end }}
