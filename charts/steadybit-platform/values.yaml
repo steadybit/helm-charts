@@ -12,11 +12,11 @@ platform:
     key: onprem
     # platform.tenant.name -- Key for the tenant assigned to you.
     name: onprem
-  # platform.uiPort -- Web-UI port for the user interface.
+  # platform.uiPort -- (internal) Web-UI port for the user interface.
   uiPort: 80
   # platform.websocketPort -- (internal) Websocket port for communication between platform and agents.
   websocketPort: 7878
-  # platform.publicWebsocketPort -- Use this if the agent access the websocket via ingress or a reverse proxy, that serves websocket and http traffic using the same port
+  # platform.publicWebsocketPort -- The public port used for experiments - Use this if the agent access the websocket via ingress or a reverse proxy, that serves websocket and http traffic using the same port
   publicWebsocketPort: 80
   # -- Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration.
   env:

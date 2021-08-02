@@ -44,7 +44,7 @@ The following table lists the configurable parameters of the steadybit platform 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinities to influence platform pod assignment. |
-| agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup. |
+| agent.key | string | `nil` | The secret token which your agent uses to authenticate to steadybit's servers. Get it from https://platform.steadybit.io/settings/agents/setup. |
 | image.name | string | `"docker.steadybit.io/steadybit/platform"` | The container image  to use of the steadybit platform. |
 | image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |
 | image.tag | string | `"latest"` | Tag name of the platform container image to use. |
@@ -55,8 +55,9 @@ The following table lists the configurable parameters of the steadybit platform 
 | platform.extraLabels | object | `{}` | Additional labels |
 | platform.tenant.key | string | `"onprem"` | Name for the tenant assigned to you. |
 | platform.tenant.name | string | `"onprem"` | Key for the tenant assigned to you. |
-| platform.uiPort | int | `80` | Web-UI port for the user interface. |
-| platform.websocketPort | int | `7878` | Websocket port for communication between platform and agents. |
+| platform.uiPort | int | `80` | (internal) Web-UI port for the user interface. |
+| platform.websocketPort | int | `7878` | (internal) Websocket port for communication between platform and agents. |
+| platform.publicWebsocketPort | int | `80` | The public port used for experiments - Use this if the agent access the websocket via ingress or a reverse proxy, that serves websocket and http traffic using the same port |
 | platform.service.type | string | `NodePort` | Service Type to use for the platform |
 | podAnnotations | object | `{}` | Additional annotations to be added to the platform pod. |
 | serviceAccount.create | bool | `true` | Specifies whether a ServiceAccount should be created. |
@@ -77,6 +78,9 @@ $ helm install -f steadybit-values.yaml steadybit-platform --namespace steadybit
 ### Configuring Ingress in AWS EKS
 
 ```yaml
+platform:
+  publicWebsocketPort: 443
+
 ingress:
   enabled: true
   annotations:
