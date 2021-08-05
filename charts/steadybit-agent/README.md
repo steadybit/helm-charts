@@ -81,6 +81,15 @@ If you have to modify more than 1 property (e.g. agent key), it makes maybe sens
 $ helm install -f steadybit-values.yaml steadybit-agent --namespace steadybit-agent steadybit/steadybit-agent
 ```
 
+### Using the static agent
+
+For using the static agent (includes all bundles and has auto-updates disabled) you need to switch the image:
+
+```
+agent:
+  image: docker.steadybit.io/steadybit/agent-static
+````
+
 ### Importing your own certificates
 
 You may want to import your own certificates. You just need the to provide a volume named `extra-certs`.
