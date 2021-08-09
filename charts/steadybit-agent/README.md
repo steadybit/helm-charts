@@ -56,6 +56,8 @@ The following table lists the configurable parameters of the steadybit agent cha
 | image.name | string | `"docker.steadybit.io/steadybit/agent"` | The container image  to use of the steadybit agent. |
 | image.pullPolicy | string | `"Always"` | Specifies when to pull the image container. |
 | image.tag | string | `"latest"` | tag name of the agent container image to use. |
+| resources.limits.memory | string | `"768Mi"` | memory resource limit for the agent container |
+| resources.limits.cpu | string | `"1500m"` | cpu resource limit for the agent container |
 | nodeSelector | object | `{}` | Node labels for pod assignment |
 | podAnnotations | object | `{}` | Additional annotations to be added to the agent pods. |
 | podSecurityPolicy.enable | bool | `false` | Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods. Requires `rbac.create` to be `true` as well. |
