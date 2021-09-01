@@ -42,6 +42,7 @@ rules:
       - "endpoints"
       - "nodes"
       - "pods"
+      - "pods/log"
       - "replicationcontrollers"
     verbs: [ "get", "list", "watch" ]
   {{- if not .Values.rbac.readonly }}
