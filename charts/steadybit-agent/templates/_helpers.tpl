@@ -161,6 +161,9 @@ extra mounts for using containerd/crio
 - name: container-run
   hostPath:
     path: /run/containerd
+- name: container-namespaces
+  hostPath:
+    path: /var/run
 {{- else if eq "crio" (include "validContainerRuntime" .) -}}
 - name: container-run
   hostPath:
@@ -182,6 +185,8 @@ extra mounts for using containerd/crio
 {{- if eq "containerd" (include "validContainerRuntime" .) -}}
 - name: container-run
   mountPath: /run/containerd
+- name: container-namespaces
+  mountPath: /var/run
 {{- else if eq "crio" (include "validContainerRuntime" .) -}}
 - name: container-run
   mountPath: /run/containers
