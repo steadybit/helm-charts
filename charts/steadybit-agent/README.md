@@ -122,10 +122,10 @@ You may want to have additional volumes to be mounted to the agent container, e.
 
 ```yaml
 agent:
-  extraVolumes:
+  extraVolumeMounts:
     - name: tmp # Volume's name.
       mountPath: /tmp # Path within the container at which the volume should be mounted.
-  extraVolumeMounts:
+  extraVolumes:
     - name: tmp # Volume's name.
       hostPath:
         path: /tmp # Pre-existing file or directory on the host machine
