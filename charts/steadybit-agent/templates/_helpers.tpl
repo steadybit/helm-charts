@@ -187,6 +187,7 @@ extra mounts for using containerd/crio
   mountPath: /run/containerd
 - name: container-namespaces
   mountPath: /var/run
+  mountPropagation: Bidirectional
 {{- else if eq "crio" (include "validContainerRuntime" .) -}}
 - name: container-run
   mountPath: /run/containers
@@ -194,6 +195,7 @@ extra mounts for using containerd/crio
   mountPath: /var/lib/containers
 - name: container-namespaces
   mountPath: /var/run
+  mountPropagation: Bidirectional
 {{- end -}}
 {{- end -}}
 
