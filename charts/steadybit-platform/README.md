@@ -64,22 +64,25 @@ The following table lists the configurable parameters of the steadybit platform 
 | tolerations | list | `[]` | Tolerations to influence platform pod assignment. |
 ### YAML file 
 
-If you have to modify more than 1 property (e.g. agent key), it makes maybe sense to consider to configure the Helm chart with a YAML file and pass it to the install/upgrade command.
+If you have to modify more than 1 property (e.g. agent key), we recommend to consider to configure the Helm chart with a YAML file and pass it to the install/upgrade command.
 
-1. **Copy the default [`steadybit-values.yaml`](values.yaml) value file.**
+1. **Copy the default [`values.yaml`](values.yaml) value file.**
 2. Set the `agent.key` parameter with your [steadybit agent key](https://platform.steadybit.io/settings/agents/setup).
 3. Modify more parameter for your own needs, e.g. database configuration.
-4. Upgrade the Helm chart with the new `steadybit-values.yaml` file:
+4. Upgrade the Helm chart with the new `steadybit-values-platform.yaml` file:
 
 ```bash
-$ helm install -f steadybit-values.yaml steadybit-platform --namespace steadybit-platform steadybit/steadybit-platform
+$ helm install -f steadybit-values-platform.yaml steadybit-platform --namespace steadybit-platform steadybit/steadybit-platform
 ```
 
 ### Configuring Ingress in AWS EKS
 
 ```yaml
+agent:
+  key: <replace-with-agent-key>
+
 platform:
-  publicWebsocketPort: 443
+  publicWebsocketPort: 80
 
 ingress:
   enabled: true

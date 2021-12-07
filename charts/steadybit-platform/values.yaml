@@ -30,7 +30,7 @@ platform:
   extraLabels: {}
   service:
   ## platform.service.type -- Type for the service to use
-    type: NodePort
+    type: LoadBalancer
 
   # -- Specific configuration for the database.
   database:
