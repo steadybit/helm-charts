@@ -56,6 +56,18 @@ spec:
             - containerPort: 5005
               protocol: TCP
           {{ end }}
+          {{- if .Values.agent.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              host: 127.0.0.1
+              port: {{ .Values.agent.port }}
+              path: /health
+            initialDelaySeconds: {{ .Values.agent.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.agent.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.agent.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.agent.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.agent.livenessProbe.failureThreshold }}
+          {{- end }}
           env:
             - name: STEADYBIT_AGENT_REGISTER_URL
               value: {{ .Values.agent.registerUrl | quote }}
@@ -82,6 +94,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            - name: STEADYBIT_HTTP_ENDPOINT_PORT
+              value: {{ .Values.agent.port | quote }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
