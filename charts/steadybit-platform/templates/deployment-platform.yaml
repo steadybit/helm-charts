@@ -36,6 +36,28 @@ spec:
             - name: websocket-port
               containerPort: 7878
               protocol: TCP
+          {{- if .Values.platform.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              port: ui-port
+              path: /api/health
+            initialDelaySeconds: {{ .Values.platform.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.platform.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.platform.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.platform.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.platform.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if .Values.platform.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              port: ui-port
+              path: /api/health
+            initialDelaySeconds: {{ .Values.platform.startupProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.platform.startupProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.platform.startupProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.platform.startupProbe.successThreshold }}
+            failureThreshold: {{ .Values.platform.startupProbe.failureThreshold }}
+          {{- end }}
           env:
             - name: STEADYBIT_TENANT_AGENTKEY
               value: {{ .Values.agent.key | quote }}

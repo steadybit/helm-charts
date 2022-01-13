@@ -26,6 +26,8 @@ agent:
   containerRuntimeSocket: null
   # agent.runcRoot -- use this to override the host path for the runc root path to mount. By default it is derived from containerRuntime
   runcRoot: null
+  # agent.port -- configure the port of the agent's HTTP endpoints (expose health and debugging information)
+  port: 42899
   # agent.env -- Additional environment variables for the steadybit agent
   env: []
   # agent.extraLabels -- Additional labels
@@ -36,6 +38,15 @@ agent:
   openshift: false
   # agent.remoteDebug -- Set to true for starting in debug mode and exposing port 5005
   remoteDebug: false
+
+  ## agent.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the agent daemonset
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 300
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 5
+    successThreshold: 1
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit

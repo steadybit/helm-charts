@@ -29,10 +29,14 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed)
+          changed=$(ct list-changed --target-branch $GITHUB_BASE_REF)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
+        env:
+          GITHUB_BASE_REF: $github.base_ref
 
       - name: Run chart-testing (lint)
-        run: ct lint
+        run: ct lint --target-branch $GITHUB_BASE_REF
+        env:
+          GITHUB_BASE_REF: $github.base_ref

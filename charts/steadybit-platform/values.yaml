@@ -32,6 +32,24 @@ platform:
   ## platform.service.type -- Type for the service to use
     type: LoadBalancer
 
+  ## platform.startupProbe.* -- Configuration of the Kubernetes startup probe for the platform deployment
+  startupProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 100
+    successThreshold: 1
+
+  ## platform.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the platform deployment
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 5
+    successThreshold: 1
+
   # -- Specific configuration for the database.
   database:
     enabled: true
