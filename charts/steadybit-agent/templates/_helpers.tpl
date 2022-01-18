@@ -211,18 +211,6 @@ checks the agent.leaderElection for valid values
 {{- end -}}
 {{- end -}}
 
-{{/*
-checks the agent.mode for valid values
-*/}}
-{{- define "validAgentMode" -}}
-{{- $valid := list "default" "aws" -}}
-{{- if has .Values.agent.mode $valid -}}
-{{- .Values.agent.mode -}}
-{{- else -}}
-{{- fail (printf "unknown agent mode: %s (must be one of %s)" .Values.agent.leaderElection (join ", " $valid)) -}}
-{{- end -}}
-{{- end -}}
-
 
 {{/*
 checks if a volumne extra-cert is avaiable

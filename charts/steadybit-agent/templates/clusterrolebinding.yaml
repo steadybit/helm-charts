@@ -1,4 +1,4 @@
-{{- if and (eq "default" (include "validAgentMode" .)) (.Values.rbac.create) -}}
+{{- if .Values.rbac.create -}}
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:

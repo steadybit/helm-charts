@@ -1,4 +1,4 @@
-{{- if and (eq "default" (include "validAgentMode" .)) (.Values.agent.key) -}}
+{{- if .Values.agent.key -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -96,8 +96,6 @@ spec:
                   fieldPath: spec.nodeName
             - name: STEADYBIT_HTTP_ENDPOINT_PORT
               value: {{ .Values.agent.port | quote }}
-            - name: STEADYBIT_AGENT_MODE
-              value: {{ .Values.agent.mode | quote }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
