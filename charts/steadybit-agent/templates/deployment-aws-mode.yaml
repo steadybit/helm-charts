@@ -33,9 +33,9 @@ spec:
     {{- end }}
     spec:
       serviceAccountName: {{ template "steadybit-agent.serviceAccountName" . }}
-      hostIPC: true
-      hostNetwork: true
-      hostPID: true
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
       dnsPolicy: ClusterFirstWithHostNet
       {{- if .Values.priorityClassName.use }}
       priorityClassName: {{ .Values.priorityClassName.name }}
