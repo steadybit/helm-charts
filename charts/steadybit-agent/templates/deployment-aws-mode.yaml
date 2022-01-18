@@ -1,6 +1,6 @@
-{{- if and (eq "default" (include "validAgentMode" .)) (.Values.agent.key) -}}
+{{- if and (eq "aws" (include "validAgentMode" .)) (.Values.agent.key) -}}
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
   name: {{ template "steadybit-agent.fullname" . }}
   namespace: {{ .Release.Namespace }}
@@ -10,10 +10,11 @@ metadata:
     {{ $key }}: {{ $value }}
   {{- end }}
 spec:
+  replicas: 1
   selector:
     matchLabels:
   {{- include "steadybit-agent.selectorLabels" . | nindent 6 }}
-  updateStrategy:
+  strategy:
     type: {{ .Values.updateStrategy.type }}
     {{- if eq .Values.updateStrategy.type "RollingUpdate" }}
     rollingUpdate:
@@ -76,8 +77,6 @@ spec:
                 secretKeyRef:
                   name: {{ template "steadybit-agent.fullname" . }}
                   key: key
-            - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
-              value: {{ .Values.cluster.name | quote }}
             - name: POD_IP
               valueFrom:
                 fieldRef:
@@ -101,26 +100,7 @@ spec:
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
-          securityContext:
-            privileged: true
           volumeMounts:
-            - name: steadybit-agent-state
-              mountPath: /var/lib/steadybit-agent
-            - name: container-sock
-              mountPath: {{ include "container-sock" . }}
-            - name: cgroup-root
-              mountPath: /sys/fs/cgroup
-            - name: sys
-              mountPath: /sys
-            {{- if include "runc-root" . }}
-            - name: runc-root
-              mountPath: {{ include "runc-root" . }}
-            {{- end }}
-            {{-  include "containerRuntimeVolumeMounts" . | nindent 12 }}
-            {{- if eq (include "steadybit-agent.hasVolumeExtraCerts" . ) "true" }}
-            - name: extra-certs
-              mountPath: /opt/steadybit/agent/etc/extra-certs
-            {{- end }}
 {{- with .Values.agent.extraVolumeMounts  }}
 {{ toYaml . | indent 12 }}
 {{- end }}
@@ -139,24 +119,6 @@ spec:
       imagePullSecrets:
         - name: docker-steadybit-io
       volumes:
-        - name: steadybit-agent-state
-          hostPath:
-            path: /var/lib/steadybit-agent
-        - name: container-sock
-          hostPath:
-            path: {{ include "container-sock-host-path" . }}
-        - name: cgroup-root
-          hostPath:
-            path: /sys/fs/cgroup
-        - name: sys
-          hostPath:
-            path: /sys
-        {{- if include "runc-root" . }}
-        - name: runc-root
-          hostPath:
-            path: {{ include "runc-root-host-path" . }}
-        {{- end }}
-        {{-  include "containerRuntimeVolumes" . | nindent 8 }}
 {{- with .Values.agent.extraVolumes  }}
 {{ toYaml . | indent 8 }}
 {{- end }}
