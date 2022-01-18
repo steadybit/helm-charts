@@ -38,8 +38,7 @@ agent:
   openshift: false
   # agent.remoteDebug -- Set to true for starting in debug mode and exposing port 5005
   remoteDebug: false
-  # agent.mode -- Set to 'aws' if you like to use the AWS Agent Mode. Valid values: default, aws
-  mode: default
+
   ## agent.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the agent daemonset
   livenessProbe:
     enabled: true
@@ -50,7 +49,7 @@ agent:
     successThreshold: 1
 
 cluster:
-  # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit (required with agent.mode = default)
+  # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit
   name: null
 
 image:

@@ -1,4 +1,4 @@
-{{- if and (eq "default" (include "validAgentMode" .)) (.Values.rbac.create) -}}
+{{- if .Values.rbac.create -}}
   {{- if (and .Values.podSecurityPolicy.enable (not .Values.podSecurityPolicy.name)) -}}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
