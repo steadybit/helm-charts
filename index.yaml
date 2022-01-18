@@ -12,6 +12,31 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v1
     appVersion: latest
+    created: "2022-01-18T10:09:29.260516737Z"
+    description: steadybit Agent Helm chart for Kubernetes.
+    digest: 003e095389d5e935e922d31737b1b2d4dc3a31a7257625f91fb9a17e78238c6c
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: dennis.schulte@steadybit.com
+      name: denschu
+    name: steadybit-agent
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-agent-0.4.2/steadybit-agent-0.4.2.tgz
+    version: 0.4.2
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v1
+    appVersion: latest
     created: "2022-01-13T15:47:58.050029304Z"
     description: steadybit Agent Helm chart for Kubernetes.
     digest: 229c92a4bafbdec86db914491d367c93ce6064bd88276b5ac324aac6b5d69aef
@@ -702,6 +727,31 @@ entries:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-agent-0.1.0/steadybit-agent-0.1.0.tgz
     version: 0.1.0
   steadybit-platform:
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v1
+    appVersion: latest
+    created: "2022-01-18T10:09:29.401699966Z"
+    description: steadybit Platform Helm chart for Kubernetes.
+    digest: e5d768507b9e35c3b2acf812552bf34398f1b0f9b067574a929d412e667f04f3
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: dennis.schulte@steadybit.com
+      name: denschu
+    name: steadybit-platform
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.2.1/steadybit-platform-0.2.1.tgz
+    version: 0.2.1
   - annotations:
       artifacthub.io/images: |
         - name: logo
