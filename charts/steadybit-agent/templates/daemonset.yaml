@@ -102,7 +102,11 @@ spec:
 {{ toYaml . | indent 12 }}
 {{- end }}
           securityContext:
-            privileged: true
+            privileged: {{ .Values.agent.privileged }}
+          {{- if not .Values.agent.privileged }}
+            capabilities:
+              add: [ "SYS_BOOT", "NET_ADMIN", "NET_RAW", "KILL", "SYS_TIME" ]
+          {{- end }}
           volumeMounts:
             - name: steadybit-agent-state
               mountPath: /var/lib/steadybit-agent
