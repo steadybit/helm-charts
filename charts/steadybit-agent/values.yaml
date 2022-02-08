@@ -40,7 +40,7 @@ agent:
   remoteDebug: false
   # agent.mode -- Set to 'aws' if you like to use the AWS Agent Mode. Valid values: default, aws
   mode: default
-  ## agent.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the agent daemonset
+  # agent.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the agent daemonset
   livenessProbe:
     enabled: true
     initialDelaySeconds: 300
@@ -48,6 +48,8 @@ agent:
     timeoutSeconds: 5
     failureThreshold: 5
     successThreshold: 1
+  #  agent.privileged -- Set to false if you want to use the agent in non-privileged mode. It will then require SYS_BOOT, NET_ADMIN, NET_RAW, KILL and SYS_TIME
+  privileged: true
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit (required with agent.mode = default)
