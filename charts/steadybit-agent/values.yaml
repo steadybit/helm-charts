@@ -50,6 +50,16 @@ agent:
     successThreshold: 1
   #  agent.privileged -- Set to false if you want to use the agent in non-privileged mode. It will then require SYS_BOOT, NET_ADMIN, NET_RAW, KILL and SYS_TIME
   privileged: true
+  # agent.proxyHost sets the STEADYBIT_AGENT_PROXY_HOST environment variable.
+  proxyHost: null
+  # agent.proxyPort sets the STEADYBIT_AGENT_PROXY_PORT environment variable.
+  proxyPort: 80
+  # agent.proxyProtocol sets the STEADYBIT_AGENT_PROXY_PROTOCOL environment variable.
+  proxyProtocol: HTTP
+  # agent.proxyUser sets the STEADYBIT_AGENT_PROXY_USER environment variable.
+  proxyUser: null
+  # agent.proxyPassword sets the STEADYBIT_AGENT_PROXY_PASSWORD environment variable.
+  proxyPassword: null
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit (required with agent.mode = default)

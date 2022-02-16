@@ -51,7 +51,7 @@ spec:
               memory: {{ .Values.resources.limits.memory }}
               cpu: {{ .Values.resources.limits.cpu }}
           {{ if eq .Values.agent.remoteDebug true }}
-          command: ["./bin/run.sh", "debug"]
+          command: [ "./bin/run.sh", "debug" ]
           ports:
             - containerPort: 5005
               protocol: TCP
@@ -98,6 +98,20 @@ spec:
               value: {{ .Values.agent.port | quote }}
             - name: STEADYBIT_AGENT_MODE
               value: {{ .Values.agent.mode | quote }}
+            {{- if .Values.agent.proxyHost }}
+            - name: STEADYBIT_AGENT_PROXY_HOST
+              value: {{ .Values.agent.proxyHost | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PORT
+              value: {{ .Values.agent.proxyPort | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PROTOCOL
+              value: {{ .Values.agent.proxyProtocol | quote }}
+            {{- end }}
+            {{- if .Values.agent.proxyUser }}
+            - name: STEADYBIT_AGENT_PROXY_USER
+              value: {{ .Values.agent.proxyUser | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PASSWORD
+              value: {{ .Values.agent.proxyPassword | quote }}
+            {{- end }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
