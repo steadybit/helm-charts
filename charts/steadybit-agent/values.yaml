@@ -50,6 +50,8 @@ agent:
     successThreshold: 1
   #  agent.privileged -- Set to false if you want to use the agent in non-privileged mode. It will then require SYS_BOOT, NET_ADMIN, NET_RAW, KILL and SYS_TIME
   privileged: true
+  #  agent.readOnlyRootFilesystem -- Set to true if you want to use the read only root fs mode.
+  readOnlyRootFilesystem: false
   # agent.proxyHost sets the STEADYBIT_AGENT_PROXY_HOST environment variable.
   proxyHost: null
   # agent.proxyPort sets the STEADYBIT_AGENT_PROXY_PORT environment variable.
@@ -60,6 +62,8 @@ agent:
   proxyUser: null
   # agent.proxyPassword sets the STEADYBIT_AGENT_PROXY_PASSWORD environment variable.
   proxyPassword: null
+  # agent.workingDir set the writeable working directory.
+  workingDir: null
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit (required with agent.mode = default)
