@@ -112,10 +112,15 @@ spec:
             - name: STEADYBIT_AGENT_PROXY_PASSWORD
               value: {{ .Values.agent.proxyPassword | quote }}
             {{- end }}
+            {{- if .Values.agent.workingDir }}
+            - name: STEADYBIT_AGENT_WORKING_DIR
+              value: {{ .Values.agent.workingDir | quote }}
+            {{- end }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
           securityContext:
+            readOnlyRootFilesystem: {{ .Values.agent.readOnlyRootFilesystem }}
             privileged: {{ .Values.agent.privileged }}
           {{- if not .Values.agent.privileged }}
             capabilities:
@@ -133,6 +138,10 @@ spec:
             {{- if include "runc-root" . }}
             - name: runc-root
               mountPath: {{ include "runc-root" . }}
+            {{- end }}
+            {{- if .Values.agent.workingDir }}
+            - name: working-dir
+              mountPath: {{ .Values.agent.workingDir | quote }}
             {{- end }}
             {{-  include "containerRuntimeVolumeMounts" . | nindent 12 }}
             {{- if eq (include "steadybit-agent.hasVolumeExtraCerts" . ) "true" }}
@@ -169,6 +178,11 @@ spec:
         - name: sys
           hostPath:
             path: /sys
+        {{- if .Values.agent.workingDir }}
+        - name: working-dir
+          emptyDir:
+            medium: Memory
+        {{- end }}
         {{- if include "runc-root" . }}
         - name: runc-root
           hostPath:
