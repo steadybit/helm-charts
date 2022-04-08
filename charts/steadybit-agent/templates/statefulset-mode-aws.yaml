@@ -1,6 +1,6 @@
 {{- if and (eq "aws" (include "validAgentMode" .)) (.Values.agent.key) -}}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ template "steadybit-agent.fullname" . }}
   namespace: {{ .Release.Namespace }}
@@ -10,15 +10,14 @@ metadata:
     {{ $key }}: {{ $value }}
   {{- end }}
 spec:
+  serviceName: steadybit-agent-aws
   replicas: 1
   selector:
     matchLabels:
   {{- include "steadybit-agent.selectorLabels" . | nindent 6 }}
-  strategy:
+  updateStrategy:
     type: {{ .Values.updateStrategy.type }}
     {{- if eq .Values.updateStrategy.type "RollingUpdate" }}
-    rollingUpdate:
-      maxUnavailable: {{ .Values.updateStrategy.rollingUpdate.maxUnavailable }}
   {{- end }}
   template:
     metadata:
@@ -100,7 +99,19 @@ spec:
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
+          securityContext:
+            readOnlyRootFilesystem: {{ .Values.agent.readOnlyRootFilesystem }}
           volumeMounts:
+            - name: steadybit-agent-state
+              mountPath: /var/lib/steadybit-agent
+            {{- if .Values.agent.workingDir }}
+            - name: working-dir
+              mountPath: {{ .Values.agent.workingDir | quote }}
+            {{- end }}
+            {{- if eq (include "steadybit-agent.hasVolumeExtraCerts" . ) "true" }}
+            - name: extra-certs
+              mountPath: /opt/steadybit/agent/etc/extra-certs
+            {{- end }}
 {{- with .Values.agent.extraVolumeMounts  }}
 {{ toYaml . | indent 12 }}
 {{- end }}
@@ -119,7 +130,24 @@ spec:
       imagePullSecrets:
         - name: docker-steadybit-io
       volumes:
+        {{- if .Values.agent.workingDir }}
+        - name: working-dir
+          emptyDir:
+            medium: Memory
+        {{- end }}
 {{- with .Values.agent.extraVolumes  }}
 {{ toYaml . | indent 8 }}
 {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: steadybit-agent-state
+      spec:
+        {{- if .Values.agent.persistence.storageClass }}
+        storageClassName: {{ .Values.agent.persistence.storageClass }}
+        {{- end }}
+        accessModes:
+          - {{ .Values.agent.persistence.accessMode }}
+        resources:
+          requests:
+            storage: {{ .Values.agent.persistence.size }}
 {{- end -}}
