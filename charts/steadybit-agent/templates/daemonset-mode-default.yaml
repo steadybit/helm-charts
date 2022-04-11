@@ -143,6 +143,10 @@ spec:
             - name: working-dir
               mountPath: {{ .Values.agent.workingDir | quote }}
             {{- end }}
+            {{- if .Values.agent.readOnlyRootFilesystem }}
+            - name: tmp-dir
+              mountPath: /tmp
+            {{- end }}
             {{-  include "containerRuntimeVolumeMounts" . | nindent 12 }}
             {{- if eq (include "steadybit-agent.hasVolumeExtraCerts" . ) "true" }}
             - name: extra-certs
@@ -180,6 +184,9 @@ spec:
             path: /sys
         {{- if .Values.agent.workingDir }}
         - name: working-dir
+          emptyDir:
+            medium: Memory
+        - name: tmp-dir
           emptyDir:
             medium: Memory
         {{- end }}
