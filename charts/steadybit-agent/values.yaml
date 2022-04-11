@@ -64,6 +64,11 @@ agent:
   proxyPassword: null
   # agent.workingDir set the writeable working directory.
   workingDir: null
+  # agent.persistence.* -- persistence configuration for the agent when running in 'aws' mode. Needed for cleanup if agent is unexpectedly terminated.
+  persistence:
+    size: 200Mi
+    accessMode: ReadWriteOnce
+    storageClass: null
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit (required with agent.mode = default)
