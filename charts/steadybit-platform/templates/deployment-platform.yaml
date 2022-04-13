@@ -36,11 +36,22 @@ spec:
             - name: websocket-port
               containerPort: 7878
               protocol: TCP
+          {{- if .Values.platform.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              port: ui-port
+              path: /api/health/readiness
+            initialDelaySeconds: {{ .Values.platform.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.platform.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.platform.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.platform.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.platform.readinessProbe.failureThreshold }}
+          {{- end }}
           {{- if .Values.platform.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
               port: ui-port
-              path: /api/health
+              path: /api/health/liveness
             initialDelaySeconds: {{ .Values.platform.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.platform.livenessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.platform.livenessProbe.timeoutSeconds }}
