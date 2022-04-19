@@ -116,6 +116,8 @@ spec:
             - name: STEADYBIT_AGENT_WORKING_DIR
               value: {{ .Values.agent.workingDir | quote }}
             {{- end }}
+            - name: STEADYBIT_AGENT_SIDECAR_IMAGE
+              value: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
