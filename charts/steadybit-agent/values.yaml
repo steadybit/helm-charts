@@ -50,7 +50,7 @@ agent:
     successThreshold: 1
   #  agent.privileged -- Set to false if you want to use the agent in non-privileged mode. It will then require SYS_BOOT, NET_ADMIN, NET_RAW, KILL and SYS_TIME
   privileged: true
-  #  agent.readOnlyRootFilesystem -- Set to true if you want to use the read only root fs mode.
+  #  agent.readOnlyRootFilesystem -- Set to true if you want to use the read only root fs mode. Please also set a writeable workingDir
   readOnlyRootFilesystem: false
   # agent.proxyHost sets the STEADYBIT_AGENT_PROXY_HOST environment variable.
   proxyHost: null

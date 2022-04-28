@@ -188,6 +188,8 @@ spec:
         - name: working-dir
           emptyDir:
             medium: Memory
+        {{- end }}
+        {{- if .Values.agent.readOnlyRootFilesystem }}
         - name: tmp-dir
           emptyDir:
             medium: Memory

@@ -96,6 +96,10 @@ spec:
               value: {{ .Values.agent.port | quote }}
             - name: STEADYBIT_AGENT_MODE
               value: {{ .Values.agent.mode | quote }}
+            {{- if .Values.agent.workingDir }}
+            - name: STEADYBIT_AGENT_WORKING_DIR
+              value: { { .Values.agent.workingDir | quote } }
+            {{- end }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
@@ -107,6 +111,10 @@ spec:
             {{- if .Values.agent.workingDir }}
             - name: working-dir
               mountPath: {{ .Values.agent.workingDir | quote }}
+            {{- end }}
+            {{- if .Values.agent.readOnlyRootFilesystem }}
+            - name: tmp-dir
+              mountPath: /tmp
             {{- end }}
             {{- if eq (include "steadybit-agent.hasVolumeExtraCerts" . ) "true" }}
             - name: extra-certs
@@ -132,6 +140,11 @@ spec:
       volumes:
         {{- if .Values.agent.workingDir }}
         - name: working-dir
+          emptyDir:
+            medium: Memory
+        {{- end }}
+        {{- if .Values.agent.readOnlyRootFilesystem }}
+        - name: tmp-dir
           emptyDir:
             medium: Memory
         {{- end }}
