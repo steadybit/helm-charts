@@ -96,6 +96,10 @@ spec:
               value: {{ .Values.agent.port | quote }}
             - name: STEADYBIT_AGENT_MODE
               value: {{ .Values.agent.mode | quote }}
+            {{- if .Values.agent.workingDir }}
+            - name: STEADYBIT_AGENT_WORKING_DIR
+              value: { { .Values.agent.workingDir | quote } }
+            {{- end }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
