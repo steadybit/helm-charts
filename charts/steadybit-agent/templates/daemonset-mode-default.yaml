@@ -112,9 +112,9 @@ spec:
             - name: STEADYBIT_AGENT_PROXY_PASSWORD
               value: {{ .Values.agent.proxyPassword | quote }}
             {{- end }}
-            {{- if .Values.agent.workingDir }}
+            {{- if .Values.agent.readOnlyRootFilesystem }}
             - name: STEADYBIT_AGENT_WORKING_DIR
-              value: {{ .Values.agent.workingDir | quote }}
+              value: /tmp/steadybit-agent
             {{- end }}
             - name: STEADYBIT_AGENT_SIDECAR_IMAGE
               value: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -140,10 +140,6 @@ spec:
             {{- if include "runc-root" . }}
             - name: runc-root
               mountPath: {{ include "runc-root" . }}
-            {{- end }}
-            {{- if .Values.agent.workingDir }}
-            - name: working-dir
-              mountPath: {{ .Values.agent.workingDir | quote }}
             {{- end }}
             {{- if .Values.agent.readOnlyRootFilesystem }}
             - name: tmp-dir
@@ -184,11 +180,6 @@ spec:
         - name: sys
           hostPath:
             path: /sys
-        {{- if .Values.agent.workingDir }}
-        - name: working-dir
-          emptyDir:
-            medium: Memory
-        {{- end }}
         {{- if .Values.agent.readOnlyRootFilesystem }}
         - name: tmp-dir
           emptyDir:
