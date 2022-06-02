@@ -18,6 +18,8 @@ platform:
   websocketPort: 7878
   # platform.publicWebsocketPort -- The public port used for experiments - Use this if the agent access the websocket via ingress or a reverse proxy, that serves websocket and http traffic using the same port
   publicWebsocketPort: 80
+  # platform.ingressOrigin -- Should be set to the ingress origin, e.g., https://ingress.steadybit.example.com. Will be used to construct URLs in HTTP responses to agents. This configuration will overwrite the port defined in platform.publicWebsocketPort
+  ingressOrigin: null
   # -- Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration.
   env:
     - name: STEADYBIT_AUTH_PROVIDER
@@ -31,6 +33,9 @@ platform:
   service:
   ## platform.service.type -- Type for the service to use
     type: LoadBalancer
+  portSplit:
+    # platform.portSplit.enabled -- Can be set to "true" to change the service and ingress definition in such a way that the ports are split by purpose, i.e., an ingress and a separate egress port. This comes in handy when hardening deployments / to improve package routing.
+    enabled: false
 
   ## platform.readinessProbe.* -- Configuration of the Kubernetes readinessProbe probe for the platform deployment
   readinessProbe:

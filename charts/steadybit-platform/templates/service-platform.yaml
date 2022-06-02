@@ -11,6 +11,16 @@ metadata:
 spec:
   type: {{ .Values.platform.service.type }}
   ports:
+    {{- if .Values.platform.portSplit.enabled }}
+    - port: 8081
+      name: egress-port
+      protocol: TCP
+      targetPort: 8081
+    - port: 8082
+      name: ingress-port
+      protocol: TCP
+      targetPort: 8082
+    {{- else }}
     - port: 80
       name: ui-port
       protocol: TCP
@@ -19,5 +29,6 @@ spec:
       name: websocket-port
       protocol: TCP
       targetPort: 7878
+    {{- end }}
   selector:
     {{- include "steadybit-platform.selectorLabels" . | nindent 4 }}
