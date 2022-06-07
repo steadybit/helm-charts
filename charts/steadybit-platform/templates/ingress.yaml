@@ -2,6 +2,7 @@
   {{- $fullName := include "steadybit-platform.fullname" . -}}
   {{- $uiPort := .Values.platform.uiPort -}}
   {{- $websocketPort := .Values.platform.websocketPort -}}
+  {{- include "validNoIngressWhenPortSplitting" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

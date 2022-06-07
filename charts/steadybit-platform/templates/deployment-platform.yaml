@@ -1,3 +1,4 @@
+{{- include "validIngressOriginWhenPortSplitting" . -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -91,9 +92,37 @@ spec:
               value: {{ .Values.platform.tenant.name | quote }}
             - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
               value: {{ .Values.platform.publicWebsocketPort | quote }}
+            {{- if .Values.platform.ingressOrigin }}
+            - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_URL
+              value: {{ .Values.platform.ingressOrigin | quote }}
+            {{- end }}
             {{- if .Values.platform.env }}
 {{ toYaml .Values.platform.env | indent 12}}
             {{- end }}
+        {{- if .Values.platform.portSplit.enabled }}
+        - name: {{ .Chart.Name }}-port-splitter
+          image: "{{ .Values.image.name }}-port-splitter:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: egress-port
+              containerPort: 8081
+              protocol: TCP
+            - name: ingress-port
+              containerPort: 8082
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 0.1
+              memory: 64Mi
+            limits:
+              cpu: 0.5
+              memory: 128Mi
+          env:
+            - name: PLATFORM_HTTP_ORIGIN
+              value: "http://127.0.0.1:8080"
+            - name: PLATFORM_WS_ORIGIN
+              value: "http://127.0.0.1:7878"
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
