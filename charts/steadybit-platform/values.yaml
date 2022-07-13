@@ -113,3 +113,16 @@ tolerations: []
 
 # affinity -- Affinities to influence platform pod assignment.
 affinity: {}
+
+
+resources:
+  requests:
+    # resources.requests.memory -- The minimal amount of memory needed
+    memory: "1Gi"
+    # resources.requests.cpu -- The minimal amount of cpu shares needed
+    cpu: "1000m"
+  limits:
+    # resources.limits.memory -- The limit of memory to be used
+    memory: "4Gi"
+    # resources.limits.cpu -- The limit of cpu share to be used during its interval
+    cpu: "4000m"

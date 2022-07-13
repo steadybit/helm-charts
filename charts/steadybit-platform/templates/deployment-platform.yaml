@@ -44,13 +44,6 @@ spec:
             - name: websocket-port
               containerPort: 7878
               protocol: TCP
-          resources:
-            requests:
-              cpu: 2
-              memory: 2Gi
-            limits:
-              cpu: 4
-              memory: 4Gi
           {{- if .Values.platform.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
