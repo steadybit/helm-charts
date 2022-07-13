@@ -50,7 +50,7 @@ agent:
     successThreshold: 1
   #  agent.privileged -- Set to false if you want to use the agent in non-privileged mode. It will then require SYS_BOOT, NET_ADMIN, NET_RAW, KILL and SYS_TIME
   privileged: true
-  #  agent.readOnlyRootFilesystem -- Set to true if you want to use the read only root fs mode. Please also set a writeable workingDir
+  #  agent.readOnlyRootFilesystem -- Set to true if you want to use the read only root fs mode.
   readOnlyRootFilesystem: false
   # agent.proxyHost sets the STEADYBIT_AGENT_PROXY_HOST environment variable.
   proxyHost: null
@@ -62,8 +62,6 @@ agent:
   proxyUser: null
   # agent.proxyPassword sets the STEADYBIT_AGENT_PROXY_PASSWORD environment variable.
   proxyPassword: null
-  # agent.workingDir set the writeable working directory.
-  workingDir: null
   # agent.persistence.* -- persistence configuration for the agent when running in 'aws' mode. Needed for cleanup if agent is unexpectedly terminated.
   persistence:
     size: 200Mi

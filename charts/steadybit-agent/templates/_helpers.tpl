@@ -190,7 +190,7 @@ extra mounts for using containerd/crio
   mountPath: /run/containerd
 - name: container-namespaces
   mountPath: /var/run
-  mountPropagation: Bidirectional
+  mountPropagation: HostToContainer
 - name: container-sidecar-bundles-root
   mountPath: /var/lib/containerd/steadybit-agent
 {{- else if eq "crio" (include "validContainerRuntime" .) -}}
@@ -200,7 +200,7 @@ extra mounts for using containerd/crio
   mountPath: /var/lib/containers
 - name: container-namespaces
   mountPath: /var/run
-  mountPropagation: Bidirectional
+  mountPropagation: HostToContainer
 {{- end -}}
 {{- end -}}
 

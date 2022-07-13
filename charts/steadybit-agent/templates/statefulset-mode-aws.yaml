@@ -100,9 +100,9 @@ spec:
               value: {{ .Values.agent.port | quote }}
             - name: STEADYBIT_AGENT_MODE
               value: {{ .Values.agent.mode | quote }}
-            {{- if .Values.agent.workingDir }}
+            {{- if .Values.agent.readOnlyRootFilesystem }}
             - name: STEADYBIT_AGENT_WORKING_DIR
-              value: {{ .Values.agent.workingDir | quote }}
+              value: /tmp/steadybit-agent
             {{- end }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
@@ -112,10 +112,6 @@ spec:
           volumeMounts:
             - name: steadybit-agent-state
               mountPath: /var/lib/steadybit-agent
-            {{- if .Values.agent.workingDir }}
-            - name: working-dir
-              mountPath: {{ .Values.agent.workingDir | quote }}
-            {{- end }}
             {{- if .Values.agent.readOnlyRootFilesystem }}
             - name: tmp-dir
               mountPath: /tmp
@@ -142,11 +138,6 @@ spec:
       imagePullSecrets:
         - name: docker-steadybit-io
       volumes:
-        {{- if .Values.agent.workingDir }}
-        - name: working-dir
-          emptyDir:
-            medium: Memory
-        {{- end }}
         {{- if .Values.agent.readOnlyRootFilesystem }}
         - name: tmp-dir
           emptyDir:
