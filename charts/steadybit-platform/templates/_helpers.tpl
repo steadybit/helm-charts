@@ -1,4 +1,23 @@
 {{/* vim: set filetype=mustache: */}}
+
+{{/*
+ensures that no ingress is defined when port splitting is desired
+*/}}
+{{- define "validNoIngressWhenPortSplitting" -}}
+{{- if and .Values.ingress.enabled .Values.platform.portSplit.enabled -}}
+{{- fail (printf "Port splitting (platform.portSplit.enabled) and auto-generated ingress configurations (ingress.enabled) are mutually exclusive. Please disable one of these.") -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+ensures that an ingress origin is defined when port splitting
+*/}}
+{{- define "validIngressOriginWhenPortSplitting" -}}
+{{- if and .Values.platform.portSplit.enabled (not .Values.platform.ingressOrigin) -}}
+{{- fail (printf "Port splitting (platform.portSplit.enabled) requires a configured ingress origin (platform.ingressOrigin).") -}}
+{{- end -}}
+{{- end -}}
+
 {{/*
 Expand the name of the chart.
 */}}

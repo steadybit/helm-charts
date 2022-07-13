@@ -97,3 +97,52 @@ ingress:
 ```
 helm uninstall steadybit-platform -n steadybit-platform
 ```
+
+## Splitting ingress/egress ports
+
+By default, the Steadybit platform exposes the ingress (agent communication into the platform) and egress (UI/API data access) endpoints under the same port. For compliance with security policies you may also choose to split the ingress and egress endpoints by port. This helm chart supports this split. 
+
+To enable port splitting, you need to set the following values:
+
+ - `platform.portSplit.portSplit.enabled=true` to start a sidecar container that implements port splitting.
+ - `platform.ingressOrigin=https://ingress.steadybit.example.com` to add additional configuration to the Steadybit platform so that it can generate the correct agent configuration values.
+ - `ingress.enabled=false` to disable the automatic creation of Kubernetes ingress configurations.
+
+This will, among others, result in a Kubernetes service exposing these ingress and egress ports. It is your responsibility to expose these ports to your internal systems/users as you see fit. For example, you may choose
+to define two Kubernetes ingress configurations for ingress and egress as shown below:
+
+```yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: platform-ingress
+spec:
+  rules:
+    - host: ingress.steadybit.example.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: steadybit-platform
+                port:
+                  number: 8082
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: platform-egress
+spec:
+  rules:
+    - host: egress.steadybit.example.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: steadybit-platform
+                port:
+                  number: 8081
+```
