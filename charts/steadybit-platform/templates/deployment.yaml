@@ -115,7 +115,9 @@ spec:
                   name: {{ include "steadybit-platform.postgresql.fullname" . }}
                   key: "password"
             {{- end }}
-{{ toYaml .Values.platform.env | indent 12}}
+{{- with .Values.agent.env }}
+{{ toYaml . | indent 12 }}
+{{- end }}
         {{- if .Values.platform.portSplit.enabled }}
         - name: {{ .Chart.Name }}-port-splitter
           image: "{{ .Values.image.name }}-port-splitter:{{ .Values.image.tag | default .Chart.AppVersion }}"
