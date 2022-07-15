@@ -89,9 +89,14 @@ podAnnotations: {}
 # -- Ingress configuration properties
 ingress:
   enabled: true
-  annotations:
+  annotations: {}
   hosts: []
   # - platform.steadybit.local
+
+
+# -- Service configuration properties
+service:
+  annotations: {}
 
 # nodeSelector -- Node labels for pod assignment
 nodeSelector: {}
