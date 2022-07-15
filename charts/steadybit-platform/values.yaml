@@ -74,6 +74,7 @@ image:
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
   registry: {}
+  pullSecrets: []
 
 serviceAccount:
   # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
