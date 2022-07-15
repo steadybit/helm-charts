@@ -224,7 +224,7 @@ checks the agent.mode for valid values
 {{- if has .Values.agent.mode $valid -}}
 {{- .Values.agent.mode -}}
 {{- else -}}
-{{- fail (printf "unknown agent mode: %s (must be one of %s)" .Values.agent.leaderElection (join ", " $valid)) -}}
+{{- fail (printf "unknown agent mode: %s (must be one of %s)" .Values.agent.mode (join ", " $valid)) -}}
 {{- end -}}
 {{- end -}}
 

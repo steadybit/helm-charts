@@ -1,7 +1,7 @@
-{{- if not .Values.agent.key -}}
+{{- if not .Values.platform.tenant.agentKey -}}
 
 ##################################################################################
-####    ERROR: You did not specify your secret agent key (agent.key).         ####
+####    ERROR: You did not specify your secret agent key (platform.tenant.agentKey).         ####
 ##################################################################################
 
 {{- else -}}
