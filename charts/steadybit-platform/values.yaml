@@ -28,7 +28,7 @@ platform:
     - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
       value: "{noop}admin"
   # platform.extraLabels -- Additional labels
-  extraLabels: { }
+  extraLabels: {}
   logging:
     format: text
   service:
@@ -73,7 +73,7 @@ image:
   tag: latest
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
-  registry: { }
+  registry: {}
 
 serviceAccount:
   # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
@@ -83,23 +83,23 @@ serviceAccount:
   # name: steadybit-platform
 
 # podAnnotations -- Additional annotations to be added to the platform pod.
-podAnnotations: { }
+podAnnotations: {}
 
 # -- Ingress configuration properties
 ingress:
   enabled: true
   annotations:
-  hosts: [ ]
+  hosts: []
   # - platform.steadybit.local
 
 # nodeSelector -- Node labels for pod assignment
-nodeSelector: { }
+nodeSelector: {}
 
 # tolerations -- Tolerations to influence platform pod assignment.
-tolerations: [ ]
+tolerations: []
 
 # affinity -- Affinities to influence platform pod assignment.
-affinity: { }
+affinity: {}
 
 
 resources:
