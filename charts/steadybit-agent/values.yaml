@@ -80,6 +80,7 @@ image:
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
   registry: {}
+  pullSecrets: []
 
 priorityClassName:
   # priorityClassName.use -- use a priorityClassName

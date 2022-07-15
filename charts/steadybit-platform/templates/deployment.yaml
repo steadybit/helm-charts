@@ -24,7 +24,10 @@ spec:
         {{- include "steadybit-platform.selectorLabels" . | nindent 8 }}
     spec:
       imagePullSecrets:
-        - name: image-pull-secrets
+        - name: {{ template "steadybit-platform.fullname" . }}-pull-secrets
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end }}
       serviceAccountName: {{ include "steadybit-platform.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}

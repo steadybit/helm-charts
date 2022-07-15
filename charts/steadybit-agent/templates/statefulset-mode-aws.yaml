@@ -136,7 +136,10 @@ spec:
       {{- toYaml . | nindent 8 }}
       {{- end }}
       imagePullSecrets:
-        - name: image-pull-secrets
+        - name: {{ template "steadybit-agent.fullname" . }}-pull-secrets
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end }}
       volumes:
         {{- if .Values.agent.readOnlyRootFilesystem }}
         - name: tmp-dir

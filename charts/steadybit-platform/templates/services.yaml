@@ -8,6 +8,10 @@ metadata:
   {{- range $key, $value := .Values.platform.extraLabels }}
     {{ $key }}: {{ $value }}
   {{- end }}
+  {{- with .Values.service.annotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.platform.service.type }}
   ports:
