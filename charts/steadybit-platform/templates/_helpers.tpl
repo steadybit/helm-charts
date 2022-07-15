@@ -86,6 +86,24 @@ Generates the dockerconfig for the credentials to pull from docker.steadybit.io.
 {{- define "imagePullSecretDockerRegistry" }}
 {{- $registry := default "docker.steadybit.io" .Values.image.registry.url -}}
 {{- $username := default "_" .Values.image.registry.user -}}
-{{- $password := default .Values.agent.key .Values.image.registry.password -}}
+{{- $password := default .Values.platform.tenant.agentKey .Values.image.registry.password -}}
 {{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" $registry (printf "%s:%s" $username $password | b64enc) | b64enc }}
 {{- end }}
+
+{{/*
+checks the platform.tenant.mode for valid values
+*/}}
+{{- define "validTenantMode" -}}
+{{- $valid := list "SAAS" "ONPREM" -}}
+{{- if has .Values.platform.tenant.mode $valid -}}
+{{- .Values.platform.tenant.mode -}}
+{{- else -}}
+{{- fail (printf "unknown tenant mode: %s (must be one of %s)" .Values.platform.tenant.mode (join ", " $valid)) -}}
+{{- end -}}
+{{- end -}}
+
+
+{{- define "steadybit-platform.postgresql.fullname" -}}
+{{- $name := default "postgresql" .Values.postgresql.nameOverride -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

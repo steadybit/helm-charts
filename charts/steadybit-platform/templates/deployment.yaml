@@ -10,7 +10,7 @@ metadata:
     {{ $key }}: {{ $value }}
   {{- end }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.platform.replicas }}
   selector:
     matchLabels:
       {{- include "steadybit-platform.selectorLabels" . | nindent 6 }}
@@ -24,7 +24,7 @@ spec:
         {{- include "steadybit-platform.selectorLabels" . | nindent 8 }}
     spec:
       imagePullSecrets:
-        - name: docker-steadybit-io
+        - name: image-pull-secrets
       serviceAccountName: {{ include "steadybit-platform.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
@@ -77,28 +77,42 @@ spec:
             successThreshold: {{ .Values.platform.startupProbe.successThreshold }}
             failureThreshold: {{ .Values.platform.startupProbe.failureThreshold }}
           {{- end }}
+          envFrom:
+{{ toYaml .Values.platform.envFrom | indent 12 }}
           env:
+            - name: LOGGING_FORMAT
+              value: {{ .Values.platform.logging.format | quote }}
+            - name: STEADYBIT_TENANT_MODE
+              value: {{ .Values.platform.tenant.mode | quote }}
+            {{- if eq "ONPREM" (include "validTenantMode" .) }}
             - name: STEADYBIT_TENANT_AGENTKEY
-              value: {{ .Values.agent.key | quote }}
-            - name: SPRING_DATASOURCE_URL
-              value: {{ .Values.platform.database.url | quote }}
-            - name: SPRING_DATASOURCE_USERNAME
-              value: {{ .Values.platform.database.user | quote }}
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: {{ .Values.platform.database.password | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "steadybit-platform.fullname" . }}
+                  key: key
             - name: STEADYBIT_TENANT_KEY
               value: {{ .Values.platform.tenant.key | quote }}
             - name: STEADYBIT_TENANT_NAME
               value: {{ .Values.platform.tenant.name | quote }}
+            {{- end }}
             - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
               value: {{ .Values.platform.publicWebsocketPort | quote }}
             {{- if .Values.platform.ingressOrigin }}
             - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_URL
               value: {{ .Values.platform.ingressOrigin | quote }}
             {{- end }}
-            {{- if .Values.platform.env }}
-{{ toYaml .Values.platform.env | indent 12}}
+            {{- if .Values.postgresql.enabled }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.postgresql.auth.username }}
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://{{ include "steadybit-platform.postgresql.fullname" . }}:{{  .Values.postgresql.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "steadybit-platform.postgresql.fullname" . }}
+                  key: "password"
             {{- end }}
+{{ toYaml .Values.platform.env | indent 12}}
         {{- if .Values.platform.portSplit.enabled }}
         - name: {{ .Chart.Name }}-port-splitter
           image: "{{ .Values.image.name }}-port-splitter:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -112,10 +126,10 @@ spec:
               protocol: TCP
           resources:
             requests:
-              cpu: 0.1
+              cpu: 100m
               memory: 64Mi
             limits:
-              cpu: 0.5
+              cpu: 500m
               memory: 128Mi
           env:
             - name: PLATFORM_HTTP_ORIGIN

@@ -1,17 +1,15 @@
 # Default values for steadybit-platform.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
-agent:
-  # -- The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup.
-  key: null
-
 platform:
   tenant:
+    mode: "ONPREM"
     # platform.tenant.key -- Name for the tenant assigned to you.
     key: onprem
     # platform.tenant.name -- Key for the tenant assigned to you.
     name: onprem
+    # -- The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup.
+    agentKey: null
   # platform.uiPort -- (internal) Web-UI port for the user interface.
   uiPort: 80
   # platform.websocketPort -- (internal) Websocket port for communication between platform and agents.
@@ -21,6 +19,7 @@ platform:
   # platform.ingressOrigin -- Should be set to the ingress origin, e.g., https://ingress.steadybit.example.com. Will be used to construct URLs in HTTP responses to agents. This configuration will overwrite the port defined in platform.publicWebsocketPort
   ingressOrigin: null
   # -- Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration.
+  envFrom: []
   env:
     - name: STEADYBIT_AUTH_PROVIDER
       value: "static"
@@ -29,13 +28,16 @@ platform:
     - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
       value: "{noop}admin"
   # platform.extraLabels -- Additional labels
-  extraLabels: {}
+  extraLabels: { }
+  logging:
+    format: text
   service:
-  ## platform.service.type -- Type for the service to use
+    ## platform.service.type -- Type for the service to use
     type: LoadBalancer
   portSplit:
     # platform.portSplit.enabled -- Can be set to "true" to change the service and ingress definition in such a way that the ports are split by purpose, i.e., an ingress and a separate egress port. This comes in handy when hardening deployments / to improve package routing.
     enabled: false
+  replicas: 1
 
   ## platform.readinessProbe.* -- Configuration of the Kubernetes readinessProbe probe for the platform deployment
   readinessProbe:
@@ -64,21 +66,6 @@ platform:
     failureThreshold: 5
     successThreshold: 1
 
-  # -- Specific configuration for the database.
-  database:
-    enabled: true
-    url: "jdbc:postgresql://postgres.steadybit-platform:5432/steadybitdb"
-    name: "steadybitdb"
-    port: 5432
-    user: "postgres"
-    password: "postgres"
-    image:
-      name: postgres
-      tag: 11
-      pullPolicy: Always
-    service:
-      type: NodePort
-
 image:
   # image.name -- The container image  to use of the steadybit platform.
   name: docker.steadybit.io/steadybit/platform
@@ -86,7 +73,7 @@ image:
   tag: latest
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
-  registry: {}
+  registry: { }
 
 serviceAccount:
   # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
@@ -96,23 +83,23 @@ serviceAccount:
   # name: steadybit-platform
 
 # podAnnotations -- Additional annotations to be added to the platform pod.
-podAnnotations: {}
+podAnnotations: { }
 
 # -- Ingress configuration properties
 ingress:
   enabled: true
   annotations:
-  hosts: []
-    # - platform.steadybit.local
+  hosts: [ ]
+  # - platform.steadybit.local
 
 # nodeSelector -- Node labels for pod assignment
-nodeSelector: {}
+nodeSelector: { }
 
 # tolerations -- Tolerations to influence platform pod assignment.
-tolerations: []
+tolerations: [ ]
 
 # affinity -- Affinities to influence platform pod assignment.
-affinity: {}
+affinity: { }
 
 
 resources:
@@ -126,3 +113,21 @@ resources:
     memory: "4Gi"
     # resources.limits.cpu -- The limit of cpu share to be used during its interval
     cpu: "4000m"
+
+# -----------------------------------------------------------------------------
+# Postgres sub-chart parameters
+# -----------------------------------------------------------------------------
+
+# PostgreSQL chart documentation:
+# https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
+
+postgresql:
+  enabled: true
+  auth:
+    username: steadybit
+    database: steadybit
+  image:
+    tag: 14
+  service:
+    ports:
+      postgresql: "5432"
