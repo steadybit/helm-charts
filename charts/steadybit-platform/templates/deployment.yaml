@@ -115,7 +115,7 @@ spec:
                   name: {{ include "steadybit-platform.postgresql.fullname" . }}
                   key: "password"
             {{- end }}
-{{- with .Values.agent.env }}
+{{- with .Values.platform.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
         {{- if .Values.platform.portSplit.enabled }}
