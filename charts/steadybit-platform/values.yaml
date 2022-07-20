@@ -104,6 +104,10 @@ nodeSelector: {}
 # tolerations -- Tolerations to influence platform pod assignment.
 tolerations: []
 
+# topologySpreadConstraints -- Spread constraints to influence platform pod assignment.
+# https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+topologySpreadConstraints: []
+
 # affinity -- Affinities to influence platform pod assignment.
 affinity: {}
 
