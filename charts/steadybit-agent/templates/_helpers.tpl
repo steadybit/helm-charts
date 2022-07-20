@@ -43,6 +43,19 @@ Create the name of the service account to use.
 {{- end -}}
 
 {{/*
+Create the name of the cluster role to use.
+
+We cannot scope the cluster role natively via namespaces. So have have to do this by including the namespace name
+within the cluster role's name. This in turn is necessary to support multiple steadybit agents per Kubernetes
+cluster.
+
+Also see https://stackoverflow.com/questions/64871199/kubernetes-clusterrole-with-namespace-is-allowed
+*/}}
+{{- define "steadybit-agent.clusterRoleName" -}}
+{{- printf "%s-in-%s" (include "steadybit-agent.fullname" .) .Release.Namespace -}}
+{{- end -}}
+
+{{/*
 Create PodSecurityPolicy to be used.
 */}}
 {{- define "steadybit-agent.podSecurityPolicyName" -}}
