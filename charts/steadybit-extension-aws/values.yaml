@@ -1,0 +1,31 @@
+# Default values for steadybit-extension-aws.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  # image.name -- The container image to use for the steadybit AWS extension.
+  name: steadybit/extension-aws
+  # image.tag -- tag name of the extension-aws container image to use.
+  # See https://hub.docker.com/repository/docker/steadybit/extension-aws for all tags.
+  tag: latest
+  # image.pullPolicy -- Specifies when to pull the image container.
+  pullPolicy: Always
+
+resources:
+  requests:
+    # resources.requests.memory -- The minimal amount of memory needed
+    memory: "64Mi"
+    # resources.requests.cpu -- The minimal amount of cpu shares needed
+    cpu: "50m"
+  limits:
+    # resources.limits.memory -- The limit of memory to be used
+    memory: "128Mi"
+    # resources.limits.cpu -- The limit of cpu share to be used during its interval
+    cpu: "200m"
+
+serviceAccount:
+  # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
+  create: true
+  # serviceAccount.name -- The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template.
+  name: steadybit-extension-aws
+  # serviceAccount.eksRoleArn -- The arn of the IAM role - [see aws docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)
+  eksRoleArn: null
