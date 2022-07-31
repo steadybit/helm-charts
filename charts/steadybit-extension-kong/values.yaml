@@ -1,0 +1,34 @@
+# Default values for steadybit-extension-kong.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+kong:
+  # kong.name -- An alias/label for the Kong instance. Will be presented in Steadybit's user interface.
+  name: null
+  # kong.origin -- Origin under which the Kong admin endpoint is available, e.g., http://kong.example.com:8001,
+  origin: null
+  # kong.headerKey -- Optional header key which will be transmitted to the Kong instance. Can be used for authentication purposes
+  headerKey: null
+  # kong.headerValue -- Optional header value which will be transmitted to the Kong instance. Can be used for authentication purposes
+  headerValue: null
+
+image:
+  # image.name -- The container image to use for the steadybit Kong extension.
+  name: steadybit/extension-kong
+  # image.tag -- tag name of the extension-kong container image to use.
+  # See https://hub.docker.com/r/steadybit/extension-kong for all tags.
+  tag: latest
+  # image.pullPolicy -- Specifies when to pull the image container.
+  pullPolicy: Always
+
+resources:
+  requests:
+    # resources.requests.memory -- The minimal amount of memory needed
+    memory: "64Mi"
+    # resources.requests.cpu -- The minimal amount of cpu shares needed
+    cpu: "50m"
+  limits:
+    # resources.limits.memory -- The limit of memory to be used
+    memory: "128Mi"
+    # resources.limits.cpu -- The limit of cpu share to be used during its interval
+    cpu: "200m"
