@@ -32,3 +32,16 @@ resources:
     memory: "128Mi"
     # resources.limits.cpu -- The limit of cpu share to be used during its interval
     cpu: "200m"
+
+# nodeSelector -- Node labels for pod assignment
+nodeSelector: {}
+
+# tolerations -- Tolerations to influence pod assignment
+tolerations: []
+
+# topologySpreadConstraints -- Spread constraints to influence pod assignment.
+# https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+topologySpreadConstraints: []
+
+# affinity -- Affinities to influence pod assignment.
+affinity: {}
