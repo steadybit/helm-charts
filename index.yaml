@@ -1278,6 +1278,32 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-extension-kong-1.0.0/steadybit-extension-kong-1.0.0.tgz
     version: 1.0.0
+  steadybit-extension-postman:
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
+    created: "2022-08-02T11:21:46.851952205Z"
+    description: Steadybit Postman extension Helm chart for Kubernetes.
+    digest: dc229817ef51170c7e95340c6f2c663b7c33f15e327b8fe5659c1e2029ba0598
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: daniel.reuter@steadybit.com
+      name: reuda
+    name: steadybit-extension-postman
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-extension-postman-1.0.0/steadybit-extension-postman-1.0.0.tgz
+    version: 1.0.0
   steadybit-platform:
   - annotations:
       artifacthub.io/images: |
@@ -1814,4 +1840,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-31T17:49:15.085197844Z"
+generated: "2022-08-02T11:21:46.852439827Z"
