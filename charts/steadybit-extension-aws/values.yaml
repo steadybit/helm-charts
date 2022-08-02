@@ -29,3 +29,16 @@ serviceAccount:
   name: steadybit-extension-aws
   # serviceAccount.eksRoleArn -- The arn of the IAM role - [see aws docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)
   eksRoleArn: null
+
+# nodeSelector -- Node labels for pod assignment
+nodeSelector: {}
+
+# tolerations -- Tolerations to influence pod assignment
+tolerations: []
+
+# topologySpreadConstraints -- Spread constraints to influence pod assignment.
+# https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+topologySpreadConstraints: []
+
+# affinity -- Affinities to influence pod assignment.
+affinity: {}
