@@ -22,6 +22,9 @@ resources:
     # resources.limits.cpu -- The limit of cpu share to be used during its interval
     cpu: "200m"
 
+# extra labels to apply to the Kubernetes resources
+extraLabels: {}
+
 # nodeSelector -- Node labels for pod assignment
 nodeSelector: {}
 

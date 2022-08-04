@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   name: steadybit-extension-kong
   namespace: {{ .Release.Namespace }}
+  labels:
+  {{- range $key, $value := .Values.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
 spec:
   replicas: 1
   selector:

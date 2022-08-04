@@ -30,6 +30,9 @@ serviceAccount:
   # serviceAccount.eksRoleArn -- The arn of the IAM role - [see aws docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)
   eksRoleArn: null
 
+# extra labels to apply to the Kubernetes resources
+extraLabels: {}
+
 # nodeSelector -- Node labels for pod assignment
 nodeSelector: {}
 
