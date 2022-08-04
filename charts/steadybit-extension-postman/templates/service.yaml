@@ -3,6 +3,10 @@ kind: Service
 metadata:
   name: steadybit-extension-postman
   namespace: {{ .Release.Namespace }}
+  labels:
+  {{- range $key, $value := .Values.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
 spec:
   selector:
     app.kubernetes.io/name: steadybit-extension-postman
