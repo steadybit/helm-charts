@@ -10,6 +10,12 @@ platform:
     name: onprem
     # -- The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup.
     agentKey: null
+    agent:
+      auth:
+        # platform.tenant.agent.auth.provider -- Default is `agent-key`. Use `oauth2` if you like to use oauth2 authenication
+        provider: agent-key
+        oauth2:
+          issuerUri: null
   # platform.uiPort -- (internal) Web-UI port for the user interface.
   uiPort: 80
   # platform.websocketPort -- (internal) Websocket port for communication between platform and agents.

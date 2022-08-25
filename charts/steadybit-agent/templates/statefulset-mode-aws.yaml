@@ -104,6 +104,20 @@ spec:
             - name: STEADYBIT_AGENT_WORKING_DIR
               value: /tmp/steadybit-agent
             {{- end }}
+            {{- if eq .Values.agent.auth.provider "oauth2" }}
+            - name: STEADYBIT_AGENT_AUTH_PROVIDER
+              value: OAUTH2
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_ID
+              value: {{ .Values.agent.auth.oauth2.clientId | quote }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
+              value: {{ .Values.agent.auth.oauth2.clientSecret | quote }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_TOKEN_URI
+              value: {{ .Values.agent.auth.oauth2.tokenUri | quote }}
+            {{- end }}
+            {{- if and (eq .Values.agent.auth.provider "oauth2") (.Values.agent.auth.oauth2.audience) }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
+              value: {{ .Values.agent.auth.oauth2.audience | quote }}
+            {{- end }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
