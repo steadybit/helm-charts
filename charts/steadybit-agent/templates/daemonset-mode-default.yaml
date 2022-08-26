@@ -124,7 +124,10 @@ spec:
             - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_ID
               value: {{ .Values.agent.auth.oauth2.clientId | quote }}
             - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
-              value: {{ .Values.agent.auth.oauth2.clientSecret | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "steadybit-agent.fullname" . }}
+                  key: oauth2ClientSecret
             - name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
               value: {{ .Values.agent.auth.oauth2.issuerUri | quote }}
             {{- end }}
