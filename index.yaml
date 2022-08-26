@@ -12,6 +12,31 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: latest
+    created: "2022-08-26T06:16:16.409768712Z"
+    description: steadybit Agent Helm chart for Kubernetes.
+    digest: 5cca62943fb905800c930aeaa6a99d7bb9d3d5ac31f3007735784d3a0a9032e5
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: dennis.schulte@steadybit.com
+      name: denschu
+    name: steadybit-agent
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-agent-0.7.1/steadybit-agent-0.7.1.tgz
+    version: 0.7.1
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
     created: "2022-07-20T12:13:46.62771144Z"
     description: steadybit Agent Helm chart for Kubernetes.
     digest: 25ae617727ed5860683796040c5678ad9812e7dfd69d29a54f90b82ebd217b71
@@ -1466,6 +1491,36 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: latest
+    created: "2022-08-26T06:16:16.58453346Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.15
+    description: steadybit Platform Helm chart for Kubernetes.
+    digest: ab70b89e03fc41c2606ce2bf902f128b31a02b6a6e1ade17c0ff66c0b33c7dc8
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: dennis.schulte@steadybit.com
+      name: denschu
+    name: steadybit-platform
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.5.1/steadybit-platform-0.5.1.tgz
+    version: 0.5.1
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
     created: "2022-07-20T12:25:26.349211775Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1990,4 +2045,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-04T08:01:09.157318773Z"
+generated: "2022-08-26T06:16:16.585044492Z"
