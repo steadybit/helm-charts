@@ -119,6 +119,12 @@ spec:
                   name: {{ include "steadybit-platform.postgresql.fullname" . }}
                   key: "password"
             {{- end }}
+            {{- if eq .Values.platform.tenant.agent.auth.provider "oauth2" }}
+            - name: STEADYBIT_AUTH_AGENT_PROVIDER
+              value: OAUTH2
+            - name: STEADYBIT_AUTH_AGENT_OAUTH2_ISSUER_URI
+              value: {{ .Values.platform.tenant.agent.auth.oauth2.issuerUri | quote }}
+            {{- end }}
 {{- with .Values.platform.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}

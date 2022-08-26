@@ -118,6 +118,20 @@ spec:
             {{- end }}
             - name: STEADYBIT_AGENT_SIDECAR_IMAGE
               value: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+            {{- if eq .Values.agent.auth.provider "oauth2" }}
+            - name: STEADYBIT_AGENT_AUTH_PROVIDER
+              value: OAUTH2
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_ID
+              value: {{ .Values.agent.auth.oauth2.clientId | quote }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
+              value: {{ .Values.agent.auth.oauth2.clientSecret | quote }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
+              value: {{ .Values.agent.auth.oauth2.issuerUri | quote }}
+            {{- end }}
+            {{- if and (eq .Values.agent.auth.provider "oauth2") (.Values.agent.auth.oauth2.audience) }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
+              value: {{ .Values.agent.auth.oauth2.audience | quote }}
+            {{- end }}
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
