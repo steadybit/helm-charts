@@ -12,7 +12,7 @@ agent:
     oauth2:
       clientId: null
       clientSecret: null
-      tokenUri: null
+      issuerUri: null
       # agent.auth.oauth2.audience -- optional
       audience: null
   # agent.registerUrl -- The URL of the steadybit server your agents will connect to.

@@ -125,8 +125,8 @@ spec:
               value: {{ .Values.agent.auth.oauth2.clientId | quote }}
             - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
               value: {{ .Values.agent.auth.oauth2.clientSecret | quote }}
-            - name: STEADYBIT_AGENT_AUTH_OAUTH2_TOKEN_URI
-              value: {{ .Values.agent.auth.oauth2.tokenUri | quote }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
+              value: {{ .Values.agent.auth.oauth2.issuerUri | quote }}
             {{- end }}
             {{- if and (eq .Values.agent.auth.provider "oauth2") (.Values.agent.auth.oauth2.audience) }}
             - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
