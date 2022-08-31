@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-extension-prometheus
 description: Steadybit Prometheus extension Helm chart for Kubernetes.
-version: 1.0.0
+version: 1.1.0
 appVersion: latest
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonprometheus.com/logo-symbol-transparent.png
