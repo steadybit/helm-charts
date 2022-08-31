@@ -104,12 +104,12 @@ priorityClassName:
 resources:
   requests:
     # resources.requests.memory -- The minimal amount of memory needed
-    memory: "512Mi"
+    memory: "450Mi"
     # resources.requests.cpu -- The minimal amount of cpu shares needed
     cpu: "250m"
   limits:
     # resources.limits.memory -- The limit of memory to be used
-    memory: "768Mi"
+    memory: "650Mi"
     # resources.limits.cpu -- The limit of cpu share to be used during its interval
     cpu: "1500m"
 
