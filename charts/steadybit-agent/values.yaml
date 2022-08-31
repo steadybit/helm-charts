@@ -77,6 +77,9 @@ agent:
     size: 200Mi
     accessMode: ReadWriteOnce
     storageClass: null
+  # agent.prometheus.scrape -- Controls the `prometheus.io/scrape` pod annotation which controls whether Prometheus will automatically scrape metrics from agent pods.
+  prometheus:
+    scrape: true
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit (required with agent.mode = default)

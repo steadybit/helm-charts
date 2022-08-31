@@ -26,10 +26,13 @@ spec:
         {{- range $key, $value := .Values.agent.extraLabels }}
         {{ $key }}: {{ $value }}
       {{- end }}
-      {{- with .Values.podAnnotations }}
       annotations:
-      {{- toYaml . | nindent 8 }}
-    {{- end }}
+        prometheus.io/scrape: "{{ .Values.agent.prometheus.scrape }}"
+        prometheus.io/path: "/prometheus"
+        prometheus.io/port: "{{ .Values.agent.port }}"
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       serviceAccountName: {{ template "steadybit-agent.serviceAccountName" . }}
       hostIPC: false
