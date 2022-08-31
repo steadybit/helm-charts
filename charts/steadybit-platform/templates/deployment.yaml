@@ -16,10 +16,13 @@ spec:
       {{- include "steadybit-platform.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-      {{- toYaml . | nindent 8 }}
-      {{- end }}
+        prometheus.io/scrape: "{{ .Values.platform.prometheus.scrape }}"
+        prometheus.io/path: "/actuator/prometheus"
+        prometheus.io/port: "9090"
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "steadybit-platform.selectorLabels" . | nindent 8 }}
         {{- include "steadybit-platform.commonLabels" . | nindent 8 }}
