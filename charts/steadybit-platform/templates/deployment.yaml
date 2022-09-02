@@ -11,6 +11,12 @@ metadata:
   {{- end }}
 spec:
   replicas: {{ .Values.platform.replicas }}
+  minReadySeconds: {{ .Values.platform.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ .Values.platform.maxSurge }}
+      maxUnavailable: {{ .Values.platform.maxUnavailable }}
   selector:
     matchLabels:
       {{- include "steadybit-platform.selectorLabels" . | nindent 6 }}
@@ -80,7 +86,7 @@ spec:
           startupProbe:
             httpGet:
               port: ui-port
-              path: /api/health
+              path: /api/health/liveness
             initialDelaySeconds: {{ .Values.platform.startupProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.platform.startupProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.platform.startupProbe.timeoutSeconds }}
