@@ -11,6 +11,12 @@ metadata:
   {{- end }}
 spec:
   replicas: {{ .Values.platform.replicas }}
+  minReadySeconds: {{ .Values.platform.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ .Values.platform.maxSurge }}
+      maxUnavailable: {{ .Values.platform.maxUnavailable }}
   selector:
     matchLabels:
       {{- include "steadybit-platform.selectorLabels" . | nindent 6 }}
@@ -80,7 +86,7 @@ spec:
           startupProbe:
             httpGet:
               port: ui-port
-              path: /api/health
+              path: /api/health/liveness
             initialDelaySeconds: {{ .Values.platform.startupProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.platform.startupProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.platform.startupProbe.timeoutSeconds }}
@@ -127,6 +133,20 @@ spec:
               value: OAUTH2
             - name: STEADYBIT_AUTH_AGENT_OAUTH2_ISSUER_URI
               value: {{ .Values.platform.tenant.agent.auth.oauth2.issuerUri | quote }}
+            {{- end }}
+            {{- if .Values.platform.proxy.host }}
+            - name: STEADYBIT_PROXY_HOST
+              value: {{ .Values.platform.proxy.host | quote }}
+            - name: STEADYBIT_PROXY_PORT
+              value: {{ .Values.platform.proxy.port | quote }}
+            - name: STEADYBIT_PROXY_PROTOCOL
+              value: {{ .Values.platform.proxy.protocol | quote }}
+            {{- end }}
+            {{- if .Values.platform.proxy.user }}
+            - name: STEADYBIT_PROXY_USER
+              value: {{ .Values.platform.proxy.user | quote }}
+            - name: STEADYBIT_PROXY_PASSWORD
+              value: {{ .Values.platform.proxy.password | quote }}
             {{- end }}
 {{- with .Values.platform.env }}
 {{ toYaml . | indent 12 }}
