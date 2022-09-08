@@ -78,6 +78,14 @@ platform:
     failureThreshold: 5
     successThreshold: 1
 
+  ## platform.proxy.* -- Proxy configuration used for outgoing http calls of the platform
+  proxy:
+    host: null
+    port: null
+    protocol: HTTP
+    user: null
+    password: null
+
 image:
   # image.name -- The container image  to use of the steadybit platform.
   name: docker.steadybit.io/steadybit/platform

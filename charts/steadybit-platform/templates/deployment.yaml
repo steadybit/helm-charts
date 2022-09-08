@@ -134,6 +134,20 @@ spec:
             - name: STEADYBIT_AUTH_AGENT_OAUTH2_ISSUER_URI
               value: {{ .Values.platform.tenant.agent.auth.oauth2.issuerUri | quote }}
             {{- end }}
+            {{- if .Values.platform.proxy.host }}
+            - name: STEADYBIT_PROXY_HOST
+              value: {{ .Values.platform.proxy.host | quote }}
+            - name: STEADYBIT_PROXY_PORT
+              value: {{ .Values.platform.proxy.port | quote }}
+            - name: STEADYBIT_PROXY_PROTOCOL
+              value: {{ .Values.platform.proxy.protocol | quote }}
+            {{- end }}
+            {{- if .Values.platform.proxy.user }}
+            - name: STEADYBIT_PROXY_USER
+              value: {{ .Values.platform.proxy.user | quote }}
+            - name: STEADYBIT_PROXY_PASSWORD
+              value: {{ .Values.platform.proxy.password | quote }}
+            {{- end }}
 {{- with .Values.platform.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
