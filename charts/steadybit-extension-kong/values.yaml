@@ -22,7 +22,7 @@ image:
   pullPolicy: Always
 
 logging:
-  # logging.level -- The active log level
+  # logging.level -- The active log level. Valid values are: TRACE, DEBUG, INFO, WARN, ERROR
   level: INFO
 
 resources:
