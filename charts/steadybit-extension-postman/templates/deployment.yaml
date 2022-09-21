@@ -28,6 +28,9 @@ spec:
             limits:
               memory: {{ .Values.resources.limits.memory }}
               cpu: {{ .Values.resources.limits.cpu }}
+          env:
+            - name: STEADYBIT_LOG_LEVEL
+              value: {{ .Values.logging.level | quote }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}

@@ -29,6 +29,8 @@ spec:
               memory: {{ .Values.resources.limits.memory }}
               cpu: {{ .Values.resources.limits.cpu }}
           env:
+            - name: STEADYBIT_LOG_LEVEL
+              value: {{ .Values.logging.level | quote }}
             - name: STEADYBIT_EXTENSION_KONG_INSTANCE_0_NAME
               value: {{ .Values.kong.name | quote }}
             - name: STEADYBIT_EXTENSION_KONG_INSTANCE_0_ORIGIN
