@@ -20,6 +20,10 @@ image:
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
 
+logging:
+  # logging.level -- The active log level. Valid values are: TRACE, DEBUG, INFO, WARN, ERROR
+  level: INFO
+
 resources:
   requests:
     # resources.requests.memory -- The minimal amount of memory needed
