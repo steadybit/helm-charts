@@ -10,6 +10,7 @@ Currently supported:
 - [steadybit Platform](charts/steadybit-platform/README.md)
 - [steadybit AWS extension](charts/steadybit-extension-aws/README.md)
 - [steadybit Kong extension](charts/steadybit-extension-kong/README.md)
+- [steadybit Kubernetes extension](charts/steadybit-extension-kubernetes/README.md)- 
 - [steadybit Postman extension](charts/steadybit-extension-postman/README.md)
 - [steadybit Prometheus extension](charts/steadybit-extension-prometheus/README.md)
 
