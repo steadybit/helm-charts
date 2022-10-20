@@ -1,0 +1,20 @@
+{{- if .Values.clusterRole.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.clusterRole.name }}
+  labels:
+  {{- range $key, $value := .Values.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+rules:
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["get","list"]
+  - apiGroups: ["litmuschaos.io"]
+    resources: ["chaosengines", "chaosexperiments"]
+    verbs: ["create","list","get","patch","delete"]
+  - apiGroups: ["litmuschaos.io"]
+    resources: ["chaosresults"]
+    verbs: ["list","get"]
+{{- end }}
