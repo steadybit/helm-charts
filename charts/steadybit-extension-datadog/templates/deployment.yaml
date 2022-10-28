@@ -37,22 +37,22 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ include "secret.name" . }}
-                  key: apiKey
+                  key: api-key
             - name: STEADYBIT_EXTENSION_APPLICATION_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ include "secret.name" . }}
-                  key: applicationKey
+                  key: application-key
             - name: STEADYBIT_EXTENSION_SITE_PARAMETER
               valueFrom:
                 secretKeyRef:
                   name: {{ include "secret.name" . }}
-                  key: siteParameter
+                  key: site-parameter
             - name: STEADYBIT_EXTENSION_SITE_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ include "secret.name" . }}
-                  key: siteUrl
+                  key: site-url
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
