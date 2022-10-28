@@ -13,7 +13,7 @@ helm repo update
 
 ### Installing the Chart
 
-To install the chart with the name `steadybit-extension-datadog`. To learn more about supported the supported values for `datadog.siteParameter` and `datadog.siteUrl`, please see [Datadog' site documentation page](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site). You may alternatively decide to configure the `datadog.*` values through a pre-existing secret. See the documentation for [`datadog.existingSecret`](https://github.com/steadybit/helm-charts/blob/main/charts/steadybit-extension-datadog/values.yaml#L15) to learn more.
+To install the chart with the name `steadybit-extension-datadog`. To learn more about supported the supported values for `datadog.siteParameter` and `datadog.siteUrl`, please see [Datadog's site documentation page](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site). You may alternatively decide to configure the `datadog.*` values through a pre-existing secret. See the documentation for [`datadog.existingSecret`](https://github.com/steadybit/helm-charts/blob/main/charts/steadybit-extension-datadog/values.yaml#L15) to learn more.
 
 ```bash
 $ helm upgrade steadybit-extension-datadog \
