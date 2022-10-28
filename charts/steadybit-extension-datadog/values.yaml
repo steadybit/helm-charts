@@ -11,7 +11,7 @@ datadog:
   siteParameter: ""
   # datadog.siteUrl -- The Datadog site's URL in which your account is. For example, https://app.datadoghq.eu for EU or https://app.datadoghq.com for US. See https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site for more information.
   siteUrl: ""
-  # datadog.existingSecret -- If defined, will skip secret creation and instead assume that the referenced secret contains the keys apiKey, applicationKey, siteParameter and siteUrl.
+  # datadog.existingSecret -- If defined, will skip secret creation and instead assume that the referenced secret contains the keys api-key, application-key, site-parameter and site-url.
   existingSecret: null
 
 image:
