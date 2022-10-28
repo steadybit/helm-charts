@@ -1477,6 +1477,32 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-extension-aws-1.0.0/steadybit-extension-aws-1.0.0.tgz
     version: 1.0.0
+  steadybit-extension-datadog:
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
+    created: "2022-10-28T09:21:14.170068681Z"
+    description: Steadybit Kubernetes extension Helm chart for Datadog.
+    digest: ca33bbe71f325ae38592dd5f511b6629c55ef44521e2301a15fe4fdced62ce01
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: ben.blackmore@steadybit.com
+      name: bripkens
+    name: steadybit-extension-datadog
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-extension-datadog-1.0.0/steadybit-extension-datadog-1.0.0.tgz
+    version: 1.0.0
   steadybit-extension-kong:
   - annotations:
       artifacthub.io/images: |
@@ -2482,4 +2508,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-19T12:47:21.09917762Z"
+generated: "2022-10-28T09:21:14.170969889Z"
