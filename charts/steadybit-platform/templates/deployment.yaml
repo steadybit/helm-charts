@@ -110,6 +110,11 @@ spec:
               value: {{ .Values.platform.tenant.key | quote }}
             - name: STEADYBIT_TENANT_NAME
               value: {{ .Values.platform.tenant.name | quote }}
+            - name: STEADYBIT_TENANT_LICENSE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "steadybit-platform.fullname" . }}-license
+                  key: license
             {{- end }}
             - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
               value: {{ .Values.platform.publicWebsocketPort | quote }}
