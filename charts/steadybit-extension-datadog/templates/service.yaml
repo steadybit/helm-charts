@@ -13,7 +13,7 @@ metadata:
         "extensions": [
           {
             "port": 8090,
-            "types": ["ACTION", "DISCOVERY"]
+            "types": ["action", "discovery", "event"]
           }
         ]
       }
