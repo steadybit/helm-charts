@@ -33,6 +33,8 @@ spec:
           env:
             - name: STEADYBIT_LOG_LEVEL
               value: {{ .Values.logging.level | quote }}
+            - name: STEADYBIT_LOG_FORMAT
+              value: {{ .Values.logging.format | quote }}
             - name: STEADYBIT_EXTENSION_API_KEY
               valueFrom:
                 secretKeyRef:

@@ -26,6 +26,8 @@ image:
 logging:
   # logging.level -- The active log level. Valid values are: TRACE, DEBUG, INFO, WARN, ERROR
   level: INFO
+  # logging.format -- The format of the log entries. One of text, json
+  format: text
 
 resources:
   requests:
