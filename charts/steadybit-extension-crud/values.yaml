@@ -1,0 +1,61 @@
+# Default values for steadybit-extension-crud.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  # image.name -- The container image to use for the steadybit CRUD extension.
+  name: steadybit/extension-crud
+  # image.tag -- tag name of the extension-crud container image to use.
+  # See https://hub.docker.com/r/steadybit/extension-crud for all tags.
+  tag: latest
+  # image.pullPolicy -- Specifies when to pull the image container.
+  pullPolicy: Always
+
+logging:
+  # logging.level -- The active log level. Valid values are: TRACE, DEBUG, INFO, WARN, ERROR
+  level: INFO
+  # logging.format -- The format of the log entries. One of text, json
+  format: text
+
+deployment:
+  # deployment.name -- Change the name of the created Kubernetes deployment.
+  name: steadybit-extension-crud
+
+service:
+  # service.name -- Change the name of the created Kubernetes service.
+  name: steadybit-extension-crud
+
+crud:
+  # crud.instanceName -- Description name for this CRUD extension instance. Results in a created target attribute.
+  instanceName: "Dog Shelter"
+  # crud.targetType -- The technical key of the targets created through this extension.
+  targetType: "dog"
+  # crud.targetTypeLabel -- The human-readable label of the target type created through this extension.
+  targetTypeLabel: "Dog"
+
+resources:
+  requests:
+    # resources.requests.memory -- The minimal amount of memory needed
+    memory: "64Mi"
+    # resources.requests.cpu -- The minimal amount of cpu shares needed
+    cpu: "50m"
+  limits:
+    # resources.limits.memory -- The limit of memory to be used
+    memory: "128Mi"
+    # resources.limits.cpu -- The limit of cpu share to be used during its interval
+    cpu: "200m"
+
+# extra labels to apply to the Kubernetes resources
+extraLabels: {}
+
+# nodeSelector -- Node labels for pod assignment
+nodeSelector: {}
+
+# tolerations -- Tolerations to influence pod assignment
+tolerations: []
+
+# topologySpreadConstraints -- Spread constraints to influence pod assignment.
+# https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+topologySpreadConstraints: []
+
+# affinity -- Affinities to influence pod assignment.
+affinity: {}
