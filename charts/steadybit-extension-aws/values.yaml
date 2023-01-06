@@ -1,13 +1,18 @@
 # Default values for steadybit-extension-aws.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+aws:
+  # aws.assumeRoles -- List of AWS IAM roles the extension should assume. You can use `--set aws.assumeRoles="{ARN1,ARN2}"` to set this value via the Helm CLI.
+  assumeRoles: []
+
 image:
   # image.name -- The container image to use for the steadybit AWS extension.
   name: steadybit/extension-aws
   # image.tag -- tag name of the extension-aws container image to use.
   # See https://hub.docker.com/r/steadybit/extension-aws for all tags.
   tag: latest
-  # image.pullPolicy -- Specifies when to pull the image container.
+  # image.pullPolicy -- Specifies when to pull the image.
   pullPolicy: Always
 
 logging:
@@ -33,7 +38,7 @@ serviceAccount:
   create: true
   # serviceAccount.name -- The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template.
   name: steadybit-extension-aws
-  # serviceAccount.eksRoleArn -- The arn of the IAM role - [see aws docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)
+  # serviceAccount.eksRoleArn -- The arn of the IAM role - [see AWS docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)
   eksRoleArn: null
 
 # extra labels to apply to the Kubernetes resources

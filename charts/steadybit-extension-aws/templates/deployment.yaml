@@ -21,6 +21,8 @@ spec:
         - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: steadybit-extension-aws
+          ports:
+            - containerPort: 8085
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }}
@@ -33,6 +35,8 @@ spec:
               value: {{ .Values.logging.level | quote }}
             - name: STEADYBIT_LOG_FORMAT
               value: {{ .Values.logging.format | quote }}
+            - name: STEADYBIT_EXTENSION_ASSUME_ROLES
+              value: {{ join "," .Values.aws.assumeRoles | quote }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
