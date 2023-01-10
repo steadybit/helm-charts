@@ -253,3 +253,26 @@ checks if a volumne extra-cert is avaiable
   {{- end -}}
   {{- $result -}}
 {{- end -}}
+
+{{/*
+extra volumes for extension mTLS certificates
+*/}}
+{{- define "volumesForExtensionMutualTlsCertificates" -}}
+{{- range .Values.agent.extensions.mutualTls.certificates.fromSecrets }}
+- name: "extension-cert-{{ . }}"
+  secret:
+    secretName: {{ . | quote }}
+    optional: false
+{{- end -}}
+{{- end -}}
+
+{{/*
+volume mounts for extension mTLS certificates
+*/}}
+{{- define "volumeMountsForExtensionMutualTlsCertificates" -}}
+{{- range .Values.agent.extensions.mutualTls.certificates.fromSecrets }}
+- name: "extension-cert-{{ . }}"
+  mountPath: "/opt/steadybit/agent/etc/extension-mtls/{{ . }}"
+  readOnly: true
+{{- end -}}
+{{- end -}}
