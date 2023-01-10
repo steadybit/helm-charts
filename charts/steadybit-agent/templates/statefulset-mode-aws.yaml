@@ -136,6 +136,7 @@ spec:
             - name: tmp-dir
               mountPath: /tmp
             {{- end }}
+            {{-  include "volumeMountsForExtensionMutualTlsCertificates" . | nindent 12 }}
             {{- if eq (include "steadybit-agent.hasVolumeExtraCerts" . ) "true" }}
             - name: extra-certs
               mountPath: /opt/steadybit/agent/etc/extra-certs
@@ -166,6 +167,7 @@ spec:
           emptyDir:
             medium: Memory
         {{- end }}
+        {{-  include "volumesForExtensionMutualTlsCertificates" . | nindent 8 }}
 {{- with .Values.agent.extraVolumes  }}
 {{ toYaml . | indent 8 }}
 {{- end }}

@@ -80,6 +80,19 @@ agent:
   # agent.prometheus.scrape -- Controls the `prometheus.io/scrape` pod annotation which controls whether Prometheus will automatically scrape metrics from agent pods.
   prometheus:
     scrape: true
+  extensions:
+    mutualTls:
+      certificates:
+        # agent.extensions.mutualTls.certificates.fromSecrets -- Can be set to the names of TLS secrets existing within the same namespace as the agent.
+        # All referenced secrets will be mounted within the agent containers and can be used for mutual TLS in extension communication.
+        #
+        # The file paths will be the following (you will need this for extension configuration):
+        #   /opt/steadybit/agent/etc/extension-mtls/{secret name}/tls.crt
+        #   /opt/steadybit/agent/etc/extension-mtls/{secret name}/tls.key
+        #
+        # Note that the extensions will need to be configured to report these file paths to the agent. Without this, the agent will not activate
+        # mTLS for its communication.
+        fromSecrets: []
 
 cluster:
   # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit (required with agent.mode = default)
