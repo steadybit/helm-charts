@@ -15,6 +15,18 @@ image:
   # image.pullPolicy -- Specifies when to pull the image.
   pullPolicy: Always
 
+tls:
+  server:
+    certificate:
+      # tls.server.certificate.fromSecret -- The name of the secret containing the TLS certificate for the extension. The extension will then create
+      # an HTTPS server instead of an HTTP server.
+      fromSecret: null
+  client:
+    certificates:
+      # tls.client.certificates.fromSecrets -- List of secret names containing TLS certificates for the extension to trust. The extension will require
+      # clients to authenticate using one of these certificates. In essence, this will enable mutual TLS.
+      fromSecrets: []
+
 logging:
   # logging.level -- The active log level. Valid values are: TRACE, DEBUG, INFO, WARN, ERROR
   level: INFO
