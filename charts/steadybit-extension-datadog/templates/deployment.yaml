@@ -55,6 +55,29 @@ spec:
                 secretKeyRef:
                   name: {{ include "secret.name" . }}
                   key: site-url
+            {{- if .Values.tls.server.certificate.fromSecret }}
+            - name: STEADYBIT_EXTENSION_TLS_SERVER_CERT
+              value: "/etc/extension/certificates/{{ .Values.tls.server.certificate.fromSecret }}/tls.crt"
+            - name: STEADYBIT_EXTENSION_TLS_SERVER_KEY
+              value: "/etc/extension/certificates/{{ .Values.tls.server.certificate.fromSecret }}/tls.key"
+            {{- end }}
+            {{- if .Values.tls.client.certificates.fromSecrets }}
+            - name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
+              value: "/etc/extension/certificates/{{ join "/tls.crt,/etc/extension/certificates/" .Values.tls.client.certificates.fromSecrets }}/tls.crt"
+            {{- end }}
+          volumeMounts:
+            {{ range uniq (without (append .Values.tls.client.certificates.fromSecrets .Values.tls.server.certificate.fromSecret) nil) }}
+            - name: "certificate-{{ . }}"
+              mountPath: "/etc/extension/certificates/{{ . }}"
+              readOnly: true
+            {{ end }}
+      volumes:
+        {{ range without (append .Values.tls.client.certificates.fromSecrets .Values.tls.server.certificate.fromSecret) nil | uniq }}
+        - name: "certificate-{{ . }}"
+          secret:
+            secretName: {{ . | quote }}
+            optional: false
+        {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
