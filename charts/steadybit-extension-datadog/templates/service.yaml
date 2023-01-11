@@ -13,7 +13,24 @@ metadata:
         "extensions": [
           {
             "port": 8090,
-            "types": ["action", "discovery", "event"]
+            "types": ["action", "discovery", "event"],
+            "tls": {
+              {{- if .Values.tls.server.certificate.fromSecret }}
+              "server": {
+                "extraCertsFile": "/opt/steadybit/agent/etc/extension-mtls/{{ .Values.tls.server.certificate.fromSecret }}/tls.crt"
+              {{ if .Values.tls.client.certificates.fromSecrets -}}
+              },
+              {{- else -}}
+              }
+              {{- end -}}
+              {{- end }}
+              {{ if .Values.tls.client.certificates.fromSecrets -}}
+              "client": {
+                "certChainFile": "/opt/steadybit/agent/etc/extension-mtls/{{ first .Values.tls.client.certificates.fromSecrets }}/tls.crt",
+                "certKeyFile": "/opt/steadybit/agent/etc/extension-mtls/{{ first .Values.tls.client.certificates.fromSecrets }}/tls.key"
+              }
+              {{- end }}
+            }
           }
         ]
       }
