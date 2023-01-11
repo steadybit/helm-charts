@@ -1363,6 +1363,31 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: latest
+    created: "2023-01-11T11:40:38.753531868Z"
+    description: Steadybit AWS extension Helm chart for Kubernetes.
+    digest: 53505ed4f1c5333d7740b62209c3b4b516798498ee2e36ebfa4e02ffed7806e1
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: ben.blackmore@steadybit.com
+      name: bripkens
+    name: steadybit-extension-aws
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-extension-aws-1.7.0/steadybit-extension-aws-1.7.0.tgz
+    version: 1.7.0
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
     created: "2023-01-06T09:35:04.244981451Z"
     description: Steadybit AWS extension Helm chart for Kubernetes.
     digest: ff821d392770730713dce8efa133831fb30438be10450cd45ef25cf7a16a7b64
@@ -2809,4 +2834,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-10T15:00:23.22481354Z"
+generated: "2023-01-11T11:40:38.754521073Z"
