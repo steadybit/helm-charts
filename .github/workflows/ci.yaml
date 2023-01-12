@@ -30,6 +30,10 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.1
 
+      - name: Add unit testing plugin
+        run: |
+          helm plugin install https://github.com/quintush/helm-unittest
+
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
@@ -44,3 +48,6 @@ jobs:
         run: ct lint --target-branch $GITHUB_BASE_REF
         env:
           GITHUB_BASE_REF: $github.base_ref
+
+      - name: Run unit tests
+        run: ./bin/run-unit_tests.sh

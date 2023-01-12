@@ -1,0 +1,5 @@
+apiVersion: v2
+name: extensionlib
+description: Helm library for Steadybit extensions.
+type: library
+version: 1.0.0

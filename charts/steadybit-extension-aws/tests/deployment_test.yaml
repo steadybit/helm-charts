@@ -1,0 +1,22 @@
+templates:
+  - deployment.yaml
+tests:
+  - it: manifest should match snapshot
+    set:
+      aws:
+        assumeRoles:
+          - arn:aws:iam::123456789012:role/role1
+          - arn:aws:iam::123456789012:role/role2
+      serviceAccount:
+        eksRoleArn: arn:aws:iam::123456789012:role/eks-role
+      tls:
+        server:
+          certificate:
+            fromSecret: server-cert
+        client:
+          certificates:
+            fromSecrets:
+              - client-cert-a
+              - client-cert-a
+    asserts:
+      - matchSnapshot: {}

@@ -1,4 +1,18 @@
 ## Test and Lint
 
-- Install chart-testing on MacOs `brew install chart-testing yamllint`
-- Lint: `ct lint --target-branch main`
+### Installation
+
+```sh
+$ brew install chart-testing yamllint
+$ helm plugin install https://github.com/quintush/helm-unittest
+```
+
+### Execution
+
+```sh
+# unit testing
+helm unittest --helm3 ./charts/{chart-name}
+
+# linting
+$ ct lint --target-branch main
+```
