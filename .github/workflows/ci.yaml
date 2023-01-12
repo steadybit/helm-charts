@@ -50,4 +50,4 @@ jobs:
           GITHUB_BASE_REF: $github.base_ref
 
       - name: Run unit tests
-        run: ./bin/run-unit_tests.sh
+        run: ./bin/run_unit_tests.sh
