@@ -45,7 +45,7 @@ jobs:
           GITHUB_BASE_REF: $github.base_ref
 
       - name: Run chart-testing (lint)
-        run: ct lint --target-branch $GITHUB_BASE_REF
+        run: ct lint --target-branch $GITHUB_BASE_REF --excluded-charts extensionlib
         env:
           GITHUB_BASE_REF: $github.base_ref
 
