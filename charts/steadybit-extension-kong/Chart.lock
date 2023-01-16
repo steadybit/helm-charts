@@ -1,0 +1,6 @@
+dependencies:
+- name: extensionlib
+  repository: file://../extensionlib
+  version: 1.0.0
+digest: sha256:25c27e780512a09b14e189ee6f4aa8b89ac28077f43fec58d37302e6328ac023
+generated: "2023-01-12T14:20:01.229759+01:00"
