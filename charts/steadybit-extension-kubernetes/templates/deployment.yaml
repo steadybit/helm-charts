@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: steadybit-extension-kubernetes
+  name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
   {{- range $key, $value := .Values.extraLabels }}
@@ -11,16 +11,16 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: steadybit-extension-kubernetes
+      app.kubernetes.io/name: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: steadybit-extension-kubernetes
+        app.kubernetes.io/name: {{ .Release.Name }}
     spec:
       containers:
         - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          name: steadybit-extension-kubernetes
+          name: {{ .Release.Name }}
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }}
@@ -29,10 +29,11 @@ spec:
               memory: {{ .Values.resources.limits.memory }}
               cpu: {{ .Values.resources.limits.cpu }}
           env:
-            - name: STEADYBIT_LOG_LEVEL
-              value: {{ .Values.logging.level | quote }}
-            - name: STEADYBIT_LOG_FORMAT
-              value: {{ .Values.logging.format | quote }}
+            {{- include "extensionlib.deployment.env" (list .) | nindent 12 }}
+          volumeMounts:
+            {{- include "extensionlib.deployment.volumeMounts" (list .) | nindent 12 }}
+      volumes:
+        {{- include "extensionlib.deployment.volumes" (list .) | nindent 8 }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
