@@ -27,7 +27,7 @@ manifest should match snapshot with TLS:
             - name: STEADYBIT_EXTENSION_TLS_SERVER_KEY
               value: /etc/extension/certificates/server-cert/tls.key
             - name: STEADYBIT_EXTENSION_CLUSTERNAME
-              value: null
+              value: test
             image: steadybit/extension-kubernetes:latest
             imagePullPolicy: Always
             name: RELEASE-NAME
@@ -79,7 +79,7 @@ manifest should match snapshot with mutual TLS:
             - name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
               value: /etc/extension/certificates/client-cert-a/tls.crt,/etc/extension/certificates/client-cert-a/tls.crt
             - name: STEADYBIT_EXTENSION_CLUSTERNAME
-              value: null
+              value: test
             image: steadybit/extension-kubernetes:latest
             imagePullPolicy: Always
             name: RELEASE-NAME
