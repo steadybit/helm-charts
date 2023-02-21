@@ -20,4 +20,12 @@ rules:
       - list
       - watch
       - patch
+  - apiGroups: [""]
+    resources:
+      - services
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
 {{- end }}
