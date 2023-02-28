@@ -30,7 +30,7 @@ spec:
               cpu: {{ .Values.resources.limits.cpu }}
           env:
             {{- include "extensionlib.deployment.env" (list .) | nindent 12 }}
-            - name: STEADYBIT_EXTENSION_CLUSTERNAME
+            - name: STEADYBIT_EXTENSION_CLUSTER_NAME
               value: {{ .Values.kubernetes.clusterName | quote }}
           volumeMounts:
             {{- include "extensionlib.deployment.volumeMounts" (list .) | nindent 12 }}
