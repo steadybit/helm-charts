@@ -83,17 +83,6 @@ app.kubernetes.io/name: {{ include "steadybit-agent.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
-{{/*
-Generates the dockerconfig for the credentials to pull from docker.steadybit.io.
-*/}}
-{{- define "imagePullSecretDockerRegistry" }}
-{{- $registry := default "docker.steadybit.io" .Values.image.registry.url -}}
-{{- $username := default "_" .Values.image.registry.user -}}
-{{- $password := default .Values.agent.key .Values.image.registry.password -}}
-{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" $registry (printf "%s:%s" $username $password | b64enc) | b64enc }}
-{{- end }}
-
-
 {{- define "defaultedRuntime" -}}
 {{- if or .Values.agent.openshift (.Capabilities.APIVersions.Has "apps.openshift.io/v1") -}}
     {{- default "crio" .Values.agent.containerRuntime -}}
