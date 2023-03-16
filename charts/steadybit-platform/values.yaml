@@ -135,9 +135,9 @@ affinity: {}
 resources:
   requests:
     # resources.requests.memory -- The minimal amount of memory needed
-    memory: "1Gi"
+    memory: "2Gi"
     # resources.requests.cpu -- The minimal amount of cpu shares needed
-    cpu: "1000m"
+    cpu: "2000m"
   limits:
     # resources.limits.memory -- The limit of memory to be used
     memory: "4Gi"
