@@ -25,6 +25,7 @@ rules:
       - services
       - pods
       - nodes
+      - events
     verbs:
       - get
       - list
