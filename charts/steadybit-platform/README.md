@@ -110,7 +110,7 @@ By default, the Steadybit platform exposes the ingress (agent communication into
 
 To enable port splitting, you need to set the following values:
 
- - `platform.portSplit.portSplit.enabled=true` to start a sidecar container that implements port splitting.
+ - `platform.portSplit.enabled=true` to start a sidecar container that implements port splitting.
  - `platform.ingressOrigin=https://ingress.steadybit.example.com` to add additional configuration to the Steadybit platform so that it can generate the correct agent configuration values.
  - `ingress.enabled=false` to disable the automatic creation of Kubernetes ingress configurations.
 
