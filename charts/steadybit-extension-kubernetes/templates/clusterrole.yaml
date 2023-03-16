@@ -24,6 +24,7 @@ rules:
     resources:
       - services
       - pods
+      - nodes
     verbs:
       - get
       - list
