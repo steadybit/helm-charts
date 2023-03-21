@@ -1,0 +1,23 @@
+{{- if not .Values.outpost.key -}}
+##############################################################################
+####    ERROR: You did not specify your secret agent key.                 ####
+##############################################################################
+
+This outpost deployment will be incomplete until you set your agent key:
+
+    helm upgrade {{ .Release.Name }} --reuse-values \
+        --set outpost.key=$(STEADYBIT_AGENT_KEY) steadybit/steadybit-outpost
+
+- STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.com/settings/agents/setup
+
+{{- else -}}
+
+It may take a few moments for the outpost to fully deploy. You can see what agents are running by listing resources in the {{ .Release.Namespace }} namespace:
+
+    kubectl get all -n {{ .Release.Namespace }}
+
+You can get the logs for all the outposts with `kubectl logs`:
+
+    kubectl logs -l app.kubernetes.io/name={{ .Release.Name }} -n {{ .Release.Namespace }} -c steadybit-outpost
+
+{{- end }}
