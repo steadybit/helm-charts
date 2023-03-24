@@ -1,0 +1,162 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "steadybit-outpost.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "steadybit-outpost.commonLabels" . | nindent 4 }}
+    {{- range $key, $value := .Values.outpost.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+spec:
+  serviceName: steadybit-outpost
+  replicas: 1
+  selector:
+    matchLabels:
+  {{- include "steadybit-outpost.selectorLabels" . | nindent 6 }}
+  updateStrategy:
+    type: {{ .Values.updateStrategy.type }}
+    {{- if eq .Values.updateStrategy.type "RollingUpdate" }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        {{- include "steadybit-outpost.commonLabels" . | nindent 8 }}
+        {{- range $key, $value := .Values.outpost.extraLabels }}
+        {{ $key }}: {{ $value }}
+      {{- end }}
+      annotations:
+        prometheus.io/scrape: "{{ .Values.outpost.prometheus.scrape }}"
+        prometheus.io/path: "/prometheus"
+        prometheus.io/port: "{{ .Values.outpost.port }}"
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ template "steadybit-outpost.serviceAccountName" . }}
+      {{- if .Values.priorityClassName.use }}
+      priorityClassName: {{ .Values.priorityClassName.name }}
+      {{- end }}
+      containers:
+        - name: steadybit-outpost
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+          {{- if .Values.outpost.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              host: 127.0.0.1
+              port: {{ .Values.outpost.port }}
+              path: /health
+            initialDelaySeconds: {{ .Values.outpost.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.outpost.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.outpost.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.outpost.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.outpost.livenessProbe.failureThreshold }}
+          {{- end }}
+          env:
+            - name: STEADYBIT_AGENT_REGISTER_URL
+              value: {{ .Values.outpost.registerUrl | quote }}
+            - name: STEADYBIT_AGENT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "steadybit-outpost.fullname" . }}
+                  key: key
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: STEADYBIT_AGENT_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: STEADYBIT_AGENT_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STEADYBIT_AGENT_IDENTIFIER
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STEADYBIT_HTTP_ENDPOINT_PORT
+              value: {{ .Values.outpost.port | quote }}
+            - name: STEADYBIT_AGENT_WORKING_DIR
+              value: /tmp/steadybit-outpost
+            {{- if eq .Values.outpost.auth.provider "oauth2" }}
+            - name: STEADYBIT_AGENT_AUTH_PROVIDER
+              value: OAUTH2
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_ID
+              value: {{ .Values.outpost.auth.oauth2.clientId | quote }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "steadybit-outpost.fullname" . }}
+                  key: oauth2ClientSecret
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
+              value: {{ .Values.outpost.auth.oauth2.issuerUri | quote }}
+            {{- end }}
+            {{- if and (eq .Values.outpost.auth.provider "oauth2") (.Values.outpost.auth.oauth2.audience) }}
+            - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
+              value: {{ .Values.outpost.auth.oauth2.audience | quote }}
+            {{- end }}
+{{- with .Values.outpost.env }}
+{{ toYaml . | indent 12 }}
+{{- end }}
+          securityContext:
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: steadybit-outpost-state
+              mountPath: /var/lib/steadybit-outpost
+            - name: tmp-dir
+              mountPath: /tmp
+            {{-  include "volumeMountsForExtensionMutualTlsCertificates" . | nindent 12 }}
+            {{- if eq (include "steadybit-outpost.hasVolumeExtraCerts" . ) "true" }}
+            - name: extra-certs
+              mountPath: /opt/steadybit/outpost/etc/extra-certs
+            {{- end }}
+{{- with .Values.outpost.extraVolumeMounts  }}
+{{ toYaml . | indent 12 }}
+{{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      imagePullSecrets:
+        - name: {{ template "steadybit-outpost.fullname" . }}-pull-secrets
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+      volumes:
+        - name: tmp-dir
+          emptyDir:
+            medium: Memory
+        {{-  include "volumesForExtensionMutualTlsCertificates" . | nindent 8 }}
+{{- with .Values.outpost.extraVolumes  }}
+{{ toYaml . | indent 8 }}
+{{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: steadybit-outpost-state
+      spec:
+        {{- if .Values.outpost.persistence.storageClass }}
+        storageClassName: {{ .Values.outpost.persistence.storageClass }}
+        {{- end }}
+        accessModes:
+          - {{ .Values.outpost.persistence.accessMode }}
+        resources:
+          requests:
+            storage: {{ .Values.outpost.persistence.size }}

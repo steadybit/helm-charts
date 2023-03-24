@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "extensionlib.names.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
   {{- range $key, $value := .Values.extraLabels }}
@@ -11,16 +11,16 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ include "extensionlib.names.name" . }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ .Release.Name }}
+        app.kubernetes.io/name: {{ include "extensionlib.names.name" . }}
     spec:
       containers:
         - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          name: {{ .Release.Name }}
+          name: extension-prometheus
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }}
@@ -38,12 +38,12 @@ spec:
             - name: STEADYBIT_EXTENSION_PROMETHEUS_INSTANCE_0_HEADER_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Release.Name }}-header
+                  name: {{ include "extensionlib.names.name" . }}-header
                   key: key
             - name: STEADYBIT_EXTENSION_PROMETHEUS_INSTANCE_0_HEADER_VALUE
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Release.Name }}-header
+                  name: {{ include "extensionlib.names.name" . }}-header
                   key: value
                       {{- end }}
           volumeMounts:

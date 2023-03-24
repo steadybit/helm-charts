@@ -4,17 +4,17 @@ manifest should match snapshot with TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-aws
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-extension-aws
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: steadybit-extension-aws
         spec:
           containers:
           - env:
@@ -30,7 +30,7 @@ manifest should match snapshot with TLS:
               value: ""
             image: steadybit/extension-aws:latest
             imagePullPolicy: Always
-            name: RELEASE-NAME
+            name: extension-aws
             ports:
             - containerPort: 8085
             resources:
@@ -56,17 +56,17 @@ manifest should match snapshot with mutual TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-aws
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-extension-aws
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: steadybit-extension-aws
         spec:
           containers:
           - env:
@@ -84,7 +84,7 @@ manifest should match snapshot with mutual TLS:
               value: ""
             image: steadybit/extension-aws:latest
             imagePullPolicy: Always
-            name: RELEASE-NAME
+            name: extension-aws
             ports:
             - containerPort: 8085
             resources:
@@ -117,17 +117,17 @@ manifest should match snapshot without TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-aws
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-extension-aws
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: steadybit-extension-aws
         spec:
           containers:
           - env:
@@ -139,7 +139,7 @@ manifest should match snapshot without TLS:
               value: ""
             image: steadybit/extension-aws:latest
             imagePullPolicy: Always
-            name: RELEASE-NAME
+            name: extension-aws
             ports:
             - containerPort: 8085
             resources:

@@ -13,7 +13,7 @@ This takes an array of these values:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $top.Release.Name }}
+  name: {{ include "extensionlib.names.fullname" $top }}
   namespace: {{ $top.Release.Namespace }}
   labels:
   {{- range $key, $value := $top.Values.extraLabels }}
@@ -48,7 +48,7 @@ metadata:
       }
 spec:
   selector:
-    app.kubernetes.io/name: {{ $top.Release.Name }}
+    app.kubernetes.io/name: {{ include "extensionlib.names.name" $top }}
   ports:
     - protocol: TCP
       port: {{ $port }}

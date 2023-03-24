@@ -4,17 +4,17 @@ manifest should match snapshot with TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-crud
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: RELEASE-NAME-steadybit-extension-crud
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: RELEASE-NAME-steadybit-extension-crud
         spec:
           containers:
           - env:
@@ -36,7 +36,7 @@ manifest should match snapshot with TLS:
               value: Dog
             image: steadybit/extension-crud:latest
             imagePullPolicy: Always
-            name: steadybit-extension-crud
+            name: extension-crud
             resources:
               limits:
                 cpu: 200m
@@ -59,17 +59,17 @@ manifest should match snapshot with mutual TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-crud
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: RELEASE-NAME-steadybit-extension-crud
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: RELEASE-NAME-steadybit-extension-crud
         spec:
           containers:
           - env:
@@ -93,7 +93,7 @@ manifest should match snapshot with mutual TLS:
               value: Dog
             image: steadybit/extension-crud:latest
             imagePullPolicy: Always
-            name: steadybit-extension-crud
+            name: extension-crud
             resources:
               limits:
                 cpu: 200m
@@ -123,17 +123,17 @@ manifest should match snapshot without TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-crud
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: RELEASE-NAME-steadybit-extension-crud
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: RELEASE-NAME-steadybit-extension-crud
         spec:
           containers:
           - env:
@@ -151,7 +151,7 @@ manifest should match snapshot without TLS:
               value: Dog
             image: steadybit/extension-crud:latest
             imagePullPolicy: Always
-            name: steadybit-extension-crud
+            name: extension-crud
             resources:
               limits:
                 cpu: 200m

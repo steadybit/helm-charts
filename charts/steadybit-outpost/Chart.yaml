@@ -1,0 +1,52 @@
+apiVersion: v2
+name: steadybit-outpost
+description: steadybit outpost Helm chart for Kubernetes.
+version: 0.1.0
+appVersion: latest
+home: https://www.steadybit.com/
+icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+maintainers:
+  - email: johannes.edmeier@steadybit.com
+    name: joshiste
+sources:
+  - https://github.com/steadybit/helm-charts
+annotations:
+  artifacthub.io/images: |
+    - name: logo
+      image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+  artifacthub.io/links: |-
+    - name: steadybit website
+      url: https://www.steadybit.com
+    - name: steadybit Kubernetes Helm charts
+      url: https://github.com/steadybit/helm-charts
+dependencies:
+  - name: steadybit-extension-kubernetes
+    version: ^1.4.5
+    repository: file://../steadybit-extension-kubernetes
+    alias: extension-kubernetes
+    condition: extension-kubernetes.enabled
+  - name: steadybit-extension-kong
+    version: ^1.6.2
+    repository: file://../steadybit-extension-kong
+    alias: extension-kong
+    condition: extension-kong.enabled
+  - name: steadybit-extension-prometheus
+    version: ^1.4.1
+    repository: file://../steadybit-extension-prometheus
+    alias: extension-prometheus
+    condition: extension-prometheus.enabled
+  - name: steadybit-extension-postman
+    version: ^1.6.1
+    repository: file://../steadybit-extension-postman
+    alias: extension-postman
+    condition: extension-postman.enabled
+  - name: steadybit-extension-datadog
+    version: ^1.4.1
+    repository: file://../steadybit-extension-datadog
+    alias: extension-datadog
+    condition: extension-datadog.enabled
+  - name: steadybit-extension-aws
+    version: ^1.9.1
+    repository: file://../steadybit-extension-aws
+    alias: extension-aws
+    condition: extension-aws.enabled

@@ -1,0 +1,148 @@
+# Default values for steadybit-outpost.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+outpost:
+  # outpost.key -- The secret token which your outpost uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup.
+  key: null
+  auth:
+    # outpost.auth.provider -- `agent-key` or `oauth2`
+    provider: agent-key
+    # outpost.auth.oauth2.* -- additional settings if `outpost.auth.provider` is set to `oauth2`
+    oauth2:
+      clientId: null
+      clientSecret: null
+      issuerUri: null
+      # outpost.auth.oauth2.audience -- optional
+      audience: null
+  # outpost.registerUrl -- The URL of the steadybit server your outposts will connect to.
+  registerUrl: https://platform.steadybit.io
+  # outpost.extraVolumes -- Additional volumes to which the outpost container will be mounted.
+  extraVolumes: []
+  # outpost.extraVolumeMounts -- Additional volumeMountss to which the outpost container will be mounted.
+  extraVolumeMounts: []
+  # outpost.port -- configure the port of the outpost's HTTP endpoints (expose health and debugging information)
+  port: 42899
+  # outpost.env -- Additional environment variables for the steadybit outpost
+  env: []
+  # outpost.extraLabels -- Additional labels
+  extraLabels: {}
+  # outpost.leaderElection -- On kubernetes <= 1.11 you we need to use configmaps for the leader election. Valid values: leases, configmaps
+  leaderElection: leases
+  # outpost.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the outpost daemonset
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 300
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 5
+    successThreshold: 1
+  proxy:
+  # outpost.proxy.host sets the STEADYBIT_AGENT_PROXY_HOST environment variable.
+    host: null
+    # outpost.proxy.port sets the STEADYBIT_AGENT_PROXY_PORT environment variable.
+    port: 80
+    # outpost.proxy.protocol sets the STEADYBIT_AGENT_PROXY_PROTOCOL environment variable.
+    protocol: HTTP
+    # outpost.proxy.user sets the STEADYBIT_AGENT_PROXY_USER environment variable.
+    user: null
+    # outpost.proxy.password sets the STEADYBIT_AGENT_PROXY_PASSWORD environment variable.
+    password: null
+  # outpost.persistence.* -- persistence configuration. Needed for cleanup if outpost is unexpectedly terminated.
+  persistence:
+    size: 200Mi
+    accessMode: ReadWriteOnce
+    storageClass: null
+  # outpost.prometheus.scrape -- Controls the `prometheus.io/scrape` pod annotation which controls whether Prometheus will automatically scrape metrics from outpost pods.
+  prometheus:
+    scrape: true
+  extensions:
+    mutualTls:
+      certificates:
+        # outpost.extensions.mutualTls.certificates.fromSecrets -- Can be set to the names of TLS secrets existing within the same namespace as the outpost.
+        # All referenced secrets will be mounted within the outpost containers and can be used for mutual TLS in extension communication.
+        #
+        # The file paths will be the following (you will need this for extension configuration):
+        #   /opt/steadybit/outpost/etc/extension-mtls/{secret name}/tls.crt
+        #   /opt/steadybit/outpost/etc/extension-mtls/{secret name}/tls.key
+        #
+        # Note that the extensions will need to be configured to report these file paths to the outpost. Without this, the outpost will not activate
+        # mTLS for its communication.
+        fromSecrets: []
+
+image:
+  # image.name -- The container image to use of the steadybit outpost.
+  name: steadybit/outpost
+  # image.tag -- tag name of the outpost container image to use.
+  tag: latest
+  # image.pullPolicy -- Specifies when to pull the image container.
+  pullPolicy: Always
+  pullSecrets: []
+
+priorityClassName:
+  # priorityClassName.use -- use a priorityClassName
+  use: false
+  # priorityClassName.name -- The name of the priority class to be used
+  name: high-priority
+
+resources:
+  requests:
+    # resources.requests.memory -- The minimal amount of memory needed
+    memory: "250Mi"
+    # resources.requests.cpu -- The minimal amount of cpu shares needed
+    cpu: "125m"
+  limits:
+    # resources.limits.memory -- The limit of memory to be used
+    memory: "500Mi"
+    # resources.limits.cpu -- The limit of cpu share to be used during its interval
+    cpu: "1000m"
+
+updateStrategy:
+  # updateStrategy.type -- Which type of `updateStrategy` should be used.
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+
+rbac:
+  # rbac.create -- Specifies whether RBAC resources should be created.
+  create: true
+  # rbac.readonly -- Specifies if Kubernetes API access should only be read only.
+  readonly: false
+
+serviceAccount:
+  # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
+  create: true
+  # serviceAccount.name -- The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template.
+  name: steadybit-outpost
+  # serviceAccount.eksRoleArn -- The arn of the IAM role - [see aws docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)
+  eksRoleArn: null
+
+# podAnnotations -- Additional annotations to be added to the outpost pods.
+podAnnotations: {}
+
+# nodeSelector -- Node labels for pod assignment
+nodeSelector: {}
+
+# tolerations -- Tolerations to influence outpost pod assignment.
+tolerations: []
+
+# affinity -- Affinities to influence outpost pod assignment.
+affinity: {}
+
+extension-kubernetes:
+  enabled: true
+
+extension-kong:
+  enabled: false
+
+extension-prometheus:
+  enabled: false
+
+extension-postman:
+  enabled: false
+
+extension-datadog:
+  enabled: false
+
+extension-aws:
+  enabled: false
