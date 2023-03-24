@@ -7,7 +7,7 @@ home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
 maintainers:
   - email: johannes.edmeier@steadybit.com
-    name: jedmeier
+    name: joshiste
 sources:
   - https://github.com/steadybit/helm-charts
 annotations:
