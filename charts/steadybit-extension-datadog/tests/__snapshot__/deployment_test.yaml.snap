@@ -4,17 +4,17 @@ manifest should match snapshot with TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-datadog
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-extension-datadog
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: steadybit-extension-datadog
         spec:
           containers:
           - env:
@@ -48,7 +48,7 @@ manifest should match snapshot with TLS:
                   name: steadybit-extension-datadog
             image: steadybit/extension-datadog:latest
             imagePullPolicy: Always
-            name: RELEASE-NAME
+            name: extension-datadog
             ports:
             - containerPort: 8090
             resources:
@@ -73,17 +73,17 @@ manifest should match snapshot with mutual TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-datadog
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-extension-datadog
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: steadybit-extension-datadog
         spec:
           containers:
           - env:
@@ -119,7 +119,7 @@ manifest should match snapshot with mutual TLS:
                   name: steadybit-extension-datadog
             image: steadybit/extension-datadog:latest
             imagePullPolicy: Always
-            name: RELEASE-NAME
+            name: extension-datadog
             ports:
             - containerPort: 8090
             resources:
@@ -151,17 +151,17 @@ manifest should match snapshot without TLS:
     kind: Deployment
     metadata:
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-datadog
       namespace: NAMESPACE
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app.kubernetes.io/name: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-extension-datadog
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: RELEASE-NAME
+            app.kubernetes.io/name: steadybit-extension-datadog
         spec:
           containers:
           - env:
@@ -191,7 +191,7 @@ manifest should match snapshot without TLS:
                   name: steadybit-extension-datadog
             image: steadybit/extension-datadog:latest
             imagePullPolicy: Always
-            name: RELEASE-NAME
+            name: extension-datadog
             ports:
             - containerPort: 8090
             resources:

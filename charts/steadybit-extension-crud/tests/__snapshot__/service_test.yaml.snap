@@ -9,7 +9,7 @@ manifest should match snapshot with TLS:
           {\n          \"extraCertsFile\": \"/opt/steadybit/agent/etc/extension-mtls/server-cert/tls.crt\"\n
           \       }\n        \n      }\n    }\n  ]\n}\n"
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-crud
       namespace: NAMESPACE
     spec:
       ports:
@@ -17,7 +17,7 @@ manifest should match snapshot with TLS:
         protocol: TCP
         targetPort: 8080
       selector:
-        app.kubernetes.io/name: RELEASE-NAME
+        app.kubernetes.io/name: steadybit-extension-crud
 manifest should match snapshot with mutual TLS:
   1: |
     apiVersion: v1
@@ -43,7 +43,7 @@ manifest should match snapshot with mutual TLS:
             ]
           }
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-crud
       namespace: NAMESPACE
     spec:
       ports:
@@ -51,7 +51,7 @@ manifest should match snapshot with mutual TLS:
         protocol: TCP
         targetPort: 8080
       selector:
-        app.kubernetes.io/name: RELEASE-NAME
+        app.kubernetes.io/name: steadybit-extension-crud
 manifest should match snapshot without TLS:
   1: |
     apiVersion: v1
@@ -62,7 +62,7 @@ manifest should match snapshot without TLS:
           8080,\n      \"types\": [\"ACTION\",\"DISCOVERY\"],\n      \"tls\": {\n        \n
           \     }\n    }\n  ]\n}\n"
       labels: null
-      name: RELEASE-NAME
+      name: RELEASE-NAME-steadybit-extension-crud
       namespace: NAMESPACE
     spec:
       ports:
@@ -70,4 +70,4 @@ manifest should match snapshot without TLS:
         protocol: TCP
         targetPort: 8080
       selector:
-        app.kubernetes.io/name: RELEASE-NAME
+        app.kubernetes.io/name: steadybit-extension-crud
