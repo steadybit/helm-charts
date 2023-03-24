@@ -2947,6 +2947,62 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: latest
+    created: "2023-03-24T15:25:32.18867718Z"
+    dependencies:
+    - alias: extension-kubernetes
+      condition: extension-kubernetes.enabled
+      name: steadybit-extension-kubernetes
+      repository: file://../steadybit-extension-kubernetes
+      version: ^1.4.5
+    - alias: extension-kong
+      condition: extension-kong.enabled
+      name: steadybit-extension-kong
+      repository: file://../steadybit-extension-kong
+      version: ^1.6.2
+    - alias: extension-prometheus
+      condition: extension-prometheus.enabled
+      name: steadybit-extension-prometheus
+      repository: file://../steadybit-extension-prometheus
+      version: ^1.4.1
+    - alias: extension-postman
+      condition: extension-postman.enabled
+      name: steadybit-extension-postman
+      repository: file://../steadybit-extension-postman
+      version: ^1.6.1
+    - alias: extension-datadog
+      condition: extension-datadog.enabled
+      name: steadybit-extension-datadog
+      repository: file://../steadybit-extension-datadog
+      version: ^1.4.1
+    - alias: extension-aws
+      condition: extension-aws.enabled
+      name: steadybit-extension-aws
+      repository: file://../steadybit-extension-aws
+      version: ^1.9.1
+    description: steadybit outpost Helm chart for Kubernetes.
+    digest: 8c84c0f70f122b10d5d277008c2eb6ec220a8ee335ae3a6c3ebd4b2000f2c0ae
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: johannes.edmeier@steadybit.com
+      name: joshiste
+    name: steadybit-outpost
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-outpost-1.0.0/steadybit-outpost-1.0.0.tgz
+    version: 1.0.0
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
     created: "2023-03-24T15:02:55.890325581Z"
     dependencies:
     - alias: extension-kubernetes
@@ -3678,4 +3734,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-24T15:02:55.891423885Z"
+generated: "2023-03-24T15:25:32.189343481Z"
