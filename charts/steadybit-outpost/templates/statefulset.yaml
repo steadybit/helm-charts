@@ -51,7 +51,6 @@ spec:
           {{- if .Values.outpost.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
-              host: 127.0.0.1
               port: {{ .Values.outpost.port }}
               path: /health
             initialDelaySeconds: {{ .Values.outpost.livenessProbe.initialDelaySeconds }}
@@ -110,6 +109,9 @@ spec:
 {{- end }}
           securityContext:
             readOnlyRootFilesystem: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
           volumeMounts:
             - name: steadybit-outpost-state
               mountPath: /var/lib/steadybit-outpost
