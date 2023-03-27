@@ -62,7 +62,6 @@ spec:
           {{- if .Values.agent.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
-              host: 127.0.0.1
               port: {{ .Values.agent.port }}
               path: /health
             initialDelaySeconds: {{ .Values.agent.livenessProbe.initialDelaySeconds }}
