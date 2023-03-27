@@ -31,6 +31,31 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: latest
+    created: "2023-03-27T19:59:59.618476426Z"
+    description: steadybit Agent Helm chart for Kubernetes.
+    digest: 3e8b166d2c3677c0deec881b3face2654e2cf398bab5db4dae065cdb6df80611
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: dennis.schulte@steadybit.com
+      name: denschu
+    name: steadybit-agent
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-agent-0.9.2/steadybit-agent-0.9.2.tgz
+    version: 0.9.2
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
     created: "2023-02-28T20:21:17.765897061Z"
     description: steadybit Agent Helm chart for Kubernetes.
     digest: db71aa795ad578e73252b2ea775c2bb11defc12b7f5b9ef9aaaf7f405e596ba3
@@ -2947,6 +2972,62 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: latest
+    created: "2023-03-27T19:59:59.802891701Z"
+    dependencies:
+    - alias: extension-kubernetes
+      condition: extension-kubernetes.enabled
+      name: steadybit-extension-kubernetes
+      repository: file://../steadybit-extension-kubernetes
+      version: ^1.4.5
+    - alias: extension-kong
+      condition: extension-kong.enabled
+      name: steadybit-extension-kong
+      repository: file://../steadybit-extension-kong
+      version: ^1.6.2
+    - alias: extension-prometheus
+      condition: extension-prometheus.enabled
+      name: steadybit-extension-prometheus
+      repository: file://../steadybit-extension-prometheus
+      version: ^1.4.1
+    - alias: extension-postman
+      condition: extension-postman.enabled
+      name: steadybit-extension-postman
+      repository: file://../steadybit-extension-postman
+      version: ^1.6.1
+    - alias: extension-datadog
+      condition: extension-datadog.enabled
+      name: steadybit-extension-datadog
+      repository: file://../steadybit-extension-datadog
+      version: ^1.4.1
+    - alias: extension-aws
+      condition: extension-aws.enabled
+      name: steadybit-extension-aws
+      repository: file://../steadybit-extension-aws
+      version: ^1.9.1
+    description: steadybit outpost Helm chart for Kubernetes.
+    digest: 98af9f556c36d6893a639b93c92aa1804f674816435cbb28ffa23420b8961976
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: johannes.edmeier@steadybit.com
+      name: joshiste
+    name: steadybit-outpost
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-outpost-1.0.1/steadybit-outpost-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
     created: "2023-03-24T15:25:32.18867718Z"
     dependencies:
     - alias: extension-kubernetes
@@ -3734,4 +3815,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-24T15:25:32.189343481Z"
+generated: "2023-03-27T19:59:59.803525513Z"
