@@ -30,6 +30,14 @@ spec:
             limits:
               memory: {{ .Values.resources.limits.memory }}
               cpu: {{ .Values.resources.limits.cpu }}
+          livenessProbe:
+            httpGet:
+              port: 8085
+              path: /health/liveness
+          readinessProbe:
+            httpGet:
+              port: 8085
+              path: /health/readiness
           env:
             {{- include "extensionlib.deployment.env" (list .) | nindent 12 }}
             - name: STEADYBIT_EXTENSION_ASSUME_ROLES
