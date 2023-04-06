@@ -30,9 +30,17 @@ manifest should match snapshot with TLS:
               value: ""
             image: steadybit/extension-aws:latest
             imagePullPolicy: Always
+            livenessProbe:
+              httpGet:
+                path: /health/liveness
+                port: 8085
             name: extension-aws
             ports:
             - containerPort: 8085
+            readinessProbe:
+              httpGet:
+                path: /health/readiness
+                port: 8085
             resources:
               limits:
                 cpu: 200m
@@ -84,9 +92,17 @@ manifest should match snapshot with mutual TLS:
               value: ""
             image: steadybit/extension-aws:latest
             imagePullPolicy: Always
+            livenessProbe:
+              httpGet:
+                path: /health/liveness
+                port: 8085
             name: extension-aws
             ports:
             - containerPort: 8085
+            readinessProbe:
+              httpGet:
+                path: /health/readiness
+                port: 8085
             resources:
               limits:
                 cpu: 200m
@@ -139,9 +155,17 @@ manifest should match snapshot without TLS:
               value: ""
             image: steadybit/extension-aws:latest
             imagePullPolicy: Always
+            livenessProbe:
+              httpGet:
+                path: /health/liveness
+                port: 8085
             name: extension-aws
             ports:
             - containerPort: 8085
+            readinessProbe:
+              httpGet:
+                path: /health/readiness
+                port: 8085
             resources:
               limits:
                 cpu: 200m
