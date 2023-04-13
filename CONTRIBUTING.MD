@@ -11,7 +11,7 @@ $ helm plugin install https://github.com/quintush/helm-unittest
 
 ```sh
 # unit testing
-helm unittest --helm3 ./charts/{chart-name}
+helm unittest ./charts/{chart-name}
 
 # linting
 $ ct lint --target-branch main

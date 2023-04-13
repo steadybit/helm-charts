@@ -4,18 +4,15 @@ manifest should match snapshot with TLS:
     kind: Service
     metadata:
       annotations:
-        steadybit.com/extension-auto-discovery: "{\n  \"extensions\": [\n    {\n      \"port\":
-          8090,\n      \"types\": [\"ACTION\",\"DISCOVERY\",\"EVENT\"],\n      \"tls\":
-          {\n        \"server\": {\n          \"extraCertsFile\": \"/opt/steadybit/agent/etc/extension-mtls/server-cert/tls.crt\"\n
-          \       }\n        \n      }\n    }\n  ]\n}\n"
+        steadybit.com/extension-auto-discovery: "{\n  \"extensions\": [\n    {\n      \"port\": 8090,\n      \"types\": [\"ACTION\",\"DISCOVERY\",\"EVENT\"],\n      \"tls\": {\n        \"server\": {\n          \"extraCertsFile\": \"/opt/steadybit/agent/etc/extension-mtls/server-cert/tls.crt\"\n        }\n        \n      }\n    }\n  ]\n}\n"
       labels: null
       name: RELEASE-NAME-steadybit-extension-datadog
       namespace: NAMESPACE
     spec:
       ports:
-      - port: 8090
-        protocol: TCP
-        targetPort: 8090
+        - port: 8090
+          protocol: TCP
+          targetPort: 8090
       selector:
         app.kubernetes.io/name: steadybit-extension-datadog
 manifest should match snapshot with mutual TLS:
@@ -47,9 +44,9 @@ manifest should match snapshot with mutual TLS:
       namespace: NAMESPACE
     spec:
       ports:
-      - port: 8090
-        protocol: TCP
-        targetPort: 8090
+        - port: 8090
+          protocol: TCP
+          targetPort: 8090
       selector:
         app.kubernetes.io/name: steadybit-extension-datadog
 manifest should match snapshot without TLS:
@@ -58,16 +55,14 @@ manifest should match snapshot without TLS:
     kind: Service
     metadata:
       annotations:
-        steadybit.com/extension-auto-discovery: "{\n  \"extensions\": [\n    {\n      \"port\":
-          8090,\n      \"types\": [\"ACTION\",\"DISCOVERY\",\"EVENT\"],\n      \"tls\":
-          {\n        \n      }\n    }\n  ]\n}\n"
+        steadybit.com/extension-auto-discovery: "{\n  \"extensions\": [\n    {\n      \"port\": 8090,\n      \"types\": [\"ACTION\",\"DISCOVERY\",\"EVENT\"],\n      \"tls\": {\n        \n      }\n    }\n  ]\n}\n"
       labels: null
       name: RELEASE-NAME-steadybit-extension-datadog
       namespace: NAMESPACE
     spec:
       ports:
-      - port: 8090
-        protocol: TCP
-        targetPort: 8090
+        - port: 8090
+          protocol: TCP
+          targetPort: 8090
       selector:
         app.kubernetes.io/name: steadybit-extension-datadog
