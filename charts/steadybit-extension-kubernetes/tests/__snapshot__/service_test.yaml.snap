@@ -4,18 +4,15 @@ manifest should match snapshot with TLS:
     kind: Service
     metadata:
       annotations:
-        steadybit.com/extension-auto-discovery: "{\n  \"extensions\": [\n    {\n      \"port\":
-          8088,\n      \"types\": [\"ACTION\",\"DISCOVERY\"],\n      \"tls\": {\n        \"server\":
-          {\n          \"extraCertsFile\": \"/opt/steadybit/agent/etc/extension-mtls/server-cert/tls.crt\"\n
-          \       }\n        \n      }\n    }\n  ]\n}\n"
+        steadybit.com/extension-auto-discovery: "{\n  \"extensions\": [\n    {\n      \"port\": 8088,\n      \"types\": [\"ACTION\",\"DISCOVERY\"],\n      \"tls\": {\n        \"server\": {\n          \"extraCertsFile\": \"/opt/steadybit/agent/etc/extension-mtls/server-cert/tls.crt\"\n        }\n        \n      }\n    }\n  ]\n}\n"
       labels: null
       name: RELEASE-NAME-steadybit-extension-kubernetes
       namespace: NAMESPACE
     spec:
       ports:
-      - port: 8088
-        protocol: TCP
-        targetPort: 8088
+        - port: 8088
+          protocol: TCP
+          targetPort: 8088
       selector:
         app.kubernetes.io/name: steadybit-extension-kubernetes
 manifest should match snapshot with mutual TLS:
@@ -47,9 +44,9 @@ manifest should match snapshot with mutual TLS:
       namespace: NAMESPACE
     spec:
       ports:
-      - port: 8088
-        protocol: TCP
-        targetPort: 8088
+        - port: 8088
+          protocol: TCP
+          targetPort: 8088
       selector:
         app.kubernetes.io/name: steadybit-extension-kubernetes
 manifest should match snapshot without TLS:
@@ -58,16 +55,14 @@ manifest should match snapshot without TLS:
     kind: Service
     metadata:
       annotations:
-        steadybit.com/extension-auto-discovery: "{\n  \"extensions\": [\n    {\n      \"port\":
-          8088,\n      \"types\": [\"ACTION\",\"DISCOVERY\"],\n      \"tls\": {\n        \n
-          \     }\n    }\n  ]\n}\n"
+        steadybit.com/extension-auto-discovery: "{\n  \"extensions\": [\n    {\n      \"port\": 8088,\n      \"types\": [\"ACTION\",\"DISCOVERY\"],\n      \"tls\": {\n        \n      }\n    }\n  ]\n}\n"
       labels: null
       name: RELEASE-NAME-steadybit-extension-kubernetes
       namespace: NAMESPACE
     spec:
       ports:
-      - port: 8088
-        protocol: TCP
-        targetPort: 8088
+        - port: 8088
+          protocol: TCP
+          targetPort: 8088
       selector:
         app.kubernetes.io/name: steadybit-extension-kubernetes
