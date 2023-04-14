@@ -13,10 +13,14 @@ spec:
   replicas: {{ .Values.platform.replicas }}
   minReadySeconds: {{ .Values.platform.minReadySeconds }}
   strategy:
+    {{- if eq .Values.platform.rolloutStrategy "RollingUpdate" }}
     type: RollingUpdate
     rollingUpdate:
       maxSurge: {{ .Values.platform.maxSurge }}
       maxUnavailable: {{ .Values.platform.maxUnavailable }}
+    {{- else }}
+    type: Recreate
+    {{- end }}
   selector:
     matchLabels:
       {{- include "steadybit-platform.selectorLabels" . | nindent 6 }}
@@ -30,7 +34,6 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "steadybit-platform.selectorLabels" . | nindent 8 }}
         {{- include "steadybit-platform.commonLabels" . | nindent 8 }}
         {{- range $key, $value := .Values.platform.extraLabels }}
         {{ $key }}: {{ $value }}

@@ -1,0 +1,233 @@
+manifest should support Recreate strategy:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.6.4
+        helm.sh/chart: steadybit-platform-0.6.4
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      minReadySeconds: 60
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-platform
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: /actuator/prometheus
+            prometheus.io/port: "9090"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-platform
+            app.kubernetes.io/version: 0.6.4
+            helm.sh/chart: steadybit-platform-0.6.4
+        spec:
+          containers:
+            - env:
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
+                  value: "80"
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:latest
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /api/health/liveness
+                  port: ui-port
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-platform
+              ports:
+                - containerPort: 8080
+                  name: ui-port
+                  protocol: TCP
+                - containerPort: 7878
+                  name: websocket-port
+                  protocol: TCP
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /api/health/readiness
+                  port: ui-port
+                initialDelaySeconds: 10
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
+              startupProbe:
+                failureThreshold: 200
+                httpGet:
+                  path: /api/health/liveness
+                  port: ui-port
+                initialDelaySeconds: 60
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+          imagePullSecrets:
+            - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          serviceAccountName: RELEASE-NAME-steadybit-platform
+manifest should support RollingUpdate strategy:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.6.4
+        helm.sh/chart: steadybit-platform-0.6.4
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      minReadySeconds: 60
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-platform
+      strategy:
+        rollingUpdate:
+          maxSurge: 2
+          maxUnavailable: 0
+        type: RollingUpdate
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: /actuator/prometheus
+            prometheus.io/port: "9090"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-platform
+            app.kubernetes.io/version: 0.6.4
+            helm.sh/chart: steadybit-platform-0.6.4
+        spec:
+          containers:
+            - env:
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
+                  value: "80"
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:latest
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /api/health/liveness
+                  port: ui-port
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-platform
+              ports:
+                - containerPort: 8080
+                  name: ui-port
+                  protocol: TCP
+                - containerPort: 7878
+                  name: websocket-port
+                  protocol: TCP
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /api/health/readiness
+                  port: ui-port
+                initialDelaySeconds: 10
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
+              startupProbe:
+                failureThreshold: 200
+                httpGet:
+                  path: /api/health/liveness
+                  port: ui-port
+                initialDelaySeconds: 60
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+          imagePullSecrets:
+            - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          serviceAccountName: RELEASE-NAME-steadybit-platform
