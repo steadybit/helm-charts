@@ -6,3 +6,5 @@ for dir in charts/steadybit-extension-*; do
   echo "Unit Testing $dir"
   helm unittest $dir $1
 done
+
+helm unittest charts/steadybit-platform $1

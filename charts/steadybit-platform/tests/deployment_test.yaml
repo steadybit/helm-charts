@@ -1,0 +1,12 @@
+templates:
+  - deployment.yaml
+tests:
+  - it: manifest should support Recreate strategy
+    asserts:
+      - matchSnapshot: { }
+  - it: manifest should support RollingUpdate strategy
+    set:
+      platform:
+        rolloutStrategy: RollingUpdate
+    asserts:
+      - matchSnapshot: {}

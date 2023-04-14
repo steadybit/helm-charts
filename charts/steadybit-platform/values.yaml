@@ -44,6 +44,7 @@ platform:
     # platform.portSplit.enabled -- Can be set to "true" to change the service and ingress definition in such a way that the ports are split by purpose, i.e., an ingress and a separate egress port. This comes in handy when hardening deployments / to improve package routing.
     enabled: false
   replicas: 1
+  rolloutStrategy: Recreate
   minReadySeconds: 60
   maxUnavailable: 0
   maxSurge: 2
