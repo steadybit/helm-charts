@@ -36,8 +36,8 @@ dependencies:
     alias: extension-prometheus
     condition: extension-prometheus.enabled
   - name: steadybit-extension-postman
-    version: ^1.6.1
-    repository: file://../steadybit-extension-postman
+    version: ^1.6.4
+    repository: https://steadybit.github.io/extension-postman
     alias: extension-postman
     condition: extension-postman.enabled
   - name: steadybit-extension-datadog
