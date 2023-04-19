@@ -66,6 +66,7 @@ The following table lists the configurable parameters of the steadybit outpost c
 | extension-postman.enabled                   | boolean | `false`                            | Enables the postman extension. Further config may be required.                                                                                                 |
 | extension-datadog.enabled                   | boolean | `false`                            | Enables the datadog extension. Further config may be required.                                                                                                 |
 | extension-aws.enabled                       | boolean | `false`                            | Enables the AWS extension. Further config may be required.                                                                                                     |
+| extension-http.enabled                      | boolean | `false`                            | Enables the HTTP extension. Further config may be required.                                                                                                    |
 
 ### YAML file
 
