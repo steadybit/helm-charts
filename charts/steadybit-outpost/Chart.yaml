@@ -50,3 +50,7 @@ dependencies:
     repository: file://../steadybit-extension-aws
     alias: extension-aws
     condition: extension-aws.enabled
+  - name: steadybit-extension-http
+    version: ^1.0.1
+    repository: https://steadybit.github.io/extension-http
+    condition: extension-http.enabled

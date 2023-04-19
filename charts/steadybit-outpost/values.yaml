@@ -146,3 +146,6 @@ extension-datadog:
 
 extension-aws:
   enabled: false
+
+extension-http:
+  enabled: false
