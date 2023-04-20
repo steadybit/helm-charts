@@ -6,19 +6,19 @@ dependencies:
   repository: file://../steadybit-extension-kong
   version: 1.6.3
 - name: steadybit-extension-prometheus
-  repository: file://../steadybit-extension-prometheus
-  version: 1.4.2
+  repository: https://steadybit.github.io/extension-prometheus
+  version: 1.4.3
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.6.6
 - name: steadybit-extension-datadog
-  repository: file://../steadybit-extension-datadog
-  version: 1.4.2
+  repository: https://steadybit.github.io/extension-datadog
+  version: 1.4.4
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
   version: 1.9.5
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.0.4
-digest: sha256:1d437d8f8f6009674a00f10af9fb45dfac7a906ac6f8854726bf78ea35e09712
-generated: "2023-04-20T13:18:05.833535+02:00"
+digest: sha256:bcc0c2240aa783be16eebe2fbad29b0122a1dccb3097620623c86ce7b829aec2
+generated: "2023-04-20T16:17:05.996396+02:00"

@@ -31,8 +31,8 @@ dependencies:
     alias: extension-kong
     condition: extension-kong.enabled
   - name: steadybit-extension-prometheus
-    version: ^1.4.1
-    repository: file://../steadybit-extension-prometheus
+    version: ^1.4.3
+    repository: https://steadybit.github.io/extension-prometheus
     alias: extension-prometheus
     condition: extension-prometheus.enabled
   - name: steadybit-extension-postman
@@ -41,8 +41,8 @@ dependencies:
     alias: extension-postman
     condition: extension-postman.enabled
   - name: steadybit-extension-datadog
-    version: ^1.4.1
-    repository: file://../steadybit-extension-datadog
+    version: ^1.4.4
+    repository: https://steadybit.github.io/extension-datadog
     alias: extension-datadog
     condition: extension-datadog.enabled
   - name: steadybit-extension-aws
