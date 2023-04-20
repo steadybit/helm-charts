@@ -36,7 +36,7 @@ dependencies:
     alias: extension-prometheus
     condition: extension-prometheus.enabled
   - name: steadybit-extension-postman
-    version: ^1.6.4
+    version: ^1.6.6
     repository: https://steadybit.github.io/extension-postman
     alias: extension-postman
     condition: extension-postman.enabled
@@ -46,11 +46,11 @@ dependencies:
     alias: extension-datadog
     condition: extension-datadog.enabled
   - name: steadybit-extension-aws
-    version: ^1.9.1
-    repository: file://../steadybit-extension-aws
+    version: ^1.9.5
+    repository: https://steadybit.github.io/extension-aws
     alias: extension-aws
     condition: extension-aws.enabled
   - name: steadybit-extension-http
-    version: ^1.0.1
+    version: ^1.0.4
     repository: https://steadybit.github.io/extension-http
     condition: extension-http.enabled
