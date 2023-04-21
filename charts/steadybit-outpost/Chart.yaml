@@ -21,8 +21,8 @@ annotations:
       url: https://github.com/steadybit/helm-charts
 dependencies:
   - name: steadybit-extension-kubernetes
-    version: ^1.4.5
-    repository: file://../steadybit-extension-kubernetes
+    version: ^1.4.7
+    repository: https://steadybit.github.io/extension-kubernetes
     alias: extension-kubernetes
     condition: extension-kubernetes.enabled
   - name: steadybit-extension-kong
