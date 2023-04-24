@@ -26,8 +26,8 @@ dependencies:
     alias: extension-kubernetes
     condition: extension-kubernetes.enabled
   - name: steadybit-extension-kong
-    version: ^1.6.2
-    repository: file://../steadybit-extension-kong
+    version: ^1.6.4
+    repository: https://steadybit.github.io/extension-kong
     alias: extension-kong
     condition: extension-kong.enabled
   - name: steadybit-extension-prometheus

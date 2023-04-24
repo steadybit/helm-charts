@@ -3,8 +3,8 @@ dependencies:
   repository: https://steadybit.github.io/extension-kubernetes
   version: 1.4.7
 - name: steadybit-extension-kong
-  repository: file://../steadybit-extension-kong
-  version: 1.6.3
+  repository: https://steadybit.github.io/extension-kong
+  version: 1.6.4
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.4.3
@@ -20,5 +20,5 @@ dependencies:
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.0.4
-digest: sha256:0e9174642ed6cf8eeb49e444cfcaddcc37536af3f79d78890dd5984f25e6826a
-generated: "2023-04-21T14:11:09.330767+02:00"
+digest: sha256:81155f251db89e107d51757876587fe450fba0bbb42e93f686b8773e7c68597b
+generated: "2023-04-24T10:51:05.392869+02:00"
