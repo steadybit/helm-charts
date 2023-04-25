@@ -1,6 +1,9 @@
 name: Lint and Test Charts
 
 on:
+  push:
+    branches:
+      - '!main'
   pull_request:
     paths:
       - "charts/**"
@@ -34,20 +37,8 @@ jobs:
         run: |
           helm plugin install https://github.com/quintush/helm-unittest
 
-      - name: Run chart-testing (list-changed)
-        id: list-changed
-        run: |
-          changed=$(ct list-changed --target-branch $GITHUB_BASE_REF)
-          if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
-          fi
-        env:
-          GITHUB_BASE_REF: $github.base_ref
+      - name: Run chart lint
+        run: make chartlint
 
-      - name: Run chart-testing (lint)
-        run: ct lint --target-branch $GITHUB_BASE_REF --excluded-charts extensionlib
-        env:
-          GITHUB_BASE_REF: $github.base_ref
-
-      - name: Run unit tests
-        run: ./bin/run_unit_tests.sh
+      - name: Run chart unit tests
+        run: make charttesting
