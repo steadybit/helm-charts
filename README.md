@@ -7,14 +7,8 @@ This repository hosts the source of the Steadybit Kubernetes helm charts.
 Currently supported:
 
 - [steadybit Agent](charts/steadybit-agent/README.md)
+- [steadybit Outpost](charts/steadybit-outpost/README.md)
 - [steadybit Platform](charts/steadybit-platform/README.md)
-- [steadybit AWS extension](charts/steadybit-extension-aws/README.md)
-- [steadybit CRUD extension](charts/steadybit-extension-crud/README.md)
-- [steadybit Datadog extension](charts/steadybit-extension-datadog/README.md)
-- [steadybit Kong extension](charts/steadybit-extension-kong/README.md)
-- [steadybit Kubernetes extension](charts/steadybit-extension-kubernetes/README.md)
-- [steadybit Postman extension](charts/steadybit-extension-postman/README.md)
-- [steadybit Prometheus extension](charts/steadybit-extension-prometheus/README.md)
 
 ## How to use the steadybit Helm repository
 
