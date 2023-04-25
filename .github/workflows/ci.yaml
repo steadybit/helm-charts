@@ -2,8 +2,6 @@ name: Lint and Test Charts
 
 on:
   push:
-    branches:
-      - '!main'
   pull_request:
     paths:
       - "charts/**"
@@ -24,7 +22,15 @@ jobs:
 
       - name: Add dependency chart repos
         run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add bitnami https://charts.bitnami.com/bitnami          
+          helm repo add extension-aws https://steadybit.github.io/extension-aws
+          helm repo add extension-datadog https://steadybit.github.io/extension-datadog
+          helm repo add extension-http https://steadybit.github.io/extension-http
+          helm repo add extension-istio https://steadybit.github.io/extension-istio
+          helm repo add extension-kong https://steadybit.github.io/extension-kong
+          helm repo add extension-kubernetes https://steadybit.github.io/extension-kubernetes
+          helm repo add extension-postman https://steadybit.github.io/extension-postman
+          helm repo add extension-prometheus https://steadybit.github.io/extension-prometheus
 
       - uses: actions/setup-python@v4
         with:

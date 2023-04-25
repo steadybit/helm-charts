@@ -129,23 +129,26 @@ tolerations: []
 # affinity -- Affinities to influence outpost pod assignment.
 affinity: {}
 
-extension-kubernetes:
-  enabled: true
-
-extension-kong:
-  enabled: false
-
-extension-prometheus:
-  enabled: false
-
-extension-postman:
+extension-aws:
   enabled: false
 
 extension-datadog:
   enabled: false
 
-extension-aws:
+extension-http:
+  enabled: true
+
+extension-istio:
   enabled: false
 
-extension-http:
+extension-kong:
+  enabled: false
+
+extension-kubernetes:
+  enabled: true
+
+extension-postman:
+  enabled: false
+
+extension-prometheus:
   enabled: false

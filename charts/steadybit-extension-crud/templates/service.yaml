@@ -1,1 +1,0 @@
-{{- include "extensionlib.service" (list . 8080 (list "ACTION" "DISCOVERY")) -}}

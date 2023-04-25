@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-outpost
 description: steadybit outpost Helm chart for Kubernetes.
-version: 1.0.1
+version: 1.0.2
 appVersion: latest
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -20,37 +20,43 @@ annotations:
     - name: steadybit Kubernetes Helm charts
       url: https://github.com/steadybit/helm-charts
 dependencies:
-  - name: steadybit-extension-kubernetes
-    version: ^1.4.5
-    repository: file://../steadybit-extension-kubernetes
-    alias: extension-kubernetes
-    condition: extension-kubernetes.enabled
-  - name: steadybit-extension-kong
-    version: ^1.6.2
-    repository: file://../steadybit-extension-kong
-    alias: extension-kong
-    condition: extension-kong.enabled
-  - name: steadybit-extension-prometheus
-    version: ^1.4.1
-    repository: file://../steadybit-extension-prometheus
-    alias: extension-prometheus
-    condition: extension-prometheus.enabled
-  - name: steadybit-extension-postman
-    version: ^1.6.1
-    repository: file://../steadybit-extension-postman
-    alias: extension-postman
-    condition: extension-postman.enabled
-  - name: steadybit-extension-datadog
-    version: ^1.4.1
-    repository: file://../steadybit-extension-datadog
-    alias: extension-datadog
-    condition: extension-datadog.enabled
   - name: steadybit-extension-aws
-    version: ^1.9.1
-    repository: file://../steadybit-extension-aws
+    version: ^1.9.5
+    repository: https://steadybit.github.io/extension-aws
     alias: extension-aws
     condition: extension-aws.enabled
+  - name: steadybit-extension-datadog
+    version: ^1.4.4
+    repository: https://steadybit.github.io/extension-datadog
+    alias: extension-datadog
+    condition: extension-datadog.enabled
   - name: steadybit-extension-http
-    version: ^1.0.1
+    version: ^1.0.4
     repository: https://steadybit.github.io/extension-http
+    alias: extension-http
     condition: extension-http.enabled
+  - name: steadybit-extension-istio
+    version: ^1.0.4
+    repository: https://steadybit.github.io/extension-istio
+    alias: extension-istio
+    condition: extension-istio.enabled
+  - name: steadybit-extension-kong
+    version: ^1.6.4
+    repository: https://steadybit.github.io/extension-kong
+    alias: extension-kong
+    condition: extension-kong.enabled
+  - name: steadybit-extension-kubernetes
+    version: ^1.4.7
+    repository: https://steadybit.github.io/extension-kubernetes
+    alias: extension-kubernetes
+    condition: extension-kubernetes.enabled
+  - name: steadybit-extension-postman
+    version: ^1.6.6
+    repository: https://steadybit.github.io/extension-postman
+    alias: extension-postman
+    condition: extension-postman.enabled
+  - name: steadybit-extension-prometheus
+    version: ^1.4.3
+    repository: https://steadybit.github.io/extension-prometheus
+    alias: extension-prometheus
+    condition: extension-prometheus.enabled
