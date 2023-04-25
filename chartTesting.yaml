@@ -3,13 +3,4 @@ remote: origin
 target-branch: main
 chart-dirs:
   - charts
-charts-repo:
-  - extension-aws=https://steadybit.github.io/extension-aws
-  - extension-datadog=https://steadybit.github.io/extension-datadog
-  - extension-http=https://steadybit.github.io/extension-http
-  - extension-istio=https://steadybit.github.io/extension-istio
-  - extension-kong=https://steadybit.github.io/extension-kong
-  - extension-kubernetes=https://steadybit.github.io/extension-kubernetes
-  - extension-postman=https://steadybit.github.io/extension-postman
-  - extension-prometheus=https://steadybit.github.io/extension-prometheus
 helm-extra-args: --timeout 600s
