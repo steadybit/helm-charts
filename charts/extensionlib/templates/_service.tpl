@@ -29,7 +29,7 @@ metadata:
             "tls": {
               {{- if $top.Values.tls.server.certificate.fromSecret }}
               "server": {
-                "extraCertsFile": "/opt/steadybit/agent/etc/extension-mtls/{{ $top.Values.tls.server.certificate.fromSecret }}/tls.crt"
+                "extraCertsFile": "{{ $top.Values.tls.server.certificate.fromSecret }}/tls.crt"
               {{ if $top.Values.tls.client.certificates.fromSecrets -}}
               },
               {{- else -}}
@@ -38,8 +38,8 @@ metadata:
               {{- end }}
               {{ if $top.Values.tls.client.certificates.fromSecrets -}}
               "client": {
-                "certChainFile": "/opt/steadybit/agent/etc/extension-mtls/{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.crt",
-                "certKeyFile": "/opt/steadybit/agent/etc/extension-mtls/{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.key"
+                "certChainFile": "{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.crt",
+                "certKeyFile": "{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.key"
               }
               {{- end }}
             }
