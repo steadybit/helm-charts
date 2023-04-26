@@ -104,6 +104,8 @@ spec:
             - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
               value: {{ .Values.outpost.auth.oauth2.audience | quote }}
             {{- end }}
+            - name: STEADYBIT_AGENT_EXTENSIONS_CERTIFICATES_PATH
+              value: /opt/steadybit/outpost/etc/extension-mtls
 {{- with .Values.outpost.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
