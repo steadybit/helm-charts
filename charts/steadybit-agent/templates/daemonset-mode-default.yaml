@@ -138,6 +138,8 @@ spec:
             - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
               value: {{ .Values.agent.auth.oauth2.audience | quote }}
             {{- end }}
+            - name: STEADYBIT_AGENT_EXTENSIONS_CERTIFICATES_PATH
+              value: /opt/steadybit/agent/etc/extension-mtls
 {{- with .Values.agent.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}
