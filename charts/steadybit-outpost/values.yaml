@@ -152,3 +152,6 @@ extension-postman:
 
 extension-prometheus:
   enabled: false
+
+extension-host:
+  enabled: true
