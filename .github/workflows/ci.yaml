@@ -31,6 +31,7 @@ jobs:
           helm repo add extension-kubernetes https://steadybit.github.io/extension-kubernetes
           helm repo add extension-postman https://steadybit.github.io/extension-postman
           helm repo add extension-prometheus https://steadybit.github.io/extension-prometheus
+          helm repo add extension-prometheus https://steadybit.github.io/extension-host
 
       - uses: actions/setup-python@v4
         with:
