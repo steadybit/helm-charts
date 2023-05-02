@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-outpost
 description: steadybit outpost Helm chart for Kubernetes.
-version: 1.0.7
+version: 1.0.8
 appVersion: latest
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -61,7 +61,7 @@ dependencies:
     alias: extension-prometheus
     condition: extension-prometheus.enabled
   - name: steadybit-extension-host
-    version: ^1.0.4
+    version: ^1.0.9
     repository: https://steadybit.github.io/extension-host
     alias: extension-host
     condition: extension-host.enabled
