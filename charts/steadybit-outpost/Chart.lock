@@ -10,7 +10,7 @@ dependencies:
   version: 1.0.5
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.0.5
+  version: 1.0.6
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
   version: 1.6.6
@@ -25,6 +25,6 @@ dependencies:
   version: 1.4.5
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.0.4
-digest: sha256:66ca2e37294028ac71168027fb533d1b4f7d5a5e863633ca1cfa42dd168d12c6
-generated: "2023-04-27T10:39:30.555578+02:00"
+  version: 1.0.9
+digest: sha256:5ddecb379204b686d81f11cddfdf44f14b1c43f50e375c9807404bcd96fa8870
+generated: "2023-05-02T11:43:18.35113+02:00"
