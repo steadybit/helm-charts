@@ -3245,6 +3245,77 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: latest
+    created: "2023-05-02T15:00:23.002397616Z"
+    dependencies:
+    - alias: extension-aws
+      condition: extension-aws.enabled
+      name: steadybit-extension-aws
+      repository: https://steadybit.github.io/extension-aws
+      version: ^1.9.5
+    - alias: extension-datadog
+      condition: extension-datadog.enabled
+      name: steadybit-extension-datadog
+      repository: https://steadybit.github.io/extension-datadog
+      version: ^1.4.4
+    - alias: extension-http
+      condition: extension-http.enabled
+      name: steadybit-extension-http
+      repository: https://steadybit.github.io/extension-http
+      version: ^1.0.4
+    - alias: extension-istio
+      condition: extension-istio.enabled
+      name: steadybit-extension-istio
+      repository: https://steadybit.github.io/extension-istio
+      version: ^1.0.4
+    - alias: extension-kong
+      condition: extension-kong.enabled
+      name: steadybit-extension-kong
+      repository: https://steadybit.github.io/extension-kong
+      version: ^1.6.4
+    - alias: extension-kubernetes
+      condition: extension-kubernetes.enabled
+      name: steadybit-extension-kubernetes
+      repository: https://steadybit.github.io/extension-kubernetes
+      version: ^1.4.7
+    - alias: extension-postman
+      condition: extension-postman.enabled
+      name: steadybit-extension-postman
+      repository: https://steadybit.github.io/extension-postman
+      version: ^1.6.6
+    - alias: extension-prometheus
+      condition: extension-prometheus.enabled
+      name: steadybit-extension-prometheus
+      repository: https://steadybit.github.io/extension-prometheus
+      version: ^1.4.3
+    - alias: extension-host
+      condition: extension-host.enabled
+      name: steadybit-extension-host
+      repository: https://steadybit.github.io/extension-host
+      version: ^1.0.9
+    description: steadybit outpost Helm chart for Kubernetes.
+    digest: c256833ed72194db9c8f51297eb402e25417f0fafcf81665970089d1593243d5
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: johannes.edmeier@steadybit.com
+      name: joshiste
+    name: steadybit-outpost
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-outpost-1.0.8/steadybit-outpost-1.0.8.tgz
+    version: 1.0.8
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: latest
     created: "2023-04-27T08:49:16.071863338Z"
     dependencies:
     - alias: extension-aws
@@ -4519,4 +4590,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-27T08:49:16.072567029Z"
+generated: "2023-05-02T15:00:23.003121033Z"
