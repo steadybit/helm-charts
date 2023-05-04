@@ -5,26 +5,29 @@ dependencies:
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.4.6
+- name: steadybit-extension-host
+  repository: https://steadybit.github.io/extension-host
+  version: 1.0.10
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.0.5
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
   version: 1.0.6
+- name: steadybit-extension-k6
+  repository: https://steadybit.github.io/extension-k6
+  version: 1.0.1
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.6.6
+  version: 1.6.7
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.4.9
+  version: 1.4.10
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.6.8
+  version: 1.6.9
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.4.5
-- name: steadybit-extension-host
-  repository: https://steadybit.github.io/extension-host
-  version: 1.0.9
-digest: sha256:5ddecb379204b686d81f11cddfdf44f14b1c43f50e375c9807404bcd96fa8870
-generated: "2023-05-02T11:43:18.35113+02:00"
+digest: sha256:94ce5e012ebaae581050a0ae3943f37fd9666bafa34628547a91da43cbb0acb8
+generated: "2023-05-04T10:40:00.857449+02:00"
