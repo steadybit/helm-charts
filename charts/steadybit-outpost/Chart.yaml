@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-outpost
 description: steadybit outpost Helm chart for Kubernetes.
-version: 1.0.9
+version: 1.0.10
 appVersion: latest
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -49,7 +49,7 @@ dependencies:
     version: ^1.0.1
     repository: https://steadybit.github.io/extension-k6
     alias: extension-k6
-    condition: extension-host.enabled
+    condition: extension-k6.enabled
   - name: steadybit-extension-kong
     version: ^1.6.7
     repository: https://steadybit.github.io/extension-kong
