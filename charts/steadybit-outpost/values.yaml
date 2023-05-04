@@ -135,10 +135,16 @@ extension-aws:
 extension-datadog:
   enabled: false
 
+extension-host:
+  enabled: true
+
 extension-http:
   enabled: true
 
 extension-istio:
+  enabled: false
+
+extension-k6:
   enabled: false
 
 extension-kong:
@@ -152,6 +158,3 @@ extension-postman:
 
 extension-prometheus:
   enabled: false
-
-extension-host:
-  enabled: true
