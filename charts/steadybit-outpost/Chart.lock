@@ -7,7 +7,7 @@ dependencies:
   version: 1.4.8
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.0.11
+  version: 1.0.12
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.0.6
@@ -31,6 +31,6 @@ dependencies:
   version: 1.4.7
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.0.5
-digest: sha256:9196b593cbd5d099d45d6f84e99893ad58226c173c1f8ffae8e8d4712b7ceec1
-generated: "2023-05-15T14:51:58.107159+02:00"
+  version: 1.0.6
+digest: sha256:2dad32baa57af7e1b15c0c0176592aff2de2033ec27c85c0e494d468a68d7ca4
+generated: "2023-05-15T19:24:19.625795+02:00"
