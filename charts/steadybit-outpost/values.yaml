@@ -138,6 +138,11 @@ extension-datadog:
 extension-host:
   enabled: true
 
+extension-container:
+  enabled: true
+  container:
+    runtime: containerd
+
 extension-http:
   enabled: true
 

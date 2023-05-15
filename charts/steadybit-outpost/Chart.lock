@@ -16,7 +16,7 @@ dependencies:
   version: 1.0.8
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.1.5
+  version: 1.1.6
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
   version: 1.6.8
@@ -29,5 +29,8 @@ dependencies:
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.4.7
-digest: sha256:a68e2befd4ab8117cf47d879d8282b108f0efcf25f471e1391a8e03dfa69aa75
-generated: "2023-05-12T11:54:59.132489+02:00"
+- name: steadybit-extension-container
+  repository: https://steadybit.github.io/extension-container
+  version: 1.0.5
+digest: sha256:9196b593cbd5d099d45d6f84e99893ad58226c173c1f8ffae8e8d4712b7ceec1
+generated: "2023-05-15T14:51:58.107159+02:00"
