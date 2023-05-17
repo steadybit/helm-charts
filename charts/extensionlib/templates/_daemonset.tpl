@@ -97,7 +97,7 @@ spec:
             seccompProfile:
               type: {{ $apparmorsecurity }}
             capabilities:
-              add: {{ $caps }}
+              add: {{ toJson $caps }}
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 10000
