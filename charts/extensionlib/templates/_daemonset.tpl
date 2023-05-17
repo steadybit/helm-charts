@@ -7,6 +7,7 @@ This takes an array of these values:
 - the healthport of the extension
 - the supported types of the extension, e.g., (list "ACTION" "DISCOVERY")
 - the apparmor security type of the extension, e.g., "unconfined"
+- the seccompProfile of the extension, e.g., "Unconfined"
 - the needed linux caps of the executable, e.g., (list "NET_RAW" "NET_ADMIN")
 */}}
 {{- define "extensionlib.daemonset" -}}
@@ -15,7 +16,8 @@ This takes an array of these values:
 {{- $healthport := index . 2 -}}
 {{- $types := index . 3 -}}
 {{- $apparmorsecurity := index . 4 -}}
-{{- $caps := index . 5 -}}
+{{- $seccompProfile := index . 5 -}}
+{{- $caps := index . 6 -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -36,34 +38,34 @@ spec:
         app.kubernetes.io/name: {{ include "extensionlib.names.name" $top }}
         app: {{ include "extensionlib.names.name" $top }}
         steadybit.com/extension: "true"
-  annotations:
-    "container.apparmor.security.beta.kubernetes.io/{{ include "extensionlib.names.name" $top }}": {{ $apparmorsecurity }}
-    "steadybit.com/extension-auto-discovery": >
-      {
-        "extensions": [
+      annotations:
+        "container.apparmor.security.beta.kubernetes.io/{{ include "extensionlib.names.name" $top }}": {{ $apparmorsecurity }}
+        "steadybit.com/extension-auto-discovery": >
           {
-            "port": {{ $port }},
-            "types": {{ toJson $types }},
-            "tls": {
-              {{- if $top.Values.tls.server.certificate.fromSecret }}
-              "server": {
-                "extraCertsFile": "{{ $top.Values.tls.server.certificate.fromSecret }}/tls.crt"
-              {{ if $top.Values.tls.client.certificates.fromSecrets -}}
-              },
-              {{- else -}}
+            "extensions": [
+              {
+                "port": {{ $port }},
+                "types": {{ toJson $types }},
+                "tls": {
+                  {{- if $top.Values.tls.server.certificate.fromSecret }}
+                  "server": {
+                    "extraCertsFile": "{{ $top.Values.tls.server.certificate.fromSecret }}/tls.crt"
+                  {{ if $top.Values.tls.client.certificates.fromSecrets -}}
+                  },
+                  {{- else -}}
+                  }
+                  {{- end -}}
+                  {{- end }}
+                  {{ if $top.Values.tls.client.certificates.fromSecrets -}}
+                  "client": {
+                    "certChainFile": "{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.crt",
+                    "certKeyFile": "{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.key"
+                  }
+                  {{- end }}
+                }
               }
-              {{- end -}}
-              {{- end }}
-              {{ if $top.Values.tls.client.certificates.fromSecrets -}}
-              "client": {
-                "certChainFile": "{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.crt",
-                "certKeyFile": "{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.key"
-              }
-              {{- end }}
-            }
+            ]
           }
-        ]
-      }
     spec:
       hostNetwork: true
       hostPID: true
@@ -95,7 +97,7 @@ spec:
               port: {{ $healthport }}
           securityContext:
             seccompProfile:
-              type: {{ $apparmorsecurity }}
+              type: {{ $seccompProfile }}
             capabilities:
               add: {{ toJson $caps }}
             readOnlyRootFilesystem: true
