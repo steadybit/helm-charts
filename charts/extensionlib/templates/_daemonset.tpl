@@ -77,11 +77,11 @@ spec:
           env:
             {{- include "extensionlib.deployment.env" (list $top) | nindent 12 }}
             {{- with $top.Values.extraEnv }}
-              {{- toYaml $top | nindent 12 }}
+              {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- with $top.Values.extraEnvFrom }}
           envFrom:
-            {{- toYaml $top | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
             - name: tmp-dir
@@ -110,18 +110,18 @@ spec:
             {{- include "extensionlib.deployment.volumes" (list $top) | nindent 8 }}
           {{- with $top.Values.nodeSelector }}
       nodeSelector:
-          {{- toYaml $top | nindent 8 }}
+          {{- toYaml . | nindent 8 }}
           {{- end }}
           {{- with $top.Values.affinity }}
       affinity:
-          {{- toYaml $top | nindent 8 }}
+          {{- toYaml . | nindent 8 }}
           {{- end }}
           {{- with $top.Values.tolerations }}
       tolerations:
-          {{- toYaml $top | nindent 8 }}
+          {{- toYaml . | nindent 8 }}
           {{- end }}
           {{- with $top.Values.topologySpreadConstraints }}
       topologySpreadConstraints:
-          {{- toYaml $top | nindent 8 }}
+          {{- toYaml . | nindent 8 }}
           {{- end }}
 {{- end -}}
