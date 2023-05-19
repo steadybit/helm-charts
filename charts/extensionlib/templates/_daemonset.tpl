@@ -9,6 +9,9 @@ This takes an array of these values:
 - the apparmor security type of the extension, e.g., "unconfined"
 - the seccompProfile of the extension, e.g., "Unconfined"
 - the needed linux caps of the executable, e.g., (list "NET_RAW" "NET_ADMIN")
+- use hostnetwork (true/false)
+- define dnsPolicy (ClusterFirstWithHostNet, ClusterFirst, Default, None)
+- add container runtime mounts and adds cgroup-root mount (true/false)
 */}}
 {{- define "extensionlib.daemonset" -}}
 {{- $top := index . 0 -}}
@@ -18,6 +21,9 @@ This takes an array of these values:
 {{- $apparmorsecurity := index . 4 -}}
 {{- $seccompProfile := index . 5 -}}
 {{- $caps := index . 6 -}}
+{{- $hostnetwork := index . 7 -}}
+{{- $dnsPolicy := index . 8 -}}
+{{- $addContainerRuntimeMounts := index . 9 -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -67,9 +73,9 @@ spec:
             ]
           }
     spec:
-      hostNetwork: true
+      hostNetwork: {{ $hostnetwork }}
       hostPID: true
-      dnsPolicy: ClusterFirstWithHostNet
+      dnsPolicy: {{ $dnsPolicy }}
       containers:
         - image: {{ $top.Values.image.name }}:{{ $top.Values.image.tag }}
           imagePullPolicy: {{ $top.Values.image.pullPolicy }}
@@ -86,6 +92,11 @@ spec:
           volumeMounts:
             - name: tmp-dir
               mountPath: /tmp
+            {{- if $addContainerRuntimeMounts }}
+            - name: cgroup-root
+              mountPath: /sys/fs/cgroup
+                  {{- include "containerRuntime.volumeMounts" $top | nindent 12 }}
+            {{- end }}
                   {{- include "extensionlib.deployment.volumeMounts" (list $top) | nindent 12 }}
           livenessProbe:
             httpGet:
@@ -107,6 +118,13 @@ spec:
       volumes:
         - name: tmp-dir
           emptyDir: { }
+          {{- if $addContainerRuntimeMounts }}
+        - name: cgroup-root
+          hostPath:
+            path: /sys/fs/cgroup
+            type: Directory
+            {{- include "containerRuntime.volumes" $top | nindent 8 }}
+            {{- end }}
             {{- include "extensionlib.deployment.volumes" (list $top) | nindent 8 }}
           {{- with $top.Values.nodeSelector }}
       nodeSelector:
@@ -124,4 +142,46 @@ spec:
       topologySpreadConstraints:
           {{- toYaml . | nindent 8 }}
           {{- end }}
+{{- end -}}
+
+{{/*
+checks the .Values.containerRuntime for valid values
+*/}}
+{{- define "containerRuntime.valid" -}}
+{{- $valid := keys .Values.containerRuntimes | sortAlpha -}}
+{{- $runtime := .Values.container.runtime -}}
+{{- if has $runtime $valid -}}
+{{- $runtime  -}}
+{{- else -}}
+{{- fail (printf "unknown container runtime: %v (must be one of %s)" $runtime (join ", " $valid)) -}}
+{{- end -}}
+{{- end -}}
+
+
+{{- /*
+containerRuntime.volumeMounts will render pod volume mounts(without indentation) for the selected container runtime
+*/}}
+{{- define "containerRuntime.volumeMounts" -}}
+{{- $runtime := (include "containerRuntime.valid" . )  -}}
+{{- $runtimeValues := get .Values.containerRuntimes $runtime  -}}
+- name: "runtime-socket"
+  mountPath: "{{ $runtimeValues.socket }}"
+- name: "runtime-runc-root"
+  mountPath: "{{ $runtimeValues.runcRoot }}"
+{{- end -}}
+
+{{- /*
+containerRuntime.volumes will render pod volumes (without indentation) for the selected container runtime
+*/}}
+{{- define "containerRuntime.volumes" -}}
+{{- $runtime := (include "containerRuntime.valid" . )  -}}
+{{- $runtimeValues := get .Values.containerRuntimes $runtime  -}}
+- name: "runtime-socket"
+  hostPath:
+    path: "{{ $runtimeValues.socket }}"
+    type: Socket
+- name: "runtime-runc-root"
+  hostPath:
+    path: "{{ $runtimeValues.runcRoot }}"
+    type: Directory
 {{- end -}}

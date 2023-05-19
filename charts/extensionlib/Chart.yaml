@@ -2,7 +2,7 @@ apiVersion: v2
 name: extensionlib
 description: Helm library for Steadybit extensions.
 type: library
-version: 1.2.1
+version: 1.2.2
 maintainers:
   - email: daniel.reuter@steadybit.com
     name: reuda
