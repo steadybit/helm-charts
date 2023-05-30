@@ -1,4 +1,4 @@
-{{- if (and (not .Values.agent.key) (and (not .Values.cluster.name) (eq "default" .Values.agent.mode ))) }}
+{{- if (and (and (not .Values.agent.key) (eq "agent-key" .Values.agent.auth.provider)) (and (not .Values.cluster.name) (eq "default" .Values.agent.mode ))) }}
 ##############################################################################
 ####    ERROR: You did not specify your secret agent key.                 ####
 ####    ERROR: You also did not specify a name for this cluster.          ####
@@ -28,7 +28,7 @@ This agent deployment will be incomplete until you set your agent key and a name
 - YOUR_CLUSTER_NAME should be the custom name of your cluster.
 
 This cluster will be reported as 'unknown' unless you specify a cluster name.
-{{- else if not .Values.agent.key -}}
+{{- else if and (not .Values.agent.key) (eq "agent-key" .Values.agent.auth.provider) -}}
 ##############################################################################
 ####    ERROR: You did not specify your secret agent key.                 ####
 ##############################################################################

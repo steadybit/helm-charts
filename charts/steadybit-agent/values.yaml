@@ -3,7 +3,8 @@
 # Declare variables to be passed into your templates.
 
 agent:
-  # agent.key -- The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup.
+  # agent.key -- The secret token which your agent uses to authenticate to steadybit's servers. Get it from https://platform.steadybit.io/settings/agents/setup.
+  #              Required if `agent.auth.provider` is set to `agent-key`.
   key: null
   auth:
     # agent.auth.provider -- `agent-key` or `oauth2`
