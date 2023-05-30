@@ -1,4 +1,4 @@
-{{- if and (eq "aws" (include "validAgentMode" .)) (.Values.agent.key) -}}
+{{- if and (eq "aws" (include "validAgentMode" .)) (or (.Values.agent.key) (ne "agent-key" .Values.agent.auth.provider)) -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -73,11 +73,13 @@ spec:
           env:
             - name: STEADYBIT_AGENT_REGISTER_URL
               value: {{ .Values.agent.registerUrl | quote }}
+            {{- if eq .Values.agent.auth.provider "agent-key" }}
             - name: STEADYBIT_AGENT_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ template "steadybit-agent.fullname" . }}
                   key: key
+            {{- end }}
             - name: POD_IP
               valueFrom:
                 fieldRef:
