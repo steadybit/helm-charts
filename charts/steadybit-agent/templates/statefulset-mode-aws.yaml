@@ -73,7 +73,7 @@ spec:
           env:
             - name: STEADYBIT_AGENT_REGISTER_URL
               value: {{ .Values.agent.registerUrl | quote }}
-            {{- if eq .Values.agent.auth.provider "agent-key" }}
+            {{- if .Values.agent.key }}
             - name: STEADYBIT_AGENT_KEY
               valueFrom:
                 secretKeyRef:
