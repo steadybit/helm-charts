@@ -70,6 +70,10 @@ outpost:
         # mTLS for its communication.
         fromSecrets: []
 
+cluster:
+  # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit.
+  name: null
+
 image:
   # image.name -- The container image to use of the steadybit outpost.
   name: steadybit/outpost
