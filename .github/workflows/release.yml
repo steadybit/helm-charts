@@ -28,16 +28,17 @@ jobs:
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add extension-aws https://steadybit.github.io/extension-aws
+          helm repo add extension-container https://steadybit.github.io/extension-container
           helm repo add extension-datadog https://steadybit.github.io/extension-datadog
           helm repo add extension-host https://steadybit.github.io/extension-host
           helm repo add extension-http https://steadybit.github.io/extension-http
           helm repo add extension-istio https://steadybit.github.io/extension-istio
+          helm repo add extension-jmeter https://steadybit.github.io/extension-jmeter
           helm repo add extension-k6 https://steadybit.github.io/extension-k6
           helm repo add extension-kong https://steadybit.github.io/extension-kong
           helm repo add extension-kubernetes https://steadybit.github.io/extension-kubernetes
           helm repo add extension-postman https://steadybit.github.io/extension-postman
           helm repo add extension-prometheus https://steadybit.github.io/extension-prometheus
-          helm repo add extension-container https://steadybit.github.io/extension-container
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.0

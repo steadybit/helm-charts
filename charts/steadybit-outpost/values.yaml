@@ -136,21 +136,24 @@ affinity: {}
 extension-aws:
   enabled: false
 
+extension-container:
+  enabled: true
+  container:
+    runtime: containerd
+
 extension-datadog:
   enabled: false
 
 extension-host:
   enabled: true
 
-extension-container:
-  enabled: true
-  container:
-    runtime: containerd
-
 extension-http:
   enabled: true
 
 extension-istio:
+  enabled: false
+
+extension-jmeter:
   enabled: false
 
 extension-k6:

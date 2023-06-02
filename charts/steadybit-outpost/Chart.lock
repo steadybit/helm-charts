@@ -2,18 +2,24 @@ dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
   version: 1.9.7
+- name: steadybit-extension-container
+  repository: https://steadybit.github.io/extension-container
+  version: 1.0.7
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.4.8
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.0.12
+  version: 1.0.14
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.0.6
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
   version: 1.0.8
+- name: steadybit-extension-jmeter
+  repository: https://steadybit.github.io/extension-jmeter
+  version: 1.0.0
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.1.6
@@ -29,8 +35,5 @@ dependencies:
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.4.7
-- name: steadybit-extension-container
-  repository: https://steadybit.github.io/extension-container
-  version: 1.0.6
-digest: sha256:2dad32baa57af7e1b15c0c0176592aff2de2033ec27c85c0e494d468a68d7ca4
-generated: "2023-05-15T19:24:19.625795+02:00"
+digest: sha256:fda840d577235f934c46995428333ed3f846a8f01c474d375f66dc1296795012
+generated: "2023-06-02T14:41:26.286617+02:00"
