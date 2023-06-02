@@ -1,9 +1,7 @@
-name: Release Charts
+name: CI
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
   release:
@@ -20,7 +18,7 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v3
         with:
           version: v3.9.0
 
@@ -40,7 +38,25 @@ jobs:
           helm repo add extension-postman https://steadybit.github.io/extension-postman
           helm repo add extension-prometheus https://steadybit.github.io/extension-prometheus
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.4.0
+
+      - name: Add unit testing plugin
+        run: |
+          helm plugin install https://github.com/quintush/helm-unittest
+
+      - name: Run chart lint
+        run: make chartlint
+
+      - name: Run chart unit tests
+        run: make charttesting
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.0
+        if: github.ref == 'refs/heads/main'
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
