@@ -19,7 +19,7 @@ dependencies:
   version: 1.0.8
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.0.0
+  version: 1.0.1
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.1.6
@@ -35,5 +35,5 @@ dependencies:
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.4.7
-digest: sha256:7a4c5e2a836e92459d4cf57be5acc447f9bc143dec536543b4b7bc6d184d4b57
-generated: "2023-06-02T14:59:05.208569+02:00"
+digest: sha256:9863d6279f1ebc9de150b1c979747977e388967a035ebd3b135c6ff5f0398dfe
+generated: "2023-06-02T16:54:57.672289+02:00"
