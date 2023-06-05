@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-outpost
 description: steadybit outpost Helm chart for Kubernetes.
-version: 1.0.21
+version: 1.0.22
 appVersion: latest
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -50,6 +50,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-istio
     alias: extension-istio
     condition: extension-istio.enabled
+  - name: steadybit-extension-gatling
+    version: ^1.0.0
+    repository: https://steadybit.github.io/extension-gatling
+    alias: extension-gatling
+    condition: extension-gatling.enabled
   - name: steadybit-extension-jmeter
     version: ^1.0.0
     repository: https://steadybit.github.io/extension-jmeter

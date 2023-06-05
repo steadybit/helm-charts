@@ -153,6 +153,9 @@ extension-http:
 extension-istio:
   enabled: false
 
+extension-gatling:
+  enabled: false
+
 extension-jmeter:
   enabled: false
 

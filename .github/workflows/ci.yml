@@ -31,6 +31,7 @@ jobs:
           helm repo add extension-host https://steadybit.github.io/extension-host
           helm repo add extension-http https://steadybit.github.io/extension-http
           helm repo add extension-istio https://steadybit.github.io/extension-istio
+          helm repo add extension-gatling https://steadybit.github.io/extension-gatling
           helm repo add extension-jmeter https://steadybit.github.io/extension-jmeter
           helm repo add extension-k6 https://steadybit.github.io/extension-k6
           helm repo add extension-kong https://steadybit.github.io/extension-kong
