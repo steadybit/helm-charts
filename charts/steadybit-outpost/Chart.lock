@@ -19,7 +19,7 @@ dependencies:
   version: 1.0.8
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.0.0
+  version: 1.0.1
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
   version: 1.0.1
@@ -38,5 +38,5 @@ dependencies:
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.4.7
-digest: sha256:8afde4c891e2ec9c55abed1108ae2cc73441870838aca1f7c2a00e10b878d852
-generated: "2023-06-05T16:11:23.622371+02:00"
+digest: sha256:54b50248750fa85ed2e62158611766e76a6e7fd8e4dcfdeed4e28718b7ccd763
+generated: "2023-06-06T11:27:03.510246+02:00"
