@@ -4,7 +4,7 @@ dependencies:
   version: 1.9.7
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.0.7
+  version: 1.0.8
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.4.8
@@ -38,5 +38,5 @@ dependencies:
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.4.7
-digest: sha256:54b50248750fa85ed2e62158611766e76a6e7fd8e4dcfdeed4e28718b7ccd763
-generated: "2023-06-06T11:27:03.510246+02:00"
+digest: sha256:734e273c5c6acf9f16419935e6834b33d17b4d1a17f82066c080670db842591e
+generated: "2023-06-12T12:50:39.874582+02:00"
