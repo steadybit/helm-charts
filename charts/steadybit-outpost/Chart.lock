@@ -31,12 +31,12 @@ dependencies:
   version: 1.6.8
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.4.11
+  version: 1.4.12
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.6.11
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.4.7
-digest: sha256:734e273c5c6acf9f16419935e6834b33d17b4d1a17f82066c080670db842591e
-generated: "2023-06-12T12:50:39.874582+02:00"
+digest: sha256:b535252a303c6dc761d82c4a75a097644ad5212981dcecbce9d5b31bd3358a79
+generated: "2023-06-14T12:58:59.911393+02:00"

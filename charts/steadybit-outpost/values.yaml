@@ -2,6 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+global:
+  # global.clusterName Represents the name that will be assigned to this Kubernetes cluster in steadybit.
+  clusterName: null
+
 outpost:
   # outpost.key -- The secret token which your outpost uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup.
   key: null
@@ -69,10 +73,6 @@ outpost:
         # Note that the extensions will need to be configured to report these file paths to the outpost. Without this, the outpost will not activate
         # mTLS for its communication.
         fromSecrets: []
-
-cluster:
-  # cluster.name Represents the name that will be assigned to this Kubernetes cluster in steadybit.
-  name: null
 
 image:
   # image.name -- The container image to use of the steadybit outpost.

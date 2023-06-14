@@ -72,7 +72,7 @@ spec:
                 fieldRef:
                   fieldPath: status.podIP
             - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
-              value: {{ .Values.cluster.name | quote }}
+              value: {{ .Values.global.clusterName | quote }}
             - name: STEADYBIT_AGENT_POD_NAME
               valueFrom:
                 fieldRef:

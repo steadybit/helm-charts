@@ -16,7 +16,7 @@ helm repo update
 To install the chart with the name `steadybit-outpost` and set the values on the command line run:
 
 ```bash
-$ helm install steadybit-outpost --namespace steadybit-outpost --create-namespace --set outpost.key=STEADYBIT_AGENT_KEY --set extension-kubernetes.kubernetes.clusterNname=CLUSTER_NAME steadybit/steadybit-outpost
+$ helm install steadybit-outpost --namespace steadybit-outpost --create-namespace --set outpost.key=STEADYBIT_AGENT_KEY --set global.clusterName=CLUSTER_NAME steadybit/steadybit-outpost
 ```
 
 ## Configuration
@@ -32,7 +32,7 @@ The following table lists the configurable parameters of the steadybit outpost c
 | Key                                         | Type    | Default                            | Description                                                                                                                                                    |
 |---------------------------------------------|---------|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | affinity                                    | object  | `{}`                               | Affinities to influence outpost pod assignment.                                                                                                                |
-| cluster.name                                | string  | `nil`                              | Represents the name that will be assigned to this Kubernetes cluster in steadybit.                                                                             |
+| global.clusterName                          | string  | `nil`                              | Represents the name that will be assigned to this Kubernetes cluster in steadybit.                                                                             |
 | outpost.extraVolumes                        | list    | `[]`                               | Additional volumes to which the outpost container will be mounted.                                                                                             |
 | outpost.extraVolumeMounts                   | list    | `[]`                               | Additional volumeMounts to which the outpost container will be mounted.                                                                                        |
 | outpost.env                                 | array   | `[]`                               | Additional environment variables for the steadybit outpost                                                                                                     |
