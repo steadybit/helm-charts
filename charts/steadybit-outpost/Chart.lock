@@ -40,6 +40,6 @@ dependencies:
   version: 1.4.7
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.0.1
-digest: sha256:b84dddaceb7f5ce879eb0a12ccc02b1e404bd65507bb3cf7dd22e4c0e3f60071
-generated: "2023-06-15T08:44:27.61471+02:00"
+  version: 1.0.2
+digest: sha256:210504b562e87783cbb3021636d38754b1921d4d0042a1f481a644a865b9bb88
+generated: "2023-06-15T09:31:33.452753+02:00"
