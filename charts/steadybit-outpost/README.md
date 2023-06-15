@@ -75,6 +75,7 @@ The following table lists the configurable parameters of the steadybit outpost c
 | extension-kubernetes.enabled                | boolean | `true`                             | Enables the kubernetes extension. Further config may be required.                                                                                              |
 | extension-postman.enabled                   | boolean | `false`                            | Enables the postman extension. Further config may be required.                                                                                                 |
 | extension-prometheus.enabled                | boolean | `false`                            | Enables the prometheus extension. Further config may be required.                                                                                              |
+| extension-stackstate.enabled                | boolean | `false`                            | Enables the stackstate extension. Further config may be required.                                                                                              |
 
 ### YAML file
 

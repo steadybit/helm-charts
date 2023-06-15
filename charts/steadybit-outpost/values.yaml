@@ -173,3 +173,6 @@ extension-postman:
 
 extension-prometheus:
   enabled: false
+
+extension-stackstate:
+  enabled: false
