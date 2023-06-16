@@ -86,7 +86,7 @@ dependencies:
     alias: extension-prometheus
     condition: extension-prometheus.enabled
   - name: steadybit-extension-stackstate
-    version: ^1.0.2
+    version: ^1.0.3
     repository: https://steadybit.github.io/extension-stackstate
     alias: extension-stackstate
     condition: extension-stackstate.enabled
