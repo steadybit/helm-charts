@@ -10,6 +10,20 @@ This outpost deployment will be incomplete until you set your agent key:
 
 - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.com/settings/agents/setup
 
+{{- else if not .Values.global.clusterName -}}
+##############################################################################
+####    ERROR: You did not specify a name for this cluster.               ####
+##############################################################################
+
+This outpost deployment will be incomplete until you set your agent key and a name for this cluster:
+
+    helm upgrade {{ .Release.Name }} --reuse-values \
+        --set cluster.name=$(YOUR_CLUSTER_NAME) steadybit/steadybit-outpost
+
+- YOUR_CLUSTER_NAME should be the custom name of your cluster.
+
+This cluster will be reported as 'unknown' unless you specify a cluster name.
+
 {{- else -}}
 
 It may take a few moments for the outpost to fully deploy. You can see what agents are running by listing resources in the {{ .Release.Namespace }} namespace:

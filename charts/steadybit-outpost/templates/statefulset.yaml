@@ -82,9 +82,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: STEADYBIT_AGENT_IDENTIFIER
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
+              value: "{{.Values.global.clusterName}}/{{.Release.Namespace}}/%HOSTNAME%"
             - name: STEADYBIT_HTTP_ENDPOINT_PORT
               value: {{ .Values.outpost.port | quote }}
             - name: STEADYBIT_AGENT_WORKING_DIR
