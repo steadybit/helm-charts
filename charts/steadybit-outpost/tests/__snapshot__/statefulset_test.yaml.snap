@@ -7,8 +7,8 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.0.29
-        helm.sh/chart: steadybit-outpost-1.0.29
+        app.kubernetes.io/version: 1.0.31
+        helm.sh/chart: steadybit-outpost-1.0.31
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -28,8 +28,8 @@ manifest should match snapshot:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.0.29
-            helm.sh/chart: steadybit-outpost-1.0.29
+            app.kubernetes.io/version: 1.0.31
+            helm.sh/chart: steadybit-outpost-1.0.31
         spec:
           containers:
             - env:

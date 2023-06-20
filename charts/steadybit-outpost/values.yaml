@@ -135,6 +135,8 @@ affinity: {}
 
 extension-aws:
   enabled: false
+  serviceAccount:
+    eksRoleArn: null  # if used in EKS, this is the recommended way to authenticate. Check https://github.com/steadybit/extension-aws for more information.
 
 extension-container:
   enabled: true
@@ -143,6 +145,11 @@ extension-container:
 
 extension-datadog:
   enabled: false
+  datadog:
+    apiKey: null  # required
+    applicationKey: null  # required
+    siteParameter: null  # required
+    siteUrl: null  # required
 
 extension-host:
   enabled: true
@@ -164,6 +171,9 @@ extension-k6:
 
 extension-kong:
   enabled: false
+  kong:
+    name: null  # required
+    origin: null  # required
 
 extension-kubernetes:
   enabled: true
@@ -176,3 +186,6 @@ extension-prometheus:
 
 extension-stackstate:
   enabled: false
+  stackstate:
+    serviceToken: null  # required
+    apiBaseUrl: null  # required
