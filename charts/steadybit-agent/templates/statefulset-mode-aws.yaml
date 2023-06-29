@@ -25,7 +25,7 @@ spec:
         {{- include "steadybit-agent.commonLabels" . | nindent 8 }}
         {{- range $key, $value := .Values.agent.extraLabels }}
         {{ $key }}: {{ $value }}
-      {{- end }}
+        {{- end }}
       annotations:
         prometheus.io/scrape: "{{ .Values.agent.prometheus.scrape }}"
         prometheus.io/path: "/prometheus"
@@ -159,10 +159,11 @@ spec:
       tolerations:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.image.pullSecrets }}
       imagePullSecrets:
-        - name: {{ template "steadybit-agent.fullname" . }}-pull-secrets
-      {{- range .Values.image.pullSecrets }}
+        {{- range .Values.image.pullSecrets }}
         - name: {{ . }}
+        {{- end }}
       {{- end }}
       volumes:
         {{- if .Values.agent.readOnlyRootFilesystem }}

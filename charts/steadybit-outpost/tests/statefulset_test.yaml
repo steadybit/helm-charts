@@ -7,3 +7,13 @@ tests:
         clusterName: test
     asserts:
       - matchSnapshot: { }
+
+  - it: using image pull secrets
+    set:
+      global:
+        clusterName: test
+      image:
+        pullSecrets:
+          - test-pull-secret
+    asserts:
+      - matchSnapshot: { }

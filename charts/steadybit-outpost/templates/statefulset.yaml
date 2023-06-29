@@ -139,10 +139,11 @@ spec:
       tolerations:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.image.pullSecrets }}
       imagePullSecrets:
-        - name: {{ template "steadybit-outpost.fullname" . }}-pull-secrets
-      {{- range .Values.image.pullSecrets }}
+        {{- range .Values.image.pullSecrets }}
         - name: {{ . }}
+        {{- end }}
       {{- end }}
       volumes:
         - name: tmp-dir

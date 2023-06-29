@@ -190,10 +190,11 @@ spec:
       tolerations:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.image.pullSecrets }}
       imagePullSecrets:
-        - name: {{ template "steadybit-agent.fullname" . }}-pull-secrets
-      {{- range .Values.image.pullSecrets }}
+        {{- range .Values.image.pullSecrets }}
         - name: {{ . }}
+        {{- end }}
       {{- end }}
       volumes:
         - name: steadybit-agent-state

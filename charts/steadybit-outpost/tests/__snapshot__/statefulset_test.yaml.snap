@@ -91,8 +91,117 @@ manifest should match snapshot:
                   name: steadybit-outpost-state
                 - mountPath: /tmp
                   name: tmp-dir
+          serviceAccountName: steadybit-outpost
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-outpost-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+using image pull secrets:
+  1: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.0.31
+        helm.sh/chart: steadybit-outpost-1.0.31
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-outpost
+      serviceName: steadybit-outpost
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-outpost
+            app.kubernetes.io/version: 1.0.31
+            helm.sh/chart: steadybit-outpost-1.0.31
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-outpost
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-outpost
+                - name: STEADYBIT_AGENT_EXTENSIONS_CERTIFICATES_PATH
+                  value: /opt/steadybit/outpost/etc/extension-mtls
+              image: steadybit/outpost:latest
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-outpost
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-outpost
+                  name: steadybit-outpost-state
+                - mountPath: /tmp
+                  name: tmp-dir
           imagePullSecrets:
-            - name: RELEASE-NAME-steadybit-outpost-pull-secrets
+            - name: test-pull-secret
           serviceAccountName: steadybit-outpost
           volumes:
             - emptyDir:
