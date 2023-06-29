@@ -20,32 +20,7 @@ metadata:
     {{ $key }}: {{ $value }}
   {{- end }}
   annotations:
-    "steadybit.com/extension-auto-discovery": >
-      {
-        "extensions": [
-          {
-            "port": {{ $port }},
-            "types": {{ toJson $types }},
-            "tls": {
-              {{- if $top.Values.tls.server.certificate.fromSecret }}
-              "server": {
-                "extraCertsFile": "{{ $top.Values.tls.server.certificate.fromSecret }}/tls.crt"
-              {{ if $top.Values.tls.client.certificates.fromSecrets -}}
-              },
-              {{- else -}}
-              }
-              {{- end -}}
-              {{- end }}
-              {{ if $top.Values.tls.client.certificates.fromSecrets -}}
-              "client": {
-                "certChainFile": "{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.crt",
-                "certKeyFile": "{{ first $top.Values.tls.client.certificates.fromSecrets }}/tls.key"
-              }
-              {{- end }}
-            }
-          }
-        ]
-      }
+    {{- include "extensionlib.annotation" . | nindent 4 }}
 spec:
   selector:
     app.kubernetes.io/name: {{ include "extensionlib.names.name" $top }}
