@@ -23,6 +23,9 @@ dependencies:
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
   version: 1.0.1
+- name: steadybit-extension-jvm
+  repository: https://steadybit.github.io/extension-jvm
+  version: 1.0.5
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.1.6
@@ -41,5 +44,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.0.3
-digest: sha256:f11103bb31ee8c94b7e9eba793bc3efdae1b8286cd795f74b571751102431598
-generated: "2023-07-19T19:05:21.672675+02:00"
+digest: sha256:9915aa90bd5d0a1b0c6a653773f01c52fa6f19fe69e65345fe53152084ec8635
+generated: "2023-07-21T13:05:36.008188+02:00"

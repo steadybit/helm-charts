@@ -166,6 +166,9 @@ extension-gatling:
 extension-jmeter:
   enabled: false
 
+extension-jvm:
+  enabled: false
+
 extension-k6:
   enabled: false
 
