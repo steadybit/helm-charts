@@ -86,38 +86,225 @@ checks the outpost.leaderElection for valid values
 {{- end -}}
 {{- end -}}
 
+
 {{/*
-checks if a volumne extra-cert is avaiable
+environment variables for extra certificates
 */}}
-{{- define "steadybit-outpost.hasVolumeExtraCerts" -}}
-  {{- $result := "false" -}}
-  {{- range $vol := .Values.outpost.extraVolumes -}}
-    {{- if eq $vol.name "extra-certs" -}}
-     {{- $result = "true" -}}
-    {{- end -}}
-  {{- end -}}
-  {{- $result -}}
+{{- define "extraCertificatesEnv" -}}
+{{ if .Values.outpost.extraCertificates.path -}}
+- name: STEADYBIT_AGENT_EXTRA_CERTS_PATH
+  value: {{ .Values.outpost.extraCertificates.path | quote }}
+{{ end -}}
 {{- end -}}
 
 {{/*
-extra volumes for extension mTLS certificates
+environment variables for extra certificates
 */}}
-{{- define "volumesForExtensionMutualTlsCertificates" -}}
-{{- range .Values.outpost.extensions.mutualTls.certificates.fromSecrets }}
-- name: "extension-cert-{{ . }}"
+{{- define "extraCertificatesVolumeMounts" -}}
+{{ if .Values.outpost.extraCertificates.fromVolume -}}
+- name: {{ .Values.outpost.extraCertificates.fromVolume }}
+  mountPath: /opt/steadybit/outpost/etc/extra-certs
+{{ end -}}
+{{- end -}}
+
+{{/*
+generates environment variables for mtls configuration
+*/}}
+{{- define "mtlsEnv" -}}
+{{ if .tls.clientCertificate.fromSecret -}}
+- name: {{ .env_prefix }}_CLIENT_CERT_CHAIN_FILE
+  value: /opt/steadybit/agent/etc/{{ .directory }}/client/tls.crt
+- name: {{ .env_prefix }}_CLIENT_CERT_KEY_FILE
+  value: /opt/steadybit/agent/etc/{{ .directory }}/client/tls.key
+{{ else if .tls.clientCertificate.path -}}
+- name: {{ .env_prefix }}_CLIENT_CERT_CHAIN_FILE
+  value: {{ .tls.clientCertificate.path | quote }}
+{{ if .tls.clientCertificate.key.path -}}
+- name: {{ .env_prefix }}_CLIENT_CERT_KEY_FILE
+  value: {{ .tls.clientCertificate.key.path | quote }}
+{{ end -}}
+{{ end -}}
+{{ if and .tls.clientCertificate.key.password.value (or .tls.clientCertificate.fromSecret .tls.clientCertificate.key.path) -}}
+- name: {{ .env_prefix }}_CLIENT_CERT_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretName }}
+      key: {{.directory}}ClientKeyPassword
+{{ else if .tls.clientCertificate.key.password.valueFrom -}}
+- name: {{ .env_prefix }}_CLIENT_CERT_PASSWORD
+  valueFrom:
+    {{- toYaml .tls.clientCertificate.key.password.valueFrom | nindent 4 }}
+{{ end -}}
+{{ if .tls.serverCertificate.fromSecret -}}
+- name: {{ .env_prefix }}_SERVER_CERT
+  value: /opt/steadybit/agent/etc/{{ .directory }}/server/tls.crt
+{{ else if .tls.serverCertificate.path -}}
+- name: {{ .env_prefix }}_SERVER_CERT
+  value: {{ .tls.serverCertificate.path | quote }}
+{{ end -}}
+{{- end -}}
+
+
+{{/*
+generates volume mounts for mtls configuration
+*/}}
+{{- define "mtlsVolumeMounts" -}}
+{{ if .tls.clientCertificate.fromSecret -}}
+- name: {{ .directory }}-tls-client
+  mountPath: /opt/steadybit/agent/etc/{{ .directory }}/client
+  readOnly: true
+{{ end -}}
+{{ if .tls.serverCertificate.fromSecret -}}
+- name: {{ .directory }}-tls-server
+  mountPath: /opt/steadybit/agent/etc/{{ .directory }}/server
+  readOnly: true
+{{ end -}}
+{{- end -}}
+
+{{/*
+generates volume mounts for mtls configuration
+*/}}
+{{- define "mtlsVolumes" -}}
+{{ if .tls.clientCertificate.fromSecret -}}
+- name: {{ .directory }}-tls-client
   secret:
-    secretName: {{ . | quote }}
-    optional: false
+    secretName: {{ .tls.clientCertificate.fromSecret | quote }}
+{{ end -}}
+{{ if .tls.serverCertificate.fromSecret -}}
+- name: {{ .directory }}-tls-server
+  secret:
+    secretName: {{ .tls.serverCertificate.fromSecret | quote }}
+{{ end -}}
+{{- end -}}
+
+
+{{/*
+environment variables for oauth2 authentication
+*/}}
+{{- define "oauth2Env" -}}
+{{- $secretName := include "steadybit-outpost.fullname" . -}}
+{{- if eq .Values.outpost.auth.provider "oauth2" }}
+{{- with .Values.outpost.auth.oauth2 -}}
+- name: STEADYBIT_AGENT_AUTH_PROVIDER
+  value: "OAUTH2"
+- name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_ID
+  value: {{ .clientId | required "missing required .Values.outpost.auth.oauth2.clientId" | quote }}
+{{ if .clientSecret.value -}}
+- name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
+  valueFrom:
+    secretKeyRef:
+      name: {{ $secretName }}
+      key: oauth2ClientSecret
+{{ else if .clientSecret.valueFrom -}}
+- name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
+  valueFrom:
+    {{- toYaml .clientSecret.valueFrom | nindent 4 }}
+{{ else -}}
+{{- fail "missing required .Values.outpost.auth.oauth2.clientSecret" -}}
+{{ end -}}
+- name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
+  value: {{ .issuerUri | required "missing required .Values.outpost.auth.oauth2.issuerUri" | quote }}
+{{ if .audience -}}
+- name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
+  value: {{ .audience | quote }}
+{{ end -}}
+{{ if .authorizationGrantType -}}
+- name: STEADYBIT_AGENT_AUTH_OAUTH2_AUTHORIZATION_GRANT_TYPE
+  value: {{ .authorizationGrantType | quote }}
+{{ end -}}
+{{ if .clientAuthenticationMethod -}}
+- name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_AUTHENTICATION_METHOD
+  value: {{ .clientAuthenticationMethod | quote }}
+{{ end -}}
+{{ if .tokenUri -}}
+- name: STEADYBIT_AGENT_AUTH_OAUTH2_TOKEN_URI
+  value: {{ .tokenUri | quote }}
+{{ end -}}
+{{ include
+    "mtlsEnv"
+     (dict
+        "env_prefix" "STEADYBIT_AGENT_AUTH_OAUTH2"
+        "values_prefix" ".Values.outpost.auth.oauth2.tls"
+        "directory" "oauth2"
+        "tls" .tls
+        "secretName" $secretName
+    )
+-}}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 
 {{/*
 volume mounts for extension mTLS certificates
 */}}
-{{- define "volumeMountsForExtensionMutualTlsCertificates" -}}
-{{- range .Values.outpost.extensions.mutualTls.certificates.fromSecrets }}
-- name: "extension-cert-{{ . }}"
-  mountPath: "/opt/steadybit/outpost/etc/extension-mtls/{{ . }}"
-  readOnly: true
+{{- define "oauth2VolumeMounts" -}}
+{{ include
+    "mtlsVolumeMounts"
+     (dict
+        "directory" "oauth2"
+        "tls" .Values.outpost.auth.oauth2.tls
+    )
+-}}
 {{- end -}}
+
+{{/*
+volume mounts for extension mTLS certificates
+*/}}
+{{- define "oauth2Volumes" -}}
+{{ include
+    "mtlsVolumes"
+     (dict
+        "directory" "extensions"
+        "tls" .Values.outpost.auth.oauth2.tls
+        "secretName" (include "steadybit-outpost.fullname" . )
+    )
+-}}
+{{- end -}}
+
+{{/*
+environment variables for extension kit configuration
+*/}}
+{{- define "extensionEnv" -}}
+{{ include
+    "mtlsEnv"
+     (dict
+        "env_prefix" "STEADYBIT_AGENT_EXTENSIONS"
+        "values_prefix" ".Values.outpost.extensions.tls"
+        "directory" "extensions"
+        "tls" .Values.outpost.extensions.tls
+        "secretName" (include "steadybit-outpost.fullname" . )
+    )
+-}}
+{{ if .Values.outpost.extensions.tls.hostnameVerification -}}
+- name: STEADYBIT_AGENT_EXTENSIONS_HOSTNAME_VERIFICATION
+  value: {{ .Values.outpost.extensions.tls.hostnameVerification | quote }}
+{{ end -}}
+{{- end -}}
+
+
+{{/*
+volume mounts for extension mTLS certificates
+*/}}
+{{- define "extensionVolumeMounts" -}}
+{{ include
+    "mtlsVolumeMounts"
+     (dict
+        "directory" "extensions"
+        "tls" .Values.outpost.extensions.tls
+    )
+-}}
+{{- end -}}
+
+{{/*
+volumes for extension mTLS certificates
+*/}}
+{{- define "extensionVolumes" -}}
+{{ include
+    "mtlsVolumes"
+     (dict
+        "directory" "extensions"
+        "tls" .Values.outpost.extensions.tls
+        "secretName" (include "steadybit-outpost.fullname" . )
+    )
+-}}
 {{- end -}}

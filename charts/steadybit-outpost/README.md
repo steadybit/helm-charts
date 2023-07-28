@@ -19,63 +19,13 @@ To install the chart with the name `steadybit-outpost` and set the values on the
 $ helm install steadybit-outpost --namespace steadybit-outpost --create-namespace --set outpost.key=STEADYBIT_AGENT_KEY --set global.clusterName=CLUSTER_NAME steadybit/steadybit-outpost
 ```
 
-## Configuration
+## Configuration Options
 
-To see all configurable options with detailed comments, visit the chart's values.yaml, or run these configuration commands:
+To see all configurable options with detailed comments, visit the chart's [values.yaml](values.yaml), or run these configuration commands:
 
 ```
 $ helm show values steadybit-outpost
 ```
-
-The following table lists the configurable parameters of the steadybit outpost chart and their default values.
-
-| Key                                         | Type    | Default                            | Description                                                                                                                                                    |
-|---------------------------------------------|---------|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| affinity                                    | object  | `{}`                               | Affinities to influence outpost pod assignment.                                                                                                                |
-| global.clusterName                          | string  | `nil`                              | Represents the name that will be assigned to this Kubernetes cluster in steadybit.                                                                             |
-| outpost.extraVolumes                        | list    | `[]`                               | Additional volumes to which the outpost container will be mounted.                                                                                             |
-| outpost.extraVolumeMounts                   | list    | `[]`                               | Additional volumeMounts to which the outpost container will be mounted.                                                                                        |
-| outpost.env                                 | array   | `[]`                               | Additional environment variables for the steadybit outpost                                                                                                     |
-| outpost.extraLabels                         | object  | `{}`                               | Additional labels                                                                                                                                              |
-| outpost.key                                 | string  | `nil`                              | The secret token which your outpost uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup. |
-| outpost.registerUrl                         | string  | `"https://platform.steadybit.com"` | The URL of the steadybit server the outpost will connect to.                                                                                                   |
-| outpost.proxy.host                          | string  | `nil`                              | Hostname or address of your proxy                                                                                                                              |
-| outpost.proxy.port                          | int     | `80`                               | Port of your proxy                                                                                                                                             |
-| outpost.proxy.protocol                      | string  | `"HTTP"`                           | proxy protocol                                                                                                                                                 |
-| outpost.proxy.user                          | string  | `nil`                              | username of the proxy auth (if needed)                                                                                                                         |
-| outpost.proxy.password                      | string  | `nil`                              | password of the proxy auth (if needed)                                                                                                                         |
-| image.name                                  | string  | `"steadybit/outpost"`              | The container image  to use of the steadybit outpost.                                                                                                          |
-| image.pullPolicy                            | string  | `"Always"`                         | Specifies when to pull the image container.                                                                                                                    |
-| image.tag                                   | string  | `"latest"`                         | tag name of the outpost container image to use.                                                                                                                |
-| resources.limits.memory                     | string  | `"500Mi"`                          | memory resource limit for the outpost container                                                                                                                |
-| resources.limits.cpu                        | string  | `"1000m"`                          | cpu resource limit for the outpost container                                                                                                                   |
-| resources.requests.memory                   | string  | `"250Mi"`                          | memory resource limit for the outpost container                                                                                                                |
-| resources.requests.cpu                      | string  | `"125m"`                           | cpu resource limit for the outpost container                                                                                                                   |
-| nodeSelector                                | object  | `{}`                               | Node labels for pod assignment                                                                                                                                 |
-| podAnnotations                              | object  | `{}`                               | Additional annotations to be added to the outpost pods.                                                                                                        |
-| rbac.create                                 | bool    | `true`                             | Specifies whether RBAC resources should be created.                                                                                                            |
-| rbac.readonly                               | bool    | `true`                             | Specifies if Kubernetes API access should only be read only.                                                                                                   |
-| serviceAccount.create                       | bool    | `true`                             | Specifies whether a ServiceAccount should be created.                                                                                                          |
-| serviceAccount.name                         | string  | `"steadybit-outpost"`              | The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template.                                       |
-| serviceAccount.eksRoleArn                   | string  | `nil`                              | The arn of the IAM role - [see aws docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)                                   |
-| tolerations                                 | list    | `[]`                               | Tolerations to influence outpost pod assignment.                                                                                                               |
-| updateStrategy.rollingUpdate.maxUnavailable | int     | `1`                                |                                                                                                                                                                |
-| updateStrategy.type                         | string  | `"RollingUpdate"`                  | Which type of `updateStrategy` should be used.                                                                                                                 |
-| extension-aws.enabled                       | boolean | `false`                            | Enables the AWS extension. Further config may be required.                                                                                                     |
-| extension-container.enabled                 | boolean | `true`                             | Enables the container extension. Further config may be required.                                                                                               |
-| extension-container.container.runtime       | string  | `containerd`                       | The container runtime.                                                                                                                                         |
-| extension-datadog.enabled                   | boolean | `false`                            | Enables the datadog extension. Further config may be required.                                                                                                 |
-| extension-host.enabled                      | boolean | `true`                             | Enables the host extension. Further config may be required.                                                                                                    |
-| extension-http.enabled                      | boolean | `true`                             | Enables the HTTP extension. Further config may be required.                                                                                                    |
-| extension-istio.enabled                     | boolean | `false`                            | Enables the Istio extension. Further config may be required.                                                                                                   |
-| extension-gatling.enabled                   | boolean | `false`                            | Enables the Gatling extension. Further config may be required.                                                                                                 |
-| extension-jmeter.enabled                    | boolean | `false`                            | Enables the JMeter extension. Further config may be required.                                                                                                  |
-| extension-k6.enabled                        | boolean | `false`                            | Enables the K6 extension. Further config may be required.                                                                                                      |
-| extension-kong.enabled                      | boolean | `false`                            | Enables the kong extension. Further config may be required.                                                                                                    |
-| extension-kubernetes.enabled                | boolean | `true`                             | Enables the kubernetes extension. Further config may be required.                                                                                              |
-| extension-postman.enabled                   | boolean | `false`                            | Enables the postman extension. Further config may be required.                                                                                                 |
-| extension-prometheus.enabled                | boolean | `false`                            | Enables the prometheus extension. Further config may be required.                                                                                              |
-| extension-stackstate.enabled                | boolean | `false`                            | Enables the stackstate extension. Further config may be required.                                                                                              |
 
 ### YAML file
 
@@ -93,29 +43,32 @@ $ helm install -f steadybit-values.yaml steadybit-outpost --namespace steadybit-
 
 ### Importing your own certificates
 
-You may want to import your own certificates. You just need the to provide a volume named `extra-certs`.
+You may want to import your own certificates. Mount a volume with the certificates and reference it in `outpost.extraCertificates.fromVolume`.
 
 This example uses a config map to store the `*.crt`-files in a configmap:
 
-```
+```shell
 kubectl create configmap -n steadybit-outpost self-signed-ca --from-file=./self-signed-ca.crt
 ```
 
 ```yaml
 outpost:
+  extraCertificates:
+    fromVolume: extra-certs
   extraVolumes:
     - name: extra-certs
       configMap:
-        name: self-signed-ca #uses a certificates from the secret "self-signed-ca"
+        name: self-signed-ca
 ```
 
 -OR-
 
+You can also reference a path in the container use `outpost.extraCertificates.containerPath`
+
 ```yaml
 outpost:
-  extraVolumes:
-    - name: extra-certs
-      hostPath: /ssca/ca # path with additional certificates
+  extraCertificates:
+    container-path: /path/to/certificates
 ```
 
 ### Configuring Additional Volumes

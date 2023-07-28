@@ -7,8 +7,8 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.0.31
-        helm.sh/chart: steadybit-outpost-1.0.31
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -28,8 +28,8 @@ manifest should match snapshot:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.0.31
-            helm.sh/chart: steadybit-outpost-1.0.31
+            app.kubernetes.io/version: 1.1.0
+            helm.sh/chart: steadybit-outpost-1.1.0
         spec:
           containers:
             - env:
@@ -60,8 +60,6 @@ manifest should match snapshot:
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-outpost
-                - name: STEADYBIT_AGENT_EXTENSIONS_CERTIFICATES_PATH
-                  value: /opt/steadybit/outpost/etc/extension-mtls
               image: steadybit/outpost:latest
               imagePullPolicy: Always
               livenessProbe:
@@ -107,7 +105,22 @@ manifest should match snapshot:
             resources:
               requests:
                 storage: 200Mi
-using image pull secrets:
+  2: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    type: Opaque
+using extensions with mtls from containerpath:
   1: |
     apiVersion: apps/v1
     kind: StatefulSet
@@ -116,8 +129,8 @@ using image pull secrets:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.0.31
-        helm.sh/chart: steadybit-outpost-1.0.31
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -137,8 +150,8 @@ using image pull secrets:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.0.31
-            helm.sh/chart: steadybit-outpost-1.0.31
+            app.kubernetes.io/version: 1.1.0
+            helm.sh/chart: steadybit-outpost-1.1.0
         spec:
           containers:
             - env:
@@ -169,8 +182,289 @@ using image pull secrets:
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-outpost
-                - name: STEADYBIT_AGENT_EXTENSIONS_CERTIFICATES_PATH
-                  value: /opt/steadybit/outpost/etc/extension-mtls
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
+                  value: /etc/ssl/certs/client.crt
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_KEY_FILE
+                  value: /etc/ssl/certs/client.key
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: extensionsClientKeyPassword
+                      name: RELEASE-NAME-steadybit-outpost
+                - name: STEADYBIT_AGENT_EXTENSIONS_SERVER_CERT
+                  value: /etc/ssl/certs/server.crt
+                - name: STEADYBIT_AGENT_EXTENSIONS_HOSTNAME_VERIFICATION
+                  value: strict
+                - name: STEADYBIT_AGENT_EXTRA_CERTS_PATH
+                  value: /etc/ssl/extra-certs
+              image: steadybit/outpost:latest
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-outpost
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-outpost
+                  name: steadybit-outpost-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          serviceAccountName: steadybit-outpost
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-outpost-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+  2: |
+    apiVersion: v1
+    data:
+      extensionsClientKeyPassword: c29tZS1leHRlbnNpb24tY2xpZW50LWtleS1wYXNzd29yZA==
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    type: Opaque
+using extensions with mtls from secrets:
+  1: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-outpost
+      serviceName: steadybit-outpost
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-outpost
+            app.kubernetes.io/version: 1.1.0
+            helm.sh/chart: steadybit-outpost-1.1.0
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-outpost
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-outpost
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
+                  value: /opt/steadybit/agent/etc/extensions/client/tls.crt
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_KEY_FILE
+                  value: /opt/steadybit/agent/etc/extensions/client/tls.key
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: some-secret-key
+                      name: some-secret
+                - name: STEADYBIT_AGENT_EXTENSIONS_SERVER_CERT
+                  value: /opt/steadybit/agent/etc/extensions/server/tls.crt
+              image: steadybit/outpost:latest
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-outpost
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-outpost
+                  name: steadybit-outpost-state
+                - mountPath: /tmp
+                  name: tmp-dir
+                - mountPath: /opt/steadybit/agent/etc/extensions/client
+                  name: extensions-tls-client
+                  readOnly: true
+                - mountPath: /opt/steadybit/agent/etc/extensions/server
+                  name: extensions-tls-server
+                  readOnly: true
+                - mountPath: /opt/steadybit/outpost/etc/extra-certs
+                  name: extra-certs
+          serviceAccountName: steadybit-outpost
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+            - name: extensions-tls-client
+              secret:
+                secretName: some-client-secret
+            - name: extensions-tls-server
+              secret:
+                secretName: server.crt
+            - configMap:
+                name: self-signed-ca
+              name: extra-certs
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-outpost-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+  2: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    type: Opaque
+using image pull secrets:
+  1: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-outpost
+      serviceName: steadybit-outpost
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-outpost
+            app.kubernetes.io/version: 1.1.0
+            helm.sh/chart: steadybit-outpost-1.1.0
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-outpost
               image: steadybit/outpost:latest
               imagePullPolicy: Always
               livenessProbe:
@@ -218,3 +512,311 @@ using image pull secrets:
             resources:
               requests:
                 storage: 200Mi
+  2: |
+    apiVersion: v1
+    data: null
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    type: Opaque
+using oauth2 with mtls from containerPath:
+  1: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-outpost
+      serviceName: steadybit-outpost
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-outpost
+            app.kubernetes.io/version: 1.1.0
+            helm.sh/chart: steadybit-outpost-1.1.0
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-outpost
+                - name: STEADYBIT_AGENT_AUTH_PROVIDER
+                  value: OAUTH2
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_ID
+                  value: some-client-id
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      key: oauth2ClientSecret
+                      name: RELEASE-NAME-steadybit-outpost
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
+                  value: https://some-issuer-uri
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
+                  value: some-audience
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_CERT_CHAIN_FILE
+                  value: /etc/ssl/certs/client.crt
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_CERT_KEY_FILE
+                  value: /etc/ssl/certs/client.key
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_CERT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: oauth2ClientKeyPassword
+                      name: RELEASE-NAME-steadybit-outpost
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_SERVER_CERT
+                  value: /etc/ssl/certs/server.crt
+              image: steadybit/outpost:latest
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-outpost
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-outpost
+                  name: steadybit-outpost-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          serviceAccountName: steadybit-outpost
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-outpost-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+  2: |
+    apiVersion: v1
+    data:
+      oauth2ClientKeyPassword: c29tZS1vYXV0aDItY2xpZW50LWtleS1wYXNzd29yZA==
+      oauth2ClientSecret: c29tZS1jbGllbnQtc2VjcmV0
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    type: Opaque
+using oauth2 with mtls from secrets:
+  1: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-outpost
+      serviceName: steadybit-outpost
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-outpost
+            app.kubernetes.io/version: 1.1.0
+            helm.sh/chart: steadybit-outpost-1.1.0
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-outpost
+                - name: STEADYBIT_AGENT_AUTH_PROVIDER
+                  value: OAUTH2
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_ID
+                  value: some-client-id
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      key: some-secret-key
+                      name: some-secret
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
+                  value: https://some-issuer-uri
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
+                  value: some-audience
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_CERT_CHAIN_FILE
+                  value: /opt/steadybit/agent/etc/oauth2/client/tls.crt
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_CERT_KEY_FILE
+                  value: /opt/steadybit/agent/etc/oauth2/client/tls.key
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_CERT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: some-other-secret-key
+                      name: some-secret
+                - name: STEADYBIT_AGENT_AUTH_OAUTH2_SERVER_CERT
+                  value: /opt/steadybit/agent/etc/oauth2/server/tls.crt
+              image: steadybit/outpost:latest
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-outpost
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-outpost
+                  name: steadybit-outpost-state
+                - mountPath: /tmp
+                  name: tmp-dir
+                - mountPath: /opt/steadybit/agent/etc/oauth2/client
+                  name: oauth2-tls-client
+                  readOnly: true
+                - mountPath: /opt/steadybit/agent/etc/oauth2/server
+                  name: oauth2-tls-server
+                  readOnly: true
+          serviceAccountName: steadybit-outpost
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+            - name: extensions-tls-client
+              secret:
+                secretName: some-client-secret
+            - name: extensions-tls-server
+              secret:
+                secretName: server.crt
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-outpost-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+  2: |
+    apiVersion: v1
+    data: null
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 1.1.0
+        helm.sh/chart: steadybit-outpost-1.1.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    type: Opaque

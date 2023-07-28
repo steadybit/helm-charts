@@ -62,11 +62,13 @@ spec:
           env:
             - name: STEADYBIT_AGENT_REGISTER_URL
               value: {{ .Values.outpost.registerUrl | quote }}
+            {{ if .Values.outpost.key -}}
             - name: STEADYBIT_AGENT_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ template "steadybit-outpost.fullname" . }}
                   key: key
+            {{ end -}}
             - name: POD_IP
               valueFrom:
                 fieldRef:
@@ -87,28 +89,12 @@ spec:
               value: {{ .Values.outpost.port | quote }}
             - name: STEADYBIT_AGENT_WORKING_DIR
               value: /tmp/steadybit-outpost
-            {{- if eq .Values.outpost.auth.provider "oauth2" }}
-            - name: STEADYBIT_AGENT_AUTH_PROVIDER
-              value: OAUTH2
-            - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_ID
-              value: {{ .Values.outpost.auth.oauth2.clientId | quote }}
-            - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "steadybit-outpost.fullname" . }}
-                  key: oauth2ClientSecret
-            - name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
-              value: {{ .Values.outpost.auth.oauth2.issuerUri | quote }}
+            {{- include "oauth2Env" . | nindent 12 }}
+            {{- include "extensionEnv" . | nindent 12 }}
+            {{- include "extraCertificatesEnv" . | nindent 12 }}
+            {{- with .Values.outpost.env }}
+            {{- toYaml . | nindent 12 }}
             {{- end }}
-            {{- if and (eq .Values.outpost.auth.provider "oauth2") (.Values.outpost.auth.oauth2.audience) }}
-            - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
-              value: {{ .Values.outpost.auth.oauth2.audience | quote }}
-            {{- end }}
-            - name: STEADYBIT_AGENT_EXTENSIONS_CERTIFICATES_PATH
-              value: /opt/steadybit/outpost/etc/extension-mtls
-{{- with .Values.outpost.env }}
-{{ toYaml . | indent 12 }}
-{{- end }}
           securityContext:
             readOnlyRootFilesystem: true
             runAsUser: 1000
@@ -119,11 +105,9 @@ spec:
               mountPath: /var/lib/steadybit-outpost
             - name: tmp-dir
               mountPath: /tmp
-            {{-  include "volumeMountsForExtensionMutualTlsCertificates" . | nindent 12 }}
-            {{- if eq (include "steadybit-outpost.hasVolumeExtraCerts" . ) "true" }}
-            - name: extra-certs
-              mountPath: /opt/steadybit/outpost/etc/extra-certs
-            {{- end }}
+            {{- include "oauth2VolumeMounts" . | nindent 12 }}
+            {{- include "extensionVolumeMounts" . | nindent 12 }}
+            {{- include "extraCertificatesVolumeMounts" . | nindent 12 }}
 {{- with .Values.outpost.extraVolumeMounts  }}
 {{ toYaml . | indent 12 }}
 {{- end }}
@@ -149,7 +133,8 @@ spec:
         - name: tmp-dir
           emptyDir:
             medium: Memory
-        {{-  include "volumesForExtensionMutualTlsCertificates" . | nindent 8 }}
+        {{-  include "oauth2Volumes" . | nindent 8 }}
+        {{-  include "extensionVolumes" . | nindent 8 }}
 {{- with .Values.outpost.extraVolumes  }}
 {{ toYaml . | indent 8 }}
 {{- end }}

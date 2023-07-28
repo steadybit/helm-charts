@@ -3,24 +3,59 @@
 # Declare variables to be passed into your templates.
 
 global:
-  # global.clusterName Represents the name that will be assigned to this Kubernetes cluster in steadybit.
+  # global.clusterName -- Represents the name that will be assigned to this Kubernetes cluster in steadybit.
   clusterName: null
 
 outpost:
-  # outpost.key -- The secret token which your outpost uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup.
+  # outpost.key -- The secret token which your outpost uses to authenticate to steadybit's servers.
+  #   Get it from https://platform.steadybit.com/settings/agents/setup.
   key: null
   auth:
     # outpost.auth.provider -- `agent-key` or `oauth2`
     provider: agent-key
     # outpost.auth.oauth2.* -- additional settings if `outpost.auth.provider` is set to `oauth2`
     oauth2:
+      # outpost.auth.oauth2.clientId --the client id to use when fetching the oauth2 token
       clientId: null
-      clientSecret: null
-      issuerUri: null
-      # outpost.auth.oauth2.audience -- optional
+      # outpost.auth.oauth2.clientSecret -- the client secret to use when fetching the oauth2 token
+      clientSecret:
+        value: null
+        valueFrom: null
+      # outpost.auth.oauth2.authorizationGrantType -- the authorizationGrantType to use when fetching the oauth2 token; default is `client_credentials`
+      authorizationGrantType: null
+      # outpost.auth.oauth2.clientAuthenticationMethod -- the auth_method used to fetch the token. If not specified or provided in the issuer discovery endpoint, 'client_secret_basic' will be used.
+      clientAuthenticationMethod: null
+      # outpost.auth.oauth2.audience -- optional audience used to fetch the oauth2 token
       audience: null
+      # outpost.auth.oauth2.issuerUri -- the issuerUri of the authentication provider
+      issuerUri: null
+      # the tokenUri of the authentication provider to fetch the oauth2 token from. If set will suppress reading the oidc discovery endpoint.
+      tokenUri: null
+      tls:
+        # outpost.auth.oauth2.tls.clientCertificate -- optional client certificate to be used when fetching the token.
+        clientCertificate:
+          # outpost.auth.oauth2.tls.clientCertificate.fromSecret -- loads key and certificate from a secret
+          fromSecret: null
+          # outpost.auth.oauth2.tls.clientCertificate.containerPath -- reference certificate from a containerPath
+          path: null
+          key:
+            # outpost.auth.oauth2.tls.clientCertificate.key.path -- reference key from a containerPath
+            path: null
+            # outpost.auth.oauth2.tls.clientCertificate.key.password -- optional password for the key
+            password:
+              value: null
+              valueFrom: null
+        # outpost.auth.oauth2.tls.serverCert -- optional server certificate(s) to be used for validation when fetching the token.
+        #  If not specified will use the default certificate pool or those in outpost.extraCertificates
+        serverCertificate:
+          path: null
+          fromSecret: null
   # outpost.registerUrl -- The URL of the steadybit server your outposts will connect to.
   registerUrl: https://platform.steadybit.io
+  # outpost.extraCertificates -- Specify a containerPath where the agent loads additional certificates from.
+  extraCertificates:
+    path: null
+    fromVolume: null
   # outpost.extraVolumes -- Additional volumes to which the outpost container will be mounted.
   extraVolumes: []
   # outpost.extraVolumeMounts -- Additional volumeMountss to which the outpost container will be mounted.
@@ -42,7 +77,7 @@ outpost:
     failureThreshold: 5
     successThreshold: 1
   proxy:
-  # outpost.proxy.host sets the STEADYBIT_AGENT_PROXY_HOST environment variable.
+    # outpost.proxy.host sets the STEADYBIT_AGENT_PROXY_HOST environment variable.
     host: null
     # outpost.proxy.port sets the STEADYBIT_AGENT_PROXY_PORT environment variable.
     port: 80
@@ -61,18 +96,30 @@ outpost:
   prometheus:
     scrape: true
   extensions:
-    mutualTls:
-      certificates:
-        # outpost.extensions.mutualTls.certificates.fromSecrets -- Can be set to the names of TLS secrets existing within the same namespace as the outpost.
-        # All referenced secrets will be mounted within the outpost containers and can be used for mutual TLS in extension communication.
-        #
-        # The file paths will be the following (you will need this for extension configuration):
-        #   /opt/steadybit/outpost/etc/extension-mtls/{secret name}/tls.crt
-        #   /opt/steadybit/outpost/etc/extension-mtls/{secret name}/tls.key
-        #
-        # Note that the extensions will need to be configured to report these file paths to the outpost. Without this, the outpost will not activate
-        # mTLS for its communication.
-        fromSecrets: []
+    tls:
+      # outpost.extensions.tls.clientCertificate -- optional client certificate to be used when fetching the token.
+      clientCertificate:
+        # outpost.extensions.tls.clientCertificate.fromSecret -- loads key and certificate from a secret
+        fromSecret: null
+        # outpost.extensions.tls.clientCertificate.containerPath -- reference certificate from a containerPath
+        path: null
+        # outpost.extensions.tls.clientCertificate.key.path -- reference key from a containerPath
+        key:
+          path: null
+          # outpost.extensions.tls.clientCertificate.password -- optional password for the key
+          password:
+            value: null
+            valueFrom: null
+      # outpost.auth.oauth2.tls.serverCert -- optional server certificate(s) to be used for validation when fetching the token.
+      #  If not specified will use the default certificate pool or those in outpost.extraCertificates
+      serverCertificate:
+        path: null
+        fromSecret: null
+      # outpost.extensions.tls.hostnameVerification -- controls the hostname verification for the extensions. Default: unsafe_ip_addresses; Valid values: strict, unsafe, unsafe_ip_addresses
+      #   strict: validates hostnames and ip addresses with the SAN field of the certificate
+      #   unsafe_ip_addresses: validates only hostnames but not ip addresses with the SAN field of the certificate
+      #   unsafe: no hostname validation
+      hostnameVerification: null
 
 image:
   # image.name -- The container image to use of the steadybit outpost.
@@ -133,62 +180,113 @@ tolerations: []
 # affinity -- Affinities to influence outpost pod assignment.
 affinity: {}
 
+# extension-aws.* -- settings for the aws extension. See https://github.com/steadybit/extension-aws for more information.
 extension-aws:
+  # extension-aws.enabled -- Enable the AWS extension
   enabled: false
   serviceAccount:
-    eksRoleArn: null  # if used in EKS, this is the recommended way to authenticate. Check https://github.com/steadybit/extension-aws for more information.
+    # extensions-aws.serviceAccount.eksRoleArn -- This is the recommended way to authenticate to AWS CLI. See extension-aws README for more information.
+    eksRoleArn: null
 
+# extension-container.* -- settings for the container extension. See https://github.com/steadybit/extension-container for more information.
 extension-container:
+  # extension-container.enabled -- Enable the container extension
   enabled: true
   container:
+    # extension-container.runtime -- The container runtime to use. Valid values: containerd, docker, cri-o. See extension-container README for more information.
     runtime: containerd
 
+# extension-container.* -- settings for the container extension. See https://github.com/steadybit/extension-container for more information.
 extension-datadog:
+  # extension-datadog.enabled -- Enable the Datadog extension
   enabled: false
+  # extension-datadog.datadog.* -- these options are for accessing the datadog API either specify the values or reference a secret see extension-datadog README for more information.
   datadog:
-    apiKey: null  # required
-    applicationKey: null  # required
-    siteParameter: null  # required
-    siteUrl: null  # required
+    apiKey: null
+    applicationKey: null
+    siteParameter: null
+    siteUrl: null
+    existingSecret: null
 
+# extension-host.* -- settings for the host extension sub chart.
+#   See https://github.com/steadybit/extension-host for more information.
 extension-host:
+  # extension-host.enabled -- Enable the Datadog extension
   enabled: true
 
+# extension-http.* -- settings for the http extension sub chart.
+#   See https://github.com/steadybit/extension-http for more information.
 extension-http:
+  # extension-http.enabled -- Enable the HTTP extension
   enabled: true
 
+# extension-istio.* -- settings for the istio extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-istio for more information.
 extension-istio:
+  # extension-istio.enabled -- Enable the Istio extension
   enabled: false
 
+# extension-gatling.* -- settings for the gatling extension sub chart.
+#   See https://github.com/steadybit/extension-gatling for more information.
 extension-gatling:
+  # extension-gatling.enabled -- Enable the Gatling extension
   enabled: false
 
+# extension-jmeter.* -- settings for the jmeter extension sub chart.
+#   See https://github.com/steadybit/extension-jmeter for more information.
 extension-jmeter:
+  # extension-jmeter.enabled -- Enable the JMeter extension
   enabled: false
 
+# extension-jvm.* -- settings for the jvm extension sub chart.
+#   See https://github.com/steadybit/extension-jvm for more information.
 extension-jvm:
+  # extension-jvm.enabled -- Enable the JVM extension
   enabled: false
 
+# extension-k6.* -- settings for the k6 extension sub chart.
+#   See https://github.com/steadybit/extension-k6 for more information.
 extension-k6:
+  # extension-k6.enabled -- Enable the K6 extension
   enabled: false
 
+# extension-kong.* -- settings for the kong extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-kong for more information.
 extension-kong:
+  # extension-kong.enabled -- Enable the Kong extension
   enabled: false
   kong:
-    name: null  # required
-    origin: null  # required
+    name: null
+    origin: null
 
+# extension-kubernetes.* -- settings for the kubernetes extension sub chart.
+#   See https://github.com/steadybit/extension-kubernetes for more information.
 extension-kubernetes:
+  # extension-kubernetes.enabled -- Enable the Kubernetes extension
   enabled: true
 
+# extension-postman.* -- settings for the postman extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-postman for more information.
 extension-postman:
+  # extension-postman.enabled -- Enable the Postman extension
   enabled: false
 
+# extension-prometheus.* -- settings for the prometheus extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-prometheus for more information.
 extension-prometheus:
+  # extension-prometheus.enabled -- Enable the Prometheus extension
   enabled: false
 
+# extension-stackstate.* -- settings for the stackstate extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-stackstate for more information.
 extension-stackstate:
+  # extension-stackstate.enabled -- Enable the Stackstate extension
   enabled: false
   stackstate:
-    serviceToken: null  # required
-    apiBaseUrl: null  # required
+    serviceToken: null
+    apiBaseUrl: null
