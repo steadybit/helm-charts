@@ -10,16 +10,24 @@ This takes an array of these values:
   value: {{ $top.Values.logging.level | quote }}
 - name: STEADYBIT_LOG_FORMAT
   value: {{ $top.Values.logging.format | quote }}
-{{- if $top.Values.tls.server.certificate.fromSecret }}
+{{ if $top.Values.tls.server.certificate.fromSecret -}}
 - name: STEADYBIT_EXTENSION_TLS_SERVER_CERT
   value: "/etc/extension/certificates/{{ $top.Values.tls.server.certificate.fromSecret }}/tls.crt"
 - name: STEADYBIT_EXTENSION_TLS_SERVER_KEY
   value: "/etc/extension/certificates/{{ $top.Values.tls.server.certificate.fromSecret }}/tls.key"
-{{- end }}
-{{- if $top.Values.tls.client.certificates.fromSecrets }}
+{{ else if $top.Values.tls.server.certificate.path -}}
+- name: STEADYBIT_EXTENSION_TLS_SERVER_CERT
+  value: {{ $top.Values.tls.server.certificate.path | quote }}
+- name: STEADYBIT_EXTENSION_TLS_SERVER_KEY
+  value: {{ $top.Values.tls.server.certificate.key.path | required "missing required .Values.tls.server.certificate.key.path" | quote }}
+{{ end -}}
+{{ if $top.Values.tls.client.certificates.fromSecrets -}}
 - name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
   value: "/etc/extension/certificates/{{ join "/tls.crt,/etc/extension/certificates/" $top.Values.tls.client.certificates.fromSecrets }}/tls.crt"
-{{- end }}
+{{ else if $top.Values.tls.client.certificates.paths -}}
+- name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
+  value: "{{ join "," $top.Values.tls.client.certificates.paths }}"
+{{ end -}}
 {{- end -}}
 
 {{- /*
