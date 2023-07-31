@@ -1,0 +1,37 @@
+templates:
+  - NOTES.txt
+tests:
+  - it: should warn about missing agent key and cluster name
+    set:
+      outpost:
+        auth:
+          provider: agent-key
+    asserts:
+      - matchSnapshot: {}
+  - it: should warn about missing agent key
+    set:
+      global:
+        clusterName: test
+      outpost:
+        auth:
+          provider: agent-key
+    asserts:
+      - matchSnapshot: {}
+  - it: should warn about missing cluster name
+    set:
+      outpost:
+        key: abcdefg
+        auth:
+          provider: agent-key
+    asserts:
+      - matchSnapshot: {}
+  - it: should inform about deployment
+    set:
+      global:
+        clusterName: test
+      outpost:
+        key: abcdefg
+        auth:
+          provider: agent-key
+    asserts:
+      - matchSnapshot: {}

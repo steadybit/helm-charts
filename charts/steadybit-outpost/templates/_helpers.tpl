@@ -199,11 +199,13 @@ environment variables for oauth2 authentication
 - name: STEADYBIT_AGENT_AUTH_OAUTH2_CLIENT_SECRET
   valueFrom:
     {{- toYaml .clientSecret.valueFrom | nindent 4 }}
-{{ else -}}
-{{- fail "missing required .Values.outpost.auth.oauth2.clientSecret" -}}
 {{ end -}}
+{{ if .issuerUri -}}
 - name: STEADYBIT_AGENT_AUTH_OAUTH2_ISSUER_URI
-  value: {{ .issuerUri | required "missing required .Values.outpost.auth.oauth2.issuerUri" | quote }}
+  value: {{ .issuerUri | quote }}
+{{ else if not .tokenUri -}}
+{{- fail "missing either .Values.outpost.auth.oauth2.issuerUri or .Values.outpost.auth.oauth2.tokenUri" -}}
+{{ end -}}
 {{ if .audience -}}
 - name: STEADYBIT_AGENT_AUTH_OAUTH2_AUDIENCE
   value: {{ .audience | quote }}
