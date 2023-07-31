@@ -1,4 +1,4 @@
-{{- if (and (and (not .Values.outpost.key) (eq "agent-key" .Values.outpost.auth.provider)) (and (not .Values.global.clusterName) (eq "default" .Values.outpost.mode ))) }}
+{{- if (and (and (not .Values.outpost.key) (eq "agent-key" .Values.outpost.auth.provider)) (not .Values.global.clusterName)) }}
 ##############################################################################
 ####    ERROR: You did not specify your secret agent key.                 ####
 ####    ERROR: You also did not specify a name for this cluster.          ####
@@ -15,7 +15,7 @@ This agent deployment will be incomplete until you set your agent key and a name
 
 This cluster will be reported as 'unknown' unless you specify a cluster name.
 
-{{- else if and (not .Values.global.clusterName) (eq "default" .Values.outpost.mode ) }}
+{{- else if not .Values.global.clusterName }}
 ##############################################################################
 ####    ERROR: You did not specify a name for this cluster.               ####
 ##############################################################################
