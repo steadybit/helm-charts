@@ -24,7 +24,10 @@ spec:
         {{- include "steadybit-outpost.commonLabels" . | nindent 8 }}
         {{- range $key, $value := .Values.outpost.extraLabels }}
         {{ $key }}: {{ $value }}
-      {{- end }}
+        {{- end }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       annotations:
         prometheus.io/scrape: "{{ .Values.outpost.prometheus.scrape }}"
         prometheus.io/path: "/prometheus"

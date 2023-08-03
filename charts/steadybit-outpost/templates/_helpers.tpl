@@ -222,16 +222,7 @@ environment variables for oauth2 authentication
 - name: STEADYBIT_AGENT_AUTH_OAUTH2_TOKEN_URI
   value: {{ .tokenUri | quote }}
 {{ end -}}
-{{ include
-    "mtlsEnv"
-     (dict
-        "env_prefix" "STEADYBIT_AGENT_AUTH_OAUTH2"
-        "values_prefix" ".Values.outpost.auth.oauth2.tls"
-        "directory" "oauth2"
-        "tls" .tls
-        "secretName" $secretName
-    )
--}}
+{{ include "mtlsEnv" (dict "env_prefix" "STEADYBIT_AGENT_AUTH_OAUTH2" "values_prefix" ".Values.outpost.auth.oauth2.tls" "directory" "oauth2" "tls" .tls "secretName" $secretName) -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
@@ -240,43 +231,21 @@ environment variables for oauth2 authentication
 volume mounts for extension mTLS certificates
 */}}
 {{- define "oauth2VolumeMounts" -}}
-{{ include
-    "mtlsVolumeMounts"
-     (dict
-        "directory" "oauth2"
-        "tls" .Values.outpost.auth.oauth2.tls
-    )
--}}
+{{ include "mtlsVolumeMounts" (dict "directory" "oauth2" "tls" .Values.outpost.auth.oauth2.tls) -}}
 {{- end -}}
 
 {{/*
 volume mounts for extension mTLS certificates
 */}}
 {{- define "oauth2Volumes" -}}
-{{ include
-    "mtlsVolumes"
-     (dict
-        "directory" "extensions"
-        "tls" .Values.outpost.auth.oauth2.tls
-        "secretName" (include "steadybit-outpost.fullname" . )
-    )
--}}
+{{ include "mtlsVolumes" (dict "directory" "extensions" "tls" .Values.outpost.auth.oauth2.tls "secretName" (include "steadybit-outpost.fullname" . )) -}}
 {{- end -}}
 
 {{/*
 environment variables for extension kit configuration
 */}}
 {{- define "extensionEnv" -}}
-{{ include
-    "mtlsEnv"
-     (dict
-        "env_prefix" "STEADYBIT_AGENT_EXTENSIONS"
-        "values_prefix" ".Values.outpost.extensions.tls"
-        "directory" "extensions"
-        "tls" .Values.outpost.extensions.tls
-        "secretName" (include "steadybit-outpost.fullname" . )
-    )
--}}
+{{ include "mtlsEnv" (dict "env_prefix" "STEADYBIT_AGENT_EXTENSIONS" "values_prefix" ".Values.outpost.extensions.tls" "directory" "extensions" "tls" .Values.outpost.extensions.tls "secretName" (include "steadybit-outpost.fullname" . )) -}}
 {{ if .Values.outpost.extensions.tls.hostnameVerification -}}
 - name: STEADYBIT_AGENT_EXTENSIONS_HOSTNAME_VERIFICATION
   value: {{ .Values.outpost.extensions.tls.hostnameVerification | quote }}
@@ -288,25 +257,12 @@ environment variables for extension kit configuration
 volume mounts for extension mTLS certificates
 */}}
 {{- define "extensionVolumeMounts" -}}
-{{ include
-    "mtlsVolumeMounts"
-     (dict
-        "directory" "extensions"
-        "tls" .Values.outpost.extensions.tls
-    )
--}}
+{{ include "mtlsVolumeMounts" (dict "directory" "extensions" "tls" .Values.outpost.extensions.tls) -}}
 {{- end -}}
 
 {{/*
 volumes for extension mTLS certificates
 */}}
 {{- define "extensionVolumes" -}}
-{{ include
-    "mtlsVolumes"
-     (dict
-        "directory" "extensions"
-        "tls" .Values.outpost.extensions.tls
-        "secretName" (include "steadybit-outpost.fullname" . )
-    )
--}}
+{{ include "mtlsVolumes" (dict "directory" "extensions" "tls" .Values.outpost.extensions.tls "secretName" (include "steadybit-outpost.fullname" . )) -}}
 {{- end -}}
