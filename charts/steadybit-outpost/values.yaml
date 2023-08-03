@@ -64,7 +64,7 @@ outpost:
   port: 42899
   # outpost.env -- Additional environment variables for the steadybit outpost
   env: []
-  # outpost.extraLabels -- Additional labels
+  # outpost.extraLabels -- Additional labels added to all outpost kubernetes resources.
   extraLabels: {}
   # outpost.leaderElection -- On kubernetes <= 1.11 you we need to use configmaps for the leader election. Valid values: leases, configmaps
   leaderElection: leases
@@ -170,6 +170,9 @@ serviceAccount:
 
 # podAnnotations -- Additional annotations to be added to the outpost pods.
 podAnnotations: {}
+
+# podLabels -- Additional labels to be added to the outpost pods.
+podLabels: {}
 
 # nodeSelector -- Node labels for pod assignment
 nodeSelector: {}
