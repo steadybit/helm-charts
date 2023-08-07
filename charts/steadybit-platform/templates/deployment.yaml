@@ -63,6 +63,14 @@ spec:
             - name: websocket-port
               containerPort: 7878
               protocol: TCP
+          volumeMounts:
+          {{- if eq (include "steadybit-platform.hasVolumeExtraCerts" . ) "true" }}
+            - name: extra-certs
+              mountPath: /opt/steadybit/platform/etc/extra-certs
+          {{- end }}
+{{- with .Values.platform.extraVolumeMounts  }}
+{{ toYaml . | indent 12 }}
+{{- end }}
           {{- if .Values.platform.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
@@ -178,6 +186,10 @@ spec:
             - name: PLATFORM_WS_ORIGIN
               value: "http://127.0.0.1:7878"
         {{- end }}
+      {{- with .Values.platform.extraVolumes }}
+      volumes:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}

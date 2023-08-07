@@ -10,3 +10,23 @@ tests:
         rolloutStrategy: RollingUpdate
     asserts:
       - matchSnapshot: {}
+  - it: manifest should support extra certificate volume
+    set:
+      platform:
+        extraVolumes:
+          - name: extra-cert
+            configMap:
+              name: self-signed-ca
+    asserts:
+      - matchSnapshot: {}
+  - it: manifest should support extra volumes and mounts
+    set:
+      platform:
+        extraVolumes:
+          - name: test-volume
+            hostPath: /test
+        extraVolumeMounts:
+          - name: test-volume
+            mountPath: /test
+    asserts:
+      - matchSnapshot: {}

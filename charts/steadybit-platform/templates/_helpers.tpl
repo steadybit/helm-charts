@@ -102,6 +102,19 @@ checks the platform.tenant.mode for valid values
 {{- end -}}
 {{- end -}}
 
+{{/*
+checks if a volumne extra-cert is avaiable
+*/}}
+{{- define "steadybit-platform.hasVolumeExtraCerts" -}}
+  {{- $result := "false" -}}
+  {{- range $vol := .Values.platform.extraVolumes -}}
+    {{- if eq $vol.name "extra-certs" -}}
+     {{- $result = "true" -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $result -}}
+{{- end -}}
+
 
 {{- define "steadybit-platform.postgresql.fullname" -}}
 {{- $name := default "postgresql" .Values.postgresql.nameOverride -}}

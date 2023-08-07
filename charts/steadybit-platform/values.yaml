@@ -35,6 +35,10 @@ platform:
       value: "{noop}admin"
   # platform.extraLabels -- Additional labels
   extraLabels: {}
+  # platform.extraVolumes -- Additional volumes to which the platform container will be mounted.
+  extraVolumes: []
+  # platform.extraVolumeMounts -- Additional volumeMounts to which the platform container will be mounted.
+  extraVolumeMounts: []
   logging:
     format: text
   service:

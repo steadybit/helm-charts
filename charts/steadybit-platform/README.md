@@ -81,6 +81,33 @@ The chart by default spawns a Postgres instance using [Bitnami's Postgres chart]
 
 The Postgres sub-chart is best used to quickly provision temporary environments without installing and configuring your database separately. For longer-lived environments, we recommend you manage your database outside the Steadybit Platform Helm release.
 
+### Importing your own certificates
+
+You may want to import your own certificates, for example to be used by oauth2. You just need the to provide a volume named `extra-certs`.
+
+This example uses a config map to store the `*.crt`-files in a configmap:
+
+```
+kubectl create configmap -n steadybit-platform self-signed-ca --from-file=./self-signed-ca.crt
+```
+
+```yaml
+platform:
+  extraVolumes:
+    - name: extra-certs
+      configMap:
+        name: self-signed-ca #uses a certificates from the secret "self-signed-ca"
+```
+
+-OR-
+
+```yaml
+platform:
+  extraVolumes:
+    - name: extra-certs
+      hostPath: /ssca/ca # path with additional certificates
+```
+
 ### Configuring Ingress in AWS EKS
 
 ```yaml
@@ -98,13 +125,7 @@ ingress:
   hosts: []
 ```
 
-## Uninstallation
-
-```
-helm uninstall steadybit-platform -n steadybit-platform
-```
-
-## Splitting ingress/egress ports
+### Splitting ingress/egress ports
 
 By default, the Steadybit platform exposes the ingress (agent communication into the platform) and egress (UI/API data access) endpoints under the same port. For compliance with security policies you may also choose to split the ingress and egress endpoints by port. This helm chart supports this split. 
 
@@ -151,4 +172,10 @@ spec:
                 name: steadybit-platform
                 port:
                   number: 8081
+```
+
+## Uninstallation
+
+```
+helm uninstall steadybit-platform -n steadybit-platform
 ```
