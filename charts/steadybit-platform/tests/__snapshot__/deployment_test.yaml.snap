@@ -7,8 +7,8 @@ manifest should support Recreate strategy:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-platform
-        app.kubernetes.io/version: 0.6.4
-        helm.sh/chart: steadybit-platform-0.6.4
+        app.kubernetes.io/version: 0.6.5
+        helm.sh/chart: steadybit-platform-0.6.5
       name: RELEASE-NAME-steadybit-platform
       namespace: NAMESPACE
     spec:
@@ -30,8 +30,8 @@ manifest should support Recreate strategy:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-platform
-            app.kubernetes.io/version: 0.6.4
-            helm.sh/chart: steadybit-platform-0.6.4
+            app.kubernetes.io/version: 0.6.5
+            helm.sh/chart: steadybit-platform-0.6.5
         spec:
           containers:
             - env:
@@ -123,8 +123,8 @@ manifest should support RollingUpdate strategy:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-platform
-        app.kubernetes.io/version: 0.6.4
-        helm.sh/chart: steadybit-platform-0.6.4
+        app.kubernetes.io/version: 0.6.5
+        helm.sh/chart: steadybit-platform-0.6.5
       name: RELEASE-NAME-steadybit-platform
       namespace: NAMESPACE
     spec:
@@ -149,8 +149,8 @@ manifest should support RollingUpdate strategy:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-platform
-            app.kubernetes.io/version: 0.6.4
-            helm.sh/chart: steadybit-platform-0.6.4
+            app.kubernetes.io/version: 0.6.5
+            helm.sh/chart: steadybit-platform-0.6.5
         spec:
           containers:
             - env:
@@ -242,8 +242,8 @@ manifest should support extra certificate volume:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-platform
-        app.kubernetes.io/version: 0.6.4
-        helm.sh/chart: steadybit-platform-0.6.4
+        app.kubernetes.io/version: 0.6.5
+        helm.sh/chart: steadybit-platform-0.6.5
       name: RELEASE-NAME-steadybit-platform
       namespace: NAMESPACE
     spec:
@@ -265,8 +265,8 @@ manifest should support extra certificate volume:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-platform
-            app.kubernetes.io/version: 0.6.4
-            helm.sh/chart: steadybit-platform-0.6.4
+            app.kubernetes.io/version: 0.6.5
+            helm.sh/chart: steadybit-platform-0.6.5
         spec:
           containers:
             - env:
@@ -362,8 +362,8 @@ manifest should support extra volumes and mounts:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-platform
-        app.kubernetes.io/version: 0.6.4
-        helm.sh/chart: steadybit-platform-0.6.4
+        app.kubernetes.io/version: 0.6.5
+        helm.sh/chart: steadybit-platform-0.6.5
       name: RELEASE-NAME-steadybit-platform
       namespace: NAMESPACE
     spec:
@@ -385,8 +385,8 @@ manifest should support extra volumes and mounts:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-platform
-            app.kubernetes.io/version: 0.6.4
-            helm.sh/chart: steadybit-platform-0.6.4
+            app.kubernetes.io/version: 0.6.5
+            helm.sh/chart: steadybit-platform-0.6.5
         spec:
           containers:
             - env:
