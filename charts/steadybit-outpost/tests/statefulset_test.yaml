@@ -8,6 +8,8 @@ tests:
         clusterName: test
       outpost:
         key: abcdefg
+    chart:
+      version: 0.0.0
     asserts:
       - matchSnapshot: { }
 
@@ -18,9 +20,10 @@ tests:
       image:
         pullSecrets:
           - test-pull-secret
+    chart:
+      version: 0.0.0
     asserts:
       - matchSnapshot: { }
-
   - it: using extensions with mtls from containerpath
     set:
       global:
@@ -40,6 +43,8 @@ tests:
                   value: some-extension-client-key-password
             serverCertificate:
               path: /etc/ssl/certs/server.crt
+    chart:
+      version: 0.0.0
     asserts:
       - matchSnapshot: { }
 
@@ -67,5 +72,7 @@ tests:
                       key: some-secret-key
             serverCertificate:
               fromSecret: server.crt
+    chart:
+      version: 0.0.0
     asserts:
       - matchSnapshot: { }
