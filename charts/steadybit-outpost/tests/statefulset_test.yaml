@@ -76,3 +76,14 @@ tests:
       version: 0.0.0
     asserts:
       - matchSnapshot: { }
+
+  - it: should add aws account id from values
+    set:
+      outpost:
+        key: abcdefg
+        aws:
+          accountId: "123456789012"
+    chart:
+      version: 0.0.0
+    asserts:
+      - matchSnapshot: { }

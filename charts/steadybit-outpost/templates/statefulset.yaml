@@ -92,6 +92,10 @@ spec:
               value: {{ .Values.outpost.port | quote }}
             - name: STEADYBIT_AGENT_WORKING_DIR
               value: /tmp/steadybit-outpost
+            {{ if .Values.outpost.aws.accountId -}}
+            - name: STEADYBIT_AGENT_AWS_ACCOUNT_ID
+              value: "{{.Values.outpost.aws.accountId}}"
+            {{ end -}}
             {{- include "oauth2Env" . | nindent 12 }}
             {{- include "extensionEnv" . | nindent 12 }}
             {{- include "extraCertificatesEnv" . | nindent 12 }}

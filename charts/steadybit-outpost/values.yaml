@@ -120,6 +120,9 @@ outpost:
       #   unsafe_ip_addresses: validates only hostnames but not ip addresses with the SAN field of the certificate
       #   unsafe: no hostname validation
       hostnameVerification: null
+  aws:
+    # outpost.aws.accountId -- If running on AWS, the account id of the outpost. If not set, the account id will be determined from the instance metadata or using sts:GetCallerIdentity.
+    accountId: null
 
 image:
   # image.name -- The container image to use of the steadybit outpost.
