@@ -13,6 +13,19 @@ tests:
     asserts:
       - matchSnapshot: { }
 
+  - it: should apply extra pod labels
+    set:
+      global:
+        clusterName: test
+      outpost:
+        key: abcdefg
+      podLabels:
+        some-label: some-value
+    chart:
+      version: 0.0.0
+    asserts:
+      - matchSnapshot: { }
+
   - it: using image pull secrets
     set:
       global:
