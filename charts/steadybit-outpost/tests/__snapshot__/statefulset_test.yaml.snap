@@ -1,5 +1,20 @@
 manifest should match snapshot:
   1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
     apiVersion: apps/v1
     kind: StatefulSet
     metadata:
@@ -7,8 +22,8 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.5
-        helm.sh/chart: steadybit-outpost-1.1.5
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -28,8 +43,8 @@ manifest should match snapshot:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.1.5
-            helm.sh/chart: steadybit-outpost-1.1.5
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-outpost-0.0.0
         spec:
           containers:
             - env:
@@ -105,9 +120,11 @@ manifest should match snapshot:
             resources:
               requests:
                 storage: 200Mi
-  2: |
+using extensions with mtls from containerpath:
+  1: |
     apiVersion: v1
     data:
+      extensionsClientKeyPassword: c29tZS1leHRlbnNpb24tY2xpZW50LWtleS1wYXNzd29yZA==
       key: YWJjZGVmZw==
     kind: Secret
     metadata:
@@ -115,13 +132,12 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.5
-        helm.sh/chart: steadybit-outpost-1.1.5
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
-using extensions with mtls from containerpath:
-  1: |
+  2: |
     apiVersion: apps/v1
     kind: StatefulSet
     metadata:
@@ -129,8 +145,8 @@ using extensions with mtls from containerpath:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.5
-        helm.sh/chart: steadybit-outpost-1.1.5
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -150,8 +166,8 @@ using extensions with mtls from containerpath:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.1.5
-            helm.sh/chart: steadybit-outpost-1.1.5
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-outpost-0.0.0
         spec:
           containers:
             - env:
@@ -242,10 +258,10 @@ using extensions with mtls from containerpath:
             resources:
               requests:
                 storage: 200Mi
-  2: |
+using extensions with mtls from secrets:
+  1: |
     apiVersion: v1
     data:
-      extensionsClientKeyPassword: c29tZS1leHRlbnNpb24tY2xpZW50LWtleS1wYXNzd29yZA==
       key: YWJjZGVmZw==
     kind: Secret
     metadata:
@@ -253,13 +269,12 @@ using extensions with mtls from containerpath:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.5
-        helm.sh/chart: steadybit-outpost-1.1.5
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
-using extensions with mtls from secrets:
-  1: |
+  2: |
     apiVersion: apps/v1
     kind: StatefulSet
     metadata:
@@ -267,8 +282,8 @@ using extensions with mtls from secrets:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.5
-        helm.sh/chart: steadybit-outpost-1.1.5
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -288,8 +303,8 @@ using extensions with mtls from secrets:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.1.5
-            helm.sh/chart: steadybit-outpost-1.1.5
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-outpost-0.0.0
         spec:
           containers:
             - env:
@@ -393,23 +408,22 @@ using extensions with mtls from secrets:
             resources:
               requests:
                 storage: 200Mi
-  2: |
+using image pull secrets:
+  1: |
     apiVersion: v1
-    data:
-      key: YWJjZGVmZw==
+    data: null
     kind: Secret
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.5
-        helm.sh/chart: steadybit-outpost-1.1.5
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
-using image pull secrets:
-  1: |
+  2: |
     apiVersion: apps/v1
     kind: StatefulSet
     metadata:
@@ -417,8 +431,8 @@ using image pull secrets:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.5
-        helm.sh/chart: steadybit-outpost-1.1.5
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -438,8 +452,8 @@ using image pull secrets:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.1.5
-            helm.sh/chart: steadybit-outpost-1.1.5
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-outpost-0.0.0
         spec:
           containers:
             - env:
@@ -512,17 +526,3 @@ using image pull secrets:
             resources:
               requests:
                 storage: 200Mi
-  2: |
-    apiVersion: v1
-    data: null
-    kind: Secret
-    metadata:
-      labels:
-        app.kubernetes.io/instance: RELEASE-NAME
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.5
-        helm.sh/chart: steadybit-outpost-1.1.5
-      name: RELEASE-NAME-steadybit-outpost
-      namespace: NAMESPACE
-    type: Opaque
