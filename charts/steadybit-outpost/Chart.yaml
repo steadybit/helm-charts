@@ -21,7 +21,7 @@ annotations:
       url: https://github.com/steadybit/helm-charts
 dependencies:
   - name: steadybit-extension-aws
-    version: ^2.0.5
+    version: ^2.0.7
     repository: https://steadybit.github.io/extension-aws
     alias: extension-aws
     condition: extension-aws.enabled
@@ -31,67 +31,67 @@ dependencies:
     alias: extension-container
     condition: extension-container.enabled
   - name: steadybit-extension-datadog
-    version: ^1.4.6
+    version: ^1.4.11
     repository: https://steadybit.github.io/extension-datadog
     alias: extension-datadog
     condition: extension-datadog.enabled
   - name: steadybit-extension-host
-    version: ^1.0.14
+    version: ^1.0.18
     repository: https://steadybit.github.io/extension-host
     alias: extension-host
     condition: extension-host.enabled
   - name: steadybit-extension-http
-    version: ^1.0.5
+    version: ^1.0.8
     repository: https://steadybit.github.io/extension-http
     alias: extension-http
     condition: extension-http.enabled
   - name: steadybit-extension-istio
-    version: ^1.0.6
+    version: ^1.0.11
     repository: https://steadybit.github.io/extension-istio
     alias: extension-istio
     condition: extension-istio.enabled
   - name: steadybit-extension-gatling
-    version: ^1.0.0
+    version: ^1.0.3
     repository: https://steadybit.github.io/extension-gatling
     alias: extension-gatling
     condition: extension-gatling.enabled
   - name: steadybit-extension-jmeter
-    version: ^1.0.0
+    version: ^1.0.3
     repository: https://steadybit.github.io/extension-jmeter
     alias: extension-jmeter
     condition: extension-jmeter.enabled
   - name: steadybit-extension-jvm
-    version: ^1.0.5
+    version: ^1.0.8
     repository: https://steadybit.github.io/extension-jvm
     alias: extension-jvm
     condition: extension-jvm.enabled
   - name: steadybit-extension-k6
-    version: ^1.1.2
+    version: ^1.1.8
     repository: https://steadybit.github.io/extension-k6
     alias: extension-k6
     condition: extension-k6.enabled
   - name: steadybit-extension-kong
-    version: ^1.6.7
+    version: ^1.6.10
     repository: https://steadybit.github.io/extension-kong
     alias: extension-kong
     condition: extension-kong.enabled
   - name: steadybit-extension-kubernetes
-    version: ^1.4.10
+    version: ^1.4.15
     repository: https://steadybit.github.io/extension-kubernetes
     alias: extension-kubernetes
     condition: extension-kubernetes.enabled
   - name: steadybit-extension-postman
-    version: ^1.6.9
+    version: ^1.6.13
     repository: https://steadybit.github.io/extension-postman
     alias: extension-postman
     condition: extension-postman.enabled
   - name: steadybit-extension-prometheus
-    version: ^1.4.5
+    version: ^1.4.9
     repository: https://steadybit.github.io/extension-prometheus
     alias: extension-prometheus
     condition: extension-prometheus.enabled
   - name: steadybit-extension-stackstate
-    version: ^1.0.3
+    version: ^1.0.5
     repository: https://steadybit.github.io/extension-stackstate
     alias: extension-stackstate
     condition: extension-stackstate.enabled
