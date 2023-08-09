@@ -7,8 +7,8 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.2
-        helm.sh/chart: steadybit-outpost-1.1.2
+        app.kubernetes.io/version: 1.1.5
+        helm.sh/chart: steadybit-outpost-1.1.5
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -28,8 +28,8 @@ manifest should match snapshot:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.1.2
-            helm.sh/chart: steadybit-outpost-1.1.2
+            app.kubernetes.io/version: 1.1.5
+            helm.sh/chart: steadybit-outpost-1.1.5
         spec:
           containers:
             - env:
@@ -115,8 +115,8 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.2
-        helm.sh/chart: steadybit-outpost-1.1.2
+        app.kubernetes.io/version: 1.1.5
+        helm.sh/chart: steadybit-outpost-1.1.5
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -129,8 +129,8 @@ using extensions with mtls from containerpath:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.2
-        helm.sh/chart: steadybit-outpost-1.1.2
+        app.kubernetes.io/version: 1.1.5
+        helm.sh/chart: steadybit-outpost-1.1.5
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -150,8 +150,8 @@ using extensions with mtls from containerpath:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.1.2
-            helm.sh/chart: steadybit-outpost-1.1.2
+            app.kubernetes.io/version: 1.1.5
+            helm.sh/chart: steadybit-outpost-1.1.5
         spec:
           containers:
             - env:
@@ -253,8 +253,8 @@ using extensions with mtls from containerpath:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.2
-        helm.sh/chart: steadybit-outpost-1.1.2
+        app.kubernetes.io/version: 1.1.5
+        helm.sh/chart: steadybit-outpost-1.1.5
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -267,8 +267,8 @@ using extensions with mtls from secrets:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.2
-        helm.sh/chart: steadybit-outpost-1.1.2
+        app.kubernetes.io/version: 1.1.5
+        helm.sh/chart: steadybit-outpost-1.1.5
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -288,8 +288,8 @@ using extensions with mtls from secrets:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.1.2
-            helm.sh/chart: steadybit-outpost-1.1.2
+            app.kubernetes.io/version: 1.1.5
+            helm.sh/chart: steadybit-outpost-1.1.5
         spec:
           containers:
             - env:
@@ -403,8 +403,8 @@ using extensions with mtls from secrets:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.2
-        helm.sh/chart: steadybit-outpost-1.1.2
+        app.kubernetes.io/version: 1.1.5
+        helm.sh/chart: steadybit-outpost-1.1.5
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -417,8 +417,8 @@ using image pull secrets:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.2
-        helm.sh/chart: steadybit-outpost-1.1.2
+        app.kubernetes.io/version: 1.1.5
+        helm.sh/chart: steadybit-outpost-1.1.5
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -438,8 +438,8 @@ using image pull secrets:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: steadybit-outpost
-            app.kubernetes.io/version: 1.1.2
-            helm.sh/chart: steadybit-outpost-1.1.2
+            app.kubernetes.io/version: 1.1.5
+            helm.sh/chart: steadybit-outpost-1.1.5
         spec:
           containers:
             - env:
@@ -521,8 +521,8 @@ using image pull secrets:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-outpost
-        app.kubernetes.io/version: 1.1.2
-        helm.sh/chart: steadybit-outpost-1.1.2
+        app.kubernetes.io/version: 1.1.5
+        helm.sh/chart: steadybit-outpost-1.1.5
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
