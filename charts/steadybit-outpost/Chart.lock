@@ -1,48 +1,48 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.0.7
+  version: 2.0.9
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.0.13
+  version: 1.0.16
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.4.11
+  version: 1.4.13
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.0.18
+  version: 1.0.20
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.0.8
+  version: 1.0.10
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.0.11
+  version: 1.0.13
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.0.3
+  version: 1.0.5
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.0.3
+  version: 1.0.5
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.0.8
+  version: 1.0.10
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.1.8
+  version: 1.1.10
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.6.10
+  version: 1.6.12
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.4.16
+  version: 1.4.20
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.6.13
+  version: 1.6.15
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.4.9
+  version: 1.4.11
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.0.5
-digest: sha256:ccda38b104e72d1b854fb2230a1b39eb75a883122c4c3c00bb0d82af9fd5a6ec
-generated: "2023-08-09T10:39:43.23166+02:00"
+  version: 1.0.6
+digest: sha256:c1a49858c0f6d35371854646cdcfed227e8e5b1dc375a4cae30e70a363db4a90
+generated: "2023-08-10T10:43:08.703107+02:00"
