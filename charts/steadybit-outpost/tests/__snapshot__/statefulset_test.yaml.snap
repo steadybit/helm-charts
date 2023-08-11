@@ -46,6 +46,7 @@ manifest should match snapshot:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
         spec:
+          automountServiceAccountToken: true
           containers:
             - env:
                 - name: STEADYBIT_AGENT_REGISTER_URL
@@ -168,6 +169,7 @@ should add aws account id from values:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
         spec:
+          automountServiceAccountToken: true
           containers:
             - env:
                 - name: STEADYBIT_AGENT_REGISTER_URL
@@ -293,6 +295,7 @@ should apply extra pod labels:
             helm.sh/chart: steadybit-outpost-0.0.0
             some-label: some-value
         spec:
+          automountServiceAccountToken: true
           containers:
             - env:
                 - name: STEADYBIT_AGENT_REGISTER_URL
@@ -416,6 +419,7 @@ using extensions with mtls from containerpath:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
         spec:
+          automountServiceAccountToken: true
           containers:
             - env:
                 - name: STEADYBIT_AGENT_REGISTER_URL
@@ -553,6 +557,7 @@ using extensions with mtls from secrets:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
         spec:
+          automountServiceAccountToken: true
           containers:
             - env:
                 - name: STEADYBIT_AGENT_REGISTER_URL
@@ -702,6 +707,7 @@ using image pull secrets:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
         spec:
+          automountServiceAccountToken: true
           containers:
             - env:
                 - name: STEADYBIT_AGENT_REGISTER_URL

@@ -31,6 +31,7 @@ using oauth2 with mtls from containerPath and token uri:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
         spec:
+          automountServiceAccountToken: true
           containers:
             - env:
                 - name: STEADYBIT_AGENT_REGISTER_URL
@@ -150,6 +151,7 @@ using oauth2 with mtls from secrets:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
         spec:
+          automountServiceAccountToken: true
           containers:
             - env:
                 - name: STEADYBIT_AGENT_REGISTER_URL

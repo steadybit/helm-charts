@@ -37,6 +37,7 @@ spec:
         {{- end }}
     spec:
       serviceAccountName: {{ template "steadybit-outpost.serviceAccountName" . }}
+      automountServiceAccountToken: true
       {{- if .Values.priorityClassName.use }}
       priorityClassName: {{ .Values.priorityClassName.name }}
       {{- end }}
