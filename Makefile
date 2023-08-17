@@ -5,10 +5,11 @@
 ## charttesting: Run Helm chart unit tests
 .PHONY: charttesting
 charttesting:
+	@set -e; \
 	for dir in charts/steadybit-*; do \
-    echo "Unit Testing $$dir"; \
-    helm unittest $$dir; \
-  done
+		echo "Unit Testing $$dir"; \
+		helm unittest $$dir; \
+	done
 
 ## chartlint: Lint charts
 .PHONY: chartlint
