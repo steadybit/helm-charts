@@ -108,6 +108,10 @@ spec:
             runAsUser: 1000
             runAsGroup: 1000
             runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           volumeMounts:
             - name: steadybit-outpost-state
               mountPath: /var/lib/steadybit-outpost
