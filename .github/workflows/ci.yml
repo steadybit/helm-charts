@@ -47,7 +47,7 @@ jobs:
         uses: helm/chart-testing-action@v2.4.0
 
       - name: Add unit testing plugin
-        run: helm plugin install https://github.com/quintush/helm-unittest
+        run: helm plugin install https://github.com/helm-unittest/helm-unittest.git
 
       - name: Run chart lint
         run: make chartlint

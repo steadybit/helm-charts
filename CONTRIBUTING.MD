@@ -4,7 +4,7 @@
 
 ```sh
 $ brew install chart-testing yamllint
-$ helm plugin install https://github.com/quintush/helm-unittest
+$ helm plugin install https://github.com/helm-unittest/helm-unittest.git
 ```
 
 ### Execution
