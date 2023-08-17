@@ -93,6 +93,10 @@ using oauth2 with mtls from containerPath and token uri:
                   cpu: 125m
                   memory: 250Mi
               securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
                 readOnlyRootFilesystem: true
                 runAsGroup: 1000
                 runAsNonRoot: true
@@ -220,6 +224,10 @@ using oauth2 with mtls from secrets:
                   cpu: 125m
                   memory: 250Mi
               securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
                 readOnlyRootFilesystem: true
                 runAsGroup: 1000
                 runAsNonRoot: true

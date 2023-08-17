@@ -96,6 +96,10 @@ manifest should match snapshot:
                   cpu: 125m
                   memory: 250Mi
               securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
                 readOnlyRootFilesystem: true
                 runAsGroup: 1000
                 runAsNonRoot: true
@@ -221,6 +225,10 @@ should add aws account id from values:
                   cpu: 125m
                   memory: 250Mi
               securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
                 readOnlyRootFilesystem: true
                 runAsGroup: 1000
                 runAsNonRoot: true
@@ -345,6 +353,10 @@ should apply extra pod labels:
                   cpu: 125m
                   memory: 250Mi
               securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
                 readOnlyRootFilesystem: true
                 runAsGroup: 1000
                 runAsNonRoot: true
@@ -484,6 +496,10 @@ using extensions with mtls from containerpath:
                   cpu: 125m
                   memory: 250Mi
               securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
                 readOnlyRootFilesystem: true
                 runAsGroup: 1000
                 runAsNonRoot: true
@@ -618,6 +634,10 @@ using extensions with mtls from secrets:
                   cpu: 125m
                   memory: 250Mi
               securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
                 readOnlyRootFilesystem: true
                 runAsGroup: 1000
                 runAsNonRoot: true
@@ -752,6 +772,10 @@ using image pull secrets:
                   cpu: 125m
                   memory: 250Mi
               securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
                 readOnlyRootFilesystem: true
                 runAsGroup: 1000
                 runAsNonRoot: true
