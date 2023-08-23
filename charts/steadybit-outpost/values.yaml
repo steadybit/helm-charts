@@ -296,3 +296,18 @@ extension-stackstate:
   stackstate:
     serviceToken: null
     apiBaseUrl: null
+
+# extension-azure.* -- settings for the azure extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-azure for more information.
+extension-azure:
+  # extension-azure.enabled -- Enable the Stackstate extension
+  enabled: false
+  azure:
+    clientID: null
+    clientSecret: null
+    tenantID: null
+    subscriptionID: null
+    certificatePath: null
+    certificatePassword: null
+    userAssertionString: null

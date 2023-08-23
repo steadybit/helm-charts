@@ -44,5 +44,8 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.0.11
-digest: sha256:7c52a646b9ef2d6739bdd76f84b92711987d6f4b0dbdc01a0eb44bf3007562fb
-generated: "2023-08-17T19:05:52.202311+02:00"
+- name: steadybit-extension-azure
+  repository: https://steadybit.github.io/extension-azure
+  version: 1.0.3
+digest: sha256:08e6e95dbcb0ecd8155c95389f343729f99e419abeb1985bf44c07ed0ca597f8
+generated: "2023-08-23T17:07:37.005378+02:00"
