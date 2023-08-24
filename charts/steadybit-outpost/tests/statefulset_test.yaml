@@ -100,3 +100,20 @@ tests:
       version: 0.0.0
     asserts:
       - matchSnapshot: { }
+
+  - it: should add match labels
+    set:
+      outpost:
+        key: abcdefg
+        extensions:
+          autodiscovery:
+            matchLabels:
+              some-label: some-value
+              another-label: another-value
+            matchLabelsExclude:
+              exclude-me: true
+              exclude-me-too: true
+    chart:
+      version: 0.0.0
+    asserts:
+      - matchSnapshot: { }

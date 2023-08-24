@@ -100,6 +100,22 @@ spec:
             {{- include "oauth2Env" . | nindent 12 }}
             {{- include "extensionEnv" . | nindent 12 }}
             {{- include "extraCertificatesEnv" . | nindent 12 }}
+            {{ $matchLabelCounter := 0 | int }}
+            {{- range $key, $value := .Values.outpost.extensions.autodiscovery.matchLabels }}
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_{{$matchLabelCounter}}_KEY
+              value: {{ $key }}
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_{{$matchLabelCounter}}_VALUE
+              value: {{ $value }}
+            {{ $matchLabelCounter = add1 $matchLabelCounter }}
+            {{- end }}
+            {{ $matchLabelExcludeCounter := 0 | int }}
+            {{- range $key, $value := .Values.outpost.extensions.autodiscovery.matchLabelsExclude }}
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_{{$matchLabelExcludeCounter}}_KEY
+              value: {{ $key }}
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_{{$matchLabelExcludeCounter}}_VALUE
+              value: {{ $value }}
+            {{ $matchLabelExcludeCounter = add1 $matchLabelExcludeCounter }}
+            {{- end }}
             {{- with .Values.outpost.env }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
