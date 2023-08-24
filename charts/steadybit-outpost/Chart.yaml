@@ -96,7 +96,7 @@ dependencies:
     alias: extension-stackstate
     condition: extension-stackstate.enabled
   - name: steadybit-extension-azure
-    version: ^1.0.3
+    version: ^1.0.4
     repository: https://steadybit.github.io/extension-azure
     alias: extension-azure
     condition: extension-azure.enabled

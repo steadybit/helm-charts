@@ -46,6 +46,6 @@ dependencies:
   version: 1.0.11
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.0.3
-digest: sha256:08e6e95dbcb0ecd8155c95389f343729f99e419abeb1985bf44c07ed0ca597f8
-generated: "2023-08-23T17:07:37.005378+02:00"
+  version: 1.0.4
+digest: sha256:41125b0a596b835cefe43c1a6edb2d2dbb2c3bdbcca73e37be5aec5e87e8ead5
+generated: "2023-08-24T08:55:55.902983+02:00"
