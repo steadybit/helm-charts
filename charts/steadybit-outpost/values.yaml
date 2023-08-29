@@ -306,7 +306,7 @@ extension-stackstate:
 #   Further configuration not listed here may be required.
 #   See https://github.com/steadybit/extension-azure for more information.
 extension-azure:
-  # extension-azure.enabled -- Enable the Stackstate extension
+  # extension-azure.enabled -- Enable the Azure extension
   enabled: false
   azure:
     clientID: null
@@ -316,3 +316,14 @@ extension-azure:
     certificatePath: null
     certificatePassword: null
     userAssertionString: null
+
+# extension-gcp.* -- settings for the google cloud extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-gcp for more information.
+extension-gcp:
+  # extension-gcp.enabled -- Enable the Google Cloud extension
+  enabled: false
+  gcp:
+    credentialsKeyfilePath: null
+    credentialsKeyfileJson: null
+    projectID: null

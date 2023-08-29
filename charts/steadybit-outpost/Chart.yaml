@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-outpost
 description: steadybit outpost Helm chart for Kubernetes.
-version: 1.1.18
+version: 1.1.19
 appVersion: latest
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -25,6 +25,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-aws
     alias: extension-aws
     condition: extension-aws.enabled
+  - name: steadybit-extension-azure
+    version: ^1.0.5
+    repository: https://steadybit.github.io/extension-azure
+    alias: extension-azure
+    condition: extension-azure.enabled
   - name: steadybit-extension-container
     version: ^1.0.13
     repository: https://steadybit.github.io/extension-container
@@ -35,6 +40,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-datadog
     alias: extension-datadog
     condition: extension-datadog.enabled
+  - name: steadybit-extension-gcp
+    version: ^1.0.1
+    repository: https://steadybit.github.io/extension-gcp
+    alias: extension-gcp
+    condition: extension-gcp.enabled
   - name: steadybit-extension-host
     version: ^1.0.18
     repository: https://steadybit.github.io/extension-host
@@ -95,8 +105,3 @@ dependencies:
     repository: https://steadybit.github.io/extension-stackstate
     alias: extension-stackstate
     condition: extension-stackstate.enabled
-  - name: steadybit-extension-azure
-    version: ^1.0.4
-    repository: https://steadybit.github.io/extension-azure
-    alias: extension-azure
-    condition: extension-azure.enabled

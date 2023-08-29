@@ -2,12 +2,18 @@ dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
   version: 2.0.14
+- name: steadybit-extension-azure
+  repository: https://steadybit.github.io/extension-azure
+  version: 1.0.5
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
   version: 1.0.20
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.4.18
+- name: steadybit-extension-gcp
+  repository: https://steadybit.github.io/extension-gcp
+  version: 1.0.1
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
   version: 1.0.26
@@ -44,8 +50,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.0.11
-- name: steadybit-extension-azure
-  repository: https://steadybit.github.io/extension-azure
-  version: 1.0.4
-digest: sha256:41125b0a596b835cefe43c1a6edb2d2dbb2c3bdbcca73e37be5aec5e87e8ead5
-generated: "2023-08-24T08:55:55.902983+02:00"
+digest: sha256:94a44f892a86f25940b34b7687df81d47d0c1229df927291ca7bcce945934db0
+generated: "2023-08-29T14:14:22.228458+02:00"
