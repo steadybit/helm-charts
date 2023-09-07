@@ -55,6 +55,10 @@ platform:
   # platform.prometheus.scrape -- Controls the `prometheus.io/scrape` pod annotation which controls whether Prometheus will automatically scrape metrics from platform pods.
   prometheus:
     scrape: true
+  database:
+    migration:
+      # platform.database.migration.useInitContainer -- Should database migration be executed in an init container? (you may want to reduce `platform.startupProbe.initialDelaySeconds` (10) and `platform.startupProbe.failureThreshold` (12) in this case)
+      useInitContainer: false
 
   ## platform.readinessProbe.* -- Configuration of the Kubernetes readinessProbe probe for the platform deployment
   readinessProbe:

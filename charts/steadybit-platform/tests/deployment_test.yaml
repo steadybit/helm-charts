@@ -2,15 +2,21 @@ templates:
   - deployment.yaml
 tests:
   - it: manifest should support Recreate strategy
+    chart:
+      version: 0.0.0
     asserts:
       - matchSnapshot: { }
   - it: manifest should support RollingUpdate strategy
+    chart:
+      version: 0.0.0
     set:
       platform:
         rolloutStrategy: RollingUpdate
     asserts:
       - matchSnapshot: {}
   - it: manifest should support extra certificate volume
+    chart:
+      version: 0.0.0
     set:
       platform:
         extraVolumes:
@@ -20,6 +26,8 @@ tests:
     asserts:
       - matchSnapshot: {}
   - it: manifest should support extra volumes and mounts
+    chart:
+      version: 0.0.0
     set:
       platform:
         extraVolumes:
@@ -28,5 +36,15 @@ tests:
         extraVolumeMounts:
           - name: test-volume
             mountPath: /test
+    asserts:
+      - matchSnapshot: {}
+  - it: manifest should support init container
+    chart:
+      version: 0.0.0
+    set:
+      platform:
+        database:
+          migration:
+            useInitContainer: true
     asserts:
       - matchSnapshot: {}
