@@ -23,7 +23,7 @@ metadata:
     {{- include "extensionlib.annotation" . | nindent 4 }}
 spec:
   selector:
-    app.kubernetes.io/name: {{ include "extensionlib.names.name" $top }}
+    {{- include "extensionlib.selectorLabels" $top | nindent 4 }}
   ports:
     - protocol: TCP
       port: {{ $port }}

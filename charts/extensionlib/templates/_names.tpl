@@ -22,3 +22,11 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Add Helm metadata to selector labels specifically for deployments/daemonsets/statefulsets.
+*/}}
+{{- define "extensionlib.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "extensionlib.names.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
