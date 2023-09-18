@@ -593,6 +593,8 @@ manifest should support init container:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           initContainers:
             - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
                 - name: SPRING_PROFILES_ACTIVE
                   value: db-migration
                 - name: LOGGING_FORMAT

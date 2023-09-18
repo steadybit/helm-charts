@@ -60,6 +60,8 @@ spec:
           envFrom:
 {{ toYaml .Values.platform.envFrom | indent 12 }}
           env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+DisableAttachMechanism"
             - name: SPRING_PROFILES_ACTIVE
               value: "db-migration"
             - name: LOGGING_FORMAT
