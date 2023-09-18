@@ -535,9 +535,7 @@ manifest should support init container:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
-                - name: STEADYBIT_DB_DEFAULT_SCHEMA_DDL_MODE
-                  value: none
-                - name: STEADYBIT_TENANT_DDL_MODE
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
                   value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static

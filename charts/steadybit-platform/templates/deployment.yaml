@@ -187,9 +187,7 @@ spec:
                   key: "password"
             {{- end }}
             {{- if .Values.platform.database.migration.useInitContainer }}
-            - name: STEADYBIT_DB_DEFAULT_SCHEMA_DDL_MODE
-              value: "none"
-            - name: STEADYBIT_TENANT_DDL_MODE
+            - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
               value: "none"
             {{- end }}
             {{- if eq .Values.platform.tenant.agent.auth.provider "oauth2" }}
