@@ -11,6 +11,7 @@ manifest should match snapshot:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -24,6 +25,7 @@ manifest should match snapshot:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -45,6 +47,7 @@ manifest should match snapshot:
             app.kubernetes.io/name: steadybit-outpost
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
+            steadybit.com/discovery-disabled: true
         spec:
           automountServiceAccountToken: true
           containers:
@@ -142,6 +145,7 @@ should add aws account id from values:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -155,6 +159,7 @@ should add aws account id from values:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -176,6 +181,7 @@ should add aws account id from values:
             app.kubernetes.io/name: steadybit-outpost
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
+            steadybit.com/discovery-disabled: true
         spec:
           automountServiceAccountToken: true
           containers:
@@ -275,6 +281,7 @@ should add match labels:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -288,6 +295,7 @@ should add match labels:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -309,6 +317,7 @@ should add match labels:
             app.kubernetes.io/name: steadybit-outpost
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
+            steadybit.com/discovery-disabled: true
         spec:
           automountServiceAccountToken: true
           containers:
@@ -422,6 +431,7 @@ should apply extra pod labels:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -435,6 +445,7 @@ should apply extra pod labels:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -457,6 +468,7 @@ should apply extra pod labels:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
             some-label: some-value
+            steadybit.com/discovery-disabled: true
         spec:
           automountServiceAccountToken: true
           containers:
@@ -555,6 +567,7 @@ using extensions with mtls from containerpath:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -568,6 +581,7 @@ using extensions with mtls from containerpath:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -589,6 +603,7 @@ using extensions with mtls from containerpath:
             app.kubernetes.io/name: steadybit-outpost
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
+            steadybit.com/discovery-disabled: true
         spec:
           automountServiceAccountToken: true
           containers:
@@ -701,6 +716,7 @@ using extensions with mtls from secrets:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -714,6 +730,7 @@ using extensions with mtls from secrets:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -735,6 +752,7 @@ using extensions with mtls from secrets:
             app.kubernetes.io/name: steadybit-outpost
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
+            steadybit.com/discovery-disabled: true
         spec:
           automountServiceAccountToken: true
           containers:
@@ -859,6 +877,7 @@ using image pull secrets with debug json log:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     type: Opaque
@@ -872,6 +891,7 @@ using image pull secrets with debug json log:
         app.kubernetes.io/name: steadybit-outpost
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: true
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -893,6 +913,7 @@ using image pull secrets with debug json log:
             app.kubernetes.io/name: steadybit-outpost
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
+            steadybit.com/discovery-disabled: true
         spec:
           automountServiceAccountToken: true
           containers:
