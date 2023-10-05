@@ -34,6 +34,10 @@ using oauth2 with mtls from containerPath and token uri:
           automountServiceAccountToken: true
           containers:
             - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: POD_IP
@@ -158,6 +162,10 @@ using oauth2 with mtls from secrets:
           automountServiceAccountToken: true
           containers:
             - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: POD_IP

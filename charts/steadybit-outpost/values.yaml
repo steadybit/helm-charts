@@ -129,6 +129,12 @@ outpost:
     # outpost.aws.accountId -- If running on AWS, the account id of the outpost. If not set, the account id will be determined from the instance metadata or using sts:GetCallerIdentity.
     accountId: null
 
+logging:
+  # logging.level -- The active log level. Valid values are: TRACE, DEBUG, INFO, WARN, ERROR
+  level: INFO
+  # logging.format -- The format of the log entries. One of text, json
+  format: text
+
 image:
   # image.name -- The container image to use of the steadybit outpost.
   name: steadybit/outpost

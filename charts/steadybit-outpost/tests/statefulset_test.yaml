@@ -26,13 +26,16 @@ tests:
     asserts:
       - matchSnapshot: { }
 
-  - it: using image pull secrets
+  - it: using image pull secrets with debug json log
     set:
       global:
         clusterName: test
       image:
         pullSecrets:
           - test-pull-secret
+      logging:
+        format: json
+        level: debug
     chart:
       version: 0.0.0
     asserts:

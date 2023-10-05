@@ -64,6 +64,10 @@ spec:
             failureThreshold: {{ .Values.outpost.livenessProbe.failureThreshold }}
           {{- end }}
           env:
+            - name: STEADYBIT_LOG_LEVEL
+              value: {{ .Values.logging.level | quote }}
+            - name: STEADYBIT_LOG_FORMAT
+              value: {{ .Values.logging.format | quote }}
             - name: STEADYBIT_AGENT_REGISTER_URL
               value: {{ .Values.outpost.registerUrl | quote }}
             {{ if .Values.outpost.key -}}
