@@ -10,6 +10,7 @@ using oauth2 with mtls from containerPath and token uri:
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
         steadybit.com/discovery-disabled: "true"
+        steadybit.com/outpost: "true"
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -32,6 +33,7 @@ using oauth2 with mtls from containerPath and token uri:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
             steadybit.com/discovery-disabled: "true"
+            steadybit.com/outpost: "true"
         spec:
           automountServiceAccountToken: true
           containers:
@@ -140,6 +142,7 @@ using oauth2 with mtls from secrets:
         app.kubernetes.io/version: 0.0.0
         helm.sh/chart: steadybit-outpost-0.0.0
         steadybit.com/discovery-disabled: "true"
+        steadybit.com/outpost: "true"
       name: RELEASE-NAME-steadybit-outpost
       namespace: NAMESPACE
     spec:
@@ -162,6 +165,7 @@ using oauth2 with mtls from secrets:
             app.kubernetes.io/version: 0.0.0
             helm.sh/chart: steadybit-outpost-0.0.0
             steadybit.com/discovery-disabled: "true"
+            steadybit.com/outpost: "true"
         spec:
           automountServiceAccountToken: true
           containers:
