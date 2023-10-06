@@ -5,4 +5,5 @@ extensionlib.labels will render a Kubernetes label definition supporting to be s
 */}}
 {{- define "extensionlib.labels" -}}
 "steadybit.com/discovery-disabled": "true"
+"steadybit.com/extension": "true"
 {{- end -}}
