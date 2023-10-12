@@ -31,7 +31,7 @@ dependencies:
   version: 1.0.14
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.0.20
+  version: 1.0.21
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.1.19
@@ -40,7 +40,7 @@ dependencies:
   version: 1.6.21
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.4.35
+  version: 1.4.37
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.6.24
@@ -50,5 +50,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.0.15
-digest: sha256:38fdbee2d3f83294ced95d8fe927fa3d3c6ae48b49042a7ed22e5bcf1c466ecc
-generated: "2023-10-09T15:15:59.162374+02:00"
+digest: sha256:d2c6fecda3ae63a9236635a671e487388edf73f463c294e281f54d00c49476db
+generated: "2023-10-12T11:18:35.199541+02:00"
