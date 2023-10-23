@@ -7,7 +7,7 @@ dependencies:
   version: 1.0.11
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.0.28
+  version: 1.0.29
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.4.22
@@ -40,7 +40,7 @@ dependencies:
   version: 1.6.21
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.4.39
+  version: 1.4.40
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.6.24
@@ -50,5 +50,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.0.15
-digest: sha256:cc7e550ebca8981cd4b51a0e20854389c9eaf6cb5ac092462bc29ae0ebabb578
-generated: "2023-10-17T07:37:04.726482+02:00"
+digest: sha256:f10624f3392322ce62e739249ee30cb9921fb88cbe2869511a7c62b4351a4faa
+generated: "2023-10-23T22:28:30.813714+02:00"
