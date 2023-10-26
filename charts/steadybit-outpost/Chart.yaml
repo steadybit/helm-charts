@@ -86,7 +86,7 @@ dependencies:
     alias: extension-kong
     condition: extension-kong.enabled
   - name: steadybit-extension-kubernetes
-    version: ^1.4.40
+    version: 1.4.40
     repository: https://steadybit.github.io/extension-kubernetes
     alias: extension-kubernetes
     condition: extension-kubernetes.enabled
