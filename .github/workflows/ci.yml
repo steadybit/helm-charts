@@ -47,7 +47,8 @@ jobs:
       - uses: actions/setup-python@v4
 
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.4.0
+        # Switch to released version after this bug has been released: https://github.com/helm/chart-testing-action/issues/132
+        uses: helm/chart-testing-action@cb49023b9227b1097e5eddd8824f48bdea11b1aa
 
       - name: Add unit testing plugin
         run: helm plugin install https://github.com/helm-unittest/helm-unittest.git
