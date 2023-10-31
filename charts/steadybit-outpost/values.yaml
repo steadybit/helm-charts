@@ -205,6 +205,21 @@ extension-aws:
     # extensions-aws.serviceAccount.eksRoleArn -- This is the recommended way to authenticate to AWS CLI. See extension-aws README for more information.
     eksRoleArn: null
 
+# extension-azure.* -- settings for the azure extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-azure for more information.
+extension-azure:
+  # extension-azure.enabled -- Enable the Azure extension
+  enabled: false
+  azure:
+    clientID: null
+    clientSecret: null
+    tenantID: null
+    subscriptionID: null
+    certificatePath: null
+    certificatePassword: null
+    userAssertionString: null
+
 # extension-container.* -- settings for the container extension. See https://github.com/steadybit/extension-container for more information.
 extension-container:
   # extension-container.enabled -- Enable the container extension
@@ -250,6 +265,17 @@ extension-gatling:
   # extension-gatling.enabled -- Enable the Gatling extension
   enabled: false
 
+# extension-gcp.* -- settings for the google cloud extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-gcp for more information.
+extension-gcp:
+  # extension-gcp.enabled -- Enable the Google Cloud extension
+  enabled: false
+  gcp:
+    credentialsKeyfilePath: null
+    credentialsKeyfileJson: null
+    projectID: null
+
 # extension-jmeter.* -- settings for the jmeter extension sub chart.
 #   See https://github.com/steadybit/extension-jmeter for more information.
 extension-jmeter:
@@ -284,6 +310,12 @@ extension-kubernetes:
   # extension-kubernetes.enabled -- Enable the Kubernetes extension
   enabled: true
 
+# extension-loadtest.* -- settings for the steadybit internal loadtest extension sub chart.
+#   Don't use this unless Steadybit support told you to do so. This deploys an extension which will create different load scenarios to test your steadybit setup.
+extension-loadtest:
+  # extension-loadtest.enabled -- Enable the loadtest extension
+  enabled: false
+
 # extension-postman.* -- settings for the postman extension sub chart.
 #   Further configuration not listed here may be required.
 #   See https://github.com/steadybit/extension-postman for more information.
@@ -307,29 +339,3 @@ extension-stackstate:
   stackstate:
     serviceToken: null
     apiBaseUrl: null
-
-# extension-azure.* -- settings for the azure extension sub chart.
-#   Further configuration not listed here may be required.
-#   See https://github.com/steadybit/extension-azure for more information.
-extension-azure:
-  # extension-azure.enabled -- Enable the Azure extension
-  enabled: false
-  azure:
-    clientID: null
-    clientSecret: null
-    tenantID: null
-    subscriptionID: null
-    certificatePath: null
-    certificatePassword: null
-    userAssertionString: null
-
-# extension-gcp.* -- settings for the google cloud extension sub chart.
-#   Further configuration not listed here may be required.
-#   See https://github.com/steadybit/extension-gcp for more information.
-extension-gcp:
-  # extension-gcp.enabled -- Enable the Google Cloud extension
-  enabled: false
-  gcp:
-    credentialsKeyfilePath: null
-    credentialsKeyfileJson: null
-    projectID: null

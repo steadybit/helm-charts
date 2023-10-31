@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-outpost
 description: steadybit outpost Helm chart for Kubernetes.
-version: 1.1.35
+version: 1.1.36
 appVersion: latest
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -90,6 +90,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-kubernetes
     alias: extension-kubernetes
     condition: extension-kubernetes.enabled
+  - name: steadybit-extension-loadtest
+    version: ^1.0.13
+    repository: https://steadybit.github.io/extension-loadtest
+    alias: extension-loadtest
+    condition: extension-loadtest.enabled
   - name: steadybit-extension-postman
     version: ^1.6.13
     repository: https://steadybit.github.io/extension-postman
