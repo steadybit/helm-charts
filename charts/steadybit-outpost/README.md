@@ -88,7 +88,7 @@ outpost:
 
 ### Configuring Additional Environment Variables
 
-You may want to do some [advanced configuration](https://docs.steadybit.io/installation-agent/4-advanced-configuration) of the outpost, e.g. for debugging
+You may want to do some [advanced configuration](https://docs.steadybit.com/install-and-configure/install-outpost-agent/advanced-configuration) of the outpost, e.g. for debugging
 purposes or adding a Maven proxy.
 
 ```yaml
