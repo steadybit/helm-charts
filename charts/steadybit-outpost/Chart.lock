@@ -1,57 +1,57 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.0.19
+  version: 2.0.20
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.0.11
+  version: 1.0.12
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.0.29
+  version: 1.0.30
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.4.22
+  version: 1.4.23
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.0.7
+  version: 1.0.8
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.0.29
+  version: 1.0.30
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.0.19
+  version: 1.0.20
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.0.21
+  version: 1.0.22
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.0.14
+  version: 1.0.15
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.0.14
+  version: 1.0.15
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.0.21
+  version: 1.0.22
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.1.19
+  version: 1.1.20
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.6.21
+  version: 1.6.22
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
   version: 1.4.40
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
-  version: 1.0.13
+  version: 1.0.14
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.6.24
+  version: 1.6.25
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.4.20
+  version: 1.4.21
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.0.15
-digest: sha256:220af9e5a5e62805ffc4c17789f85f7bfab9d2cf132a35ddedddcd2330027c65
-generated: "2023-10-31T12:57:32.897782+01:00"
+  version: 1.0.16
+digest: sha256:596c8fa3d98322224a1fadf965d98173bcecd784aafb3f977d446c9da71f86d1
+generated: "2023-11-15T15:33:45.605954+01:00"
