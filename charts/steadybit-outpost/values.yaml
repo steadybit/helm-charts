@@ -228,7 +228,7 @@ extension-container:
     # extension-container.runtime -- The container runtime to use. Valid values: containerd, docker, cri-o. See extension-container README for more information.
     runtime: containerd
 
-# extension-container.* -- settings for the container extension. See https://github.com/steadybit/extension-container for more information.
+# extension-datadog.* -- settings for the datadog extension. See https://github.com/steadybit/extension-datadog for more information.
 extension-datadog:
   # extension-datadog.enabled -- Enable the Datadog extension
   enabled: false
@@ -238,6 +238,16 @@ extension-datadog:
     applicationKey: null
     siteParameter: null
     siteUrl: null
+    existingSecret: null
+
+# extension-dynatrace.* -- settings for the dynatrace extension. See https://github.com/steadybit/extension-dynatrace for more information.
+extension-dynatrace:
+  # extension-dynatrace.enabled -- Enable the Dynatrace extension
+  enabled: false
+  # extension-datadog.datadog.* -- these options are for accessing the dynatrace API either specify the values or reference a secret see extension-dynatrace README for more information.
+  dynatrace:
+    apiToken: null
+    apiBaseUrl: null
     existingSecret: null
 
 # extension-host.* -- settings for the host extension sub chart.

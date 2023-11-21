@@ -11,6 +11,9 @@ dependencies:
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.4.23
+- name: steadybit-extension-dynatrace
+  repository: https://steadybit.github.io/extension-dynatrace
+  version: 1.0.2
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
   version: 1.0.8
@@ -53,5 +56,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.0.16
-digest: sha256:b2b5f73b162a6cba692af29db13394fc2a6a884255e58bea6352b3b5a1374577
-generated: "2023-11-16T09:42:19.568058+01:00"
+digest: sha256:8fba024a2ea7a95db333045cf1eb24fc322a5b51236927b9094c530c32dc0d18
+generated: "2023-11-21T08:07:17.622108+01:00"

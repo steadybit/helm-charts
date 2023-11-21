@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-outpost
 description: steadybit outpost Helm chart for Kubernetes.
-version: 1.1.38
+version: 1.1.39
 appVersion: latest
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -40,6 +40,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-datadog
     alias: extension-datadog
     condition: extension-datadog.enabled
+  - name: steadybit-extension-dynatrace
+    version: ^1.0.0
+    repository: https://steadybit.github.io/extension-dynatrace
+    alias: extension-dynatrace
+    condition: extension-dynatrace.enabled
   - name: steadybit-extension-gcp
     version: ^1.0.2
     repository: https://steadybit.github.io/extension-gcp

@@ -29,6 +29,7 @@ jobs:
           helm repo add extension-azure https://steadybit.github.io/extension-azure
           helm repo add extension-container https://steadybit.github.io/extension-container
           helm repo add extension-datadog https://steadybit.github.io/extension-datadog
+          helm repo add extension-dynatrace https://steadybit.github.io/extension-dynatrace
           helm repo add extension-gcp https://steadybit.github.io/extension-gcp
           helm repo add extension-host https://steadybit.github.io/extension-host
           helm repo add extension-http https://steadybit.github.io/extension-http
