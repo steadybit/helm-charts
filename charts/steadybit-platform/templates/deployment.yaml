@@ -171,6 +171,10 @@ spec:
             - name: STEADYBIT_TENANT_NAME
               value: {{ .Values.platform.tenant.name | quote }}
             {{- end }}
+            {{- if .Values.platform.publicWebUrl }}
+            - name: STEADYBIT_WEB_PUBLIC_URL
+              value: {{ .Values.platform.publicWebUrl }}
+            {{- end }}
             - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
               value: {{ .Values.platform.publicWebsocketPort | quote }}
             {{- if .Values.platform.ingressOrigin }}
