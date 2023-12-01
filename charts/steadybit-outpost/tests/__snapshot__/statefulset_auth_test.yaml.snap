@@ -23,6 +23,7 @@ using oauth2 with mtls from containerPath and token uri:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"
@@ -155,6 +156,7 @@ using oauth2 with mtls from secrets:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"

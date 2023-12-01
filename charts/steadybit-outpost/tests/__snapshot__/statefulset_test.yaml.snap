@@ -40,6 +40,7 @@ manifest should match snapshot:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"
@@ -177,6 +178,7 @@ should add aws account id from values:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"
@@ -316,6 +318,7 @@ should add match labels:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"
@@ -469,6 +472,7 @@ should apply extra pod labels:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"
@@ -608,6 +612,7 @@ using extensions with mtls from containerpath:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"
@@ -760,6 +765,7 @@ using extensions with mtls from secrets:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"
@@ -924,6 +930,7 @@ using image pull secrets with debug json log:
       template:
         metadata:
           annotations:
+            oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
             prometheus.io/scrape: "true"
