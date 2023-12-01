@@ -32,6 +32,7 @@ spec:
         prometheus.io/scrape: "{{ .Values.outpost.prometheus.scrape }}"
         prometheus.io/path: "/prometheus"
         prometheus.io/port: "{{ .Values.outpost.port }}"
+        oneagent.dynatrace.com/injection: "false"
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
