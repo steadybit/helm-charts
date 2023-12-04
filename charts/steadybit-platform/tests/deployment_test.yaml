@@ -48,3 +48,13 @@ tests:
             useInitContainer: true
     asserts:
       - matchSnapshot: {}
+  - it: manifest should support various variables
+    chart:
+      version: 0.0.0
+    set:
+      platform:
+        publicWebUrl: https://example.steadybit.com
+        ingressOrigin: https://example.ingress.steadybit.com
+        name: "test-stage"
+    asserts:
+      - matchSnapshot: {}

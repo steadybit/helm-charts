@@ -216,6 +216,10 @@ spec:
             - name: STEADYBIT_PROXY_PASSWORD
               value: {{ .Values.platform.proxy.password | quote }}
             {{- end }}
+            {{- if .Values.platform.name }}
+            - name: STEADYBIT_PLATFORM_NAME
+              value: {{ .Values.platform.name | quote }}
+            {{- end }}
 {{- with .Values.platform.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}

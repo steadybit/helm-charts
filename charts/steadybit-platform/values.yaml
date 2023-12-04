@@ -2,6 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 platform:
+  # platform.name -- Used to identify the platform when running multiple installations (e.g. in a multi-stage setup). Should be omitted when using a single installation.
+  name: null
   tenant:
     mode: "ONPREM"
     # platform.tenant.key -- Name for the tenant assigned to you.
