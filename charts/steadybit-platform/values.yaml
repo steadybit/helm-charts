@@ -170,7 +170,7 @@ postgresql:
     username: steadybit
     database: steadybit
   image:
-    tag: 14
+    tag: 15
   service:
     ports:
       postgresql: "5432"
