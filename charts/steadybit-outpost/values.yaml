@@ -244,7 +244,7 @@ extension-datadog:
 extension-dynatrace:
   # extension-dynatrace.enabled -- Enable the Dynatrace extension
   enabled: false
-  # extension-datadog.datadog.* -- these options are for accessing the dynatrace API either specify the values or reference a secret see extension-dynatrace README for more information.
+  # extension-dynatrace.dynatrace.* -- these options are for accessing the dynatrace API either specify the values or reference a secret see extension-dynatrace README for more information.
   dynatrace:
     apiToken: null
     apiBaseUrl: null
@@ -255,19 +255,6 @@ extension-dynatrace:
 extension-host:
   # extension-host.enabled -- Enable the Datadog extension
   enabled: true
-
-# extension-http.* -- settings for the http extension sub chart.
-#   See https://github.com/steadybit/extension-http for more information.
-extension-http:
-  # extension-http.enabled -- Enable the HTTP extension
-  enabled: true
-
-# extension-istio.* -- settings for the istio extension sub chart.
-#   Further configuration not listed here may be required.
-#   See https://github.com/steadybit/extension-istio for more information.
-extension-istio:
-  # extension-istio.enabled -- Enable the Istio extension
-  enabled: false
 
 # extension-gatling.* -- settings for the gatling extension sub chart.
 #   See https://github.com/steadybit/extension-gatling for more information.
@@ -285,6 +272,29 @@ extension-gcp:
     credentialsKeyfilePath: null
     credentialsKeyfileJson: null
     projectID: null
+
+# extension-http.* -- settings for the http extension sub chart.
+#   See https://github.com/steadybit/extension-http for more information.
+extension-http:
+  # extension-http.enabled -- Enable the HTTP extension
+  enabled: true
+
+# extension-instana.* -- settings for the instana extension. See https://github.com/steadybit/extension-instana for more information.
+extension-instana:
+  # extension-instana.enabled -- Enable the Instana extension
+  enabled: false
+  # extension-instana.instana.* -- these options are for accessing the dynatrace API either specify the values or reference a secret see extension-dynatrace README for more information.
+  dynatrace:
+    apiToken: null
+    baseUrl: null
+    existingSecret: null
+
+# extension-istio.* -- settings for the istio extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-istio for more information.
+extension-istio:
+  # extension-istio.enabled -- Enable the Istio extension
+  enabled: false
 
 # extension-jmeter.* -- settings for the jmeter extension sub chart.
 #   See https://github.com/steadybit/extension-jmeter for more information.

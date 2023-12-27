@@ -14,6 +14,9 @@ dependencies:
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
   version: 1.0.6
+- name: steadybit-extension-gatling
+  repository: https://steadybit.github.io/extension-gatling
+  version: 1.0.17
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
   version: 1.0.12
@@ -23,12 +26,12 @@ dependencies:
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.0.22
+- name: steadybit-extension-instana
+  repository: https://steadybit.github.io/extension-instana
+  version: 1.0.0
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
   version: 1.0.24
-- name: steadybit-extension-gatling
-  repository: https://steadybit.github.io/extension-gatling
-  version: 1.0.17
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
   version: 1.0.17
@@ -56,5 +59,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.0.18
-digest: sha256:69eb31728e01e3fb2a73fad33636e54220e0ec7e6c9854804808102d270e0c05
-generated: "2023-12-21T12:35:01.813048+01:00"
+digest: sha256:ddf3fbe1e4bff56821995f4d0732fb651d1aa463c1439c5334c86948b24b2c49
+generated: "2023-12-27T15:29:00.93221+01:00"
