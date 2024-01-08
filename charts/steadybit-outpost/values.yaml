@@ -336,6 +336,20 @@ extension-loadtest:
   # extension-loadtest.enabled -- Enable the loadtest extension
   enabled: false
 
+# extension-newrelic.* -- settings for the newrelic extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-newrelic for more information.
+extension-newrelic:
+  # extension-newrelic.enabled -- Enable the New Relic extension
+  enabled: false
+  newrelic:
+    apiBaseUrl: null
+    apiKey: null
+    accountId: null
+    insightsApiBaseUrl: null
+    insightsInsertKey: null
+    existingSecret: null
+
 # extension-postman.* -- settings for the postman extension sub chart.
 #   Further configuration not listed here may be required.
 #   See https://github.com/steadybit/extension-postman for more information.

@@ -42,6 +42,7 @@ jobs:
           helm repo add extension-kong https://steadybit.github.io/extension-kong
           helm repo add extension-kubernetes https://steadybit.github.io/extension-kubernetes
           helm repo add extension-loadtest https://steadybit.github.io/extension-loadtest
+          helm repo add extension-newrelic https://steadybit.github.io/extension-newrelic
           helm repo add extension-postman https://steadybit.github.io/extension-postman
           helm repo add extension-prometheus https://steadybit.github.io/extension-prometheus
           helm repo add extension-stackstate https://steadybit.github.io/extension-stackstate
