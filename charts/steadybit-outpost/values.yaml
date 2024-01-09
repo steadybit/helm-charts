@@ -345,7 +345,6 @@ extension-newrelic:
   newrelic:
     apiBaseUrl: null
     apiKey: null
-    accountId: null
     insightsApiBaseUrl: null
     insightsInsertKey: null
     existingSecret: null
