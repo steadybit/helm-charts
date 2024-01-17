@@ -345,8 +345,8 @@ extension-newrelic:
   newrelic:
     apiBaseUrl: null
     apiKey: null
-    insightsApiBaseUrl: null
-    insightsInsertKey: null
+    insightsCollectorApiBaseUrl: null
+    insightsCollectorApiKey: null
     existingSecret: null
 
 # extension-postman.* -- settings for the postman extension sub chart.
