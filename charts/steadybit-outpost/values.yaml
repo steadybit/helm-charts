@@ -355,6 +355,8 @@ extension-newrelic:
 extension-postman:
   # extension-postman.enabled -- Enable the Postman extension
   enabled: false
+  postman:
+    apiKey: null
 
 # extension-prometheus.* -- settings for the prometheus extension sub chart.
 #   Further configuration not listed here may be required.
