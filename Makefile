@@ -29,4 +29,4 @@ chart-bump-version:
 	fi; \
 	CHART_VERSION=$$(semver -i patch $$(yq '.version' $(CHART)/Chart.yaml)) \
 	yq -i ".version = strenv(CHART_VERSION)" $(CHART)/Chart.yaml; \
-	grep -e "^version:" -e "^appVersion:" $(CHART)/Chart.yaml; \
+	grep -e "^version:" -e "^appVersion:" $(CHART)/Chart.yaml;

@@ -3,6 +3,9 @@ name: CI
 on:
   push:
 
+env:
+  HELM_REPOSITORY_CONFIG: ${{ github.workspace }}/.github/helm/repositories.yaml
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -21,31 +24,6 @@ jobs:
         uses: azure/setup-helm@v3
         with:
           version: v3.13.3
-
-      - name: Add dependency chart repos
-        run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo add extension-aws https://steadybit.github.io/extension-aws
-          helm repo add extension-azure https://steadybit.github.io/extension-azure
-          helm repo add extension-container https://steadybit.github.io/extension-container
-          helm repo add extension-datadog https://steadybit.github.io/extension-datadog
-          helm repo add extension-dynatrace https://steadybit.github.io/extension-dynatrace
-          helm repo add extension-gatling https://steadybit.github.io/extension-gatling
-          helm repo add extension-gcp https://steadybit.github.io/extension-gcp
-          helm repo add extension-host https://steadybit.github.io/extension-host
-          helm repo add extension-http https://steadybit.github.io/extension-http
-          helm repo add extension-instana https://steadybit.github.io/extension-instana
-          helm repo add extension-istio https://steadybit.github.io/extension-istio
-          helm repo add extension-jmeter https://steadybit.github.io/extension-jmeter
-          helm repo add extension-jvm https://steadybit.github.io/extension-jvm
-          helm repo add extension-k6 https://steadybit.github.io/extension-k6
-          helm repo add extension-kong https://steadybit.github.io/extension-kong
-          helm repo add extension-kubernetes https://steadybit.github.io/extension-kubernetes
-          helm repo add extension-loadtest https://steadybit.github.io/extension-loadtest
-          helm repo add extension-newrelic https://steadybit.github.io/extension-newrelic
-          helm repo add extension-postman https://steadybit.github.io/extension-postman
-          helm repo add extension-prometheus https://steadybit.github.io/extension-prometheus
-          helm repo add extension-stackstate https://steadybit.github.io/extension-stackstate
 
       - uses: actions/setup-python@v4
 
