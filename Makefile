@@ -25,8 +25,8 @@ chart-bump-version:
 		exit 1; \
 	fi; \
 	if [ ! -z "$(APP_VERSION)" ]; then \
-		yq -i ".appVersion = strenv(APP_VERSION)" $(CHART)/Chart.yaml; \
+		yq -i ".appVersion = strenv(APP_VERSION)" charts/$(CHART)/Chart.yaml; \
 	fi; \
-	CHART_VERSION=$$(semver -i patch $$(yq '.version' $(CHART)/Chart.yaml)) \
-	yq -i ".version = strenv(CHART_VERSION)" $(CHART)/Chart.yaml; \
-	grep -e "^version:" -e "^appVersion:" $(CHART)/Chart.yaml;
+	CHART_VERSION=$$(semver -i patch $$(yq '.version' charts/$(CHART)/Chart.yaml)) \
+	yq -i ".version = strenv(CHART_VERSION)" charts/$(CHART)/Chart.yaml; \
+	grep -e "^version:" -e "^appVersion:" charts/$(CHART)/Chart.yaml;
