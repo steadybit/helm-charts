@@ -20,7 +20,7 @@ chartlint:
 .PHONY: chart-bump-version
 chart-bump-version:
 	@set -e; \
-	if [ ! -z "$(CHART)" ]; then\
+	if [ -z "$(CHART)" ]; then\
 		echo "no chart specified"; \
 		exit 1; \
 	fi; \
