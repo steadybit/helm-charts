@@ -43,5 +43,5 @@ jobs:
           make chart-bump-version CHART="steadybit-outpost"
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git commit -am "chore(steadybit-outpost): update helm chart dependencies"
+          git commit -Am "chore(steadybit-outpost): update helm chart dependencies"
           git push
