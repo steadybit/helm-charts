@@ -12,6 +12,9 @@ on:
         required: false
         description: The optional app version to set
 
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   bump-chart-version:
     name: Bump Chart Patch Version on main branch
