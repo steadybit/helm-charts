@@ -1,0 +1,46 @@
+apiVersion: v1
+repositories:
+  - name: steadybit-extension-aws
+    url: https://steadybit.github.io/extension-aws
+  - name: steadybit-extension-azure
+    url: https://steadybit.github.io/extension-azure
+  - name: steadybit-extension-container
+    url: https://steadybit.github.io/extension-container
+  - name: steadybit-extension-datadog
+    url: https://steadybit.github.io/extension-datadog
+  - name: steadybit-extension-dynatrace
+    url: https://steadybit.github.io/extension-dynatrace
+  - name: steadybit-extension-gatling
+    url: https://steadybit.github.io/extension-gatling
+  - name: steadybit-extension-gcp
+    url: https://steadybit.github.io/extension-gcp
+  - name: steadybit-extension-host
+    url: https://steadybit.github.io/extension-host
+  - name: steadybit-extension-http
+    url: https://steadybit.github.io/extension-http
+  - name: steadybit-extension-instana
+    url: https://steadybit.github.io/extension-instana
+  - name: steadybit-extension-istio
+    url: https://steadybit.github.io/extension-istio
+  - name: steadybit-extension-jmeter
+    url: https://steadybit.github.io/extension-jmeter
+  - name: steadybit-extension-jvm
+    url: https://steadybit.github.io/extension-jvm
+  - name: steadybit-extension-k6
+    url: https://steadybit.github.io/extension-k6
+  - name: steadybit-extension-kong
+    url: https://steadybit.github.io/extension-kong
+  - name: steadybit-extension-kubernetes
+    url: https://steadybit.github.io/extension-kubernetes
+  - name: steadybit-extension-loadtest
+    url: https://steadybit.github.io/extension-loadtest
+  - name: steadybit-extension-newrelic
+    url: https://steadybit.github.io/extension-newrelic
+  - name: steadybit-extension-postman
+    url: https://steadybit.github.io/extension-postman
+  - name: steadybit-extension-prometheus
+    url: https://steadybit.github.io/extension-prometheus
+  - name: steadybit-extension-stackstate
+    url: https://steadybit.github.io/extension-stackstate
+  - name: postgresql
+    url: https://charts.bitnami.com/bitnami
