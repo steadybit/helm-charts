@@ -138,8 +138,8 @@ logging:
 image:
   # image.name -- The container image to use of the steadybit outpost.
   name: steadybit/outpost
-  # image.tag -- tag name of the outpost container image to use.
-  tag: latest
+  # image.tag -- tag name of the outpost container image to use. Defaults to appVersion of this chart.
+  tag: null
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
   pullSecrets: []

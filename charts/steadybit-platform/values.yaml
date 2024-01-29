@@ -103,7 +103,7 @@ image:
   # image.name -- The container image  to use of the steadybit platform.
   name: docker.steadybit.io/steadybit/platform
   # image.tag -- Tag name of the platform container image to use.
-  tag: latest
+  tag: null
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
   registry: {}

@@ -102,8 +102,8 @@ cluster:
 image:
   # image.name -- The container image to use of the steadybit agent.
   name: steadybit/agent
-  # image.tag -- tag name of the agent container image to use.
-  tag: latest
+  # image.tag -- tag name of the agent container image to use. Defaults to appVersion of this chart.
+  tag: null
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
   pullSecrets: []

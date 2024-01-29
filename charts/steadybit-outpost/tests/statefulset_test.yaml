@@ -1,6 +1,9 @@
 templates:
   - statefulset.yaml
   - secrets.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
 tests:
   - it: manifest should match snapshot
     set:
@@ -8,8 +11,6 @@ tests:
         clusterName: test
       outpost:
         key: abcdefg
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }
 
@@ -21,8 +22,6 @@ tests:
         key: abcdefg
       podLabels:
         some-label: some-value
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }
 
@@ -36,8 +35,6 @@ tests:
       logging:
         format: json
         level: debug
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }
   - it: using extensions with mtls from containerpath
@@ -59,8 +56,6 @@ tests:
                   value: some-extension-client-key-password
             serverCertificate:
               path: /etc/ssl/certs/server.crt
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }
 
@@ -88,8 +83,6 @@ tests:
                       key: some-secret-key
             serverCertificate:
               fromSecret: server.crt
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }
 
@@ -99,8 +92,6 @@ tests:
         key: abcdefg
         aws:
           accountId: "123456789012"
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }
 
@@ -116,7 +107,5 @@ tests:
             matchLabelsExclude:
               exclude-me: true
               exclude-me-too: true
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }

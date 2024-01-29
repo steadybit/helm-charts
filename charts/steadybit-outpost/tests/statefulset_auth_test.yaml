@@ -1,5 +1,8 @@
 templates:
   - statefulset.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
 tests:
   - it: using oauth2 should require issuerUri or tokenUri
     set:
@@ -10,8 +13,6 @@ tests:
           provider: oauth2
           oauth2:
             clientId: some-client-id
-    chart:
-      version: 0.0.0
     asserts:
       - failedTemplate:
           errorMessage: missing either .Values.outpost.auth.oauth2.issuerUri or .Values.outpost.auth.oauth2.tokenUri
@@ -35,8 +36,6 @@ tests:
                     value: some-oauth2-client-key-password
               serverCertificate:
                 path: /etc/ssl/certs/server.crt
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }
 
@@ -67,7 +66,5 @@ tests:
                         key: some-other-secret-key
               serverCertificate:
                 fromSecret: server.crt
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }

@@ -15,3 +15,18 @@ charttesting:
 .PHONY: chartlint
 chartlint:
 	ct lint --config chartTesting.yaml
+
+## chart-bump-version: Bump the patch version and optionally set the appVersion
+.PHONY: chart-bump-version
+chart-bump-version:
+	@set -e; \
+	if [ ! -z "$(CHART)" ]; then\
+		echo "no chart specified"; \
+		exit 1; \
+	fi; \
+	if [ ! -z "$(APP_VERSION)" ]; then \
+		yq -i ".appVersion = strenv(APP_VERSION)" $(CHART)/Chart.yaml; \
+	fi; \
+	CHART_VERSION=$$(semver -i patch $$(yq '.version' $(CHART)/Chart.yaml)) \
+	yq -i ".version = strenv(CHART_VERSION)" $(CHART)/Chart.yaml; \
+	grep -e "^version:" -e "^appVersion:" $(CHART)/Chart.yaml; \

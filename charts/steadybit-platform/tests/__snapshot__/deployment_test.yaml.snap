@@ -66,7 +66,7 @@ manifest should support Recreate strategy:
                 - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
                   value: '{noop}admin'
               envFrom: []
-              image: docker.steadybit.io/steadybit/platform:latest
+              image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -185,7 +185,7 @@ manifest should support RollingUpdate strategy:
                 - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
                   value: '{noop}admin'
               envFrom: []
-              image: docker.steadybit.io/steadybit/platform:latest
+              image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -301,7 +301,7 @@ manifest should support extra certificate volume:
                 - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
                   value: '{noop}admin'
               envFrom: []
-              image: docker.steadybit.io/steadybit/platform:latest
+              image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -421,7 +421,7 @@ manifest should support extra volumes and mounts:
                 - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
                   value: '{noop}admin'
               envFrom: []
-              image: docker.steadybit.io/steadybit/platform:latest
+              image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -544,7 +544,7 @@ manifest should support init container:
                 - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
                   value: '{noop}admin'
               envFrom: []
-              image: docker.steadybit.io/steadybit/platform:latest
+              image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -626,7 +626,7 @@ manifest should support init container:
                 - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
                   value: '{noop}admin'
               envFrom: []
-              image: docker.steadybit.io/steadybit/platform:latest
+              image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
               name: steadybit-platform-db-migration
               resources:
@@ -711,7 +711,7 @@ manifest should support various variables:
                 - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
                   value: '{noop}admin'
               envFrom: []
-              image: docker.steadybit.io/steadybit/platform:latest
+              image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
