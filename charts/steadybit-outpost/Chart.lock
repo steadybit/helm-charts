@@ -11,6 +11,9 @@ dependencies:
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.1
+- name: steadybit-extension-debug
+  repository: https://steadybit.github.io/extension-debug
+  version: 1.0.1
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
   version: 1.1.1
@@ -22,7 +25,7 @@ dependencies:
   version: 1.1.1
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.1.0
+  version: 1.1.1
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.1
@@ -62,5 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.1
-digest: sha256:af80f42e5b55a95d66054055db6c7c53dd21200d867e493539b4e303238a06da
-generated: "2024-01-29T16:35:29.9552+01:00"
+digest: sha256:07ad46be7301813847b99d788ecb0153501e921f3f153fe8919efc0846b47eeb
+generated: "2024-01-31T16:32:50.932154+01:00"

@@ -40,6 +40,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-datadog
     alias: extension-datadog
     condition: extension-datadog.enabled
+  - name: steadybit-extension-debug
+    version: ^1.0.1
+    repository: https://steadybit.github.io/extension-debug
+    alias: extension-debug
+    condition: extension-debug.enabled
   - name: steadybit-extension-dynatrace
     version: ^1.0.0
     repository: https://steadybit.github.io/extension-dynatrace

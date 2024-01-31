@@ -240,6 +240,11 @@ extension-datadog:
     siteUrl: null
     existingSecret: null
 
+# extension-debug.* -- settings for the debug extension. See https://github.com/steadybit/extension-debug for more information.
+extension-debug:
+  # extension-debug.enabled -- Enable the debug extension
+  enabled: false
+
 # extension-dynatrace.* -- settings for the dynatrace extension. See https://github.com/steadybit/extension-dynatrace for more information.
 extension-dynatrace:
   # extension-dynatrace.enabled -- Enable the Dynatrace extension
