@@ -41,7 +41,7 @@ dependencies:
     alias: extension-datadog
     condition: extension-datadog.enabled
   - name: steadybit-extension-debug
-    version: ^1.0.1
+    version: ^1.0.2
     repository: https://steadybit.github.io/extension-debug
     alias: extension-debug
     condition: extension-debug.enabled
