@@ -2,7 +2,7 @@ name: Update steadybit-outpost dependencies
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: "0 5 * * 1"
+    - cron: "0 5 * * *"
 
 env:
   HELM_REPOSITORY_CONFIG: ${{ github.workspace }}/.github/helm/repositories.yaml
@@ -43,5 +43,5 @@ jobs:
           make chart-bump-version CHART="steadybit-outpost"
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git commit -Am "chore(steadybit-outpost): update helm chart dependencies"
+          git add -A && git commit -m "chore(steadybit-outpost): update helm chart dependencies"
           git push
