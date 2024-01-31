@@ -8,6 +8,8 @@ repositories:
     url: https://steadybit.github.io/extension-container
   - name: steadybit-extension-datadog
     url: https://steadybit.github.io/extension-datadog
+  - name: steadybit-extension-debug
+    url: https://steadybit.github.io/extension-debug
   - name: steadybit-extension-dynatrace
     url: https://steadybit.github.io/extension-dynatrace
   - name: steadybit-extension-gatling
