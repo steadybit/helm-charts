@@ -12936,6 +12936,36 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: 1.0.101
+    created: "2024-01-31T16:48:34.174164235Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.12.10
+    description: steadybit Platform Helm chart for Kubernetes.
+    digest: efafb17be5a03e658552e66a3f02f9bc0327195fe18f49ae3a705b1a3389f7ee
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: daniel.reuter@steadybit.com
+      name: Daniel Reuter
+    name: steadybit-platform
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-1.0.4/steadybit-platform-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: 1.0.101
     created: "2024-01-29T16:12:40.763918536Z"
     dependencies:
     - condition: postgresql.enabled
@@ -14000,4 +14030,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2024-01-31T15:48:33.552504408Z"
+generated: "2024-01-31T16:48:34.17467792Z"
