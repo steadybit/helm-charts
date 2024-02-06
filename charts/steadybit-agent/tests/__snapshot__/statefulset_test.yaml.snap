@@ -1,0 +1,1025 @@
+manifest should match snapshot:
+  1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+should add aws account id from values:
+  1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: null
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_AWS_ACCOUNT_ID
+                  value: "123456789012"
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+should add match labels:
+  1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: null
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_KEY
+                  value: another-label
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_VALUE
+                  value: another-value
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_KEY
+                  value: some-label
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_VALUE
+                  value: some-value
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_KEY
+                  value: exclude-me
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_VALUE
+                  value: true
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_KEY
+                  value: exclude-me-too
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_VALUE
+                  value: true
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+should apply extra pod labels:
+  1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            some-label: some-value
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+using extensions with mtls from containerpath:
+  1: |
+    apiVersion: v1
+    data:
+      extensionsClientKeyPassword: c29tZS1leHRlbnNpb24tY2xpZW50LWtleS1wYXNzd29yZA==
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
+                  value: /etc/ssl/certs/client.crt
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_KEY_FILE
+                  value: /etc/ssl/certs/client.key
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: extensionsClientKeyPassword
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_AGENT_EXTENSIONS_SERVER_CERT
+                  value: /etc/ssl/certs/server.crt
+                - name: STEADYBIT_AGENT_EXTENSIONS_HOSTNAME_VERIFICATION
+                  value: strict
+                - name: STEADYBIT_AGENT_EXTRA_CERTS_PATH
+                  value: /etc/ssl/extra-certs
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+using extensions with mtls from secrets:
+  1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
+                  value: /opt/steadybit/agent/etc/extensions/client/tls.crt
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_KEY_FILE
+                  value: /opt/steadybit/agent/etc/extensions/client/tls.key
+                - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: some-secret-key
+                      name: some-secret
+                - name: STEADYBIT_AGENT_EXTENSIONS_SERVER_CERT
+                  value: /opt/steadybit/agent/etc/extensions/server/tls.crt
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+                - mountPath: /opt/steadybit/agent/etc/extensions/client
+                  name: extensions-tls-client
+                  readOnly: true
+                - mountPath: /opt/steadybit/agent/etc/extensions/server
+                  name: extensions-tls-server
+                  readOnly: true
+                - mountPath: /opt/steadybit/agent/etc/extra-certs
+                  name: extra-certs
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+            - name: extensions-tls-client
+              secret:
+                secretName: some-client-secret
+            - name: extensions-tls-server
+              secret:
+                secretName: server.crt
+            - configMap:
+                name: self-signed-ca
+              name: extra-certs
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+using image pull secrets with debug json log:
+  1: |
+    apiVersion: v1
+    data: null
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: debug
+                - name: STEADYBIT_LOG_FORMAT
+                  value: json
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          imagePullSecrets:
+            - name: test-pull-secret
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi

@@ -1,0 +1,56 @@
+should inform about deployment:
+  1: |
+    raw: |
+      It may take a few moments for the agents to fully deploy. You can see what agents are running by listing resources in the NAMESPACE namespace:
+
+          kubectl get all -n NAMESPACE
+
+      You can get the logs for all of the agents with `kubectl logs`:
+
+          kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
+should warn about missing agent key:
+  1: |
+    raw: |
+      ##############################################################################
+      ####    ERROR: You did not specify your secret agent key.                 ####
+      ##############################################################################
+
+      This agent deployment will be incomplete until you set your agent key:
+
+          helm upgrade RELEASE-NAME --reuse-values \
+              --set agent.key=$(STEADYBIT_AGENT_KEY) steadybit/steadybit-agent
+
+      - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
+should warn about missing agent key and cluster name:
+  1: |
+    raw: |2
+      ##############################################################################
+      ####    ERROR: You did not specify your secret agent key.                 ####
+      ####    ERROR: You also did not specify a name for this cluster.          ####
+      ##############################################################################
+
+      This agent deployment will be incomplete until you set your agent key and a name for this cluster:
+
+          helm upgrade RELEASE-NAME --reuse-values \
+              --set agent.key=$(YOUR_SECRET_AGENT_KEY) \
+              --set global.clusterName=$(YOUR_CLUSTER_NAME) steadybit/steadybit-agent
+
+      - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
+      - YOUR_CLUSTER_NAME should be the custom name of your cluster.
+
+      This cluster will be reported as 'unknown' unless you specify a cluster name.
+should warn about missing cluster name:
+  1: |
+    raw: |2
+      ##############################################################################
+      ####    ERROR: You did not specify a name for this cluster.               ####
+      ##############################################################################
+
+      This agent deployment will be incomplete until you set your agent key and a name for this cluster:
+
+          helm upgrade RELEASE-NAME --reuse-values \
+              --set global.clusterName=$(YOUR_CLUSTER_NAME) steadybit/steadybit-agent
+
+      - YOUR_CLUSTER_NAME should be the custom name of your cluster.
+
+      This cluster will be reported as 'unknown' unless you specify a cluster name.

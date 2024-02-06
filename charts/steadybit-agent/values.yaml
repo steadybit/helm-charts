@@ -1,0 +1,381 @@
+# Default values for steadybit-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  # global.clusterName -- Represents the name that will be assigned to this Kubernetes cluster in steadybit.
+  clusterName: null
+
+agent:
+  # agent.key -- The secret token which your agent uses to authenticate to steadybit's servers.
+  #   Get it from https://platform.steadybit.com/settings/agents/setup.
+  key: null
+  auth:
+    # agent.auth.provider -- `agent-key` or `oauth2`
+    provider: agent-key
+    # agent.auth.oauth2.* -- additional settings if `agent.auth.provider` is set to `oauth2`
+    oauth2:
+      # agent.auth.oauth2.clientId --the client id to use when fetching the oauth2 token
+      clientId: null
+      # agent.auth.oauth2.clientSecret -- the client secret to use when fetching the oauth2 token
+      clientSecret:
+        value: null
+        valueFrom: null
+      # agent.auth.oauth2.authorizationGrantType -- the authorizationGrantType to use when fetching the oauth2 token; default is `client_credentials`
+      authorizationGrantType: null
+      # agent.auth.oauth2.clientAuthenticationMethod -- the auth_method used to fetch the token. If not specified or provided in the issuer discovery endpoint, 'client_secret_basic' will be used.
+      clientAuthenticationMethod: null
+      # agent.auth.oauth2.audience -- optional audience used to fetch the oauth2 token
+      audience: null
+      # agent.auth.oauth2.issuerUri -- the issuerUri of the authentication provider
+      issuerUri: null
+      # the tokenUri of the authentication provider to fetch the oauth2 token from. If set will suppress reading the oidc discovery endpoint.
+      tokenUri: null
+      tls:
+        # agent.auth.oauth2.tls.clientCertificate -- optional client certificate to be used when fetching the token.
+        clientCertificate:
+          # agent.auth.oauth2.tls.clientCertificate.fromSecret -- loads key and certificate from a secret
+          fromSecret: null
+          # agent.auth.oauth2.tls.clientCertificate.containerPath -- reference certificate from a containerPath
+          path: null
+          key:
+            # agent.auth.oauth2.tls.clientCertificate.key.path -- reference key from a containerPath
+            path: null
+            # agent.auth.oauth2.tls.clientCertificate.key.password -- optional password for the key
+            password:
+              value: null
+              valueFrom: null
+        # agent.auth.oauth2.tls.serverCert -- optional server certificate(s) to be used for validation when fetching the token.
+        #  If not specified will use the default certificate pool or those in agent.extraCertificates
+        serverCertificate:
+          path: null
+          fromSecret: null
+  # agent.registerUrl -- The URL of the steadybit server your agents will connect to.
+  registerUrl: https://platform.steadybit.io
+  # agent.extraCertificates -- Specify a containerPath where the agent loads additional certificates from.
+  extraCertificates:
+    path: null
+    fromVolume: null
+  # agent.extraVolumes -- Additional volumes to which the agent container will be mounted.
+  extraVolumes: []
+  # agent.extraVolumeMounts -- Additional volumeMountss to which the agent container will be mounted.
+  extraVolumeMounts: []
+  # agent.port -- configure the port of the agent's HTTP endpoints (expose health and debugging information)
+  port: 42899
+  # agent.env -- Additional environment variables for the steadybit agent
+  env: []
+  # agent.extraLabels -- Additional labels added to all agent kubernetes resources.
+  extraLabels: {}
+  # agent.leaderElection -- On kubernetes <= 1.11 you we need to use configmaps for the leader election. Valid values: leases, configmaps
+  leaderElection: leases
+  # agent.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the agent daemonset
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 5
+    successThreshold: 1
+  proxy:
+    # agent.proxy.host sets the STEADYBIT_AGENT_PROXY_HOST environment variable.
+    host: null
+    # agent.proxy.port sets the STEADYBIT_AGENT_PROXY_PORT environment variable.
+    port: 80
+    # agent.proxy.protocol sets the STEADYBIT_AGENT_PROXY_PROTOCOL environment variable.
+    protocol: HTTP
+    # agent.proxy.user sets the STEADYBIT_AGENT_PROXY_USER environment variable.
+    user: null
+    # agent.proxy.password sets the STEADYBIT_AGENT_PROXY_PASSWORD environment variable.
+    password: null
+  # agent.persistence.* -- persistence configuration. Needed for cleanup if agent is unexpectedly terminated.
+  persistence:
+    size: 200Mi
+    accessMode: ReadWriteOnce
+    storageClass: null
+  # agent.prometheus.scrape -- Controls the `prometheus.io/scrape` pod annotation which controls whether Prometheus will automatically scrape metrics from agent pods.
+  prometheus:
+    scrape: true
+  extensions:
+    tls:
+      # agent.extensions.tls.clientCertificate -- optional client certificate to be used when fetching the token.
+      clientCertificate:
+        # agent.extensions.tls.clientCertificate.fromSecret -- loads key and certificate from a secret
+        fromSecret: null
+        # agent.extensions.tls.clientCertificate.containerPath -- reference certificate from a containerPath
+        path: null
+        # agent.extensions.tls.clientCertificate.key.path -- reference key from a containerPath
+        key:
+          path: null
+          # agent.extensions.tls.clientCertificate.password -- optional password for the key
+          password:
+            value: null
+            valueFrom: null
+      # agent.auth.oauth2.tls.serverCert -- optional server certificate(s) to be used for validation when fetching the token.
+      #  If not specified will use the default certificate pool or those in agent.extraCertificates
+      serverCertificate:
+        path: null
+        fromSecret: null
+      # agent.extensions.tls.hostnameVerification -- controls the hostname verification for the extensions. Default: unsafe_ip_addresses; Valid values: strict, unsafe, unsafe_ip_addresses
+      #   strict: validates hostnames and ip addresses with the SAN field of the certificate
+      #   unsafe_ip_addresses: validates only hostnames but not ip addresses with the SAN field of the certificate
+      #   unsafe: no hostname validation
+      hostnameVerification: null
+    autodiscovery:
+      # agent.extensions.autodiscovery.matchLabels -- optional - extension-pods which match these labels will be included in the extension discovery. If not specified, all extension-pods are considered.
+      matchLabels: {}
+      # agent.extensions.autodiscovery.matchLabelsExclude -- optional - extension-pods which match these labels will be excluded from extension discovery.
+      matchLabelsExclude: {}
+  aws:
+    # agent.aws.accountId -- If running on AWS, the account id of the agent. If not set, the account id will be determined from the instance metadata or using sts:GetCallerIdentity.
+    accountId: null
+
+logging:
+  # logging.level -- The active log level. Valid values are: TRACE, DEBUG, INFO, WARN, ERROR
+  level: INFO
+  # logging.format -- The format of the log entries. One of text, json
+  format: text
+
+image:
+  # image.name -- The container image to use of the steadybit agent.
+  name: steadybit/agent
+  # image.tag -- tag name of the agent container image to use. Defaults to appVersion of this chart.
+  tag: null
+  # image.pullPolicy -- Specifies when to pull the image container.
+  pullPolicy: Always
+  pullSecrets: []
+
+priorityClassName:
+  # priorityClassName.use -- use a priorityClassName
+  use: false
+  # priorityClassName.name -- The name of the priority class to be used
+  name: high-priority
+
+resources:
+  requests:
+    # resources.requests.memory -- The minimal amount of memory needed
+    memory: "250Mi"
+    # resources.requests.cpu -- The minimal amount of cpu shares needed
+    cpu: "125m"
+  limits:
+    # resources.limits.memory -- The limit of memory to be used
+    memory: "500Mi"
+    # resources.limits.cpu -- The limit of cpu share to be used during its interval
+    cpu: "1000m"
+
+updateStrategy:
+  # updateStrategy.type -- Which type of `updateStrategy` should be used.
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+
+rbac:
+  # rbac.create -- Specifies whether RBAC resources should be created.
+  create: true
+  # rbac.readonly -- Specifies if Kubernetes API access should only be read only.
+  readonly: false
+
+serviceAccount:
+  # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
+  create: true
+  # serviceAccount.name -- The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template.
+  name: steadybit-agent
+  # serviceAccount.eksRoleArn -- The arn of the IAM role - [see aws docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)
+  eksRoleArn: null
+
+# podAnnotations -- Additional annotations to be added to the agent pods.
+podAnnotations: {}
+
+# podLabels -- Additional labels to be added to the agent pods.
+podLabels: {}
+
+# nodeSelector -- Node labels for pod assignment
+nodeSelector: {}
+
+# tolerations -- Tolerations to influence agent pod assignment.
+tolerations: []
+
+# affinity -- Affinities to influence agent pod assignment.
+affinity: {}
+
+# extension-aws.* -- settings for the aws extension. See https://github.com/steadybit/extension-aws for more information.
+extension-aws:
+  # extension-aws.enabled -- Enable the AWS extension
+  enabled: false
+  serviceAccount:
+    # extensions-aws.serviceAccount.eksRoleArn -- This is the recommended way to authenticate to AWS CLI. See extension-aws README for more information.
+    eksRoleArn: null
+
+# extension-azure.* -- settings for the azure extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-azure for more information.
+extension-azure:
+  # extension-azure.enabled -- Enable the Azure extension
+  enabled: false
+  azure:
+    clientID: null
+    clientSecret: null
+    tenantID: null
+    subscriptionID: null
+    certificatePath: null
+    certificatePassword: null
+    userAssertionString: null
+
+# extension-container.* -- settings for the container extension. See https://github.com/steadybit/extension-container for more information.
+extension-container:
+  # extension-container.enabled -- Enable the container extension
+  enabled: true
+  container:
+    # extension-container.runtime -- The container runtime to use. Valid values: containerd, docker, cri-o. See extension-container README for more information.
+    runtime: containerd
+
+# extension-datadog.* -- settings for the datadog extension. See https://github.com/steadybit/extension-datadog for more information.
+extension-datadog:
+  # extension-datadog.enabled -- Enable the Datadog extension
+  enabled: false
+  # extension-datadog.datadog.* -- these options are for accessing the datadog API either specify the values or reference a secret see extension-datadog README for more information.
+  datadog:
+    apiKey: null
+    applicationKey: null
+    siteParameter: null
+    siteUrl: null
+    existingSecret: null
+
+# extension-debug.* -- settings for the debug extension. See https://github.com/steadybit/extension-debug for more information.
+extension-debug:
+  # extension-debug.enabled -- Enable the debug extension
+  enabled: false
+
+# extension-dynatrace.* -- settings for the dynatrace extension. See https://github.com/steadybit/extension-dynatrace for more information.
+extension-dynatrace:
+  # extension-dynatrace.enabled -- Enable the Dynatrace extension
+  enabled: false
+  # extension-dynatrace.dynatrace.* -- these options are for accessing the dynatrace API either specify the values or reference a secret see extension-dynatrace README for more information.
+  dynatrace:
+    apiToken: null
+    apiBaseUrl: null
+    existingSecret: null
+
+# extension-host.* -- settings for the host extension sub chart.
+#   See https://github.com/steadybit/extension-host for more information.
+extension-host:
+  # extension-host.enabled -- Enable the Datadog extension
+  enabled: true
+
+# extension-gatling.* -- settings for the gatling extension sub chart.
+#   See https://github.com/steadybit/extension-gatling for more information.
+extension-gatling:
+  # extension-gatling.enabled -- Enable the Gatling extension
+  enabled: false
+
+# extension-gcp.* -- settings for the google cloud extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-gcp for more information.
+extension-gcp:
+  # extension-gcp.enabled -- Enable the Google Cloud extension
+  enabled: false
+  gcp:
+    credentialsKeyfilePath: null
+    credentialsKeyfileJson: null
+    projectID: null
+
+# extension-http.* -- settings for the http extension sub chart.
+#   See https://github.com/steadybit/extension-http for more information.
+extension-http:
+  # extension-http.enabled -- Enable the HTTP extension
+  enabled: true
+
+# extension-instana.* -- settings for the instana extension. See https://github.com/steadybit/extension-instana for more information.
+extension-instana:
+  # extension-instana.enabled -- Enable the Instana extension
+  enabled: false
+  # extension-instana.instana.* -- these options are for accessing the dynatrace API either specify the values or reference a secret see extension-dynatrace README for more information.
+  dynatrace:
+    apiToken: null
+    baseUrl: null
+    existingSecret: null
+
+# extension-istio.* -- settings for the istio extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-istio for more information.
+extension-istio:
+  # extension-istio.enabled -- Enable the Istio extension
+  enabled: false
+
+# extension-jmeter.* -- settings for the jmeter extension sub chart.
+#   See https://github.com/steadybit/extension-jmeter for more information.
+extension-jmeter:
+  # extension-jmeter.enabled -- Enable the JMeter extension
+  enabled: false
+
+# extension-jvm.* -- settings for the jvm extension sub chart.
+#   See https://github.com/steadybit/extension-jvm for more information.
+extension-jvm:
+  # extension-jvm.enabled -- Enable the JVM extension
+  enabled: false
+
+# extension-k6.* -- settings for the k6 extension sub chart.
+#   See https://github.com/steadybit/extension-k6 for more information.
+extension-k6:
+  # extension-k6.enabled -- Enable the K6 extension
+  enabled: false
+
+# extension-kong.* -- settings for the kong extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-kong for more information.
+extension-kong:
+  # extension-kong.enabled -- Enable the Kong extension
+  enabled: false
+  kong:
+    name: null
+    origin: null
+
+# extension-kubernetes.* -- settings for the kubernetes extension sub chart.
+#   See https://github.com/steadybit/extension-kubernetes for more information.
+extension-kubernetes:
+  # extension-kubernetes.enabled -- Enable the Kubernetes extension
+  enabled: true
+
+# extension-loadtest.* -- settings for the steadybit internal loadtest extension sub chart.
+#   Don't use this unless Steadybit support told you to do so. This deploys an extension which will create different load scenarios to test your steadybit setup.
+extension-loadtest:
+  # extension-loadtest.enabled -- Enable the loadtest extension
+  enabled: false
+
+# extension-newrelic.* -- settings for the newrelic extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-newrelic for more information.
+extension-newrelic:
+  # extension-newrelic.enabled -- Enable the New Relic extension
+  enabled: false
+  newrelic:
+    apiBaseUrl: null
+    apiKey: null
+    insightsCollectorApiBaseUrl: null
+    insightsCollectorApiKey: null
+    existingSecret: null
+
+# extension-postman.* -- settings for the postman extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-postman for more information.
+extension-postman:
+  # extension-postman.enabled -- Enable the Postman extension
+  enabled: false
+  postman:
+    apiKey: null
+
+# extension-prometheus.* -- settings for the prometheus extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-prometheus for more information.
+extension-prometheus:
+  # extension-prometheus.enabled -- Enable the Prometheus extension
+  enabled: false
+
+# extension-stackstate.* -- settings for the stackstate extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-stackstate for more information.
+extension-stackstate:
+  # extension-stackstate.enabled -- Enable the Stackstate extension
+  enabled: false
+  stackstate:
+    serviceToken: null
+    apiBaseUrl: null
