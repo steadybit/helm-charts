@@ -76,18 +76,6 @@ app.kubernetes.io/name: {{ include "steadybit-outpost.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
-{{/*
-checks the outpost.leaderElection for valid values
-*/}}
-{{- define "validLeaderElection" -}}
-{{- $valid := list "configmaps" "leases" -}}
-{{- if has .Values.outpost.leaderElection $valid -}}
-{{- .Values.outpost.leaderElection -}}
-{{- else -}}
-{{- fail (printf "unknown leader election: %s (must be one of %s)" .Values.outpost.leaderElection (join ", " $valid)) -}}
-{{- end -}}
-{{- end -}}
-
 
 {{/*
 environment variables for extra certificates

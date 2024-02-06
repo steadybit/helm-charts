@@ -66,8 +66,6 @@ outpost:
   env: []
   # outpost.extraLabels -- Additional labels added to all outpost kubernetes resources.
   extraLabels: {}
-  # outpost.leaderElection -- On kubernetes <= 1.11 you we need to use configmaps for the leader election. Valid values: leases, configmaps
-  leaderElection: leases
   # outpost.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the outpost daemonset
   livenessProbe:
     enabled: true
