@@ -107,14 +107,16 @@ using oauth2 with mtls from containerPath and token uri:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-agent
                   name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -247,9 +249,6 @@ using oauth2 with mtls from secrets:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-agent
                   name: steadybit-agent-state
@@ -261,6 +260,11 @@ using oauth2 with mtls from secrets:
                 - mountPath: /opt/steadybit/agent/etc/oauth2/server
                   name: oauth2-tls-server
                   readOnly: true
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:

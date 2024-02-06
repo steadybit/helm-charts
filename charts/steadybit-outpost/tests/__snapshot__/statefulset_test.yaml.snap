@@ -112,14 +112,16 @@ manifest should match snapshot:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-outpost
                   name: steadybit-outpost-state
                 - mountPath: /tmp
                   name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-outpost
           volumes:
             - emptyDir:
@@ -252,14 +254,16 @@ should add aws account id from values:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-outpost
                   name: steadybit-outpost-state
                 - mountPath: /tmp
                   name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-outpost
           volumes:
             - emptyDir:
@@ -406,14 +410,16 @@ should add match labels:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-outpost
                   name: steadybit-outpost-state
                 - mountPath: /tmp
                   name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-outpost
           volumes:
             - emptyDir:
@@ -545,14 +551,16 @@ should apply extra pod labels:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-outpost
                   name: steadybit-outpost-state
                 - mountPath: /tmp
                   name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-outpost
           volumes:
             - emptyDir:
@@ -699,14 +707,16 @@ using extensions with mtls from containerpath:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-outpost
                   name: steadybit-outpost-state
                 - mountPath: /tmp
                   name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-outpost
           volumes:
             - emptyDir:
@@ -848,9 +858,6 @@ using extensions with mtls from secrets:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-outpost
                   name: steadybit-outpost-state
@@ -864,6 +871,11 @@ using extensions with mtls from secrets:
                   readOnly: true
                 - mountPath: /opt/steadybit/outpost/etc/extra-certs
                   name: extra-certs
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-outpost
           volumes:
             - emptyDir:
@@ -997,9 +1009,6 @@ using image pull secrets with debug json log:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 1000
-                runAsNonRoot: true
-                runAsUser: 1000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-outpost
                   name: steadybit-outpost-state
@@ -1007,6 +1016,11 @@ using image pull secrets with debug json log:
                   name: tmp-dir
           imagePullSecrets:
             - name: test-pull-secret
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
           serviceAccountName: steadybit-outpost
           volumes:
             - emptyDir:
