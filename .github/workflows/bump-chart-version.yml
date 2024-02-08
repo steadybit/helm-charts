@@ -44,5 +44,6 @@ jobs:
           make chart-bump-version CHART="${{ inputs.chart }}" APP_VERSION="${{ inputs.app_version }}"
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git commit -am "chore: update helm chart version for ${{ inputs.chart }} / app_version=${{ inputs.app_version }}"
+          git commit -am "chore(${{ inputs.chart }}): update helm chart version"
           git push
+          echo "Updated ${{ inputs.chart }} - app_version=${{ inputs.app_version }}" >> $GITHUB_STEP_SUMMARY

@@ -37,6 +37,7 @@ jobs:
           helm dependency update charts/steadybit-agent
           if git diff --quiet charts/steadybit-agent/Chart.lock; then
             echo "No changes in dependencies"
+            echo "No changes in dependencies" >> $GITHUB_STEP_SUMMARY
             exit 0
           fi
           npm install -g semver
@@ -45,3 +46,4 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add -A && git commit -m "chore(steadybit-agent): update helm chart dependencies for steadybit-agent"
           git push
+          echo "Updated dependencies" >> $GITHUB_STEP_SUMMARY

@@ -37,6 +37,7 @@ jobs:
           helm dependency update charts/steadybit-outpost
           if git diff --quiet charts/steadybit-outpost/Chart.lock; then
             echo "No changes in dependencies"
+            echo "No changes in dependencies" >> $GITHUB_STEP_SUMMARY
             exit 0
           fi
           npm install -g semver
@@ -45,3 +46,4 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add -A && git commit -m "chore(steadybit-outpost): update helm chart dependencies for steadybit-outpost"
           git push
+          echo "Updated dependencies" >> $GITHUB_STEP_SUMMARY
