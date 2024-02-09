@@ -50,4 +50,8 @@ You can get the logs for all of the agents with `kubectl logs`:
 
     kubectl logs -l app.kubernetes.io/name={{ .Release.Name }} -n {{ .Release.Namespace }} -c steadybit-outpost
 
+##############################################################################
+####    DEPRECATED: Please use the steadybit-agent helm chart!            ####
+##############################################################################
+
 {{- end }}

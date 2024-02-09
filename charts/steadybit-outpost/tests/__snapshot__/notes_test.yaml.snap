@@ -8,6 +8,10 @@ should inform about deployment:
       You can get the logs for all of the agents with `kubectl logs`:
 
           kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-outpost
+
+      ##############################################################################
+      ####    DEPRECATED: Please use the steadybit-agent helm chart!            ####
+      ##############################################################################
 should warn about missing agent key:
   1: |
     raw: |
