@@ -12,6 +12,10 @@ should inform about deployment:
       ##############################################################################
       ####    DEPRECATED: Please use the steadybit-agent helm chart!            ####
       ##############################################################################
+
+      The outpost-agent helm chart is deprecated and will be removed in a future release.
+
+      For more information: https://docs.steadybit.com/troubleshooting/migrating-from-the-outpost-agent
 should warn about missing agent key:
   1: |
     raw: |

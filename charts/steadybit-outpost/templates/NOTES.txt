@@ -54,4 +54,8 @@ You can get the logs for all of the agents with `kubectl logs`:
 ####    DEPRECATED: Please use the steadybit-agent helm chart!            ####
 ##############################################################################
 
+The outpost-agent helm chart is deprecated and will be removed in a future release.
+
+For more information: https://docs.steadybit.com/troubleshooting/migrating-from-the-outpost-agent
+
 {{- end }}
