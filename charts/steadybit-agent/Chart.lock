@@ -52,7 +52,7 @@ dependencies:
   version: 1.5.2
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
-  version: 1.0.22
+  version: 1.0.23
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
   version: 1.1.0
@@ -65,5 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.1
-digest: sha256:79731e99c4a9d4ee6cd3fc2c33f4f43fc920bb0dc4f955d2039e37bb08ed17b5
-generated: "2024-02-29T06:07:01.156410153Z"
+digest: sha256:c69d263b0d9108fa6f01eef3c806161162e3774ebc572cf3f768b45783d3c62b
+generated: "2024-03-01T10:04:48.799750316Z"
