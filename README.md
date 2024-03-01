@@ -1,13 +1,16 @@
-# steadybit Kubernetes Helm Charts
+# Steadybit Kubernetes Helm Charts
 
-This repository hosts the source of the steadybit Kubernetes helm charts.
+[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/steadybit)](https://artifacthub.io/packages/search?repo=steadybit)
+
+This repository hosts the source of the Steadybit Kubernetes helm charts.
 
 Currently supported:
 
-- [steadybit Outpost](https://github.com/steadybit/helm-charts/tree/main/charts/steadybit-outpost)
-- [steadybit Platform](https://github.com/steadybit/helm-charts/tree/main/charts/steadybit-platform)
+- [Steadybit Agent](charts/steadybit-agent/README.md)
+- [Steadybit Outpost](charts/steadybit-outpost/README.md) DEPRECATED - use Steadybit Agent instead
+- [Steadybit Platform](charts/steadybit-platform/README.md)
 
-## How to use the steadybit Helm repository
+## How to use the Steadybit Helm repository
 
 You need to add this repository to your Helm repositories:
 
