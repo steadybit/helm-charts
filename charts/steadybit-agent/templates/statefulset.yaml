@@ -126,6 +126,10 @@ spec:
               value: {{ $value }}
             {{ $matchLabelExcludeCounter = add1 $matchLabelExcludeCounter }}
             {{- end }}
+            {{ if .Values.agent.extensions.autodiscovery.namespace -}}
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_NAMESPACE
+              value: "{{.Values.agent.extensions.autodiscovery.namespace}}"
+            {{ end -}}
             {{- with .Values.agent.env }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

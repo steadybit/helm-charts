@@ -107,5 +107,6 @@ tests:
             matchLabelsExclude:
               exclude-me: true
               exclude-me-too: true
+            namespace: test
     asserts:
       - matchSnapshot: { }

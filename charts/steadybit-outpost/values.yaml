@@ -123,6 +123,8 @@ outpost:
       matchLabels: {}
       # outpost.extensions.autodiscovery.matchLabelsExclude -- optional - extension-pods which match these labels will be excluded from extension discovery.
       matchLabelsExclude: {}
+      # agent.extensions.autodiscovery.namespace -- optional - the namespace in which the extension-pods are discovered. If not specified, all namespaces are considered.
+      namespace: null
   aws:
     # outpost.aws.accountId -- If running on AWS, the account id of the outpost. If not set, the account id will be determined from the instance metadata or using sts:GetCallerIdentity.
     accountId: null

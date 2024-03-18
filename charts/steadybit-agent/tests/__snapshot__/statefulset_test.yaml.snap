@@ -385,6 +385,8 @@ should add match labels:
                   value: exclude-me-too
                 - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_VALUE
                   value: true
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_NAMESPACE
+                  value: test
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
