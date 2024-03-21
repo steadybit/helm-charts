@@ -1,55 +1,55 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.1.6
+  version: 2.1.7
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.2
+  version: 1.1.3
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
   version: 1.1.11
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.2
+  version: 1.5.3
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
-  version: 1.0.8
+  version: 1.0.9
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
   version: 1.1.2
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.1.4
+  version: 1.1.5
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.1.2
+  version: 1.1.3
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
   version: 1.1.10
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.2
+  version: 1.1.3
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
   version: 1.1.2
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.1.2
+  version: 1.1.3
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.3
+  version: 1.1.4
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.1.3
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.2
+  version: 1.2.3
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.2
+  version: 1.7.3
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.5.7
+  version: 1.5.8
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.25
@@ -58,12 +58,12 @@ dependencies:
   version: 1.1.0
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.2
+  version: 1.7.3
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.2
+  version: 1.5.3
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.2
-digest: sha256:1d313bebe7004bcb14b1c6e50eaddb14c5fc63e277e6eee2227cbf4c865e63f6
-generated: "2024-03-20T16:04:02.849546113Z"
+  version: 1.1.3
+digest: sha256:d3da795237b93cc8934134d5025994218bd42a87c3ef5790d049a1ce9d2033b3
+generated: "2024-03-21T09:26:59.029663733Z"
