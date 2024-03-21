@@ -31,7 +31,7 @@ dependencies:
   version: 1.1.3
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
-  version: 1.1.2
+  version: 1.1.3
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
   version: 1.1.3
@@ -55,7 +55,7 @@ dependencies:
   version: 1.0.25
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
-  version: 1.1.0
+  version: 1.1.1
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.7.3
@@ -65,5 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.3
-digest: sha256:d3da795237b93cc8934134d5025994218bd42a87c3ef5790d049a1ce9d2033b3
-generated: "2024-03-21T09:26:59.029663733Z"
+digest: sha256:63d48fda16d1efe2842742fbd6289cf448e0dc84cd96a5e6222672bdbda2b1b9
+generated: "2024-03-21T09:28:08.9972125Z"
