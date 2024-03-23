@@ -55,7 +55,7 @@ dependencies:
   version: 1.0.25
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
-  version: 1.1.1
+  version: 1.1.2
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.7.3
@@ -65,5 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.3
-digest: sha256:63d48fda16d1efe2842742fbd6289cf448e0dc84cd96a5e6222672bdbda2b1b9
-generated: "2024-03-21T09:28:08.9972125Z"
+digest: sha256:3d3b7d541eac55bc6f201534a9183ebb6e90ee09088b880b1b9595683aac519a
+generated: "2024-03-23T06:08:43.199037659Z"
