@@ -1,8 +1,8 @@
 apiVersion: v2
 name: steadybit-platform
 description: steadybit Platform Helm chart for Kubernetes.
-version: 1.0.15
-appVersion: 2.0.12
+version: 1.0.16
+appVersion: 2.0.13
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
 maintainers:
