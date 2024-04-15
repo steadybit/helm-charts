@@ -22,7 +22,7 @@ dependencies:
   version: 1.1.6
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.1.4
+  version: 1.1.6
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
   version: 1.1.11
@@ -52,7 +52,7 @@ dependencies:
   version: 1.5.9
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
-  version: 1.0.26
+  version: 1.0.27
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
   version: 1.1.3
@@ -65,5 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.4
-digest: sha256:2c5bddb6d47d223a7d587ec903c4828895d44b1c3151cfc5c71b928b3bc926ab
-generated: "2024-04-11T14:25:50.933303+02:00"
+digest: sha256:423a4ad2b1753f3b40dc805ee90bf8dae87d065effe667605681370203364692
+generated: "2024-04-15T12:33:29.934885219Z"
