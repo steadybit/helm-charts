@@ -28,7 +28,7 @@ platform:
   publicWebsocketPort: 80
   # platform.ingressOrigin -- Should be set to the ingress origin, e.g., https://ingress.steadybit.example.com. Will be used to construct URLs in HTTP responses to agents. This configuration will overwrite the port defined in platform.publicWebsocketPort
   ingressOrigin: null
-  # -- Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration.
+  # -- Use this to set additional environment variables See https://docs.steadybit.com/install-and-configure/install-on-prem-platform/advanced-configuration
   envFrom: []
   env:
     - name: STEADYBIT_AUTH_PROVIDER
@@ -98,6 +98,10 @@ platform:
     protocol: HTTP
     user: null
     password: null
+  ## platform.terminationGracePeriodSeconds -- The time in seconds to wait for the platform to gracefully terminate and complete running experiments before it is forcefully terminated.
+  terminationGracePeriodSeconds: 43200 # 12 hours
+  ## The interval in seconds to check for experiment executions during shutdown
+  experimentExecutionShutdownCheckInterval: 30
 
 image:
   # image.name -- The container image  to use of the steadybit platform.
