@@ -35,6 +35,10 @@ manifest should support Recreate strategy:
         spec:
           containers:
             - env:
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
+                  value: 43200s
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
+                  value: 10s
                 - name: LOGGING_FORMAT
                   value: text
                 - name: STEADYBIT_TENANT_MODE
@@ -155,6 +159,10 @@ manifest should support RollingUpdate strategy:
         spec:
           containers:
             - env:
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
+                  value: 43200s
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
+                  value: 10s
                 - name: LOGGING_FORMAT
                   value: text
                 - name: STEADYBIT_TENANT_MODE
@@ -272,6 +280,10 @@ manifest should support extra certificate volume:
         spec:
           containers:
             - env:
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
+                  value: 43200s
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
+                  value: 10s
                 - name: LOGGING_FORMAT
                   value: text
                 - name: STEADYBIT_TENANT_MODE
@@ -393,6 +405,10 @@ manifest should support extra volumes and mounts:
         spec:
           containers:
             - env:
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
+                  value: 43200s
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
+                  value: 10s
                 - name: LOGGING_FORMAT
                   value: text
                 - name: STEADYBIT_TENANT_MODE
@@ -515,6 +531,10 @@ manifest should support init container:
         spec:
           containers:
             - env:
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
+                  value: 43200s
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
+                  value: 10s
                 - name: LOGGING_FORMAT
                   value: text
                 - name: STEADYBIT_TENANT_MODE
@@ -597,10 +617,6 @@ manifest should support init container:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           initContainers:
             - env:
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
-                  value: 43200
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
-                  value: 10
                 - name: JAVA_TOOL_OPTIONS
                   value: -XX:+DisableAttachMechanism
                 - name: SPRING_PROFILES_ACTIVE
@@ -683,6 +699,10 @@ manifest should support various variables:
         spec:
           containers:
             - env:
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
+                  value: 43200s
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
+                  value: 10s
                 - name: LOGGING_FORMAT
                   value: text
                 - name: STEADYBIT_TENANT_MODE
