@@ -163,7 +163,7 @@ spec:
             - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
               value: {{ .Values.platform.terminationGracePeriodSeconds }}s
             {{- end }}
-            {{- if .Values.platform.terminationGracePeriodSeconds }}
+            {{- if .Values.platform.experimentExecutionShutdownCheckInterval }}
             - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
               value: {{ .Values.platform.experimentExecutionShutdownCheckInterval }}s
             {{- end }}
