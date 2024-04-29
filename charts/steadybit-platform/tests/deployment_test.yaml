@@ -69,3 +69,11 @@ tests:
         terminationGracePeriodSeconds: "0"
     asserts:
       - matchSnapshot: {}
+  - it: manifest should set terminationGracePeriodSeconds
+    chart:
+      version: 0.0.0
+    set:
+      platform:
+        terminationGracePeriodSeconds: "43200"
+    asserts:
+      - matchSnapshot: {}
