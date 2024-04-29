@@ -99,9 +99,9 @@ platform:
     user: null
     password: null
   ## platform.terminationGracePeriodSeconds -- The time in seconds to wait for the platform to gracefully terminate and complete running experiments before it is forcefully terminated.
-  terminationGracePeriodSeconds: 43200 # 12 hours
+  terminationGracePeriodSeconds: "43200" # 12 hours
   ## The interval in seconds to check for experiment executions during shutdown
-  experimentExecutionShutdownCheckInterval: 10
+  experimentExecutionShutdownCheckInterval: "10"
 
 image:
   # image.name -- The container image  to use of the steadybit platform.

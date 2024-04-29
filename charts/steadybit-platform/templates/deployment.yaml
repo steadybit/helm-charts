@@ -94,7 +94,7 @@ spec:
 {{ toYaml . | indent 12 }}
 {{- end }}
       {{- end }}
-      {{- if .Values.platform.terminationGracePeriodSeconds }}
+      {{- if and (.Values.platform.terminationGracePeriodSeconds) (ne .Values.platform.terminationGracePeriodSeconds "0") }}
       terminationGracePeriodSeconds: {{ .Values.platform.terminationGracePeriodSeconds }}
       {{- end }}
       containers:

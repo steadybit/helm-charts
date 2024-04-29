@@ -61,3 +61,11 @@ tests:
         name: "test-stage"
     asserts:
       - matchSnapshot: {}
+  - it: manifest should override terminationGracePeriodSeconds
+    chart:
+      version: 0.0.0
+    set:
+      platform:
+        terminationGracePeriodSeconds: "0"
+    asserts:
+      - matchSnapshot: {}
