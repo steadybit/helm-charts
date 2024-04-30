@@ -94,7 +94,7 @@ spec:
 {{ toYaml . | indent 12 }}
 {{- end }}
       {{- end }}
-      {{- if and (.Values.platform.terminationGracePeriodSeconds) (ne .Values.platform.terminationGracePeriodSeconds "0") }}
+      {{- if and (.Values.platform.terminationGracePeriodSeconds) (ne (int .Values.platform.terminationGracePeriodSeconds) 0) }}
       terminationGracePeriodSeconds: {{ .Values.platform.terminationGracePeriodSeconds }}
       {{- end }}
       containers:
@@ -159,13 +159,13 @@ spec:
           envFrom:
 {{ toYaml .Values.platform.envFrom | indent 12 }}
           env:
-            {{- if .Values.platform.terminationGracePeriodSeconds }}
+            {{- if and (.Values.platform.terminationGracePeriodSeconds) (ne (int .Values.platform.terminationGracePeriodSeconds) 0) }}
             - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
               value: {{ .Values.platform.terminationGracePeriodSeconds }}s
             - name: spring.lifecycle.timeout-per-shutdown-phase
               value: {{ .Values.platform.terminationGracePeriodSeconds }}s
             {{- end }}
-            {{- if .Values.platform.experimentExecutionShutdownCheckInterval }}
+            {{- if and (.Values.platform.experimentExecutionShutdownCheckInterval) (ne (int .Values.platform.experimentExecutionShutdownCheckInterval) 0) }}
             - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
               value: {{ .Values.platform.experimentExecutionShutdownCheckInterval }}s
             {{- end }}

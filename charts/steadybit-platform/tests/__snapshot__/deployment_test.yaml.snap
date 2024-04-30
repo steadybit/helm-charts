@@ -1,4 +1,4 @@
-manifest should override terminationGracePeriodSeconds:
+manifest should not set terminationGracePeriodSeconds:
   1: |
     apiVersion: apps/v1
     kind: Deployment
@@ -35,12 +35,6 @@ manifest should override terminationGracePeriodSeconds:
         spec:
           containers:
             - env:
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
-                  value: 0s
-                - name: spring.lifecycle.timeout-per-shutdown-phase
-                  value: 0s
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
-                  value: 10s
                 - name: LOGGING_FORMAT
                   value: text
                 - name: STEADYBIT_TENANT_MODE
@@ -162,7 +156,7 @@ manifest should set terminationGracePeriodSeconds:
                 - name: spring.lifecycle.timeout-per-shutdown-phase
                   value: 43200s
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
-                  value: 10s
+                  value: 11s
                 - name: LOGGING_FORMAT
                   value: text
                 - name: STEADYBIT_TENANT_MODE
@@ -280,10 +274,6 @@ manifest should support Recreate strategy:
         spec:
           containers:
             - env:
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
-                  value: 0s
-                - name: spring.lifecycle.timeout-per-shutdown-phase
-                  value: 0s
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
                   value: 10s
                 - name: LOGGING_FORMAT
@@ -405,10 +395,6 @@ manifest should support RollingUpdate strategy:
         spec:
           containers:
             - env:
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
-                  value: 0s
-                - name: spring.lifecycle.timeout-per-shutdown-phase
-                  value: 0s
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
                   value: 10s
                 - name: LOGGING_FORMAT
@@ -527,10 +513,6 @@ manifest should support extra certificate volume:
         spec:
           containers:
             - env:
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
-                  value: 0s
-                - name: spring.lifecycle.timeout-per-shutdown-phase
-                  value: 0s
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
                   value: 10s
                 - name: LOGGING_FORMAT
@@ -653,10 +635,6 @@ manifest should support extra volumes and mounts:
         spec:
           containers:
             - env:
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
-                  value: 0s
-                - name: spring.lifecycle.timeout-per-shutdown-phase
-                  value: 0s
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
                   value: 10s
                 - name: LOGGING_FORMAT
@@ -780,10 +758,6 @@ manifest should support init container:
         spec:
           containers:
             - env:
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
-                  value: 0s
-                - name: spring.lifecycle.timeout-per-shutdown-phase
-                  value: 0s
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
                   value: 10s
                 - name: LOGGING_FORMAT
@@ -949,10 +923,6 @@ manifest should support various variables:
         spec:
           containers:
             - env:
-                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
-                  value: 0s
-                - name: spring.lifecycle.timeout-per-shutdown-phase
-                  value: 0s
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
                   value: 10s
                 - name: LOGGING_FORMAT
