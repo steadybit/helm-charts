@@ -438,6 +438,156 @@ should add match labels:
             resources:
               requests:
                 storage: 200Mi
+should add proxy configuration:
+  1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: "true"
+        steadybit.com/outpost: "true"
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-outpost
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-outpost-0.0.0
+        steadybit.com/discovery-disabled: "true"
+        steadybit.com/outpost: "true"
+      name: RELEASE-NAME-steadybit-outpost
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-outpost
+      serviceName: steadybit-outpost
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-outpost
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-outpost-0.0.0
+            steadybit.com/discovery-disabled: "true"
+            steadybit.com/outpost: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-outpost
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: null
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_PROXY_HOST
+                  value: proxy.example.com
+                - name: STEADYBIT_AGENT_PROXY_PORT
+                  value: "8080"
+                - name: STEADYBIT_AGENT_PROXY_PROTOCOL
+                  value: http
+                - name: STEADYBIT_AGENT_PROXY_USER
+                  value: user
+                - name: STEADYBIT_AGENT_PROXY_PASSWORD
+                  value: pass
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-outpost
+              image: steadybit/outpost:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-outpost
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-outpost
+                  name: steadybit-outpost-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          serviceAccountName: steadybit-outpost
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-outpost-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
 should apply extra pod labels:
   1: |
     apiVersion: v1

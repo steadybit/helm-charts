@@ -110,3 +110,16 @@ tests:
             namespace: test
     asserts:
       - matchSnapshot: { }
+
+  - it: should add proxy configuration
+    set:
+      outpost:
+        key: abcdefg
+        proxy:
+          host: proxy.example.com
+          port: 8080
+          protocol: http
+          user: user
+          password: pass
+    asserts:
+      - matchSnapshot: { }

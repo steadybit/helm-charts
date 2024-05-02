@@ -101,6 +101,20 @@ spec:
               value: "{{.Values.global.clusterName}}/{{.Release.Namespace}}/%HOSTNAME%"
             - name: STEADYBIT_HTTP_ENDPOINT_PORT
               value: {{ .Values.agent.port | quote }}
+            {{- if .Values.agent.proxy.host }}
+            - name: STEADYBIT_AGENT_PROXY_HOST
+              value: {{ .Values.agent.proxy.host | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PORT
+              value: {{ .Values.agent.proxy.port | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PROTOCOL
+              value: {{ .Values.agent.proxy.protocol | quote }}
+            {{- end }}
+            {{- if .Values.agent.proxy.user }}
+            - name: STEADYBIT_AGENT_PROXY_USER
+              value: {{ .Values.agent.proxy.user | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PASSWORD
+              value: {{ .Values.agent.proxy.password | quote }}
+            {{- end }}
             - name: STEADYBIT_AGENT_WORKING_DIR
               value: /tmp/steadybit-agent
             {{ if .Values.agent.aws.accountId -}}

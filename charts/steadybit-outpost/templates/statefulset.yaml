@@ -101,6 +101,20 @@ spec:
               value: "{{.Values.global.clusterName}}/{{.Release.Namespace}}/%HOSTNAME%"
             - name: STEADYBIT_HTTP_ENDPOINT_PORT
               value: {{ .Values.outpost.port | quote }}
+            {{- if .Values.outpost.proxy.host }}
+            - name: STEADYBIT_AGENT_PROXY_HOST
+              value: {{ .Values.outpost.proxy.host | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PORT
+              value: {{ .Values.outpost.proxy.port | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PROTOCOL
+              value: {{ .Values.outpost.proxy.protocol | quote }}
+            {{- end }}
+            {{- if .Values.outpost.proxy.user }}
+            - name: STEADYBIT_AGENT_PROXY_USER
+              value: {{ .Values.outpost.proxy.user | quote }}
+            - name: STEADYBIT_AGENT_PROXY_PASSWORD
+              value: {{ .Values.outpost.proxy.password | quote }}
+            {{- end }}
             - name: STEADYBIT_AGENT_WORKING_DIR
               value: /tmp/steadybit-outpost
             {{ if .Values.outpost.aws.accountId -}}
