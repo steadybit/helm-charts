@@ -153,8 +153,6 @@ manifest should set terminationGracePeriodSeconds:
             - env:
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_MAX_WAIT_TIME
                   value: 43200s
-                - name: spring.lifecycle.timeout-per-shutdown-phase
-                  value: 43200s
                 - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
                   value: 11s
                 - name: LOGGING_FORMAT
