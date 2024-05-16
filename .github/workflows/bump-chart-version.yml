@@ -13,7 +13,7 @@ on:
         description: The optional app version to set
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ inputs.chart }}-${{ inputs.app_version }}
 
 env:
   HELM_REPOSITORY_CONFIG: ${{ github.workspace }}/.github/helm/repositories.yaml
