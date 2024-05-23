@@ -169,6 +169,10 @@ spec:
             {{- end }}
             - name: LOGGING_FORMAT
               value: {{ .Values.platform.logging.format | quote }}
+            - name: INSTANCE_GROUP
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['pod-template-hash']
             - name: STEADYBIT_TENANT_MODE
               value: {{ .Values.platform.tenant.mode | quote }}
             {{- if eq "ONPREM" (include "validTenantMode" .) }}

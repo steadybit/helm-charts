@@ -37,6 +37,10 @@ manifest should not set terminationGracePeriodSeconds:
             - env:
                 - name: LOGGING_FORMAT
                   value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
                 - name: STEADYBIT_TENANT_MODE
                   value: ONPREM
                 - name: STEADYBIT_TENANT_AGENTKEY
@@ -157,6 +161,10 @@ manifest should set terminationGracePeriodSeconds:
                   value: 11s
                 - name: LOGGING_FORMAT
                   value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
                 - name: STEADYBIT_TENANT_MODE
                   value: ONPREM
                 - name: STEADYBIT_TENANT_AGENTKEY
@@ -276,6 +284,10 @@ manifest should support Recreate strategy:
                   value: 10s
                 - name: LOGGING_FORMAT
                   value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
                 - name: STEADYBIT_TENANT_MODE
                   value: ONPREM
                 - name: STEADYBIT_TENANT_AGENTKEY
@@ -397,6 +409,10 @@ manifest should support RollingUpdate strategy:
                   value: 10s
                 - name: LOGGING_FORMAT
                   value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
                 - name: STEADYBIT_TENANT_MODE
                   value: ONPREM
                 - name: STEADYBIT_TENANT_AGENTKEY
@@ -515,6 +531,10 @@ manifest should support extra certificate volume:
                   value: 10s
                 - name: LOGGING_FORMAT
                   value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
                 - name: STEADYBIT_TENANT_MODE
                   value: ONPREM
                 - name: STEADYBIT_TENANT_AGENTKEY
@@ -637,6 +657,10 @@ manifest should support extra volumes and mounts:
                   value: 10s
                 - name: LOGGING_FORMAT
                   value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
                 - name: STEADYBIT_TENANT_MODE
                   value: ONPREM
                 - name: STEADYBIT_TENANT_AGENTKEY
@@ -760,6 +784,10 @@ manifest should support init container:
                   value: 10s
                 - name: LOGGING_FORMAT
                   value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
                 - name: STEADYBIT_TENANT_MODE
                   value: ONPREM
                 - name: STEADYBIT_TENANT_AGENTKEY
@@ -925,6 +953,10 @@ manifest should support various variables:
                   value: 10s
                 - name: LOGGING_FORMAT
                   value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
                 - name: STEADYBIT_TENANT_MODE
                   value: ONPREM
                 - name: STEADYBIT_TENANT_AGENTKEY
