@@ -8070,6 +8070,143 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: 2.0.20
+    created: "2024-06-12T05:05:52.862846561Z"
+    dependencies:
+    - alias: extension-aws
+      condition: extension-aws.enabled
+      name: steadybit-extension-aws
+      repository: https://steadybit.github.io/extension-aws
+      version: ^2.0.7
+    - alias: extension-azure
+      condition: extension-azure.enabled
+      name: steadybit-extension-azure
+      repository: https://steadybit.github.io/extension-azure
+      version: ^1.0.5
+    - alias: extension-container
+      condition: extension-container.enabled
+      name: steadybit-extension-container
+      repository: https://steadybit.github.io/extension-container
+      version: ^1.0.13
+    - alias: extension-datadog
+      condition: extension-datadog.enabled
+      name: steadybit-extension-datadog
+      repository: https://steadybit.github.io/extension-datadog
+      version: ^1.4.11
+    - alias: extension-debug
+      condition: extension-debug.enabled
+      name: steadybit-extension-debug
+      repository: https://steadybit.github.io/extension-debug
+      version: ^1.0.2
+    - alias: extension-dynatrace
+      condition: extension-dynatrace.enabled
+      name: steadybit-extension-dynatrace
+      repository: https://steadybit.github.io/extension-dynatrace
+      version: ^1.0.0
+    - alias: extension-gatling
+      condition: extension-gatling.enabled
+      name: steadybit-extension-gatling
+      repository: https://steadybit.github.io/extension-gatling
+      version: ^1.0.3
+    - alias: extension-gcp
+      condition: extension-gcp.enabled
+      name: steadybit-extension-gcp
+      repository: https://steadybit.github.io/extension-gcp
+      version: ^1.0.2
+    - alias: extension-host
+      condition: extension-host.enabled
+      name: steadybit-extension-host
+      repository: https://steadybit.github.io/extension-host
+      version: ^1.0.18
+    - alias: extension-http
+      condition: extension-http.enabled
+      name: steadybit-extension-http
+      repository: https://steadybit.github.io/extension-http
+      version: ^1.0.8
+    - alias: extension-instana
+      condition: extension-instana.enabled
+      name: steadybit-extension-instana
+      repository: https://steadybit.github.io/extension-instana
+      version: ^1.0.0
+    - alias: extension-istio
+      condition: extension-istio.enabled
+      name: steadybit-extension-istio
+      repository: https://steadybit.github.io/extension-istio
+      version: ^1.0.11
+    - alias: extension-jmeter
+      condition: extension-jmeter.enabled
+      name: steadybit-extension-jmeter
+      repository: https://steadybit.github.io/extension-jmeter
+      version: ^1.0.3
+    - alias: extension-jvm
+      condition: extension-jvm.enabled
+      name: steadybit-extension-jvm
+      repository: https://steadybit.github.io/extension-jvm
+      version: ^1.0.25
+    - alias: extension-k6
+      condition: extension-k6.enabled
+      name: steadybit-extension-k6
+      repository: https://steadybit.github.io/extension-k6
+      version: ^1.1.8
+    - alias: extension-kong
+      condition: extension-kong.enabled
+      name: steadybit-extension-kong
+      repository: https://steadybit.github.io/extension-kong
+      version: ^1.6.10
+    - alias: extension-kubernetes
+      condition: extension-kubernetes.enabled
+      name: steadybit-extension-kubernetes
+      repository: https://steadybit.github.io/extension-kubernetes
+      version: ^1.4.47
+    - alias: extension-loadtest
+      condition: extension-loadtest.enabled
+      name: steadybit-extension-loadtest
+      repository: https://steadybit.github.io/extension-loadtest
+      version: ^1.0.17
+    - alias: extension-newrelic
+      condition: extension-newrelic.enabled
+      name: steadybit-extension-newrelic
+      repository: https://steadybit.github.io/extension-newrelic
+      version: ^1.0.0
+    - alias: extension-postman
+      condition: extension-postman.enabled
+      name: steadybit-extension-postman
+      repository: https://steadybit.github.io/extension-postman
+      version: ^1.6.29
+    - alias: extension-prometheus
+      condition: extension-prometheus.enabled
+      name: steadybit-extension-prometheus
+      repository: https://steadybit.github.io/extension-prometheus
+      version: ^1.4.9
+    - alias: extension-stackstate
+      condition: extension-stackstate.enabled
+      name: steadybit-extension-stackstate
+      repository: https://steadybit.github.io/extension-stackstate
+      version: ^1.0.5
+    deprecated: true
+    description: steadybit outpost Helm chart for Kubernetes.
+    digest: 62a733456293df245464c36bf5feef90cfc4b263b3c886eb0418bfaa335090b6
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: johannes.edmeier@steadybit.com
+      name: joshiste
+    name: steadybit-outpost
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-outpost-1.2.67/steadybit-outpost-1.2.67.tgz
+    version: 1.2.67
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: 2.0.20
     created: "2024-05-25T05:05:30.437755582Z"
     dependencies:
     - alias: extension-aws
@@ -28324,4 +28461,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-11T08:10:51.716307386Z"
+generated: "2024-06-12T05:05:52.863361481Z"
