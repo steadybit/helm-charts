@@ -1,7 +1,7 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.1.8
+  version: 2.1.10
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
   version: 1.1.4
@@ -65,5 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.4
-digest: sha256:c78935843bd6c2183949f9bbfb74f53a28c37f03840afe8c73effc4c900dad2e
-generated: "2024-06-12T05:04:55.754202391Z"
+digest: sha256:4e0003a1a4a0641c741164e19517240a2624ceddf37a2e204122de49c379265d
+generated: "2024-06-15T05:04:59.556754699Z"
