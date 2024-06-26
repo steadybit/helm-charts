@@ -1,55 +1,55 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.1.11
+  version: 2.1.12
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.4
+  version: 1.1.5
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.1.14
+  version: 1.1.15
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.4
+  version: 1.5.5
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
-  version: 1.0.11
+  version: 1.0.12
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
-  version: 1.1.3
+  version: 1.1.4
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.1.6
+  version: 1.1.7
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.1.12
+  version: 1.1.13
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.1.13
+  version: 1.1.14
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.5
+  version: 1.1.6
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
-  version: 1.1.4
+  version: 1.1.5
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.1.4
+  version: 1.1.5
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.5
+  version: 1.1.6
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.1.5
+  version: 1.1.6
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.2.6
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.4
+  version: 1.7.5
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.5.14
+  version: 1.5.15
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.27
@@ -61,9 +61,9 @@ dependencies:
   version: 1.7.5
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.4
+  version: 1.5.5
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.4
-digest: sha256:05efc81189cc802113b862fcb5fce99a4c631e3d1d6677458534c9bc2b0cec78
-generated: "2024-06-18T14:56:43.470139601Z"
+  version: 1.1.5
+digest: sha256:0c19e374b536d2364fcc1aa0b70db71a014be5d62a8f162871caa29a6e9c8806
+generated: "2024-06-26T06:07:43.740270002Z"
