@@ -19,7 +19,7 @@ dependencies:
   version: 1.1.4
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.1.6
+  version: 1.1.7
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
   version: 1.1.13
@@ -37,7 +37,7 @@ dependencies:
   version: 1.1.5
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.5
+  version: 1.1.6
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.1.6
@@ -55,15 +55,15 @@ dependencies:
   version: 1.0.27
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
-  version: 1.1.3
+  version: 1.1.4
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.5
+  version: 1.7.6
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.5
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.5
-digest: sha256:3843b54444e76822b89e361fafe01bdb7d34a9f1285be170fc43079f92a11574
-generated: "2024-06-26T05:05:00.060446091Z"
+digest: sha256:ea6b2dd45a7e4f6368d07a1a92e44d8b5543e3bb2efc66b136ed5d609be7d3b5
+generated: "2024-06-27T05:05:17.217570244Z"
