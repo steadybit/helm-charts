@@ -182,8 +182,9 @@ postgresql:
       postgresql: "5432"
   primary:
     initdb:
-      superuser.sh: |
-        #!/bin/sh
-        export PGPASSWORD=$POSTGRES_POSTGRES_PASSWORD
-        psql -U postgres -c "ALTER USER $POSTGRES_USER WITH SUPERUSER;"
+      scripts:
+        superuser.sh: |
+          #!/bin/sh
+          export PGPASSWORD=$POSTGRES_POSTGRES_PASSWORD
+          psql -U postgres -c "ALTER USER $POSTGRES_USER WITH SUPERUSER;"
 
