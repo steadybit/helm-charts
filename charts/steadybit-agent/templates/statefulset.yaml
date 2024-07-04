@@ -10,7 +10,7 @@ metadata:
   {{- end }}
 spec:
   serviceName: steadybit-agent
-  replicas: 1
+  replicas: {{ .Values.agent.replicaCount }}
   selector:
     matchLabels:
   {{- include "steadybit-agent.selectorLabels" . | nindent 6 }}

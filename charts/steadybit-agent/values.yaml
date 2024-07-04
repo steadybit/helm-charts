@@ -130,6 +130,7 @@ agent:
   aws:
     # agent.aws.accountId -- If running on AWS, the account id of the agent. If not set, the account id will be determined from the instance metadata or using sts:GetCallerIdentity.
     accountId: null
+  replicaCount: 1
 
 logging:
   # logging.level -- The active log level. Valid values are: TRACE, DEBUG, INFO, WARN, ERROR
