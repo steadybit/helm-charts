@@ -218,3 +218,20 @@ tests:
       - template: deployment.yaml
         failedTemplate:
           errorMessage: missing required .Values.agent.identifier for redis persistence
+
+  - it: should render redis settings
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+            port: 5566
+            sslEnabled: true
+            username: user
+            password:
+              value: abcdefg
+            db: 1
+    asserts:
+      - matchSnapshot: { }

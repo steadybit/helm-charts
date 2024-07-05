@@ -95,7 +95,7 @@ environment variables for redis state handling
 {{ end -}}
 {{ if .Values.agent.persistence.redis.sslEnabled -}}
 - name: SPRING_DATA_REDIS_SSL_ENABLED
-  value: {{ .Values.agent.persistence.redis.password.value | quote }}
+  value: {{ .Values.agent.persistence.redis.sslEnabled | quote }}
 {{ end -}}
 {{- end -}}
 
