@@ -1,24 +1,7 @@
 manifest should match snapshot:
   1: |
-    apiVersion: v1
-    data:
-      key: YWJjZGVmZw==
-    kind: Secret
-    metadata:
-      labels:
-        app.kubernetes.io/instance: RELEASE-NAME
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: steadybit-agent
-        app.kubernetes.io/version: 0.0.0
-        helm.sh/chart: steadybit-agent-0.0.0
-        steadybit.com/agent: "true"
-        steadybit.com/discovery-disabled: "true"
-      name: RELEASE-NAME-steadybit-agent
-      namespace: NAMESPACE
-    type: Opaque
-  2: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -36,7 +19,8 @@ manifest should match snapshot:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -82,11 +66,15 @@ manifest should match snapshot:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: test/NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -113,8 +101,6 @@ manifest should match snapshot:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
@@ -127,19 +113,7 @@ manifest should match snapshot:
             - emptyDir:
                 medium: Memory
               name: tmp-dir
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
-should add aws account id from values:
-  1: |
+  2: |
     apiVersion: v1
     data:
       key: YWJjZGVmZw==
@@ -156,9 +130,10 @@ should add aws account id from values:
       name: RELEASE-NAME-steadybit-agent
       namespace: NAMESPACE
     type: Opaque
-  2: |
+should add aws account id from values:
+  1: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -176,7 +151,8 @@ should add aws account id from values:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -222,13 +198,17 @@ should add aws account id from values:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: /NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_AWS_ACCOUNT_ID
                   value: "123456789012"
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -255,8 +235,6 @@ should add aws account id from values:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
@@ -269,21 +247,10 @@ should add aws account id from values:
             - emptyDir:
                 medium: Memory
               name: tmp-dir
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
-should add extra volumes and mount:
-  1: |
+  2: |
     apiVersion: v1
-    data: null
+    data:
+      key: YWJjZGVmZw==
     kind: Secret
     metadata:
       labels:
@@ -297,9 +264,10 @@ should add extra volumes and mount:
       name: RELEASE-NAME-steadybit-agent
       namespace: NAMESPACE
     type: Opaque
-  2: |
+should add extra volumes and mount:
+  1: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -317,7 +285,8 @@ should add extra volumes and mount:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -358,11 +327,15 @@ should add extra volumes and mount:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: /NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -389,8 +362,6 @@ should add extra volumes and mount:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
                 - mountPath: /extra
@@ -408,22 +379,9 @@ should add extra volumes and mount:
             - hostPath:
                 path: /extravol
               name: extravol
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
-should add match labels:
-  1: |
+  2: |
     apiVersion: v1
-    data:
-      key: YWJjZGVmZw==
+    data: null
     kind: Secret
     metadata:
       labels:
@@ -437,9 +395,10 @@ should add match labels:
       name: RELEASE-NAME-steadybit-agent
       namespace: NAMESPACE
     type: Opaque
-  2: |
+should add match labels:
+  1: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -457,7 +416,8 @@ should add match labels:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -503,11 +463,15 @@ should add match labels:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: /NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
                 - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_KEY
                   value: another-label
                 - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_VALUE
@@ -552,8 +516,6 @@ should add match labels:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
@@ -566,19 +528,7 @@ should add match labels:
             - emptyDir:
                 medium: Memory
               name: tmp-dir
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
-should add proxy configuration:
-  1: |
+  2: |
     apiVersion: v1
     data:
       key: YWJjZGVmZw==
@@ -595,9 +545,10 @@ should add proxy configuration:
       name: RELEASE-NAME-steadybit-agent
       namespace: NAMESPACE
     type: Opaque
-  2: |
+should add proxy configuration:
+  1: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -615,7 +566,8 @@ should add proxy configuration:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -661,7 +613,7 @@ should add proxy configuration:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: /NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_PROXY_HOST
@@ -676,6 +628,10 @@ should add proxy configuration:
                   value: pass
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -702,8 +658,6 @@ should add proxy configuration:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
@@ -716,19 +670,7 @@ should add proxy configuration:
             - emptyDir:
                 medium: Memory
               name: tmp-dir
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
-should apply extra pod labels:
-  1: |
+  2: |
     apiVersion: v1
     data:
       key: YWJjZGVmZw==
@@ -745,9 +687,10 @@ should apply extra pod labels:
       name: RELEASE-NAME-steadybit-agent
       namespace: NAMESPACE
     type: Opaque
-  2: |
+should apply extra pod labels:
+  1: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -765,7 +708,8 @@ should apply extra pod labels:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -812,11 +756,15 @@ should apply extra pod labels:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: test/NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -843,8 +791,6 @@ should apply extra pod labels:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
@@ -857,22 +803,9 @@ should apply extra pod labels:
             - emptyDir:
                 medium: Memory
               name: tmp-dir
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
-using extensions with mtls from containerpath:
-  1: |
+  2: |
     apiVersion: v1
     data:
-      extensionsClientKeyPassword: c29tZS1leHRlbnNpb24tY2xpZW50LWtleS1wYXNzd29yZA==
       key: YWJjZGVmZw==
     kind: Secret
     metadata:
@@ -887,9 +820,10 @@ using extensions with mtls from containerpath:
       name: RELEASE-NAME-steadybit-agent
       namespace: NAMESPACE
     type: Opaque
-  2: |
+should render redis settings:
+  1: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -907,7 +841,142 @@ using extensions with mtls from containerpath:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: null
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: abcdefg
+                - name: STEADYBIT_HTTP_ENDPOINT_PORT
+                  value: "42899"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "5566"
+                - name: SPRING_DATA_REDIS_USERNAME
+                  value: user
+                - name: SPRING_DATA_REDIS_PASSWORD
+                  value: abcdefg
+                - name: SPRING_DATA_REDIS_DB
+                  value: "1"
+                - name: SPRING_DATA_REDIS_SSL_ENABLED
+                  value: "true"
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 500Mi
+                requests:
+                  cpu: 125m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+              volumeMounts:
+                - mountPath: /tmp
+                  name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+  2: |
+    apiVersion: v1
+    data: null
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+using extensions with mtls from containerpath:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -953,11 +1022,15 @@ using extensions with mtls from containerpath:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: test/NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
                 - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
                   value: /etc/ssl/certs/client.crt
                 - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_KEY_FILE
@@ -999,8 +1072,6 @@ using extensions with mtls from containerpath:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
@@ -1013,21 +1084,10 @@ using extensions with mtls from containerpath:
             - emptyDir:
                 medium: Memory
               name: tmp-dir
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
-using extensions with mtls from secrets:
-  1: |
+  2: |
     apiVersion: v1
     data:
+      extensionsClientKeyPassword: c29tZS1leHRlbnNpb24tY2xpZW50LWtleS1wYXNzd29yZA==
       key: YWJjZGVmZw==
     kind: Secret
     metadata:
@@ -1042,9 +1102,10 @@ using extensions with mtls from secrets:
       name: RELEASE-NAME-steadybit-agent
       namespace: NAMESPACE
     type: Opaque
-  2: |
+using extensions with mtls from secrets:
+  1: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -1062,7 +1123,8 @@ using extensions with mtls from secrets:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -1108,11 +1170,15 @@ using extensions with mtls from secrets:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: test/NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
                 - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
                   value: /opt/steadybit/agent/etc/extensions/client/tls.crt
                 - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_KEY_FILE
@@ -1150,8 +1216,6 @@ using extensions with mtls from secrets:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
                 - mountPath: /opt/steadybit/agent/etc/extensions/client
@@ -1181,21 +1245,10 @@ using extensions with mtls from secrets:
             - configMap:
                 name: self-signed-ca
               name: extra-certs
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
-using image pull secrets with debug json log:
-  1: |
+  2: |
     apiVersion: v1
-    data: null
+    data:
+      key: YWJjZGVmZw==
     kind: Secret
     metadata:
       labels:
@@ -1209,9 +1262,10 @@ using image pull secrets with debug json log:
       name: RELEASE-NAME-steadybit-agent
       namespace: NAMESPACE
     type: Opaque
-  2: |
+using image pull secrets with debug json log:
+  1: |
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     metadata:
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -1229,7 +1283,8 @@ using image pull secrets with debug json log:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: steadybit-agent
-      serviceName: steadybit-agent
+      strategy:
+        type: RollingUpdate
       template:
         metadata:
           annotations:
@@ -1270,11 +1325,15 @@ using image pull secrets with debug json log:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
-                  value: test/NAMESPACE/%HOSTNAME%
+                  value: abcdefg
                 - name: STEADYBIT_HTTP_ENDPOINT_PORT
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: SPRING_DATA_REDIS_HOST
+                  value: 127.0.0.1
+                - name: SPRING_DATA_REDIS_PORT
+                  value: "6379"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1301,8 +1360,6 @@ using image pull secrets with debug json log:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
-                - mountPath: /var/lib/steadybit-agent
-                  name: steadybit-agent-state
                 - mountPath: /tmp
                   name: tmp-dir
           imagePullSecrets:
@@ -1317,14 +1374,19 @@ using image pull secrets with debug json log:
             - emptyDir:
                 medium: Memory
               name: tmp-dir
-      updateStrategy:
-        type: RollingUpdate
-      volumeClaimTemplates:
-        - metadata:
-            name: steadybit-agent-state
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 200Mi
+  2: |
+    apiVersion: v1
+    data: null
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque

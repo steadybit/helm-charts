@@ -10,6 +10,8 @@ agent:
   # agent.key -- The secret token which your agent uses to authenticate to steadybit's servers.
   #   Get it from https://platform.steadybit.com/settings/agents/setup.
   key: null
+  # agent.identifier -- The unique identifier of the agent. If not set, the agent will use "{{.Values.global.clusterName}}/{{.Release.Namespace}}/%HOSTNAME%". Required for persistence provider "redis".
+  identifier: null
   auth:
     # agent.auth.provider -- `agent-key` or `oauth2`
     provider: agent-key
@@ -58,7 +60,7 @@ agent:
     fromVolume: null
   # agent.extraVolumes -- Additional volumes to which the agent container will be mounted.
   extraVolumes: []
-  # agent.extraVolumeMounts -- Additional volumeMountss to which the agent container will be mounted.
+  # agent.extraVolumeMounts -- Additional volumeMounts to which the agent container will be mounted.
   extraVolumeMounts: []
   # agent.port -- configure the port of the agent's HTTP endpoints (expose health and debugging information)
   port: 42899
@@ -89,8 +91,38 @@ agent:
     password: null
   # agent.persistence.* -- persistence configuration. Needed for cleanup if agent is unexpectedly terminated.
   persistence:
-    size: 200Mi
-    accessMode: ReadWriteOnce
+    # agent.persistence.provider -- `filesystem` (default) or `redis`
+    provider: filesystem
+
+    # agent.persistence.redis.* -- additional settings if `agent.state.provider` is set to `redis`
+    redis:
+      # agent.persistence.redis.host -- the host of the redis server
+      host: null
+      # agent.persistence.redis.port -- the port of the redis server
+      port: 6379
+      # agent.persistence.redis.username -- the username of the redis server
+      username: null
+      # agent.persistence.redis.password -- the password of the redis server
+      password:
+        value: null
+        valueFrom: null
+      # agent.persistence.redis.db -- the db of the redis server
+      db: 0
+      # agent.persistence.redis.sslEnabled -- enable ssl for the redis connection
+      sslEnabled: false
+
+    filesystem:
+      # agent.persistence.filesystem.size -- the size of the volume claim
+      size: 200Mi
+      # agent.persistence.filesystem.accessMode -- the access mode of the volume claim
+      accessMode: ReadWriteOnce
+      # agent.persistence.filesystem.storageClass -- the storage class of the volume claim
+      storageClass: null
+    # deprecated: use agent.persistence.filesystem.size
+    size: null
+    # deprecated: use agent.persistence.filesystem.accessMode
+    accessMode: null
+    # deprecated: use agent.persistence.filesystem.storageClass
     storageClass: null
   # agent.prometheus.scrape -- Controls the `prometheus.io/scrape` pod annotation which controls whether Prometheus will automatically scrape metrics from agent pods.
   prometheus:
@@ -168,8 +200,6 @@ resources:
 updateStrategy:
   # updateStrategy.type -- Which type of `updateStrategy` should be used.
   type: RollingUpdate
-  rollingUpdate:
-    maxUnavailable: 1
 
 rbac:
   # rbac.create -- Specifies whether RBAC resources should be created.

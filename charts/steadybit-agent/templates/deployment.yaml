@@ -1,0 +1,20 @@
+{{- if eq .Values.agent.persistence.provider "redis" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "steadybit-agent.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "steadybit-agent.commonLabels" . | nindent 4 }}
+    {{- range $key, $value := .Values.agent.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.agent.replicaCount }}
+  selector:
+    matchLabels:
+  {{- include "steadybit-agent.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: {{ .Values.updateStrategy.type }}
+  {{ include "podTemplate" .  }}
+{{- end -}}
