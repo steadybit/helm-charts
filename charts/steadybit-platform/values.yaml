@@ -108,7 +108,7 @@ platform:
         command:
           - /bin/sh
           - -c
-          - sleep 10
+          - sleep 20
   portsplitter:
     lifecycle:
       preStop:
@@ -116,7 +116,7 @@ platform:
           command:
             - /bin/sh
             - -c
-            - sleep 10
+            - sleep 20
 
 image:
   # image.name -- The container image  to use of the steadybit platform.
