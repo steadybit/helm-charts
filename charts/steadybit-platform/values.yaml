@@ -99,7 +99,7 @@ platform:
     user: null
     password: null
   ## platform.terminationGracePeriodSeconds -- The time in seconds to wait for the platform to gracefully terminate and complete running experiments before it is forcefully terminated.
-  terminationGracePeriodSeconds: 0 # default is 0, that means no grace period and all experiments are canceled immediately during shutdown.
+  terminationGracePeriodSeconds: 0  # default is 0, that means no grace period and all experiments are canceled immediately during shutdown.
   ## The interval in seconds to check for experiment executions during shutdown
   experimentExecutionShutdownCheckInterval: 10
   lifecycle:
@@ -202,4 +202,3 @@ postgresql:
           #!/bin/sh
           export PGPASSWORD=$POSTGRES_POSTGRES_PASSWORD
           psql -U postgres -c "ALTER USER $POSTGRES_USER WITH SUPERUSER;"
-
