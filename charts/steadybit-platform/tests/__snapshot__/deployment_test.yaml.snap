@@ -72,7 +72,7 @@ manifest should not set terminationGracePeriodSeconds:
               envFrom: []
               image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
-              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 10]]]]
+              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 20]]]]
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -197,7 +197,7 @@ manifest should set terminationGracePeriodSeconds:
               envFrom: []
               image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
-              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 10]]]]
+              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 20]]]]
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -321,7 +321,7 @@ manifest should support Recreate strategy:
               envFrom: []
               image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
-              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 10]]]]
+              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 20]]]]
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -447,7 +447,7 @@ manifest should support RollingUpdate strategy:
               envFrom: []
               image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
-              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 10]]]]
+              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 20]]]]
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -570,7 +570,7 @@ manifest should support extra certificate volume:
               envFrom: []
               image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
-              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 10]]]]
+              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 20]]]]
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -697,7 +697,7 @@ manifest should support extra volumes and mounts:
               envFrom: []
               image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
-              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 10]]]]
+              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 20]]]]
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -827,7 +827,7 @@ manifest should support init container:
               envFrom: []
               image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
-              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 10]]]]
+              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 20]]]]
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -1001,7 +1001,7 @@ manifest should support various variables:
               envFrom: []
               image: docker.steadybit.io/steadybit/platform:0.0.0
               imagePullPolicy: Always
-              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 10]]]]
+              lifecycle: map[preStop:map[exec:map[command:[/bin/sh -c sleep 20]]]]
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
