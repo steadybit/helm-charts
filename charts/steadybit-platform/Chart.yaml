@@ -7,7 +7,7 @@ home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
 maintainers:
   - email: daniel.reuter@steadybit.com
-    name: Daniel Reuter
+    name: reuda  # Daniel Reuter
 sources:
   - https://github.com/steadybit/helm-charts
 annotations:
