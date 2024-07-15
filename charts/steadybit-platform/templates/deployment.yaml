@@ -101,6 +101,7 @@ spec:
         - name: {{ include "steadybit-platform.name" . }}
           image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          lifecycle: {{ .Values.platform.lifecycle }}
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }}
@@ -242,6 +243,7 @@ spec:
         - name: {{ include "steadybit-platform.name" . }}-port-splitter
           image: "{{ .Values.image.name }}-port-splitter:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          lifecycle: {{ .Values.platform.portsplitter.lifecycle }}
           ports:
             - name: egress-port
               containerPort: 8081

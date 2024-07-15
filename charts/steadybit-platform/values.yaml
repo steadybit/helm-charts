@@ -47,7 +47,7 @@ platform:
     format: text
   service:
     ## platform.service.type -- Type for the service to use
-    type: LoadBalancer
+    type: null
   portSplit:
     # platform.portSplit.enabled -- Can be set to "true" to change the service and ingress definition in such a way that the ports are split by purpose, i.e., an ingress and a separate egress port. This comes in handy when hardening deployments / to improve package routing.
     enabled: false
@@ -102,6 +102,21 @@ platform:
   terminationGracePeriodSeconds: 0 # default is 0, that means no grace period and all experiments are canceled immediately during shutdown.
   ## The interval in seconds to check for experiment executions during shutdown
   experimentExecutionShutdownCheckInterval: 10
+  lifecycle:
+    preStop:
+      exec:
+        command:
+          - /bin/sh
+          - -c
+          - sleep 10
+  portsplitter:
+    lifecycle:
+      preStop:
+        exec:
+          command:
+            - /bin/sh
+            - -c
+            - sleep 10
 
 image:
   # image.name -- The container image  to use of the steadybit platform.
