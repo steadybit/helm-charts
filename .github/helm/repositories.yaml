@@ -16,6 +16,8 @@ repositories:
     url: https://steadybit.github.io/extension-gatling
   - name: steadybit-extension-gcp
     url: https://steadybit.github.io/extension-gcp
+  - name: steadybit-extension-grafana
+    url: https://steadybit.github.io/extension-grafana
   - name: steadybit-extension-host
     url: https://steadybit.github.io/extension-host
   - name: steadybit-extension-http
