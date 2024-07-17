@@ -412,3 +412,13 @@ extension-stackstate:
   stackstate:
     serviceToken: null
     apiBaseUrl: null
+
+# extension-grafana.* -- settings for the grafana extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-grafana for more information.
+extension-grafana:
+  # extension-grafana.enabled -- Enable the Grafana extension
+  enabled: false
+  grafana:
+    serviceToken: null
+    apiBaseUrl: null
