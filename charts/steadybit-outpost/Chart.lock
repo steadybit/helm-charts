@@ -65,8 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.5
-- name: steadybit-extension-grafana
-  repository: https://steadybit.github.io/extension-grafana
-  version: 1.1.9
-digest: sha256:c3de72950185744d2a1809892ae9fdaeb1e4143aa9513cd1186175fab1acb4ff
-generated: "2024-07-17T15:30:31.003372+02:00"
+digest: sha256:00a2c12bae85653fc8aad6e6b15d048d2e5c03389a50810f467bf500faedea71
+generated: "2024-07-17T16:16:41.973542+02:00"
