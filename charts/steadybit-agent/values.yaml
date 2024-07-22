@@ -206,8 +206,8 @@ rbac:
   create: true
   # rbac.readonly -- Specifies if Kubernetes API access should only be read only.
   readonly: false
-  # rbac.clusterrole -- Specifies if Kubernetes API access should be done with a role (namespace scope) instead of a cluster role
-  clusterrole: true
+  # rbac.roleKind -- Specifies if Kubernetes API access should be done with a "role" (namespace scope) or a "clusterrole"
+  roleKind: clusterrole
 
 serviceAccount:
   # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
