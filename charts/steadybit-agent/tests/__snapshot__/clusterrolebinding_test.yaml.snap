@@ -7,8 +7,8 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: steadybit-agent
-        app.kubernetes.io/version: 2.1.12
-        helm.sh/chart: steadybit-agent-2.1.12
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
         steadybit.com/agent: "true"
         steadybit.com/discovery-disabled: "true"
       name: RELEASE-NAME-steadybit-agent-in-NAMESPACE
