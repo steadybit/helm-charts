@@ -16,7 +16,7 @@ manifest should match snapshot:
     roleRef:
       apiGroup: rbac.authorization.k8s.io
       kind: Role
-      name: RELEASE-NAME-steadybit-agent-in-NAMESPACE
+      name: RELEASE-NAME-steadybit-agent
     subjects:
       - kind: ServiceAccount
         name: steadybit-agent
