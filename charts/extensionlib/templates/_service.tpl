@@ -26,6 +26,8 @@ spec:
     {{- include "extensionlib.selectorLabels" $top | nindent 4 }}
   ports:
     - protocol: TCP
+      appProtocol: tcp
+      name: tcp-app
       port: {{ $port }}
       targetPort: {{ $port }}
 {{- end -}}
