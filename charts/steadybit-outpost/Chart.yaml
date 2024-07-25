@@ -1,8 +1,8 @@
 apiVersion: v2
 name: steadybit-outpost
 description: steadybit outpost Helm chart for Kubernetes.
-version: 1.2.87
-appVersion: 2.0.23
+version: 1.2.88
+appVersion: 2.0.27
 deprecated: true
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
