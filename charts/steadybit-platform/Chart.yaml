@@ -1,13 +1,13 @@
 apiVersion: v2
 name: steadybit-platform
 description: steadybit Platform Helm chart for Kubernetes.
-version: 1.0.58
-appVersion: 2.1.4
+version: 1.0.59
+appVersion: 2.1.5
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
 maintainers:
   - email: daniel.reuter@steadybit.com
-    name: reuda  # Daniel Reuter
+    name: reuda # Daniel Reuter
 sources:
   - https://github.com/steadybit/helm-charts
 annotations:
