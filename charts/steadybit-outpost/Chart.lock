@@ -22,10 +22,10 @@ dependencies:
   version: 1.1.8
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.1.13
+  version: 1.1.14
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.1.16
+  version: 1.1.17
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.8
@@ -65,5 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.5
-digest: sha256:0771a748c5189395cf36df966624842f0ee87128d67572b2fb04c4fe57c1dd4a
-generated: "2024-07-24T05:05:05.14326765Z"
+digest: sha256:f50a713dc0709deecc7ab59e45d843802f43ceab774cf1585108512b8d033aa1
+generated: "2024-07-30T05:05:06.647386369Z"
