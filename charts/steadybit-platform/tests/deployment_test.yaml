@@ -5,21 +5,15 @@ chart:
   version: 0.0.0
 tests:
   - it: manifest should support Recreate strategy
-    chart:
-      version: 0.0.0
     asserts:
       - matchSnapshot: { }
   - it: manifest should support RollingUpdate strategy
-    chart:
-      version: 0.0.0
     set:
       platform:
         rolloutStrategy: RollingUpdate
     asserts:
       - matchSnapshot: {}
   - it: manifest should support extra certificate volume
-    chart:
-      version: 0.0.0
     set:
       platform:
         extraVolumes:
@@ -29,8 +23,6 @@ tests:
     asserts:
       - matchSnapshot: {}
   - it: manifest should support extra volumes and mounts
-    chart:
-      version: 0.0.0
     set:
       platform:
         extraVolumes:
@@ -42,8 +34,6 @@ tests:
     asserts:
       - matchSnapshot: {}
   - it: manifest should support init container
-    chart:
-      version: 0.0.0
     set:
       platform:
         database:
@@ -52,8 +42,6 @@ tests:
     asserts:
       - matchSnapshot: {}
   - it: manifest should support various variables
-    chart:
-      version: 0.0.0
     set:
       platform:
         publicWebUrl: https://example.steadybit.com
@@ -62,8 +50,6 @@ tests:
     asserts:
       - matchSnapshot: {}
   - it: manifest should not set terminationGracePeriodSeconds
-    chart:
-      version: 0.0.0
     set:
       platform:
         terminationGracePeriodSeconds: 0
@@ -71,8 +57,6 @@ tests:
     asserts:
       - matchSnapshot: {}
   - it: manifest should set terminationGracePeriodSeconds
-    chart:
-      version: 0.0.0
     set:
       platform:
         terminationGracePeriodSeconds: 43200

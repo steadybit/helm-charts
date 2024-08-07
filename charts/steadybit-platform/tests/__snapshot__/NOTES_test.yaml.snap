@@ -1,0 +1,36 @@
+should not warn on new service type:
+  1: |
+    raw: |-
+      The steadybit platform server can be accessed via port 80 on the following DNS name from within your cluster:
+      RELEASE-NAME-steadybit-platform.NAMESPACE.svc.cluster.local
+
+
+      NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+              You can watch the status of by running 'kubectl get svc --namespace NAMESPACE -w RELEASE-NAME-steadybit-platform'
+
+        export SERVICE_IP=$(kubectl get svc --namespace NAMESPACE RELEASE-NAME-steadybit-platform -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        echo http://$SERVICE_IP:80
+
+      #### WARNING: postgresql is enabled. This is not recommended for production environments. Please use an external database instead. ####
+
+      For more information on next steps with steadybit, check out:
+      https://docs.steadybit.io/getting-started
+should warn on deprecated service type:
+  1: |
+    raw: |-
+      The steadybit platform server can be accessed via port 80 on the following DNS name from within your cluster:
+      RELEASE-NAME-steadybit-platform.NAMESPACE.svc.cluster.local
+
+
+      NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+              You can watch the status of by running 'kubectl get svc --namespace NAMESPACE -w RELEASE-NAME-steadybit-platform'
+
+        export SERVICE_IP=$(kubectl get svc --namespace NAMESPACE RELEASE-NAME-steadybit-platform -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        echo http://$SERVICE_IP:80
+
+      #### WARNING: postgresql is enabled. This is not recommended for production environments. Please use an external database instead. ####
+
+      #### WARNING: platform.service.type is deprecated please use service.type instead. ####
+
+      For more information on next steps with steadybit, check out:
+      https://docs.steadybit.io/getting-started

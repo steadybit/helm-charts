@@ -1,0 +1,23 @@
+templates:
+  - NOTES.txt
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+set:
+  platform:
+    tenant:
+      agentKey: some-agent-key
+tests:
+  - it: should not warn on new service type
+    set:
+      service:
+        type: ClusterIP
+    asserts:
+      - matchSnapshot: { }
+  - it: should warn on deprecated service type
+    set:
+      platform:
+        service:
+          type: NodePort
+    asserts:
+      - matchSnapshot: { }

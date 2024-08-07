@@ -46,7 +46,7 @@ platform:
   logging:
     format: text
   service:
-    ## platform.service.type -- Type for the service to use
+    ## platform.service.type -- DEPRECATED please use service.type
     type: null
   portSplit:
     # platform.portSplit.enabled -- Can be set to "true" to change the service and ingress definition in such a way that the ports are split by purpose, i.e., an ingress and a separate egress port. This comes in handy when hardening deployments / to improve package routing.
@@ -150,6 +150,7 @@ ingress:
 
 # -- Service configuration properties
 service:
+  type: null
   annotations: {}
 
 # nodeSelector -- Node labels for pod assignment

@@ -22,13 +22,18 @@ NOTE: It may take a few minutes for the LoadBalancer IP to be available.
   echo http://$SERVICE_IP:{{ .Values.platform.uiPort }}
 {{- end }}
 
-{{- if .Values.postgresql.enabled -}}
-{{ printf "\n" }}
-#######################################################################################################################################
-#### WARNING: postgresql is enabled. This is not recommended for production environments. Please use an external database instead. ####
-#######################################################################################################################################
+{{- if .Values.postgresql.enabled }}
 
-{{- end -}}
+#### WARNING: postgresql is enabled. This is not recommended for production environments. Please use an external database instead. ####
+
+{{- end }}
+
+{{- if .Values.platform.service.type }}
+
+#### WARNING: platform.service.type is deprecated please use service.type instead. ####
+
+{{- end }}
+
 
 {{- end }}
 
