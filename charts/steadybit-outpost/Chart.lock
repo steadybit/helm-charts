@@ -49,7 +49,7 @@ dependencies:
   version: 1.7.5
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.5.19
+  version: 1.5.20
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.36
@@ -65,5 +65,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.5
-digest: sha256:872510c8bd2b3921f5dd97112382da67e0f07469ee26a88b7327a0047962201f
-generated: "2024-08-02T05:05:22.180339872Z"
+digest: sha256:afe49f0b64a4659b21348fe513094571e125abcb4f6953b96d7fcfecd8c3a5d1
+generated: "2024-08-15T05:05:44.631645296Z"
