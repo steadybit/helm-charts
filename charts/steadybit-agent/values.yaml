@@ -324,7 +324,7 @@ extension-instana:
   # extension-instana.enabled -- Enable the Instana extension
   enabled: false
   # extension-instana.instana.* -- these options are for accessing the dynatrace API either specify the values or reference a secret see extension-dynatrace README for more information.
-  dynatrace:
+  instana:
     apiToken: null
     baseUrl: null
     existingSecret: null
