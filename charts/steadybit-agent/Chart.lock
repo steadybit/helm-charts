@@ -13,7 +13,7 @@ dependencies:
   version: 1.5.5
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
-  version: 1.0.12
+  version: 1.0.13
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
   version: 1.1.4
@@ -68,5 +68,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.0
-digest: sha256:b18391b2bd84d9218c5ee8bd48e57e5e3cd30655652832785f19a4bcbdc300e9
-generated: "2024-08-31T06:07:17.390514692Z"
+digest: sha256:6281533ab429a158ed9d46bb76e5664454be91383cbb5af581d91a3c560ae69d
+generated: "2024-09-11T06:08:42.280632644Z"
