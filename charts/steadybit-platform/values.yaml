@@ -63,6 +63,30 @@ platform:
     migration:
       # platform.database.migration.useInitContainer -- Should database migration be executed in an init container? (you may want to reduce `platform.startupProbe.initialDelaySeconds` (10) and `platform.startupProbe.failureThreshold` (12) in this case)
       useInitContainer: false
+  uiImages:
+    # platform.uiImages.cspDomains -- Additional domains to add to the Content-Security-Policy header for loading images
+    cspDomains: []
+    navigation:
+      # platform.uiImages.navigation.url -- URL to a custom navigation image; takes preference over data
+      url: null
+      # platform.uiImages.navigation.content -- content of a custom navigation image. Must not exceed 1MiB;  Will be converted to a data url; use with --set-file
+      data: null
+      # platform.uiImages.navigation.mediatype -- media-type for the content of a custom navigation image
+      mediaType: null
+    navigationLogo:
+      # platform.uiImages.navigationLogo.url -- URL to a custom navigation logo image; takes preference over data
+      url: null
+      # platform.uiImages.navigationLogo.content -- content of a custom navigation logo image;  Must not exceed 1MiB;  Will be converted to a data url; use with --set-file
+      content: null
+      # platform.uiImages.navigationLogo.mediatype -- media-type for the content of the custom navigation logo image
+      mediaType: null
+    loadingScreen:
+      # platform.uiImages.loadingScreen.url -- URL to a custom loading screen image; takes preference over data
+      url: null
+      # platform.uiImages.loadingScreen.content -- content of a custom loading screen image; Must not exceed 1MiB;  Will be converted to a data url; use with --set-file
+      content: null
+      # platform.uiImages.loadingScreen.mediatype -- media-type of the custom navigation image
+      mediaType: null
 
   ## platform.readinessProbe.* -- Configuration of the Kubernetes readinessProbe probe for the platform deployment
   readinessProbe:

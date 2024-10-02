@@ -236,6 +236,18 @@ spec:
             - name: STEADYBIT_PLATFORM_NAME
               value: {{ .Values.platform.name | quote }}
             {{- end }}
+            {{- with include "imageUrl" .Values.platform.uiImages.navigation }}
+            - name: STEADYBIT_UI_IMAGES_NAVIGATION
+              value: {{ . | quote }}
+            {{- end }}
+            {{- with include "imageUrl" .Values.platform.uiImages.navigationLogo }}
+            - name: STEADYBIT_UI_IMAGES_NAVIGATIONLOGO
+              value: {{ . | quote }}
+            {{- end }}
+            {{- with include "imageUrl" .Values.platform.uiImages.loadingScreen }}
+            - name: STEADYBIT_UI_IMAGES_LOADINGSCREEN
+              value: {{ . | quote }}
+            {{- end }}
 {{- with .Values.platform.env }}
 {{ toYaml . | indent 12 }}
 {{- end }}

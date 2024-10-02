@@ -120,3 +120,14 @@ checks if a volumne extra-cert is avaiable
 {{- $name := default "postgresql" .Values.postgresql.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+returns either the url or the data-url for an image
+*/}}
+{{- define "imageUrl" -}}
+{{- if .url -}}
+{{- .url -}}
+{{- else if .data -}}
+{{- printf "data:%s;base64,%s" .mediaType (.data | b64enc) -}}
+{{- end -}}
+{{- end -}}
