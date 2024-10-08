@@ -58,7 +58,7 @@ dependencies:
   version: 1.1.4
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.6
+  version: 1.7.7
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.7
@@ -68,5 +68,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.0
-digest: sha256:b36034cee2dbfde42a55c2d0f4dc8aad0921beb4a0447633b7ce648081435f2b
-generated: "2024-09-18T06:08:53.590733747Z"
+digest: sha256:e29da3c1025622b8cac5e98db52ac2a99b7d357c6da98343f3e0afe3ae8782ae
+generated: "2024-10-08T06:09:12.967496894Z"
