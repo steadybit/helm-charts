@@ -1,0 +1,44 @@
+{{- if eq .Values.agent.persistence.provider "filesystem" -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "steadybit-agent.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "steadybit-agent.commonLabels" . | nindent 4 }}
+    {{- range $key, $value := .Values.agent.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+spec:
+  serviceName: steadybit-agent
+  replicas: {{ .Values.agent.replicaCount }}
+  selector:
+    matchLabels:
+  {{- include "steadybit-agent.selectorLabels" . | nindent 6 }}
+  updateStrategy:
+    type: {{ .Values.updateStrategy.type }}
+  {{ include "podTemplate" .  }}
+  volumeClaimTemplates:
+    - metadata:
+        name: steadybit-agent-state
+      spec:
+        {{- if .Values.agent.persistence.filesystem.storageClass }}
+        storageClassName: {{ .Values.agent.persistence.filesystem.storageClass }}
+        {{- end }}
+        accessModes:
+          - {{ .Values.agent.persistence.filesystem.accessMode }}
+        resources:
+          requests:
+            storage: {{ .Values.agent.persistence.filesystem.size }}
+{{- end -}}
+
+
+{{- if .Values.agent.persistence.accessMode }}
+{{- fail ".Values.agent.persistence.accessMode has been removed. Please use .Values.agent.persistence.filesystem.accessMode" }}
+{{- end }}
+{{- if .Values.agent.persistence.storageClass }}
+{{- fail ".Values.agent.persistence.storageClass has been removed. Please use .Values.agent.persistence.filesystem.storageClass" }}
+{{- end }}
+{{- if .Values.agent.persistence.size }}
+{{- fail ".Values.agent.persistence.size has been removed. Please use .Values.agent.persistence.filesystem.size" }}
+{{- end }}

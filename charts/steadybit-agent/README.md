@@ -1,6 +1,6 @@
 # steadybit Kubernetes Agent Helm Chart
 
-This Helm chart adds the steadybit Agent to all nodes in your Kubernetes cluster via a DaemonSet.
+This Helm chart adds the steadybit agent to your Kubernetes cluster.
 
 ## Quick start
 
@@ -11,72 +11,21 @@ helm repo add steadybit https://steadybit.github.io/helm-charts
 helm repo update
 ```
 
-### Create Kubernetes namespace
-
-```
-kubectl create namespace steadybit-agent
-```
-
 ### Installing the chart
 
 To install the chart with the name `steadybit-agent` and set the values on the command line run:
 
 ```bash
-$ helm install steadybit-agent --namespace steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=CLUSTER_NAME steadybit/steadybit-agent
+$ helm install steadybit-agent --namespace steadybit-agent --create-namespace --set agent.key=STEADYBIT_AGENT_KEY --set global.clusterName=CLUSTER_NAME steadybit/steadybit-agent
 ```
 
-For local development:
+## Configuration Options
 
-```bash
-$ helm install steadybit-agent --namespace steadybit-agent ./charts/steadybit-agent --set agent.key=STEADYBIT_AGENT_KEY --set cluster.name=CLUSTER_NAME
-```
-
-## Configuration
-
-To see all configurable options with detailed comments, visit the chart's values.yaml, or run these configuration commands:
+To see all configurable options with detailed comments, visit the chart's [values.yaml](values.yaml), or run these configuration commands:
 
 ```
 $ helm show values steadybit-agent
 ```
-
-The following table lists the configurable parameters of the steadybit agent chart and their default values.
-
-| Key                                         | Type   | Default                                 | Description                                                                                                                                                                                                                                                                                                                                |
-|---------------------------------------------|--------|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| affinity                                    | object | `{}`                                    | Affinities to influence agent pod assignment.                                                                                                                                                                                                                                                                                              |
-| agent.extraVolumes                          | list   | `[]`                                    | Additional volumes to which the agent container will be mounted.                                                                                                                                                                                                                                                                           |
-| agent.extraVolumeMounts                     | list   | `[]`                                    | Additional volumeMounts to which the agent container will be mounted.                                                                                                                                                                                                                                                                      |
-| agent.containerRuntime                      | string | `"docker"`                              | The container runtime to be used. Valid values: <br><br>docker = uses the docker runtime. Will mount [/var/run/docker.sock] <br><br>crio = uses the cri-o runtime. Will mount [/run/crio/crio.sock, /run/runc] <br><br>containerd = uses the containerd runtime. Will mount [/run/containerd/containerd.sock, /run/containerd/runc/k8s.io] |
-| agent.env                                   | array  | `[]`                                    | Additional environment variables for the steadybit agent                                                                                                                                                                                                                                                                                   |
-| agent.extraLabels                           | object | `{}`                                    | Additional labels                                                                                                                                                                                                                                                                                                                          |
-| agent.key                                   | string | `nil`                                   | The secret token which your agent uses to authenticate to steadybit's servers. Get it from  Get it from https://platform.steadybit.io/settings/agents/setup.                                                                                                                                                                               |
-| agent.registerUrl                           | string | `"https://platform.steadybit.io"`       | The URL of the steadybit server your agents will connect to.                                                                                                                                                                                                                                                                               |
-| agent.openshift                             | bool   | `false`                                 | Needs to be activated when running in OpenShift 4.x                                                                                                                                                                                                                                                                                        |
-| agent.privileged                            | bool   | `true`                                  | Set to false if you want to use the agent in non-privileged mode. It will then require SYS_BOOT, NET_ADMIN, NET_RAW, KILL and SYS_TIME                                                                                                                                                                                                     |
-| agent.proxyHost                             | string | `nil`                                   | Hostname or address of your proxy                                                                                                                                                                                                                                                                                                          |
-| agent.proxyPort                             | int    | `80`                                    | Port of your proxy                                                                                                                                                                                                                                                                                                                         |
-| agent.proxyProtocol                         | string | `"HTTP"`                                | proxy protocol                                                                                                                                                                                                                                                                                                                             |
-| agent.proxyUser                             | string | `nil`                                   | username of the proxy auth (if needed)                                                                                                                                                                                                                                                                                                     |
-| agent.proxyPassword                         | string | `nil`                                   | password of the proxy auth (if needed)                                                                                                                                                                                                                                                                                                     |
-| agent.readOnlyRootFilesystem                | bool   | `false`                                 | Set to true if you want to use the agent in readOnlyRootFilesystem root-fs mode.                                                                                                                                                                                                                                                           |
-| cluster.name                                | string | `nil`                                   | Represents the name that will be assigned to this Kubernetes cluster in steadybit.                                                                                                                                                                                                                                                         |
-| image.name                                  | string | `"docker.steadybit.io/steadybit/agent"` | The container image  to use of the steadybit agent.                                                                                                                                                                                                                                                                                        |
-| image.pullPolicy                            | string | `"Always"`                              | Specifies when to pull the image container.                                                                                                                                                                                                                                                                                                |
-| image.tag                                   | string | `"latest"`                              | tag name of the agent container image to use.                                                                                                                                                                                                                                                                                              |
-| resources.limits.memory                     | string | `"768Mi"`                               | memory resource limit for the agent container                                                                                                                                                                                                                                                                                              |
-| resources.limits.cpu                        | string | `"1500m"`                               | cpu resource limit for the agent container                                                                                                                                                                                                                                                                                                 |
-| nodeSelector                                | object | `{}`                                    | Node labels for pod assignment                                                                                                                                                                                                                                                                                                             |
-| podAnnotations                              | object | `{}`                                    | Additional annotations to be added to the agent pods.                                                                                                                                                                                                                                                                                      |
-| podSecurityPolicy.enable                    | bool   | `false`                                 | Specifies whether a PodSecurityPolicy should be authorized for the steadybit Agent pods. Requires `rbac.create` to be `true` as well.                                                                                                                                                                                                      |
-| podSecurityPolicy.name                      | string | `nil`                                   | The name of an existing PodSecurityPolicy you would like to authorize for the steadybit Agent pods. If not set and `enable` is true, a PodSecurityPolicy will be created with a name generated using the fullname template.                                                                                                                |
-| rbac.create                                 | bool   | `true`                                  | Specifies whether RBAC resources should be created.                                                                                                                                                                                                                                                                                        |
-| rbac.readonly                               | bool   | `true`                                  | Specifies if Kubernetes API access should only be read only.                                                                                                                                                                                                                                                                               |
-| serviceAccount.create                       | bool   | `true`                                  | Specifies whether a ServiceAccount should be created.                                                                                                                                                                                                                                                                                      |
-| serviceAccount.name                         | string | `"steadybit-agent"`                     | The name of the ServiceAccount to use. If not set and `create` is true, a name is generated using the fullname template.                                                                                                                                                                                                                   |
-| serviceAccount.eksRoleArn                   | string | `nil`                                   | The arn of the IAM role - [see aws docs](https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html)                                                                                                                                                                                                               |
-| tolerations                                 | list   | `[]`                                    | Tolerations to influence agent pod assignment.                                                                                                                                                                                                                                                                                             |
-| updateStrategy.rollingUpdate.maxUnavailable | int    | `1`                                     |                                                                                                                                                                                                                                                                                                                                            |
-| updateStrategy.type                         | string | `"RollingUpdate"`                       | Which type of `updateStrategy` should be used.                                                                                                                                                                                                                                                                                             |
 
 ### YAML file
 
@@ -92,40 +41,34 @@ install/upgrade command.
 $ helm install -f steadybit-values.yaml steadybit-agent --namespace steadybit-agent steadybit/steadybit-agent
 ```
 
-### Using the static agent
-
-For using the static agent (includes all bundles and has auto-updates disabled) you need to switch the image:
-
-```
-agent:
-  image: docker.steadybit.io/steadybit/agent-static
-````
-
 ### Importing your own certificates
 
-You may want to import your own certificates. You just need the to provide a volume named `extra-certs`.
+You may want to import your own certificates. Mount a volume with the certificates and reference it in `agent.extraCertificates.fromVolume`.
 
 This example uses a config map to store the `*.crt`-files in a configmap:
 
-```
+```shell
 kubectl create configmap -n steadybit-agent self-signed-ca --from-file=./self-signed-ca.crt
 ```
 
 ```yaml
 agent:
+  extraCertificates:
+    fromVolume: extra-certs
   extraVolumes:
     - name: extra-certs
       configMap:
-        name: self-signed-ca #uses a certificates from the secret "self-signed-ca"
+        name: self-signed-ca
 ```
 
 -OR-
 
+You can also reference a path in the container use `agent.extraCertificates.containerPath`
+
 ```yaml
 agent:
-  extraVolumes:
-    - name: extra-certs
-      hostPath: /ssca/ca # path with additional certificates
+  extraCertificates:
+    container-path: /path/to/certificates
 ```
 
 ### Configuring Additional Volumes
@@ -145,7 +88,7 @@ agent:
 
 ### Configuring Additional Environment Variables
 
-You may want to do some [advanced configuration](https://docs.steadybit.io/installation-agent/4-advanced-configuration) of the agent, e.g. for debugging
+You may want to do some [advanced configuration](https://docs.steadybit.com/install-and-configure/install-agent/advanced-configuration) of the agent, e.g. for debugging
 purposes or adding a Maven proxy.
 
 ```yaml

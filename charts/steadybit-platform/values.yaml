@@ -2,6 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 platform:
+  # platform.name -- Used to identify the platform when running multiple installations (e.g. in a multi-stage setup). Should be omitted when using a single installation.
+  name: null
   tenant:
     mode: "ONPREM"
     # platform.tenant.key -- Name for the tenant assigned to you.
@@ -19,13 +21,15 @@ platform:
           issuerUri: null
   # platform.uiPort -- (internal) Web-UI port for the user interface.
   uiPort: 80
+  # platform.publicWebUrl -- The url where users can access the platform via browser. For example in our SaaS: https://platform.steadybit.com
+  publicWebUrl: null
   # platform.websocketPort -- (internal) Websocket port for communication between platform and agents.
   websocketPort: 7878
   # platform.publicWebsocketPort -- The public port used for experiments - Use this if the agent access the websocket via ingress or a reverse proxy, that serves websocket and http traffic using the same port
   publicWebsocketPort: 80
   # platform.ingressOrigin -- Should be set to the ingress origin, e.g., https://ingress.steadybit.example.com. Will be used to construct URLs in HTTP responses to agents. This configuration will overwrite the port defined in platform.publicWebsocketPort
   ingressOrigin: null
-  # -- Use this to set additional environment variables See https://docs.steadybit.io/installation-platform/3-advanced-configuration.
+  # -- Use this to set additional environment variables See https://docs.steadybit.com/install-and-configure/install-on-prem-platform/advanced-configuration
   envFrom: []
   env:
     - name: STEADYBIT_AUTH_PROVIDER
@@ -36,21 +40,54 @@ platform:
       value: "{noop}admin"
   # platform.extraLabels -- Additional labels
   extraLabels: {}
+  # platform.extraVolumes -- Additional volumes to which the platform container will be mounted.
+  extraVolumes: []
+  # platform.extraVolumeMounts -- Additional volumeMounts to which the platform container will be mounted.
+  extraVolumeMounts: []
   logging:
     format: text
   service:
-    ## platform.service.type -- Type for the service to use
-    type: LoadBalancer
+    ## platform.service.type -- DEPRECATED please use service.type
+    type: null
   portSplit:
     # platform.portSplit.enabled -- Can be set to "true" to change the service and ingress definition in such a way that the ports are split by purpose, i.e., an ingress and a separate egress port. This comes in handy when hardening deployments / to improve package routing.
     enabled: false
   replicas: 1
+  rolloutStrategy: Recreate
   minReadySeconds: 60
   maxUnavailable: 0
   maxSurge: 2
   # platform.prometheus.scrape -- Controls the `prometheus.io/scrape` pod annotation which controls whether Prometheus will automatically scrape metrics from platform pods.
   prometheus:
     scrape: true
+  database:
+    migration:
+      # platform.database.migration.useInitContainer -- Should database migration be executed in an init container? (you may want to reduce `platform.startupProbe.initialDelaySeconds` (10) and `platform.startupProbe.failureThreshold` (12) in this case)
+      useInitContainer: false
+  uiImages:
+    # platform.uiImages.cspDomains -- Additional domains to add to the Content-Security-Policy header for loading images
+    cspDomains: []
+    navigation:
+      # platform.uiImages.navigation.url -- URL to a custom navigation image; takes preference over data
+      url: null
+      # platform.uiImages.navigation.data -- content of a custom navigation image. Must not exceed 1MiB;  Will be converted to a data url; use with --set-file
+      data: null
+      # platform.uiImages.navigation.mediatype -- media-type for the content of a custom navigation image
+      mediaType: null
+    navigationLogo:
+      # platform.uiImages.navigationLogo.url -- URL to a custom navigation logo image; takes preference over data
+      url: null
+      # platform.uiImages.navigationLogo.data -- content of a custom navigation logo image;  Must not exceed 1MiB;  Will be converted to a data url; use with --set-file
+      data: null
+      # platform.uiImages.navigationLogo.mediatype -- media-type for the content of the custom navigation logo image
+      mediaType: null
+    loadingScreen:
+      # platform.uiImages.loadingScreen.url -- URL to a custom loading screen image; takes preference over data
+      url: null
+      # platform.uiImages.loadingScreen.data -- content of a custom loading screen image; Must not exceed 1MiB;  Will be converted to a data url; use with --set-file
+      data: null
+      # platform.uiImages.loadingScreen.mediatype -- media-type of the custom navigation image
+      mediaType: null
 
   ## platform.readinessProbe.* -- Configuration of the Kubernetes readinessProbe probe for the platform deployment
   readinessProbe:
@@ -86,12 +123,31 @@ platform:
     protocol: HTTP
     user: null
     password: null
+  ## platform.terminationGracePeriodSeconds -- The time in seconds to wait for the platform to gracefully terminate and complete running experiments before it is forcefully terminated.
+  terminationGracePeriodSeconds: 0  # default is 0, that means no grace period and all experiments are canceled immediately during shutdown.
+  ## The interval in seconds to check for experiment executions during shutdown
+  experimentExecutionShutdownCheckInterval: 10
+  lifecycle:
+    preStop:
+      exec:
+        command:
+          - /bin/sh
+          - -c
+          - sleep 20
+  portsplitter:
+    lifecycle:
+      preStop:
+        exec:
+          command:
+            - /bin/sh
+            - -c
+            - sleep 20
 
 image:
   # image.name -- The container image  to use of the steadybit platform.
   name: docker.steadybit.io/steadybit/platform
   # image.tag -- Tag name of the platform container image to use.
-  tag: latest
+  tag: null
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
   registry: {}
@@ -102,7 +158,9 @@ serviceAccount:
   create: true
   # serviceAccount.name -- The name of the ServiceAccount to use.
   # If not set and `create` is true, a name is generated using the fullname template.
-  # name: steadybit-platform
+  name: null
+  # serviceAccount.annotations.* -- Annotations for the service account
+  annotations: {}
 
 # podAnnotations -- Additional annotations to be added to the platform pod.
 podAnnotations: {}
@@ -117,6 +175,7 @@ ingress:
 
 # -- Service configuration properties
 service:
+  type: null
   annotations: {}
 
 # nodeSelector -- Node labels for pod assignment
@@ -136,9 +195,9 @@ affinity: {}
 resources:
   requests:
     # resources.requests.memory -- The minimal amount of memory needed
-    memory: "1Gi"
+    memory: "2Gi"
     # resources.requests.cpu -- The minimal amount of cpu shares needed
-    cpu: "1000m"
+    cpu: "2000m"
   limits:
     # resources.limits.memory -- The limit of memory to be used
     memory: "4Gi"
@@ -158,7 +217,14 @@ postgresql:
     username: steadybit
     database: steadybit
   image:
-    tag: 14
+    tag: 15
   service:
     ports:
       postgresql: "5432"
+  primary:
+    initdb:
+      scripts:
+        superuser.sh: |
+          #!/bin/sh
+          export PGPASSWORD=$POSTGRES_POSTGRES_PASSWORD
+          psql -U postgres -c "ALTER USER $POSTGRES_USER WITH SUPERUSER;"

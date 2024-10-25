@@ -1,0 +1,70 @@
+templates:
+  - statefulset.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: using oauth2 should require issuerUri or tokenUri
+    set:
+      global:
+        clusterName: test
+      agent:
+        auth:
+          provider: oauth2
+          oauth2:
+            clientId: some-client-id
+    asserts:
+      - failedTemplate:
+          errorMessage: missing either .Values.agent.auth.oauth2.issuerUri or .Values.agent.auth.oauth2.tokenUri
+
+  - it: using oauth2 with mtls from containerPath and token uri
+    set:
+      global:
+        clusterName: test
+      agent:
+        auth:
+          provider: oauth2
+          oauth2:
+            clientId: some-client-id
+            tokenUri: https://some-token-uri
+            tls:
+              clientCertificate:
+                path: /etc/ssl/certs/client.crt
+                key:
+                  path: /etc/ssl/certs/client.key
+                  password:
+                    value: some-oauth2-client-key-password
+              serverCertificate:
+                path: /etc/ssl/certs/server.crt
+    asserts:
+      - matchSnapshot: { }
+
+  - it: using oauth2 with mtls from secrets
+    set:
+      global:
+        clusterName: test
+      agent:
+        auth:
+          provider: oauth2
+          oauth2:
+            clientId: some-client-id
+            clientSecret:
+              valueFrom:
+                secretKeyRef:
+                  name: some-secret
+                  key: some-secret-key
+            issuerUri: https://some-issuer-uri
+            audience: some-audience
+            tls:
+              clientCertificate:
+                fromSecret: some-client-secret
+                key:
+                  password:
+                    valueFrom:
+                      secretKeyRef:
+                        name: some-secret
+                        key: some-other-secret-key
+              serverCertificate:
+                fromSecret: server.crt
+    asserts:
+      - matchSnapshot: { }

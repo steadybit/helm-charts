@@ -1,0 +1,237 @@
+templates:
+  - deployment.yaml
+  - secrets.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: manifest should match snapshot
+    set:
+      global:
+        clusterName: test
+      agent:
+        identifier: abcdefg
+        key: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should apply extra pod labels
+    set:
+      global:
+        clusterName: test
+      agent:
+        identifier: abcdefg
+        key: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+      podLabels:
+        some-label: some-value
+    asserts:
+      - matchSnapshot: { }
+
+  - it: using image pull secrets with debug json log
+    set:
+      global:
+        clusterName: test
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+      image:
+        pullSecrets:
+          - test-pull-secret
+      logging:
+        format: json
+        level: debug
+    asserts:
+      - matchSnapshot: { }
+  - it: using extensions with mtls from containerpath
+    set:
+      global:
+        clusterName: test
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        key: abcdefg
+        extraCertificates:
+          path: /etc/ssl/extra-certs
+        extensions:
+          tls:
+            hostnameVerification: strict
+            clientCertificate:
+              path: /etc/ssl/certs/client.crt
+              key:
+                path: /etc/ssl/certs/client.key
+                password:
+                  value: some-extension-client-key-password
+            serverCertificate:
+              path: /etc/ssl/certs/server.crt
+    asserts:
+      - matchSnapshot: { }
+
+  - it: using extensions with mtls from secrets
+    set:
+      global:
+        clusterName: test
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        key: abcdefg
+        extraCertificates:
+          fromVolume: extra-certs
+        extraVolumes:
+          - name: extra-certs
+            configMap:
+              name: self-signed-ca
+        extensions:
+          tls:
+            clientCertificate:
+              fromSecret: some-client-secret
+              key:
+                password:
+                  valueFrom:
+                    secretKeyRef:
+                      name: some-secret
+                      key: some-secret-key
+            serverCertificate:
+              fromSecret: server.crt
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should add aws account id from values
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        key: abcdefg
+        aws:
+          accountId: "123456789012"
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should add match labels
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        key: abcdefg
+        extensions:
+          autodiscovery:
+            matchLabels:
+              some-label: some-value
+              another-label: another-value
+            matchLabelsExclude:
+              exclude-me: true
+              exclude-me-too: true
+            namespace: test
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should add proxy configuration
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        key: abcdefg
+        proxy:
+          host: proxy.example.com
+          port: 8080
+          protocol: http
+          user: user
+          password: pass
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should add extra volumes and mount
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        extraVolumeMounts:
+          - name: extramount
+            mountPath: /extra
+        extraVolumes:
+          - name: extravol
+            hostPath:
+              path: /extravol
+    asserts:
+      - matchSnapshot: { }
+      - template: deployment.yaml
+        hasDocuments:
+          count: 1
+
+  - it: should not render deployment if provider is not redis
+    set:
+      agent:
+        persistence:
+          provider: somethingelse
+    asserts:
+      - template: deployment.yaml
+        hasDocuments:
+          count: 0
+
+  - it: should fail if redis host is missing
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+    asserts:
+      - template: deployment.yaml
+        failedTemplate:
+          errorMessage: missing required .Values.agent.persistence.redis.host
+
+  - it: should fail if agent identifier is not set
+    set:
+      agent:
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+    asserts:
+      - template: deployment.yaml
+        failedTemplate:
+          errorMessage: missing required .Values.agent.identifier for redis persistence
+
+  - it: should render redis settings
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+            port: 5566
+            sslEnabled: true
+            username: user
+            password:
+              value: abcdefg
+            db: 1
+    asserts:
+      - matchSnapshot: { }

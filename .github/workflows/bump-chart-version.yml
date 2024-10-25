@@ -1,0 +1,49 @@
+
+name: Bump Chart Version
+on:
+  workflow_dispatch:
+    inputs:
+      chart:
+        type: string
+        required: true
+        description: The chart to bump the version for
+      app_version:
+        type: string
+        required: false
+        description: The optional app version to set
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.chart }}-${{ inputs.app_version }}
+
+env:
+  HELM_REPOSITORY_CONFIG: ${{ github.workspace }}/.github/helm/repositories.yaml
+
+jobs:
+  bump-chart-version:
+    name: Bump Chart Patch Version on main branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.GH_APP_STEADYBIT_APP_ID }}
+          private-key: ${{ secrets.GH_APP_STEADYBIT_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      # this commit will effectively cause another run of the workflow which then actually performs the helm chart release
+      - run: |
+          npm install -g semver
+          make chart-bump-version CHART="${{ inputs.chart }}" APP_VERSION="${{ inputs.app_version }}"
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git commit -am "chore(${{ inputs.chart }}): update helm chart version"
+          git push
+          echo "Updated ${{ inputs.chart }} - app_version=${{ inputs.app_version }}" >> $GITHUB_STEP_SUMMARY

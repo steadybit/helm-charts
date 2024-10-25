@@ -1,4 +1,5 @@
-{{- if and (eq "default" (include "validAgentMode" .)) (.Values.rbac.create) -}}
+{{- if .Values.rbac.create -}}
+{{- if eq .Values.rbac.roleKind "role" }}
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -10,16 +11,10 @@ metadata:
     {{ $key }}: {{ $value }}
   {{- end }}
 rules:
-{{- if eq "leases" (include "validLeaderElection" .) }}
-  - apiGroups: [ "coordination.k8s.io" ]
-    resources:
-      - "leases"
-    verbs: [ "get", "list", "watch", "create", "update" ]
-{{- end -}}
-  {{- if eq "configmaps" (include "validLeaderElection" .) }}
   - apiGroups: [ "" ]
     resources:
-      - "configmaps"
-    verbs: [ "get", "list", "watch", "create", "update" ]
+      - "services"
+      - "pods"
+    verbs: [ "get", "list", "watch" ]
 {{- end -}}
 {{- end -}}

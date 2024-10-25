@@ -1,0 +1,26 @@
+templates:
+  - services.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: should use deprecated service type
+    set:
+      platform:
+        service:
+          type: NodePort
+    asserts:
+      - matchSnapshot: { }
+  - it: should use service type
+    set:
+      service:
+          type: ClusterIP
+    asserts:
+      - matchSnapshot: { }
+  - it: should use annotations
+    set:
+      service:
+        annotations:
+          this: that
+    asserts:
+      - matchSnapshot: { }

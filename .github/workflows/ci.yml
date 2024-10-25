@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+
+env:
+  HELM_REPOSITORY_CONFIG: ${{ github.workspace }}/.github/helm/repositories.yaml
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.15.3
+
+      - uses: actions/setup-python@v5
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2
+
+      - name: Add unit testing plugin
+        run: helm plugin install https://github.com/helm-unittest/helm-unittest.git
+
+      - name: Run chart lint
+        run: make chartlint
+
+      - name: Run chart unit tests
+        run: make charttesting
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          mark_as_latest: ${{ github.ref == 'refs/heads/main' }}
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -102,8 +102,32 @@ checks the platform.tenant.mode for valid values
 {{- end -}}
 {{- end -}}
 
+{{/*
+checks if a volumne extra-cert is avaiable
+*/}}
+{{- define "steadybit-platform.hasVolumeExtraCerts" -}}
+  {{- $result := "false" -}}
+  {{- range $vol := .Values.platform.extraVolumes -}}
+    {{- if eq $vol.name "extra-certs" -}}
+     {{- $result = "true" -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $result -}}
+{{- end -}}
+
 
 {{- define "steadybit-platform.postgresql.fullname" -}}
 {{- $name := default "postgresql" .Values.postgresql.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+returns either the url or the data-url for an image
+*/}}
+{{- define "imageUrl" -}}
+{{- if .url -}}
+{{- .url -}}
+{{- else if .data -}}
+{{- printf "data:%s;base64,%s" .mediaType (.data | b64enc) -}}
+{{- end -}}
 {{- end -}}

@@ -1,13 +1,13 @@
 apiVersion: v2
 name: steadybit-platform
 description: steadybit Platform Helm chart for Kubernetes.
-version: 0.6.2
-appVersion: latest
+version: 1.0.97
+appVersion: 2.1.22
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
 maintainers:
-  - email: dennis.schulte@steadybit.com
-    name: denschu
+  - email: daniel.reuter@steadybit.com
+    name: reuda # Daniel Reuter
 sources:
   - https://github.com/steadybit/helm-charts
 annotations:
@@ -21,6 +21,6 @@ annotations:
       url: https://github.com/steadybit/helm-charts
 dependencies:
   - name: postgresql
-    version: 11.1.15
+    version: ^12.0.0
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled

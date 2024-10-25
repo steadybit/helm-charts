@@ -1,0 +1,83 @@
+should use annotations:
+  1: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        this: that
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      ports:
+        - name: ui-port
+          port: 80
+          protocol: TCP
+          targetPort: 8080
+        - name: websocket-port
+          port: 7878
+          protocol: TCP
+          targetPort: 7878
+      selector:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: steadybit-platform
+      type: null
+should use deprecated service type:
+  1: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      ports:
+        - name: ui-port
+          port: 80
+          protocol: TCP
+          targetPort: 8080
+        - name: websocket-port
+          port: 7878
+          protocol: TCP
+          targetPort: 7878
+      selector:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: steadybit-platform
+      type: NodePort
+should use service type:
+  1: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      ports:
+        - name: ui-port
+          port: 80
+          protocol: TCP
+          targetPort: 8080
+        - name: websocket-port
+          port: 7878
+          protocol: TCP
+          targetPort: 7878
+      selector:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: steadybit-platform
+      type: ClusterIP

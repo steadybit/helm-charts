@@ -13,7 +13,7 @@ metadata:
   {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  type: {{ .Values.platform.service.type }}
+  type: {{ coalesce .Values.platform.service.type .Values.service.type }}
   ports:
     {{- if .Values.platform.portSplit.enabled }}
     - port: 8081

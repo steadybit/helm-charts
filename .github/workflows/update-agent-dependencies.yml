@@ -1,0 +1,49 @@
+name: Update steadybit-agent dependencies
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 6 * * *"
+
+env:
+  HELM_REPOSITORY_CONFIG: ${{ github.workspace }}/.github/helm/repositories.yaml
+
+jobs:
+  update-agent-dependencies:
+    name: Update steadybit-agent dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.GH_APP_STEADYBIT_APP_ID }}
+          private-key: ${{ secrets.GH_APP_STEADYBIT_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.13.3
+
+      # this commit will effectively cause another run of the workflow which then actually performs the helm chart release
+      - run: |
+          helm dependency update charts/steadybit-agent
+          if git diff --quiet charts/steadybit-agent/Chart.lock; then
+            echo "No changes in dependencies"
+            echo "No changes in dependencies" >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+          npm install -g semver
+          make chart-bump-version CHART="steadybit-agent"
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add -A && git commit -m "chore(steadybit-agent): update helm chart dependencies for steadybit-agent"
+          git push
+          echo "Updated dependencies" >> $GITHUB_STEP_SUMMARY
