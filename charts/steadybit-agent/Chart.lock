@@ -44,6 +44,9 @@ dependencies:
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.2.7
+- name: steadybit-extension-kafka
+  repository: https://steadybit.github.io/extension-kafka
+  version: 1.0.29
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
   version: 1.7.6
@@ -68,5 +71,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.1
-digest: sha256:f2eba1c52c07070a4f0f5db73995e13800fe0bccab55f2d422c72656ad89a3e4
-generated: "2024-11-08T06:08:45.632764599Z"
+digest: sha256:14ed44d4717953d1639daa405edbbf86e2aa1c4453538c21915115846bb0c09d
+generated: "2024-11-08T10:55:24.727299+01:00"
