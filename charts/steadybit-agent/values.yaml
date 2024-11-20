@@ -354,6 +354,14 @@ extension-k6:
   # extension-k6.enabled -- Enable the K6 extension
   enabled: false
 
+# extension-kafka.* -- settings for the kafka extension sub chart.
+#   See https://github.com/steadybit/extension-kafka for more information.
+extension-kafka:
+  # extension-kafka.enabled -- Enable the Kafka extension
+  enabled: false
+  kafka:
+    seedBrokers: null
+
 # extension-kong.* -- settings for the kong extension sub chart.
 #   Further configuration not listed here may be required.
 #   See https://github.com/steadybit/extension-kong for more information.

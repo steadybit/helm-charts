@@ -1,13 +1,13 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.1.17
+  version: 2.1.18
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
   version: 1.1.7
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.1.26
+  version: 1.1.28
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.6
@@ -25,10 +25,10 @@ dependencies:
   version: 1.1.15
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.1.23
+  version: 1.1.25
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.10
+  version: 1.1.12
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
   version: 1.1.6
@@ -37,13 +37,16 @@ dependencies:
   version: 1.1.6
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.7
+  version: 1.1.8
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.1.11
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.2.7
+- name: steadybit-extension-kafka
+  repository: https://steadybit.github.io/extension-kafka
+  version: 1.0.29
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
   version: 1.7.6
@@ -68,5 +71,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.1
-digest: sha256:1261a77d0159ffe693a04c6d7f45cdd63233575f0e77bdcb2ccb16f3b5399de7
-generated: "2024-10-23T06:09:11.645379493Z"
+digest: sha256:4d5212beb793b4cd1243f872b1e967b0a0a2f270748c3946ffbb4b9eab7e3d29
+generated: "2024-11-20T11:25:44.097187987Z"

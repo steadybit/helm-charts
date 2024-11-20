@@ -1,8 +1,8 @@
 apiVersion: v2
 name: steadybit-agent
 description: steadybit agent Helm chart for Kubernetes.
-version: 2.1.49
-appVersion: 2.0.42
+version: 2.1.57
+appVersion: 2.0.45
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
 maintainers:
@@ -95,6 +95,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-k6
     alias: extension-k6
     condition: extension-k6.enabled
+  - name: steadybit-extension-kafka
+    version: ^1.0.2
+    repository: https://steadybit.github.io/extension-kafka
+    alias: extension-kafka
+    condition: extension-kafka.enabled
   - name: steadybit-extension-kong
     version: ^1.6.10
     repository: https://steadybit.github.io/extension-kong

@@ -32,6 +32,8 @@ repositories:
     url: https://steadybit.github.io/extension-jvm
   - name: steadybit-extension-k6
     url: https://steadybit.github.io/extension-k6
+  - name: steadybit-extension-kafka
+    url: https://steadybit.github.io/extension-kafka
   - name: steadybit-extension-kong
     url: https://steadybit.github.io/extension-kong
   - name: steadybit-extension-kubernetes
