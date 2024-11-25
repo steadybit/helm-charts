@@ -4,12 +4,6 @@
 ####    ERROR: You did not specify your secret agent key (platform.tenant.agentKey).         ####
 ##################################################################################
 
-{{- else if not .Values.platform.tenant.license -}}
-
-##################################################################################
-####    ERROR: You did not specify your license key (platform.tenant.license).         ####
-##################################################################################
-
 {{- else -}}
 
 The steadybit platform server can be accessed via port {{ .Values.platform.uiPort }} on the following DNS name from within your cluster:
