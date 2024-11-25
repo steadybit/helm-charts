@@ -186,6 +186,13 @@ spec:
               value: {{ .Values.platform.tenant.key | quote }}
             - name: STEADYBIT_TENANT_NAME
               value: {{ .Values.platform.tenant.name | quote }}
+            {{- if .Values.platform.tenant.license }}
+            - name: STEADYBIT_TENANT_LICENSE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "steadybit-platform.fullname" . }}-license
+                  key: license
+            {{- end }}
             {{- end }}
             {{- if .Values.platform.publicWebUrl }}
             - name: STEADYBIT_WEB_PUBLIC_URL

@@ -12,6 +12,7 @@ platform:
     name: onprem
     # -- The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup.
     agentKey: null
+    license: null
     agent:
       auth:
         # platform.tenant.agent.auth.provider -- Default is `agent-key`. Use `oauth2` if you like to use oauth2 authenication
