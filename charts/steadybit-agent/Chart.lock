@@ -19,7 +19,7 @@ dependencies:
   version: 1.1.5
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.1.12
+  version: 1.1.13
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
   version: 1.1.15
@@ -28,7 +28,7 @@ dependencies:
   version: 1.1.25
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.13
+  version: 1.1.14
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
   version: 1.1.6
@@ -43,7 +43,7 @@ dependencies:
   version: 1.1.11
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.8
+  version: 1.2.9
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
   version: 1.0.29
@@ -70,6 +70,6 @@ dependencies:
   version: 1.1.6
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
-  version: 1.2.2
-digest: sha256:3e6f723a2822a1a059d9d4a88e285964f19d58dfaf0391dab1f328579f200d87
-generated: "2024-11-27T06:09:43.568092466Z"
+  version: 1.2.3
+digest: sha256:243c258731a9c71b9b8318417b779ad0421d281bdf1269e63d3644668267daa8
+generated: "2024-11-27T11:18:04.76919619Z"
