@@ -70,6 +70,6 @@ dependencies:
   version: 1.1.6
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
-  version: 1.2.1
-digest: sha256:79ecba8796829f5b25ff131e79b892fc8f9ca26aa29ce3f5a1b89e3a25db0412
-generated: "2024-11-23T06:08:45.218143217Z"
+  version: 1.2.2
+digest: sha256:3e6f723a2822a1a059d9d4a88e285964f19d58dfaf0391dab1f328579f200d87
+generated: "2024-11-27T06:09:43.568092466Z"
