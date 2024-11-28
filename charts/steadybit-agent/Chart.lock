@@ -1,16 +1,16 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.1.18
+  version: 2.1.19
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.7
+  version: 1.1.8
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.1.29
+  version: 1.1.30
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.6
+  version: 1.5.7
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
   version: 1.0.14
@@ -22,25 +22,25 @@ dependencies:
   version: 1.1.13
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.1.15
+  version: 1.1.16
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
   version: 1.1.25
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.14
+  version: 1.1.15
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
   version: 1.1.6
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.1.6
+  version: 1.1.7
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.9
+  version: 1.1.10
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.1.11
+  version: 1.1.12
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.2.9
@@ -52,7 +52,7 @@ dependencies:
   version: 1.7.6
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.5.22
+  version: 1.5.23
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.40
@@ -64,12 +64,12 @@ dependencies:
   version: 1.7.9
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.8
+  version: 1.5.9
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.6
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
-  version: 1.2.3
-digest: sha256:243c258731a9c71b9b8318417b779ad0421d281bdf1269e63d3644668267daa8
-generated: "2024-11-27T11:18:04.76919619Z"
+  version: 1.2.4
+digest: sha256:56674c9f4d7886b81147d95d81034291cceb15cb502e484eb226dc5dd95f7749
+generated: "2024-11-28T06:09:36.388185247Z"
