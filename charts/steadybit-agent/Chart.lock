@@ -7,7 +7,7 @@ dependencies:
   version: 1.1.8
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.1.30
+  version: 1.1.31
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.7
@@ -71,5 +71,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.4
-digest: sha256:56674c9f4d7886b81147d95d81034291cceb15cb502e484eb226dc5dd95f7749
-generated: "2024-11-28T06:09:36.388185247Z"
+digest: sha256:787ce9fae76687fdd23773826843a6805b657d14bf07d50e96cc71c07d3c2ac3
+generated: "2024-12-01T06:08:38.745893193Z"
