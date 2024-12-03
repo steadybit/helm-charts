@@ -10,7 +10,7 @@ metadata:
     {{ $key }}: {{ $value }}
   {{- end }}
 spec:
-  serviceName: steadybit-agent
+  serviceName: {{ .Values.agent.serviceName }}
   replicas: {{ .Values.agent.replicaCount }}
   selector:
     matchLabels:
