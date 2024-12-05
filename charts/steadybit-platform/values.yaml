@@ -10,8 +10,9 @@ platform:
     key: onprem
     # platform.tenant.name -- Key for the tenant assigned to you.
     name: onprem
-    # -- The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup.
+    # platform.tenant.agentKey -- The secret token which your agent uses to authenticate to steadybit's servers.  Get it from https://platform.steadybit.io/settings/agents/setup.
     agentKey: null
+    # platform.tenant.license -- The license to run the platform. This is mandatory for platform >= 2.2.0
     license: null
     agent:
       auth:

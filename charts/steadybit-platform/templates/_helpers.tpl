@@ -131,3 +131,14 @@ returns either the url or the data-url for an image
 {{- printf "data:%s;base64,%s" .mediaType (.data | b64enc) -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+returns the image tag for the platform container and validates wether a license is provided
+*/}}
+{{- define "validContainerImageTag" -}}
+{{- $version := default .Values.image.tag | default .Chart.AppVersion -}}
+{{- if and (semverCompare ">=2.2.0-0" $version) (not .Values.platform.tenant.license) -}}
+{{- fail ".Values.platform.license missing. A license is required to run steadybit platform >= 2.2.0" -}}
+{{- end -}}
+{{- $version -}}
+{{- end -}}

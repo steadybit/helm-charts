@@ -48,7 +48,7 @@ spec:
       {{- if .Values.platform.database.migration.useInitContainer }}
       initContainers:
         - name: {{ include "steadybit-platform.name" . }}-db-migration
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.name }}:{{ template "validContainerImageTag" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             requests:
@@ -99,7 +99,7 @@ spec:
       {{- end }}
       containers:
         - name: {{ include "steadybit-platform.name" . }}
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.name }}:{{ template "validContainerImageTag" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           lifecycle: {{ .Values.platform.lifecycle | toYaml | nindent 12 }}
           resources:
