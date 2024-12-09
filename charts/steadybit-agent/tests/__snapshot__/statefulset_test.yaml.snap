@@ -118,10 +118,9 @@ manifest should match snapshot:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -260,10 +259,9 @@ should add aws account id from values:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -396,10 +394,9 @@ should add extra volumes and mount:
                 - mountPath: /extra
                   name: extramount
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -557,10 +554,9 @@ should add match labels:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -707,10 +703,9 @@ should add proxy configuration:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -848,10 +843,9 @@ should apply extra pod labels:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -1004,10 +998,9 @@ using extensions with mtls from containerpath:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -1163,10 +1156,9 @@ using extensions with mtls from secrets:
                 - mountPath: /opt/steadybit/agent/etc/extra-certs
                   name: extra-certs
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -1308,10 +1300,9 @@ using image pull secrets with debug json log:
           imagePullSecrets:
             - name: test-pull-secret
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:

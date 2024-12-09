@@ -24,10 +24,9 @@
       priorityClassName: {{ .Values.priorityClassName.name }}
       {{- end }}
       securityContext:
-        fsGroup: 1000
-        runAsGroup: 1000
-        runAsUser: 1000
-        runAsNonRoot: true
+        {{- with .Values.podSecurityContext }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       containers:
         - name: steadybit-agent
           image: "{{ .Values.image.name }}:{{ default .Chart.AppVersion .Values.image.tag }}"
@@ -140,11 +139,9 @@
             {{- toYaml . | nindent 12 }}
             {{- end }}
           securityContext:
-            readOnlyRootFilesystem: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
+            {{- with .Values.containerSecurityContext }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           volumeMounts:
             {{- if eq .Values.agent.persistence.provider "filesystem"}}
             - name: steadybit-agent-state

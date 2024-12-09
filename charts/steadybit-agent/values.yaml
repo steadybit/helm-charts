@@ -225,6 +225,12 @@ podAnnotations: {}
 # podLabels -- Additional labels to be added to the agent pods.
 podLabels: {}
 
+# podSecurityContext -- the security context used for the pod
+podSecurityContext:
+  seccompProfile:
+    type: RuntimeDefault
+  runAsNonRoot: true
+
 # nodeSelector -- Node labels for pod assignment
 nodeSelector: {}
 
@@ -233,6 +239,14 @@ tolerations: []
 
 # affinity -- Affinities to influence agent pod assignment.
 affinity: {}
+
+# containerSecurityContext -- the security context used for the pod
+containerSecurityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
 
 # extension-aws.* -- settings for the aws extension. See https://github.com/steadybit/extension-aws for more information.
 extension-aws:
