@@ -113,10 +113,9 @@ using oauth2 with mtls from containerPath and token uri:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -261,10 +260,9 @@ using oauth2 with mtls from secrets:
                   name: oauth2-tls-server
                   readOnly: true
           securityContext:
-            fsGroup: 1000
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
