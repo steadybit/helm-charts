@@ -40,7 +40,7 @@ dependencies:
   version: 1.1.12
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.1.12
+  version: 1.1.13
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.2.11
@@ -71,5 +71,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.6
-digest: sha256:a31b2d3f7f4dc208b4ac85d6f800e44dfe4a6568a1a1a739b9c9257689bf68b1
-generated: "2024-12-10T06:10:15.106327014Z"
+digest: sha256:bd8f9cc0946461666698c21399da05c489d311b4166b6c3970d02952530a6b7f
+generated: "2024-12-11T06:09:51.405063407Z"
