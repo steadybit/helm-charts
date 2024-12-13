@@ -137,7 +137,7 @@ returns the image tag for the platform container and validates wether a license 
 */}}
 {{- define "validContainerImageTag" -}}
 {{- $version := default .Values.image.tag | default .Chart.AppVersion -}}
-{{- if and (semverCompare ">=2.2.0-0" $version) (not .Values.platform.tenant.license) -}}
+{{- if and (or (not (regexMatch "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$" $version)) (semverCompare ">=2.2.0-0" $version)) (not .Values.platform.tenant.license) -}}
 {{- fail ".Values.platform.license missing. A license is required to run steadybit platform >= 2.2.0" -}}
 {{- end -}}
 {{- $version -}}
