@@ -7,7 +7,7 @@ dependencies:
   version: 1.1.10
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.1.34
+  version: 1.1.36
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.9
@@ -61,7 +61,7 @@ dependencies:
   version: 1.1.6
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.11
+  version: 1.7.12
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.11
@@ -71,5 +71,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.6
-digest: sha256:060029db4813172e462afb0b1af68a0b42ee2bf6e66b641303b4386065bf7a0b
-generated: "2024-12-17T06:09:36.939505794Z"
+digest: sha256:36f9918aa375b2f5097331426f69287b7b2cafa0770641c464a78ff61973d56f
+generated: "2024-12-19T06:09:23.564963111Z"
