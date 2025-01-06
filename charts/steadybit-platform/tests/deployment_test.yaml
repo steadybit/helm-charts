@@ -117,3 +117,12 @@ tests:
           license: "test"
     asserts:
       - matchSnapshot: {}
+  - it: should not fail with missing license for version >= 2.2.0 for saas mode
+    set:
+      image:
+        tag: 2.2.0
+      platform:
+        tenant:
+          mode: "SAAS"
+    asserts:
+      - matchSnapshot: {}
