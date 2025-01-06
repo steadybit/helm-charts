@@ -19,16 +19,27 @@ kubectl create namespace steadybit-platform
 
 ### Installing the chart
 
-To install the chart with the name `steadybit-platform` and set the values on the command line run:
+You can install the chart with the name `steadybit-platform` as shown below.
+Please ensure to replace the agent and license key beforehand.
 
 ```bash
-$ helm install steadybit-platform --namespace steadybit-platform --set platform.tenant.agentKey=STEADYBIT_AGENT_KEY steadybit/steadybit-platform
+helm install steadybit-platform \
+  --create-namespace \
+  --namespace steadybit-platform \
+  --set platform.tenant.agentKey=<replace-with-agent-key> \
+  --set platform.tenant.license=<replace-with-license-key> \
+  steadybit/steadybit-platform
 ```
 
-For local development:
+For local development you can also reference the repository content checked out to your local machine:
 
 ```bash
-$ helm install steadybit-platform --namespace steadybit-platform ./charts/steadybit-platform --set platform.tenant.agentKey=STEADYBIT_AGENT_KEY
+helm install steadybit-platform \
+  --create-namespace \
+  --namespace steadybit-platform \
+  --set platform.tenant.agentKey=<replace-with-agent-key> \
+  --set platform.tenant.license=<replace-with-license-key> \
+  ./charts/steadybit-platform
 ```
 
 ## Configuration
@@ -68,7 +79,7 @@ The following table lists the configurable parameters of the steadybit platform 
 If you have to modify more than 1 property (e.g. agent key), we recommend to consider to configure the Helm chart with a YAML file and pass it to the install/upgrade command.
 
 1. **Copy the default [`values.yaml`](values.yaml) value file.**
-2. Set the `platform.tenant.agentKey` parameter with your [steadybit agent key](https://platform.steadybit.io/settings/agents/setup).
+2. Set the `platform.tenant.agentKey` parameter with your [steadybit agent key](https://platform.steadybit.io/settings/agents/setup) and the `platform.tenant.license` with the provided license key.
 3. Modify more parameter for your own needs, e.g. database configuration.
 4. Upgrade the Helm chart with the new `steadybit-values-platform.yaml` file:
 
