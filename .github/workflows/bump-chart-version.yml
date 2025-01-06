@@ -41,7 +41,13 @@ jobs:
       # this commit will effectively cause another run of the workflow which then actually performs the helm chart release
       - run: |
           npm install -g semver
-          make chart-bump-version CHART="${{ inputs.chart }}" APP_VERSION="${{ inputs.app_version }}"
+          make chart-set-app-version CHART="${{ inputs.chart }}" APP_VERSION="${{ inputs.app_version }}"
+          if git diff --quiet charts/${{ inputs.chart }}/Chart.lock; then
+            echo "app_version already set to ${{ inputs.app_version }}"
+            echo "app_version already set to ${{ inputs.app_version }}" >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+          make chart-bump-version CHART="${{ inputs.chart }}"
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git commit -am "chore(${{ inputs.chart }}): update helm chart version"
