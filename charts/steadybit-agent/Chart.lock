@@ -10,13 +10,13 @@ dependencies:
   version: 1.2.1
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.9
+  version: 1.5.10
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
   version: 1.0.15
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
-  version: 1.1.7
+  version: 1.1.8
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
   version: 1.1.15
@@ -71,5 +71,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.6
-digest: sha256:31c8ef311bfbfb4ada6b84ebe60e7a90481f67c271ab3ab06a91c74319a86cd7
-generated: "2025-01-09T06:08:46.822269666Z"
+digest: sha256:7b6f024973d56d42ef77cb5b44429e012f61cbda4a6360f9be1e2978afe038ac
+generated: "2025-01-11T06:07:59.825494072Z"
