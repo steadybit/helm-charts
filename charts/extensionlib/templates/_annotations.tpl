@@ -17,4 +17,6 @@ This takes an dict of these values:
 {{- end -}}
 "steadybit.com/extension-auto-discovery": >
     {{ toJson (dict "extensions" (list (dict "types" $types "protocol" $protocol "port" $port) ) ) }}
+"steadybit.com/extension-auto-registration": >
+    {{ toJson (dict "extensions" (list (dict "protocol" $protocol "port" $port) ) ) }}
 {{- end -}}
