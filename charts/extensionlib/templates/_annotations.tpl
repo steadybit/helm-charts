@@ -1,5 +1,5 @@
 {{- /*
-extensionlib.annotation will render a Kubernetes daemonset definition supporting auto-discovery of the extension.
+extensionlib.annotation will render a Kubernetes daemonset definition supporting auto-registration of the extension.
 
 This takes an dict of these values:
 - port: the port of the extension
