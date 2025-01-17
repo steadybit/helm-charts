@@ -42,7 +42,7 @@ jobs:
       - run: |
           npm install -g semver
           make chart-set-app-version CHART="${{ inputs.chart }}" APP_VERSION="${{ inputs.app_version }}"
-          if git diff --quiet charts/${{ inputs.chart }}/Chart.lock; then
+          if git diff --quiet charts/${{ inputs.chart }}/Chart.yaml; then
             echo "app_version already set to ${{ inputs.app_version }}"
             echo "app_version already set to ${{ inputs.app_version }}" >> $GITHUB_STEP_SUMMARY
             exit 0
