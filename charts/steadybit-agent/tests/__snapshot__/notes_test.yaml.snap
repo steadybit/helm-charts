@@ -8,6 +8,22 @@ should inform about deployment:
       You can get the logs for all of the agents with `kubectl logs`:
 
           kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
+should warn about deprecated values:
+  1: |
+    raw: |
+      It may take a few moments for the agents to fully deploy. You can see what agents are running by listing resources in the NAMESPACE namespace:
+
+          kubectl get all -n NAMESPACE
+
+      You can get the logs for all of the agents with `kubectl logs`:
+
+          kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
+
+      #### WARNING: agent.extensions.autodiscovery.matchLabels is deprecated please use agent.extensions.autoregistration.matchLabels instead. ####
+
+      #### WARNING: agent.extensions.autodiscovery.matchLabelsExclude is deprecated please use agent.extensions.autoregistration.matchLabelsExclude instead. ####
+
+      #### WARNING: agent.extensions.autodiscovery.namespace is deprecated please use agent.extensions.autoregistration.namespace instead. ####
 should warn about missing agent key:
   1: |
     raw: |

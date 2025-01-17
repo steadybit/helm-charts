@@ -35,3 +35,20 @@ tests:
           provider: agent-key
     asserts:
       - matchSnapshot: {}
+  - it: should warn about deprecated values
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+        auth:
+          provider: agent-key
+        extensions:
+          autodiscovery:
+            matchLabels:
+              app: test
+            matchLabelsExclude:
+              app: testexclude
+            namespace: nice-one
+    asserts:
+      - matchSnapshot: {}

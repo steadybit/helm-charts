@@ -116,24 +116,24 @@
             {{- include "extensionEnv" . | nindent 12 }}
             {{- include "extraCertificatesEnv" . | nindent 12 }}
             {{ $matchLabelCounter := 0 | int }}
-            {{- range $key, $value := .Values.agent.extensions.autodiscovery.matchLabels }}
-            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_{{$matchLabelCounter}}_KEY
+            {{- range $key, $value := merge .Values.agent.extensions.autoregistration.matchLabels .Values.agent.extensions.autodiscovery.matchLabels }}
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_{{$matchLabelCounter}}_KEY
               value: {{ $key }}
-            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_{{$matchLabelCounter}}_VALUE
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_{{$matchLabelCounter}}_VALUE
               value: {{ $value }}
             {{ $matchLabelCounter = add1 $matchLabelCounter }}
             {{- end }}
             {{ $matchLabelExcludeCounter := 0 | int }}
-            {{- range $key, $value := .Values.agent.extensions.autodiscovery.matchLabelsExclude }}
-            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_{{$matchLabelExcludeCounter}}_KEY
+            {{- range $key, $value := merge .Values.agent.extensions.autoregistration.matchLabelsExclude .Values.agent.extensions.autodiscovery.matchLabelsExclude }}
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_{{$matchLabelExcludeCounter}}_KEY
               value: {{ $key }}
-            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_{{$matchLabelExcludeCounter}}_VALUE
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_{{$matchLabelExcludeCounter}}_VALUE
               value: {{ $value }}
             {{ $matchLabelExcludeCounter = add1 $matchLabelExcludeCounter }}
             {{- end }}
-            {{ if .Values.agent.extensions.autodiscovery.namespace -}}
-            - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_NAMESPACE
-              value: "{{.Values.agent.extensions.autodiscovery.namespace}}"
+            {{ if or .Values.agent.extensions.autodiscovery.namespace .Values.agent.extensions.autoregistration.namespace -}}
+            - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
+              value: "{{ coalesce .Values.agent.extensions.autoregistration.namespace .Values.agent.extensions.autodiscovery.namespace}}"
             {{ end -}}
             {{- with .Values.agent.env }}
             {{- toYaml . | nindent 12 }}

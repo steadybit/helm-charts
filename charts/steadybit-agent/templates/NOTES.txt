@@ -51,3 +51,21 @@ You can get the logs for all of the agents with `kubectl logs`:
     kubectl logs -l app.kubernetes.io/name={{ .Release.Name }} -n {{ .Release.Namespace }} -c steadybit-agent
 
 {{- end }}
+
+{{- if .Values.agent.extensions.autodiscovery.matchLabels }}
+
+#### WARNING: agent.extensions.autodiscovery.matchLabels is deprecated please use agent.extensions.autoregistration.matchLabels instead. ####
+
+{{- end }}
+
+{{- if .Values.agent.extensions.autodiscovery.matchLabelsExclude }}
+
+#### WARNING: agent.extensions.autodiscovery.matchLabelsExclude is deprecated please use agent.extensions.autoregistration.matchLabelsExclude instead. ####
+
+{{- end }}
+
+{{- if .Values.agent.extensions.autodiscovery.namespace }}
+
+#### WARNING: agent.extensions.autodiscovery.namespace is deprecated please use agent.extensions.autoregistration.namespace instead. ####
+
+{{- end }}
