@@ -469,23 +469,23 @@ should add match labels from deprecated property:
                   value: 127.0.0.1
                 - name: SPRING_DATA_REDIS_PORT
                   value: "6379"
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_KEY
                   value: another-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_VALUE
                   value: another-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_KEY
                   value: some-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_VALUE
                   value: some-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_KEY
                   value: exclude-me
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_VALUE
                   value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_KEY
                   value: exclude-me-too
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_VALUE
                   value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_NAMESPACE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
                   value: test
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
@@ -618,23 +618,23 @@ should add match labels from new property:
                   value: 127.0.0.1
                 - name: SPRING_DATA_REDIS_PORT
                   value: "6379"
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_KEY
                   value: another-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_VALUE
                   value: another-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_KEY
                   value: some-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_VALUE
                   value: some-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_KEY
                   value: exclude-me
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_VALUE
                   value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_KEY
                   value: exclude-me-too
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_VALUE
                   value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_NAMESPACE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
                   value: test
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
@@ -767,31 +767,31 @@ should add match labels from new property if both are specified:
                   value: 127.0.0.1
                 - name: SPRING_DATA_REDIS_PORT
                   value: "6379"
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_KEY
                   value: another-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_VALUE
                   value: another-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_KEY
                   value: one-more
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_VALUE
                   value: this-is-new
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_2_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_2_KEY
                   value: some-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_2_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_2_VALUE
                   value: some-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_KEY
                   value: exclude-me
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_VALUE
                   value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_KEY
                   value: exclude-me-too
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_VALUE
                   value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_2_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_2_KEY
                   value: one-more
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_2_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_2_VALUE
                   value: this-is-new
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_NAMESPACE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
                   value: new-namespace
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always

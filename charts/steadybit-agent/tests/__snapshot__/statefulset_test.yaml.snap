@@ -505,23 +505,23 @@ should add match labels:
                   value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_KEY
                   value: another-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_0_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_VALUE
                   value: another-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_KEY
                   value: some-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELS_1_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_VALUE
                   value: some-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_KEY
                   value: exclude-me
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_0_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_VALUE
                   value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_KEY
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_KEY
                   value: exclude-me-too
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_MATCHLABELSEXCLUDE_1_VALUE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_VALUE
                   value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTODISCOVERY_NAMESPACE
+                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
                   value: test
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
