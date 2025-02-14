@@ -1,7 +1,7 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.0
+  version: 2.2.1
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
   version: 1.1.11
@@ -71,5 +71,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.7
-digest: sha256:b4e5e17ce2e4dfc10a162ead4c2b3936494df458397ffec318ac8464382504e9
-generated: "2025-02-14T10:00:10.451113636Z"
+digest: sha256:aec469acf14c4c822ed732228773a62c36b3cf22c664efb088737e2891e2e266
+generated: "2025-02-14T11:07:45.156287508Z"
