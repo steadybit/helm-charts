@@ -4,7 +4,7 @@ dependencies:
   version: 2.2.2
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.11
+  version: 1.1.12
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
   version: 1.2.8
@@ -13,7 +13,7 @@ dependencies:
   version: 1.5.11
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
-  version: 1.0.16
+  version: 1.0.17
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
   version: 1.1.9
@@ -22,7 +22,7 @@ dependencies:
   version: 1.1.16
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.1.20
+  version: 1.1.21
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
   version: 1.1.36
@@ -34,10 +34,10 @@ dependencies:
   version: 1.1.9
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.1.10
+  version: 1.1.11
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.14
+  version: 1.1.15
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.1.17
@@ -67,9 +67,9 @@ dependencies:
   version: 1.5.13
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.11
+  version: 1.1.12
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
-  version: 1.2.7
-digest: sha256:435fbb0a0f39650a4e0c3522fb897ec50b5466d8809e30e2a37914c7d6d8f591
-generated: "2025-03-08T06:07:27.692284704Z"
+  version: 1.2.8
+digest: sha256:00aa3daa4de57fb2e911387e592bbe20c597b3a0e80447a80f77bbabe0a9cc01
+generated: "2025-03-14T06:09:18.897357131Z"
