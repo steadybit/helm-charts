@@ -95,11 +95,8 @@ using oauth2 with mtls from containerPath and token uri:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -236,11 +233,8 @@ using oauth2 with mtls from secrets:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false

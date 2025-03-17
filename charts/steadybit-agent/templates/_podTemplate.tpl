@@ -35,9 +35,15 @@
             requests:
               memory: {{ .Values.resources.requests.memory }}
               cpu: {{ .Values.resources.requests.cpu }}
+            {{- if or .Values.resources.limits.memory .Values.resources.limits.cpu }}
             limits:
+              {{- if .Values.resources.limits.memory }}
               memory: {{ .Values.resources.limits.memory }}
+              {{- end }}
+              {{- if .Values.resources.limits.cpu }}
               cpu: {{ .Values.resources.limits.cpu }}
+              {{- end }}
+            {{- end }}
           {{- if .Values.agent.livenessProbe.enabled }}
           livenessProbe:
             httpGet:

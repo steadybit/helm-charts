@@ -88,11 +88,8 @@ manifest should match snapshot:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -221,11 +218,8 @@ should add aws account id from values:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -347,11 +341,8 @@ should add extra volumes and mount:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -500,11 +491,8 @@ should add match labels from deprecated property:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -649,11 +637,8 @@ should add match labels from new property:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -806,11 +791,8 @@ should add match labels from new property if both are specified:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -947,11 +929,8 @@ should add proxy configuration:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -1079,11 +1058,8 @@ should apply extra pod labels:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -1213,11 +1189,8 @@ should render redis settings:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -1358,11 +1331,8 @@ using extensions with mtls from containerpath:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -1501,11 +1471,8 @@ using extensions with mtls from secrets:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false
@@ -1644,11 +1611,8 @@ using image pull secrets with debug json log:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 1000m
-                  memory: 500Mi
                 requests:
-                  cpu: 125m
+                  cpu: 500m
                   memory: 250Mi
               securityContext:
                 allowPrivilegeEscalation: false

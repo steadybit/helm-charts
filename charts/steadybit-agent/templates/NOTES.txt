@@ -69,3 +69,9 @@ You can get the logs for all of the agents with `kubectl logs`:
 #### WARNING: agent.extensions.autodiscovery.namespace is deprecated please use agent.extensions.autoregistration.namespace instead. ####
 
 {{- end }}
+
+{{- if or (not .Values.resources.limits.memory) (not .Values.resources.limits.cpu) }}
+
+#### WARNING: Consider defining resource limits to prevent potential resource exhaustion. (.Values.resources.limits.memory / .Values.resources.limits.cpu)
+
+{{- end }}

@@ -159,3 +159,14 @@ tests:
       - template: statefulset.yaml
         hasDocuments:
           count: 0
+
+  - it: should render resource limits
+    set:
+      resources:
+        limits:
+          memory: "2Gi"
+          cpu: "2"
+      agent:
+        key: abcdefg
+    asserts:
+      - matchSnapshot: { }

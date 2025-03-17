@@ -199,12 +199,12 @@ resources:
     # resources.requests.memory -- The minimal amount of memory needed
     memory: "250Mi"
     # resources.requests.cpu -- The minimal amount of cpu shares needed
-    cpu: "125m"
+    cpu: "500m"
   limits:
     # resources.limits.memory -- The limit of memory to be used
-    memory: "500Mi"
+    memory: null
     # resources.limits.cpu -- The limit of cpu share to be used during its interval
-    cpu: "1000m"
+    cpu: null
 
 updateStrategy:
   # updateStrategy.type -- Which type of `updateStrategy` should be used.
