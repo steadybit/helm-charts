@@ -202,9 +202,9 @@ resources:
     cpu: "500m"
   limits:
     # resources.limits.memory -- The limit of memory to be used
-    memory: null
+    memory: "1500Mi"
     # resources.limits.cpu -- The limit of cpu share to be used during its interval
-    cpu: null
+    cpu: "1000m"
 
 updateStrategy:
   # updateStrategy.type -- Which type of `updateStrategy` should be used.

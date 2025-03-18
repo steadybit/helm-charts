@@ -52,3 +52,15 @@ tests:
             namespace: nice-one
     asserts:
       - matchSnapshot: {}
+  - it: should inform about missing limits
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+      resources:
+        limits:
+          memory: null
+          cpu: null
+    asserts:
+      - matchSnapshot: {}

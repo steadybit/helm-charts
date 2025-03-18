@@ -160,12 +160,12 @@ tests:
         hasDocuments:
           count: 0
 
-  - it: should render resource limits
+  - it: should not render resource limits if set to null
     set:
       resources:
         limits:
-          memory: "2Gi"
-          cpu: "2"
+          memory: null
+          cpu: null
       agent:
         key: abcdefg
     asserts:

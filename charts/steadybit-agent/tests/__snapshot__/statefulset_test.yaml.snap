@@ -100,6 +100,9 @@ manifest should match snapshot:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -238,6 +241,9 @@ should add aws account id from values:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -368,6 +374,9 @@ should add extra volumes and mount:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -527,6 +536,9 @@ should add match labels:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -673,6 +685,9 @@ should add proxy configuration:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -810,6 +825,9 @@ should apply extra pod labels:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -844,7 +862,7 @@ should apply extra pod labels:
             resources:
               requests:
                 storage: 200Mi
-should render resource limits:
+should not render resource limits if set to null:
   1: |
     apiVersion: v1
     data:
@@ -946,9 +964,6 @@ should render resource limits:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
-                limits:
-                  cpu: 2
-                  memory: 2Gi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -1101,6 +1116,9 @@ using extensions with mtls from containerpath:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -1248,6 +1266,9 @@ using extensions with mtls from secrets:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -1395,6 +1416,9 @@ using image pull secrets with debug json log:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
