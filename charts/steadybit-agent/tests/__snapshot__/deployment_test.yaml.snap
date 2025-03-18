@@ -89,7 +89,7 @@ manifest should match snapshot:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -222,7 +222,7 @@ should add aws account id from values:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -348,7 +348,7 @@ should add extra volumes and mount:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -501,7 +501,7 @@ should add match labels from deprecated property:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -650,7 +650,7 @@ should add match labels from new property:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -807,7 +807,7 @@ should add match labels from new property if both are specified:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -948,7 +948,7 @@ should add proxy configuration:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -1080,7 +1080,7 @@ should apply extra pod labels:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -1214,7 +1214,7 @@ should render redis settings:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -1359,7 +1359,7 @@ using extensions with mtls from containerpath:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -1502,7 +1502,7 @@ using extensions with mtls from secrets:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
@@ -1645,7 +1645,7 @@ using image pull secrets with debug json log:
               name: steadybit-agent
               resources:
                 limits:
-                  cpu: 1000m
+                  cpu: 1500m
                   memory: 1500Mi
                 requests:
                   cpu: 500m
