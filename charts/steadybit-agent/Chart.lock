@@ -1,7 +1,7 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.2
+  version: 2.2.3
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
   version: 1.1.12
@@ -37,7 +37,7 @@ dependencies:
   version: 1.1.11
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.15
+  version: 1.1.16
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.1.17
@@ -49,10 +49,10 @@ dependencies:
   version: 1.0.17
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.9
+  version: 1.7.10
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.5.29
+  version: 1.5.30
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.42
@@ -61,15 +61,15 @@ dependencies:
   version: 1.1.7
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.13
+  version: 1.7.14
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.13
+  version: 1.5.14
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.8
-digest: sha256:815fef881130c66c56752c2ecd5742aec4d1e1b75c3e96f06971d53a1d687272
-generated: "2025-03-18T11:34:21.788314432Z"
+digest: sha256:cc31f6a6f0483e14203df0ea1594e9166cec1652dee64f206db95e4666d68663
+generated: "2025-03-21T06:09:31.07045198Z"
