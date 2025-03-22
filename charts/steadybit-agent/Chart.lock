@@ -1,13 +1,13 @@
 dependencies:
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.3
+  version: 2.2.4
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
   version: 1.1.12
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.2.9
+  version: 1.2.10
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.11
@@ -25,7 +25,7 @@ dependencies:
   version: 1.1.21
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.1.36
+  version: 1.1.37
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.21
@@ -52,7 +52,7 @@ dependencies:
   version: 1.7.10
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.5.30
+  version: 1.5.31
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.42
@@ -71,5 +71,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.8
-digest: sha256:cc31f6a6f0483e14203df0ea1594e9166cec1652dee64f206db95e4666d68663
-generated: "2025-03-21T06:09:31.07045198Z"
+digest: sha256:8bc6b4a34e9979835929cd8186902a52c8d84de8a91d84dba56b5df6dc39694c
+generated: "2025-03-22T06:08:23.483148938Z"
