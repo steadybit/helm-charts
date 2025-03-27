@@ -83,7 +83,7 @@ agent:
     host: null
     # agent.proxy.port sets the STEADYBIT_AGENT_PROXY_PORT environment variable.
     port: 80
-    # agent.proxy.protocol sets the STEADYBIT_AGENT_PROXY_PROTOCOL environment variable.
+    # agent.proxy.protocol sets the STEADYBIT_AGENT_PROXY_PROTOCOL environment variable. Valid values: HTTP, SOCKS4, SOCKS5
     protocol: HTTP
     # agent.proxy.user sets the STEADYBIT_AGENT_PROXY_USER environment variable.
     user: null
