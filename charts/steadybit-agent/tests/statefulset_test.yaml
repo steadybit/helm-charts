@@ -170,3 +170,14 @@ tests:
         key: abcdefg
     asserts:
       - matchSnapshot: { }
+
+  - it: should use beta kubernetes autoregistration
+    set:
+      agent:
+        key: abcdefg
+        extensions:
+          autoregistration:
+            beta:
+              enabled: true
+    asserts:
+      - matchSnapshot: { }
