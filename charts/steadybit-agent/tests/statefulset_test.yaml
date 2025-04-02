@@ -181,3 +181,21 @@ tests:
               enabled: true
     asserts:
       - matchSnapshot: { }
+
+  - it: should use beta kubernetes autoregistration with extended configuration
+    set:
+      agent:
+        key: abcdefg
+        extensions:
+          autoregistration:
+            namespace: test
+            matchLabels:
+              some-label: some-value
+              another-label: another-value
+            matchLabelsExclude:
+              exclude-me: true
+              exclude-me-too: true
+            beta:
+              enabled: true
+    asserts:
+      - matchSnapshot: { }

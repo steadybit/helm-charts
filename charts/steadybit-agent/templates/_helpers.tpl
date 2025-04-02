@@ -85,3 +85,15 @@ volume mounts for extra certificates
   mountPath: /opt/steadybit/agent/etc/extra-certs
 {{ end -}}
 {{- end -}}
+
+{{/*
+Map match labels to extension registration JSON format.
+*/}}
+{{- define "matchLabelsJson" -}}
+{{- $result := list -}}
+{{- range $key, $value := . -}}
+  {{- $item := dict "key" $key "value" (toString $value) -}}
+  {{- $result = append $result $item -}}
+{{- end -}}
+{{- $result | toJson -}}
+{{- end -}}

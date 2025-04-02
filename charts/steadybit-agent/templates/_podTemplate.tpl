@@ -54,6 +54,8 @@
           env:
             - name: STEADYBIT_LOG_LEVEL
               value: {{ .Values.logging.level | quote }}
+            - name: STEADYBIT_LOG_FORMAT
+              value: {{ .Values.logging.format | quote }}
             {{ if .Values.agent.key -}}
             - name: STEADYBIT_EXTENSION_AGENT_KEY
               valueFrom:
@@ -61,6 +63,20 @@
                   name: {{ template "steadybit-agent.fullname" . }}
                   key: key
             {{ end -}}
+            - name: STEADYBIT_EXTENSION_AGENT_PORT
+              value: {{ .Values.agent.port | quote }}
+            {{ if .Values.agent.extensions.autoregistration.namespace -}}
+            - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+              value: {{ .Values.agent.extensions.autoregistration.namespace | quote }}
+            {{ end -}}
+            {{- if .Values.agent.extensions.autoregistration.matchLabels }}
+            - name: STEADYBIT_EXTENSION_MATCH_LABELS
+              value: {{ include "matchLabelsJson" .Values.agent.extensions.autoregistration.matchLabels | quote }}
+            {{- end }}
+            {{- if .Values.agent.extensions.autoregistration.matchLabelsExclude }}
+            - name: STEADYBIT_EXTENSION_MATCH_LABELS_EXCLUDE
+              value: {{ include "matchLabelsJson" .Values.agent.extensions.autoregistration.matchLabelsExclude | quote }}
+            {{- end }}
         {{- end }}
         - name: steadybit-agent
           image: "{{ .Values.image.name }}:{{ default .Chart.AppVersion .Values.image.tag }}"
