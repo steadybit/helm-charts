@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-agent
 description: steadybit agent Helm chart for Kubernetes.
-version: 2.2.9
+version: 2.2.10
 appVersion: 2.0.57
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -130,6 +130,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-prometheus
     alias: extension-prometheus
     condition: extension-prometheus.enabled
+  - name: steadybit-extension-splunk
+    version: ^1.0.4
+    repository: https://steadybit.github.io/extension-splunk
+    alias: extension-splunk
+    condition: extension-splunk.enabled
   - name: steadybit-extension-stackstate
     version: ^1.0.5
     repository: https://steadybit.github.io/extension-stackstate

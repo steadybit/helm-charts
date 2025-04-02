@@ -46,6 +46,8 @@ repositories:
     url: https://steadybit.github.io/extension-postman
   - name: steadybit-extension-prometheus
     url: https://steadybit.github.io/extension-prometheus
+  - name: steadybit-extension-splunk
+    url: https://steadybit.github.io/extension-splunk
   - name: steadybit-extension-stackstate
     url: https://steadybit.github.io/extension-stackstate
   - name: postgresql

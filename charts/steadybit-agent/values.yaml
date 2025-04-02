@@ -436,6 +436,17 @@ extension-prometheus:
   # extension-prometheus.enabled -- Enable the Prometheus extension
   enabled: false
 
+# extension-splunk.* -- settings for the splunk extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-splunk for more information.
+extension-splunk:
+  # extension-splunk.enabled -- Enable the splunk extension
+  enabled: false
+  splunk:
+    accessToken: null
+    apiBaseUrl: null
+    ingestBaseUrl: null
+
 # extension-stackstate.* -- settings for the stackstate extension sub chart.
 #   Further configuration not listed here may be required.
 #   See https://github.com/steadybit/extension-stackstate for more information.
