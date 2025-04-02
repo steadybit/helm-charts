@@ -28,6 +28,40 @@
         {{- toYaml . | nindent 8 }}
         {{- end }}
       containers:
+        {{- if .Values.agent.extensions.autoregistration.beta.enabled }}
+        - name: "steadybit-agent-kubernetes-autoregistration"
+          image: "{{ .Values.agent.extensions.autoregistration.beta.image.name }}:{{ .Values.agent.extensions.autoregistration.beta.image.tag }}"
+          imagePullPolicy: {{ .Values.agent.extensions.autoregistration.beta.image.pullPolicy }}
+          resources:
+            requests:
+              memory: {{ .Values.agent.extensions.autoregistration.beta.resources.requests.memory }}
+              cpu: {{ .Values.agent.extensions.autoregistration.beta.resources.requests.cpu }}
+            {{- if or .Values.agent.extensions.autoregistration.beta.resources.limits.memory .Values.agent.extensions.autoregistration.beta.resources.limits.cpu }}
+            limits:
+              {{- if .Values.agent.extensions.autoregistration.beta.resources.limits.memory }}
+              memory: {{ .Values.agent.extensions.autoregistration.beta.resources.limits.memory }}
+              {{- end }}
+              {{- if .Values.agent.extensions.autoregistration.beta.resources.limits.cpu }}
+              cpu: {{ .Values.agent.extensions.autoregistration.beta.resources.limits.cpu }}
+              {{- end }}
+            {{- end }}
+          securityContext:
+            {{- with .Values.containerSecurityContext }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            runAsUser: 10000
+            runAsNonRoot: true
+          env:
+            - name: STEADYBIT_LOG_LEVEL
+              value: {{ .Values.logging.level | quote }}
+            {{ if .Values.agent.key -}}
+            - name: STEADYBIT_EXTENSION_AGENT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "steadybit-agent.fullname" . }}
+                  key: key
+            {{ end -}}
+        {{- end }}
         - name: steadybit-agent
           image: "{{ .Values.image.name }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -140,6 +174,10 @@
             {{ if or .Values.agent.extensions.autodiscovery.namespace .Values.agent.extensions.autoregistration.namespace -}}
             - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
               value: "{{ coalesce .Values.agent.extensions.autoregistration.namespace .Values.agent.extensions.autodiscovery.namespace}}"
+            {{ end -}}
+            {{ if .Values.agent.extensions.autoregistration.beta.enabled -}}
+            - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+              value: "true"
             {{ end -}}
             {{- with .Values.agent.env }}
             {{- toYaml . | nindent 12 }}

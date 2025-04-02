@@ -68,8 +68,6 @@ agent:
   env: []
   # agent.extraLabels -- Additional labels added to all agent kubernetes resources.
   extraLabels: {}
-  # agent.leaderElection -- On kubernetes <= 1.11 you we need to use configmaps for the leader election. Valid values: leases, configmaps
-  leaderElection: leases
   # agent.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the agent daemonset
   livenessProbe:
     enabled: true
@@ -166,6 +164,27 @@ agent:
       matchLabelsExclude: {}
       # agent.extensions.autoregistration.namespace -- optional - the namespace in which the extension-pods are discovered. If not specified, all namespaces are considered.
       namespace: null
+      beta:
+        # agent.extensions.autoregistration.beta.enabled -- optional - Use https://github.com/steadybit/extension-auto-registration-kubernetes instead of the integrated java based discovery
+        enabled: false
+        image:
+          # image.name -- The container image to use of the steadybit extension-auto-registration-kubernetes.
+          name: ghcr.io/steadybit/extension-auto-registration-kubernetes
+          # image.tag -- tag name of the extension-auto-registration-kubernetes image to use.
+          tag: main
+          # image.pullPolicy -- Specifies when to pull the image container.
+          pullPolicy: Always
+        resources:
+          requests:
+            # resources.requests.memory -- The minimal amount of memory needed
+            memory: "50Mi"
+            # resources.requests.cpu -- The minimal amount of cpu shares needed
+            cpu: "250m"
+          limits:
+            # resources.limits.memory -- The limit of memory to be used
+            memory: "100Mi"
+            # resources.limits.cpu -- The limit of cpu share to be used during its interval
+            cpu: "500m"
   aws:
     # agent.aws.accountId -- If running on AWS, the account id of the agent. If not set, the account id will be determined from the instance metadata or using sts:GetCallerIdentity.
     accountId: null
