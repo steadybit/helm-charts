@@ -4,7 +4,7 @@ dependencies:
   version: 2.2.5
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.12
+  version: 1.1.13
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
   version: 1.2.11
@@ -19,7 +19,7 @@ dependencies:
   version: 1.1.9
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.1.16
+  version: 1.1.17
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
   version: 1.1.21
@@ -74,5 +74,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.8
-digest: sha256:0e10602bd0c33402ad2dd1d37f40f792bcbf7b1d8db3f85cc7249fdd86a61ee9
-generated: "2025-04-03T06:09:36.559273799Z"
+digest: sha256:467cbd676ae162cf8bd1872722da3f11586efc9ee5e85a46964abda730859087
+generated: "2025-04-04T05:34:49.289152367Z"
