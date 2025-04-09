@@ -67,8 +67,6 @@ manifest should match snapshot:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -198,8 +196,6 @@ should add aws account id from values:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_AWS_ACCOUNT_ID
@@ -326,8 +322,6 @@ should add extra volumes and mount:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -461,8 +455,6 @@ should add match labels from deprecated property:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -610,8 +602,6 @@ should add match labels from new property:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -759,8 +749,6 @@ should add match labels from new property if both are specified:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -916,8 +904,6 @@ should add proxy configuration:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_PROXY_HOST
                   value: proxy.example.com
                 - name: STEADYBIT_AGENT_PROXY_PORT
@@ -1058,8 +1044,6 @@ should apply extra pod labels:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -1184,8 +1168,6 @@ should render redis settings:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -1322,8 +1304,6 @@ using extensions with mtls from containerpath:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -1469,8 +1449,6 @@ using extensions with mtls from secrets:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST
@@ -1623,8 +1601,6 @@ using image pull secrets with debug json log:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: abcdefg
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: SPRING_DATA_REDIS_HOST

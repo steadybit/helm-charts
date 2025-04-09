@@ -61,8 +61,6 @@ using oauth2 with mtls from containerPath and token uri:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_AUTH_PROVIDER
@@ -195,8 +193,6 @@ using oauth2 with mtls from secrets:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_AUTH_PROVIDER

@@ -143,8 +143,10 @@
             - name: STEADYBIT_AGENT_IDENTIFIER
               value: {{.Values.agent.identifier | quote | required "missing required .Values.agent.identifier for redis persistence" }}
             {{ end -}}
-            - name: STEADYBIT_HTTP_ENDPOINT_PORT
+            {{ if ne (int .Values.agent.port) 42899 }}
+            - name: SERVER_PORT
               value: {{ .Values.agent.port | quote }}
+            {{ end -}}
             {{- if .Values.agent.proxy.host }}
             - name: STEADYBIT_AGENT_PROXY_HOST
               value: {{ .Values.agent.proxy.host | quote }}

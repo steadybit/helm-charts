@@ -83,8 +83,6 @@ manifest should match snapshot:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
               image: steadybit/agent:0.0.0
@@ -222,8 +220,6 @@ should add aws account id from values:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_AWS_ACCOUNT_ID
@@ -357,8 +353,6 @@ should add extra volumes and mount:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
               image: steadybit/agent:0.0.0
@@ -501,8 +495,6 @@ should add match labels:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_KEY
@@ -658,8 +650,6 @@ should add proxy configuration:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_PROXY_HOST
                   value: proxy.example.com
                 - name: STEADYBIT_AGENT_PROXY_PORT
@@ -808,8 +798,6 @@ should apply extra pod labels:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
               image: steadybit/agent:0.0.0
@@ -947,8 +935,6 @@ should not render resource limits if set to null:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
               image: steadybit/agent:0.0.0
@@ -964,6 +950,145 @@ should not render resource limits if set to null:
                 timeoutSeconds: 5
               name: steadybit-agent
               resources:
+                requests:
+                  cpu: 500m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+should set agent port:
+  1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "41470"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: null
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: /NAMESPACE/%HOSTNAME%
+                - name: SERVER_PORT
+                  value: "41470"
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 41470
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1500m
+                  memory: 1500Mi
                 requests:
                   cpu: 500m
                   memory: 250Mi
@@ -1113,8 +1238,6 @@ should use beta kubernetes autoregistration:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
@@ -1290,8 +1413,6 @@ should use beta kubernetes autoregistration with extended configuration:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_KEY
@@ -1450,8 +1571,6 @@ using extensions with mtls from containerpath:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
@@ -1604,8 +1723,6 @@ using extensions with mtls from secrets:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
@@ -1765,8 +1882,6 @@ using image pull secrets with debug json log:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
-                - name: STEADYBIT_HTTP_ENDPOINT_PORT
-                  value: "42899"
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
               image: steadybit/agent:0.0.0

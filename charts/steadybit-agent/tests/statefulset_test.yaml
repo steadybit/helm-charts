@@ -199,3 +199,11 @@ tests:
               enabled: true
     asserts:
       - matchSnapshot: { }
+
+  - it: should set agent port
+    set:
+      agent:
+        key: abcdefg
+        port: 41470
+    asserts:
+      - matchSnapshot: { }
