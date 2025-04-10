@@ -46,7 +46,7 @@ dependencies:
   version: 1.2.13
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.17
+  version: 1.0.18
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
   version: 1.7.10
@@ -67,12 +67,12 @@ dependencies:
   version: 1.5.14
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
-  version: 1.0.4
+  version: 1.0.5
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.8
-digest: sha256:07f7a07a42b7657efdc647518b163645a54588b38ce46063e0e48bad342afe65
-generated: "2025-04-08T06:09:38.018688417Z"
+digest: sha256:658202eddf8a57df481f15b61058d2b9fcd9dc5936a2d78e5d97f9e26b1c7245
+generated: "2025-04-10T06:09:44.910780464Z"
