@@ -140,7 +140,7 @@ agent:
           password:
             value: null
             valueFrom: null
-      # agent.auth.oauth2.tls.serverCert -- optional server certificate(s) to be used for validation when fetching the token.
+      # agent.extensions.tls.serverCertificate -- optional server certificate(s) to be used for validation when fetching the token.
       #  If not specified will use the default certificate pool or those in agent.extraCertificates
       serverCertificate:
         path: null
