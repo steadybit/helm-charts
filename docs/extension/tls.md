@@ -18,7 +18,7 @@ You must ensure that Steadybit agents trust the configured certificate's authori
 
 To have agents authenticate when communicating with extensions, you can leverage Mutual TLS. To achieve this, you need to
 
- - Populate the `tls.client.certificates.fromSecrets` (`string[]`) Helm chart value with the names of secrets containing the [client certificates](#on-certificates).
- - Make sure that the Steadybit agent has access to [the certificates](#on-certificates) by setting the `agent.extensions.mutualTls.certificates.fromSecrets` (`string[]`) Helm chart value. This will mount the certificates as files in the agent's container.
+ - Populate the `tls.client.certificates.fromSecret` (`string[]`) Helm chart value with the names of secrets containing the [client certificates](#on-certificates).
+ - Make sure that the Steadybit agent has access to [the certificates](#on-certificates) by setting the `agent.extensions.tls.certificates.fromSecret` (`string[]`) Helm chart value. This will mount the certificates as files in the agent's container.
  - Ensure that the agent uses these certificates when communicating with the extensions. For auto-discovered extensions, this is done automatically.
 
