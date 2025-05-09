@@ -6,8 +6,8 @@ This repository hosts the source of the Steadybit Kubernetes helm charts.
 
 Currently supported:
 
-- [Steadybit Agent](charts/steadybit-agent/README.md)
-- [Steadybit Platform](charts/steadybit-platform/README.md)
+- [Steadybit Agent](https://github.com/steadybit/helm-charts/blob/main/charts/steadybit-agent/README.md)
+- [Steadybit Platform](https://github.com/steadybit/helm-charts/blob/main/charts/steadybit-platform/README.md)
 
 ## How to use the Steadybit Helm repository
 
