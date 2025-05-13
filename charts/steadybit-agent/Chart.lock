@@ -52,7 +52,7 @@ dependencies:
   version: 1.7.10
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.5.32
+  version: 1.5.33
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.43
@@ -74,5 +74,5 @@ dependencies:
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.8
-digest: sha256:4521ff785e0e4069624dce7be9a34a6b57b60e3508f254df97c854beca96d86c
-generated: "2025-05-08T06:10:14.396518282Z"
+digest: sha256:5da693993dedb60271ddc4f1aaa51668367a29d8e4657cb092695cbfcd3c01f6
+generated: "2025-05-13T06:10:21.285675627Z"
