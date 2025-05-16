@@ -116,6 +116,7 @@ manifest should match snapshot:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -255,6 +256,7 @@ should add aws account id from values:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -388,6 +390,7 @@ should add extra volumes and mount:
                 - mountPath: /extra
                   name: extramount
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -546,6 +549,7 @@ should add match labels:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -693,6 +697,7 @@ should add proxy configuration:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -831,6 +836,7 @@ should apply extra pod labels:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -965,6 +971,7 @@ should not render resource limits if set to null:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -1104,6 +1111,7 @@ should set agent port:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -1273,6 +1281,7 @@ should use beta kubernetes autoregistration:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -1466,6 +1475,7 @@ should use beta kubernetes autoregistration with extended configuration:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -1619,6 +1629,7 @@ using extensions with mtls from containerpath:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -1775,6 +1786,7 @@ using extensions with mtls from secrets:
                 - mountPath: /opt/steadybit/agent/etc/extra-certs
                   name: extra-certs
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -1917,6 +1929,7 @@ using image pull secrets with debug json log:
           imagePullSecrets:
             - name: test-pull-secret
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
