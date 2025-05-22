@@ -275,6 +275,19 @@ containerSecurityContext:
     drop:
       - ALL
 
+# extension-appdynamics.* -- settings for the appdynamics extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-appdynamics for more information.
+extension-appdynamics:
+  # extension-appdynamics.enabled -- Enable the AppDynamics extension
+  enabled: false
+  appdynamics:
+    accessToken: null
+    apiBaseUrl: null
+    eventApplicationID: null
+    actionSuppressionTimezone: null
+    existingSecret: null
+
 # extension-aws.* -- settings for the aws extension. See https://github.com/steadybit/extension-aws for more information.
 extension-aws:
   # extension-aws.enabled -- Enable the AWS extension
@@ -355,6 +368,16 @@ extension-gcp:
     credentialsKeyfilePath: null
     credentialsKeyfileJson: null
     projectID: null
+
+# extension-grafana.* -- settings for the grafana extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-grafana for more information.
+extension-grafana:
+  # extension-grafana.enabled -- Enable the Grafana extension
+  enabled: false
+  grafana:
+    serviceToken: null
+    apiBaseUrl: null
 
 # extension-http.* -- settings for the http extension sub chart.
 #   See https://github.com/steadybit/extension-http for more information.
@@ -474,15 +497,5 @@ extension-stackstate:
   # extension-stackstate.enabled -- Enable the Stackstate extension
   enabled: false
   stackstate:
-    serviceToken: null
-    apiBaseUrl: null
-
-# extension-grafana.* -- settings for the grafana extension sub chart.
-#   Further configuration not listed here may be required.
-#   See https://github.com/steadybit/extension-grafana for more information.
-extension-grafana:
-  # extension-grafana.enabled -- Enable the Grafana extension
-  enabled: false
-  grafana:
     serviceToken: null
     apiBaseUrl: null

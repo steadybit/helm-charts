@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-agent
 description: steadybit agent Helm chart for Kubernetes.
-version: 2.2.36
+version: 2.2.37
 appVersion: 2.0.59
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -20,6 +20,11 @@ annotations:
     - name: steadybit Kubernetes Helm charts
       url: https://github.com/steadybit/helm-charts
 dependencies:
+  - name: steadybit-extension-appdynamics
+    version: ^1.1.1
+    repository: https://steadybit.github.io/extension-appdynamics
+    alias: extension-appdynamics
+    condition: extension-appdynamics.enabled
   - name: steadybit-extension-aws
     version: ^2.0.7
     repository: https://steadybit.github.io/extension-aws
@@ -60,6 +65,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-gcp
     alias: extension-gcp
     condition: extension-gcp.enabled
+  - name: steadybit-extension-grafana
+    version: ^1.1.8
+    repository: https://steadybit.github.io/extension-grafana
+    alias: extension-grafana
+    condition: extension-grafana.enabled
   - name: steadybit-extension-host
     version: ^1.0.18
     repository: https://steadybit.github.io/extension-host
@@ -140,8 +150,3 @@ dependencies:
     repository: https://steadybit.github.io/extension-stackstate
     alias: extension-stackstate
     condition: extension-stackstate.enabled
-  - name: steadybit-extension-grafana
-    version: ^1.1.8
-    repository: https://steadybit.github.io/extension-grafana
-    alias: extension-grafana
-    condition: extension-grafana.enabled
