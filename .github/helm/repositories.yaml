@@ -1,5 +1,7 @@
 apiVersion: v1
 repositories:
+  - name: steadybit-extension-appdynamics
+    url: https://steadybit.github.io/extension-appdynamics
   - name: steadybit-extension-aws
     url: https://steadybit.github.io/extension-aws
   - name: steadybit-extension-azure
