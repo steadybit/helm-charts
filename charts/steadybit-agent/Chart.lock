@@ -34,7 +34,7 @@ dependencies:
   version: 1.1.41
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.22
+  version: 1.1.23
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
   version: 1.1.9
@@ -77,5 +77,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:f236607caef0f41d4cb47c09bbf4335d2053c60ad68c521c445c608bbb4bcbe3
-generated: "2025-06-06T06:10:33.507885287Z"
+digest: sha256:70dbc996337add8400fbe316e6feb90408fd86d09e98d5b86f14c73c41c6d1f9
+generated: "2025-06-07T06:09:08.94670745Z"
