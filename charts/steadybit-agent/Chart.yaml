@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-agent
 description: steadybit agent Helm chart for Kubernetes.
-version: 2.2.50
+version: 2.2.51
 appVersion: 2.1.1
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -90,6 +90,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-istio
     alias: extension-istio
     condition: extension-istio.enabled
+  - name: steadybit-extension-jenkins
+    version: ^0.0.1
+    repository: https://steadybit.github.io/extension-jenkins
+    alias: extension-jenkins
+    condition: extension-jenkins.enabled
   - name: steadybit-extension-jmeter
     version: ^1.0.3
     repository: https://steadybit.github.io/extension-jmeter

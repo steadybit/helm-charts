@@ -402,6 +402,16 @@ extension-istio:
   # extension-istio.enabled -- Enable the Istio extension
   enabled: false
 
+# extension-jenkins.* -- settings for the jenkins extension sub chart.
+#   See https://github.com/steadybit/extension-jenkins for more information.
+extension-jenkins:
+  # extension-jenkins.enabled -- Enable the Jenkins extension
+  enabled: false
+  jenkins:
+    apiToken: null
+    baseUrl: null
+    existingSecret: null
+
 # extension-jmeter.* -- settings for the jmeter extension sub chart.
 #   See https://github.com/steadybit/extension-jmeter for more information.
 extension-jmeter:

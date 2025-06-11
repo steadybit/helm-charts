@@ -28,6 +28,8 @@ repositories:
     url: https://steadybit.github.io/extension-instana
   - name: steadybit-extension-istio
     url: https://steadybit.github.io/extension-istio
+  - name: steadybit-extension-jenkins
+    url: https://steadybit.github.io/extension-jenkins
   - name: steadybit-extension-jmeter
     url: https://steadybit.github.io/extension-jmeter
   - name: steadybit-extension-jvm
