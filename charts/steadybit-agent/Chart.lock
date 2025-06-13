@@ -77,8 +77,11 @@ dependencies:
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.5
+- name: steadybit-extension-splunk-platform
+  repository: https://steadybit.github.io/extension-splunk-platform
+  version: 1.0.2
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:da2e76928f75e1c32bc1c0ec5602af385408481624b795c699e00aca539417c5
-generated: "2025-06-16T10:24:23.156085+02:00"
+digest: sha256:e18cfef8ccf333a2e2ba6d7aa6d28162514743ed8556fa225a61ce729e92f179
+generated: "2025-06-16T11:55:38.799562+02:00"
