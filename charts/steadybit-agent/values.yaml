@@ -500,6 +500,16 @@ extension-splunk:
     apiBaseUrl: null
     ingestBaseUrl: null
 
+# extension-splunk-platform.* -- settings for the splunk platform extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-splunk-platform for more information.
+extension-splunk-platform:
+  # extension-splunk-platform.enabled -- Enable the splunk platform extension
+  enabled: false
+  splunk:
+    accessToken: null
+    apiBaseUrl: null
+
 # extension-stackstate.* -- settings for the stackstate extension sub chart.
 #   Further configuration not listed here may be required.
 #   See https://github.com/steadybit/extension-stackstate for more information.
