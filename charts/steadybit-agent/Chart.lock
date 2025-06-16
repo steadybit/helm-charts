@@ -43,7 +43,7 @@ dependencies:
   version: 1.1.11
 - name: steadybit-extension-jenkins
   repository: https://steadybit.github.io/extension-jenkins
-  version: 0.0.1
+  version: 1.0.0
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
   version: 1.1.16
@@ -80,5 +80,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:edbc952620681eb4842c54edbcd4c909db0c7e8b717d18dd06f9124e2be43aa5
-generated: "2025-06-12T15:48:29.447771275Z"
+digest: sha256:da2e76928f75e1c32bc1c0ec5602af385408481624b795c699e00aca539417c5
+generated: "2025-06-16T10:24:23.156085+02:00"
