@@ -1,7 +1,7 @@
 dependencies:
 - name: steadybit-extension-appdynamics
   repository: https://steadybit.github.io/extension-appdynamics
-  version: 1.1.2
+  version: 1.2.0
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
   version: 2.2.7
@@ -83,5 +83,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:929f8bf683e57f06bc13aa155a29d9c309ce04f7bde0ab1755855b762dd5907e
-generated: "2025-06-24T16:28:55.551250111Z"
+digest: sha256:e6b86cf8806b73ff3e1f01a28bf6594375597381291988cb76b14f61c4eaeebf
+generated: "2025-06-26T11:56:39.885459991Z"
