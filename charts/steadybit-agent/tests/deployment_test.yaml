@@ -287,3 +287,12 @@ tests:
             db: 1
     asserts:
       - matchSnapshot: { }
+
+  - it: should use deployment with hostPath provider
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: hostPath
+    asserts:
+      - matchSnapshot: { }

@@ -89,9 +89,12 @@ agent:
     password: null
   # agent.persistence.* -- persistence configuration. Needed for cleanup if agent is unexpectedly terminated.
   persistence:
-    # agent.persistence.provider -- `filesystem` (default) or `redis`
+    # agent.persistence.provider -- `filesystem` (default) or `redis` or `hostPath`
     provider: filesystem
-
+    hostPath:
+      # agent.persistence.hostPath.sizeLimit -- the size limit of the hostPath volume
+      type: DirectoryOrCreate
+      path: /var/lib/steadybit-agent
     # agent.persistence.redis.* -- additional settings if `agent.state.provider` is set to `redis`
     redis:
       # agent.persistence.redis.host -- the host of the redis server

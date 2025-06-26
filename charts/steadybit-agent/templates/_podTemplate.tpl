@@ -205,7 +205,7 @@
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
-            {{- if eq .Values.agent.persistence.provider "filesystem"}}
+            {{- if or (eq .Values.agent.persistence.provider "filesystem") (eq .Values.agent.persistence.provider "hostPath")}}
             - name: steadybit-agent-state
               mountPath: /var/lib/steadybit-agent
             {{- end }}
@@ -239,6 +239,11 @@
         - name: tmp-dir
           emptyDir:
             medium: Memory
+        {{- if eq .Values.agent.persistence.provider "hostPath" }}
+        - name: steadybit-agent-state
+          hostPath:
+          {{- toYaml .Values.agent.persistence.hostPath | nindent 12 }}
+        {{- end }}
         {{-  include "oauth2Volumes" . | nindent 8 }}
         {{-  include "extensionVolumes" . | nindent 8 }}
       {{- with .Values.agent.extraVolumes  }}

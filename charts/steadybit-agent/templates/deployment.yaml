@@ -1,4 +1,4 @@
-{{- if eq .Values.agent.persistence.provider "redis" -}}
+{{- if or (eq .Values.agent.persistence.provider "redis") (eq .Values.agent.persistence.provider "hostPath")  -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

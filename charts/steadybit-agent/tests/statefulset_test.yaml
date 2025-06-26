@@ -207,3 +207,23 @@ tests:
         port: 41470
     asserts:
       - matchSnapshot: { }
+
+  - it: should not render for redis
+    set:
+      agent:
+        persistence:
+          provider: redis
+    asserts:
+      - template: statefulset.yaml
+        hasDocuments:
+          count: 0
+
+  - it: should not render for hostPath
+    set:
+      agent:
+        persistence:
+          provider: hostPath
+    asserts:
+      - template: statefulset.yaml
+        hasDocuments:
+          count: 0
