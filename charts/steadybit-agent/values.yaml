@@ -272,6 +272,8 @@ affinity: {}
 
 # containerSecurityContext -- the security context used for the pod
 containerSecurityContext:
+  runAsUser: 10000
+  runAsNonRoot: true
   readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
   capabilities:

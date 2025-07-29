@@ -49,8 +49,6 @@
             {{- with .Values.containerSecurityContext }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
-            runAsUser: 10000
-            runAsNonRoot: true
           env:
             - name: STEADYBIT_LOG_LEVEL
               value: {{ .Values.logging.level | quote }}
