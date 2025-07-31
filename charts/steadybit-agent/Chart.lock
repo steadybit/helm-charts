@@ -10,7 +10,7 @@ dependencies:
   version: 1.1.13
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.4.1
+  version: 1.4.2
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.11
@@ -70,7 +70,7 @@ dependencies:
   version: 1.1.8
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.16
+  version: 1.7.17
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.20
@@ -83,5 +83,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:114c064c811721d8721bc79893e588cbb28bd2c4d206b19af4b881e0464c68ff
-generated: "2025-07-26T06:10:10.103234357Z"
+digest: sha256:fb5ea8597ba107c5c85ba2c24be571a736e402c28ffb20ec91b753cda82b7590
+generated: "2025-07-31T06:11:39.223463502Z"
