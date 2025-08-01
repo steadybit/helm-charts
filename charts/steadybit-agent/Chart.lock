@@ -31,7 +31,7 @@ dependencies:
   version: 1.2.8
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.2.2
+  version: 1.2.3
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.24
@@ -55,7 +55,7 @@ dependencies:
   version: 1.2.13
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.25
+  version: 1.0.26
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
   version: 1.7.10
@@ -83,5 +83,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:fb5ea8597ba107c5c85ba2c24be571a736e402c28ffb20ec91b753cda82b7590
-generated: "2025-07-31T06:11:39.223463502Z"
+digest: sha256:5d543171c744d053b909769d7fc808fb56d2469c1dfecc6e7ffed0341c5ab440
+generated: "2025-08-01T06:12:46.384514448Z"
