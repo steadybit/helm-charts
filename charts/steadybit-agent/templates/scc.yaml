@@ -1,0 +1,12 @@
+{{- if or .Values.securityContextConstraint.create (and (.Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints") (eq .Values.securityContextConstraint.create nil)) -}}
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: {{ .Values.securityContextConstraint.name }}
+priority: null
+runAsUser:
+  type: MustRunAs
+  uid: 10000
+seLinuxContext:
+  type: MustRunAs
+{{- end -}}

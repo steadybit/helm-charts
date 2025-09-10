@@ -1,0 +1,80 @@
+forced rendering on kubernetes:
+  1: |
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+      name: system:openshift:scc:my-scc
+    rules:
+      - apiGroups:
+          - security.openshift.io
+        resourceNames:
+          - my-scc
+        resources:
+          - securitycontextconstraints
+        verbs:
+          - use
+  2: |
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: system:openshift:scc:my-scc
+      namespace: NAMESPACE
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: system:openshift:scc:my-scc
+    subjects:
+      - kind: ServiceAccount
+        name: steadybit-agent
+        namespace: NAMESPACE
+  3: |
+    apiVersion: security.openshift.io/v1
+    kind: SecurityContextConstraints
+    metadata:
+      name: my-scc
+    priority: null
+    runAsUser:
+      type: MustRunAs
+      uid: 10000
+    seLinuxContext:
+      type: MustRunAs
+rendering by default on openshift:
+  1: |
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+      name: system:openshift:scc:steadybit-agent
+    rules:
+      - apiGroups:
+          - security.openshift.io
+        resourceNames:
+          - steadybit-agent
+        resources:
+          - securitycontextconstraints
+        verbs:
+          - use
+  2: |
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: system:openshift:scc:steadybit-agent
+      namespace: NAMESPACE
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: system:openshift:scc:steadybit-agent
+    subjects:
+      - kind: ServiceAccount
+        name: steadybit-agent
+        namespace: NAMESPACE
+  3: |
+    apiVersion: security.openshift.io/v1
+    kind: SecurityContextConstraints
+    metadata:
+      name: steadybit-agent
+    priority: null
+    runAsUser:
+      type: MustRunAs
+      uid: 10000
+    seLinuxContext:
+      type: MustRunAs

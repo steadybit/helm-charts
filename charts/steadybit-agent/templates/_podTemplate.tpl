@@ -24,8 +24,10 @@
       priorityClassName: {{ .Values.priorityClassName.name }}
       {{- end }}
       securityContext:
-        {{- with .Values.podSecurityContext }}
-        {{- toYaml . | nindent 8 }}
+        {{- if .Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints"}}
+            {{- toYaml (omit .Values.podSecurityContext "fsGroup" "seccompProfile") | nindent 8 }}
+        {{- else -}}
+            {{- toYaml .Values.podSecurityContext | nindent 8 }}
         {{- end }}
       containers:
         {{- if .Values.agent.extensions.autoregistration.beta.enabled }}

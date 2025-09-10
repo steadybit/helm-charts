@@ -105,6 +105,8 @@ using oauth2 with mtls from containerPath and token uri:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-agent
                   name: steadybit-agent-state
@@ -245,6 +247,8 @@ using oauth2 with mtls from secrets:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-agent
                   name: steadybit-agent-state

@@ -1,0 +1,37 @@
+templates:
+  - scc.yaml
+  - scc-clusterrole.yaml
+  - scc-rolebinding.yaml
+chart:
+  appVersion: v0.0.0
+capabilities:
+  majorVersion: 1
+  minorVersion: 30
+tests:
+  - it: not rendering on kubernetes
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: forced rendering on kubernetes
+    set:
+      securityContextConstraint:
+        create: true
+        name: "my-scc"
+    asserts:
+      - matchSnapshot: {}
+  - it: rendering by default on openshift
+    capabilities:
+      apiVersions:
+        - "security.openshift.io/v1/SecurityContextConstraints"
+    asserts:
+      - matchSnapshot: {}
+  - it: suppressed on openshift
+    capabilities:
+      apiVersions:
+        - "security.openshift.io/v1/SecurityContextConstraints"
+    set:
+      securityContextConstraint:
+        create: false
+    asserts:
+      - hasDocuments:
+          count: 0

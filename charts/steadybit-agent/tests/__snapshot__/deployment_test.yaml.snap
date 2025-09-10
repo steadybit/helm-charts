@@ -98,6 +98,8 @@ manifest should match snapshot:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -230,6 +232,8 @@ should add aws account id from values:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -355,6 +359,8 @@ should add extra volumes and mount:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -507,6 +513,8 @@ should add match labels from deprecated property:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -655,6 +663,8 @@ should add match labels from new property:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -811,6 +821,8 @@ should add match labels from new property if both are specified:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -951,6 +963,8 @@ should add proxy configuration:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -1082,6 +1096,8 @@ should apply extra pod labels:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -1215,6 +1231,8 @@ should render redis settings:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -1333,6 +1351,8 @@ should use deployment with hostPath provider:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /var/lib/steadybit-agent
                   name: steadybit-agent-state
@@ -1483,6 +1503,8 @@ using extensions with mtls from containerpath:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -1625,6 +1647,8 @@ using extensions with mtls from secrets:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir
@@ -1767,6 +1791,8 @@ using image pull secrets with debug json log:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp-dir

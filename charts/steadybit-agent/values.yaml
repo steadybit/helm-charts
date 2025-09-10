@@ -256,10 +256,17 @@ podLabels: {}
 
 # podSecurityContext -- the security context used for the pod
 podSecurityContext:
+  # podSecurityContext.seccompProfile -- the seccomp profile used for the pod. Will be omitted on OpenShift.
   seccompProfile:
     type: RuntimeDefault
   runAsNonRoot: true
+  # podSecurityContext.fsGroup -- Group ID for the filesystem. Will be omitted on OpenShift.
   fsGroup: 1000
+
+securityContextConstraint:
+  # securityContextConstraint.create -- Specifies whether a SecurityContextConstraint should be created. Defaults to true if the on OpenShift.
+  create: null
+  name: steadybit-agent
 
 # nodeSelector -- Node labels for pod assignment
 nodeSelector: {}

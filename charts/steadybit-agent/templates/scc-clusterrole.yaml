@@ -1,0 +1,15 @@
+{{- if or .Values.securityContextConstraint.create (and (.Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints") (eq .Values.securityContextConstraint.create nil)) -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "system:openshift:scc:{{ .Values.securityContextConstraint.name }}"
+rules:
+  - apiGroups:
+      - security.openshift.io
+    resourceNames:
+      - {{ .Values.securityContextConstraint.name }}
+    resources:
+      - securitycontextconstraints
+    verbs:
+      - use
+{{- end -}}
