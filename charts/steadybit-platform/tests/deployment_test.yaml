@@ -100,14 +100,14 @@ tests:
         tag: 2.2.0
     asserts:
       - failedTemplate:
-          errorMessage: .Values.platform.license missing. A license is required to run steadybit platform >= 2.2.0
+          errorMessage: .Values.platform.tenant.license missing. A license is required to run steadybit platform >= 2.2.0
   - it: should fail with missing license for version latest
     set:
       image:
         tag: latest
     asserts:
       - failedTemplate:
-          errorMessage: .Values.platform.license missing. A license is required to run steadybit platform >= 2.2.0
+          errorMessage: .Values.platform.tenant.license missing. A license is required to run steadybit platform >= 2.2.0
   - it: should not fail with missing license for version >= 2.2.0
     set:
       image:
