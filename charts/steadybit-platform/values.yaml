@@ -31,7 +31,7 @@ platform:
   # platform.ingressOrigin -- Should be set to the ingress origin, e.g., https://ingress.steadybit.example.com. Will be used to construct URLs in HTTP responses to agents. This configuration will overwrite the port defined in platform.publicWebsocketPort
   ingressOrigin: null
   # -- Use this to set additional environment variables See https://docs.steadybit.com/install-and-configure/install-on-prem-platform/advanced-configuration
-  envFrom: []
+  envFrom: [ ]
   env:
     - name: STEADYBIT_AUTH_PROVIDER
       value: "static"
@@ -40,11 +40,11 @@ platform:
     - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
       value: "{noop}admin"
   # platform.extraLabels -- Additional labels
-  extraLabels: {}
+  extraLabels: { }
   # platform.extraVolumes -- Additional volumes to which the platform container will be mounted.
-  extraVolumes: []
+  extraVolumes: [ ]
   # platform.extraVolumeMounts -- Additional volumeMounts to which the platform container will be mounted.
-  extraVolumeMounts: []
+  extraVolumeMounts: [ ]
   logging:
     format: text
   service:
@@ -67,7 +67,7 @@ platform:
       useInitContainer: false
   uiImages:
     # platform.uiImages.cspDomains -- Additional domains to add to the Content-Security-Policy header for loading images
-    cspDomains: []
+    cspDomains: [ ]
     navigation:
       # platform.uiImages.navigation.url -- URL to a custom navigation image; takes preference over data
       url: null
@@ -151,8 +151,8 @@ image:
   tag: null
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
-  registry: {}
-  pullSecrets: []
+  registry: { }
+  pullSecrets: [ ]
 
 serviceAccount:
   # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
@@ -161,36 +161,47 @@ serviceAccount:
   # If not set and `create` is true, a name is generated using the fullname template.
   name: null
   # serviceAccount.annotations.* -- Annotations for the service account
-  annotations: {}
+  annotations: { }
 
 # podAnnotations -- Additional annotations to be added to the platform pod.
-podAnnotations: {}
+podAnnotations: { }
 
 # -- Ingress configuration properties
 ingress:
-  enabled: true
-  annotations: {}
-  hosts: []
+  # ingress.enabled -- Set to true to create an ingress. Defaults to false on openshift, true otherwise.
+  enabled: null
+  annotations: { }
+  hosts: [ ]
   # - platform.steadybit.local
 
+# -- Route configuration properties for openshift
+route:
+  # route.enabled -- Set to true to create a route (OpenShift). Defaults to true on openshift, false otherwise.
+  enabled: null
+  annotations: { }
+  host: null
+  subdomain: null
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
 
 # -- Service configuration properties
 service:
   type: null
-  annotations: {}
+  annotations: { }
 
 # nodeSelector -- Node labels for pod assignment
-nodeSelector: {}
+nodeSelector: { }
 
 # tolerations -- Tolerations to influence platform pod assignment.
-tolerations: []
+tolerations: [ ]
 
 # topologySpreadConstraints -- Spread constraints to influence platform pod assignment.
 # https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
-topologySpreadConstraints: []
+topologySpreadConstraints: [ ]
 
 # affinity -- Affinities to influence platform pod assignment.
-affinity: {}
+affinity: { }
 
 
 resources:

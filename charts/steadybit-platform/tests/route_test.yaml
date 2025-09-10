@@ -1,0 +1,38 @@
+templates:
+  - route.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: should disable route
+    set:
+      route:
+        enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should enable route
+    set:
+      route:
+        enabled: true
+        subdomain: example
+    asserts:
+      - matchSnapshot: { }
+  - it: should disable route in plain kubernetes
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should enable route in openshift
+    set:
+      route:
+        host: example.steadybit.com
+        annotations:
+          this: that
+        tls:
+          termination: edge
+          insecureEdgeTerminationPolicy: Redirect
+    capabilities:
+      apiVersions:
+        - route.openshift.io/v1
+    asserts:
+      - matchSnapshot: { }

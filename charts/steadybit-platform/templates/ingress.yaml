@@ -1,4 +1,4 @@
-{{- if .Values.ingress.enabled -}}
+{{- if (or (.Values.ingress.enabled) (and (eq .Values.ingress.enabled nil) (not (.Capabilities.APIVersions.Has "route.openshift.io/v1")) ) ) -}}
   {{- $fullName := include "steadybit-platform.fullname" . -}}
   {{- $uiPort := .Values.platform.uiPort -}}
   {{- $websocketPort := .Values.platform.websocketPort -}}

@@ -1,0 +1,33 @@
+templates:
+  - ingress.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: should disable ingress
+    set:
+      ingress:
+        enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should enable ingress
+    set:
+      ingress:
+        enabled: true
+        annotations:
+          this: that
+        hosts:
+          - example.steadybit.com
+    asserts:
+      - matchSnapshot: { }
+  - it: should enable ingress in plain kubernetes
+    asserts:
+      - matchSnapshot: { }
+  - it: should disable ingress in openshift
+    capabilities:
+      apiVersions:
+        - route.openshift.io/v1
+    asserts:
+      - hasDocuments:
+          count: 0

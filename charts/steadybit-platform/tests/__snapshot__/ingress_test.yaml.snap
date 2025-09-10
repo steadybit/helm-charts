@@ -1,0 +1,65 @@
+should enable ingress:
+  1: |
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      annotations:
+        this: that
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      rules:
+        - host: example.steadybit.com
+          http:
+            paths:
+              - backend:
+                  service:
+                    name: RELEASE-NAME-steadybit-platform
+                    port:
+                      number: 7878
+                path: /ws
+                pathType: Prefix
+              - backend:
+                  service:
+                    name: RELEASE-NAME-steadybit-platform
+                    port:
+                      number: 80
+                path: /
+                pathType: Prefix
+should enable ingress in plain kubernetes:
+  1: |
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      rules:
+        - http:
+            paths:
+              - backend:
+                  service:
+                    name: RELEASE-NAME-steadybit-platform
+                    port:
+                      number: 7878
+                path: /ws
+                pathType: Prefix
+              - backend:
+                  service:
+                    name: RELEASE-NAME-steadybit-platform
+                    port:
+                      number: 80
+                path: /
+                pathType: Prefix

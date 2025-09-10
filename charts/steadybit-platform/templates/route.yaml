@@ -1,0 +1,47 @@
+{{- if (or (.Values.route.enabled) (and (eq .Values.route.enabled nil) (.Capabilities.APIVersions.Has "route.openshift.io/v1") ) ) -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "steadybit-platform.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  {{- with .Values.route.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  host: {{ .Values.route.host }}
+  subdomain: {{ .Values.route.subdomain }}
+  path: /
+  port:
+    targetPort: ui-port
+  to:
+    kind: Service
+    name: {{ include "steadybit-platform.fullname" . }}
+  {{- with .Values.route.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "steadybit-platform.fullname" . }}-ws
+  namespace: {{ .Release.Namespace }}
+  {{- with .Values.route.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  host: {{ .Values.route.host }}
+  subdomain: {{ .Values.route.subdomain }}
+  path: /ws
+  port:
+    targetPort: websocket-port
+  to:
+    kind: Service
+    name: {{ include "steadybit-platform.fullname" . }}
+  {{- with .Values.route.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

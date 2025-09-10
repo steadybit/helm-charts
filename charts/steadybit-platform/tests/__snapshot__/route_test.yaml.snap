@@ -1,0 +1,78 @@
+should enable route:
+  1: |
+    apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      host: null
+      path: /
+      port:
+        targetPort: ui-port
+      subdomain: example
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+      to:
+        kind: Service
+        name: RELEASE-NAME-steadybit-platform
+  2: |
+    apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: RELEASE-NAME-steadybit-platform-ws
+      namespace: NAMESPACE
+    spec:
+      host: null
+      path: /ws
+      port:
+        targetPort: websocket-port
+      subdomain: example
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+      to:
+        kind: Service
+        name: RELEASE-NAME-steadybit-platform
+should enable route in openshift:
+  1: |
+    apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      annotations:
+        this: that
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      host: example.steadybit.com
+      path: /
+      port:
+        targetPort: ui-port
+      subdomain: null
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+      to:
+        kind: Service
+        name: RELEASE-NAME-steadybit-platform
+  2: |
+    apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      annotations:
+        this: that
+      name: RELEASE-NAME-steadybit-platform-ws
+      namespace: NAMESPACE
+    spec:
+      host: example.steadybit.com
+      path: /ws
+      port:
+        targetPort: websocket-port
+      subdomain: null
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+      to:
+        kind: Service
+        name: RELEASE-NAME-steadybit-platform
