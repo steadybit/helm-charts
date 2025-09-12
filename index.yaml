@@ -197,6 +197,172 @@ entries:
           url: https://github.com/steadybit/helm-charts
     apiVersion: v2
     appVersion: 2.1.6
+    created: "2025-09-12T06:11:11.894362693Z"
+    dependencies:
+    - alias: extension-appdynamics
+      condition: extension-appdynamics.enabled
+      name: steadybit-extension-appdynamics
+      repository: https://steadybit.github.io/extension-appdynamics
+      version: ^1.1.1
+    - alias: extension-aws
+      condition: extension-aws.enabled
+      name: steadybit-extension-aws
+      repository: https://steadybit.github.io/extension-aws
+      version: ^2.0.7
+    - alias: extension-azure
+      condition: extension-azure.enabled
+      name: steadybit-extension-azure
+      repository: https://steadybit.github.io/extension-azure
+      version: ^1.0.5
+    - alias: extension-container
+      condition: extension-container.enabled
+      name: steadybit-extension-container
+      repository: https://steadybit.github.io/extension-container
+      version: ^1.0.13
+    - alias: extension-datadog
+      condition: extension-datadog.enabled
+      name: steadybit-extension-datadog
+      repository: https://steadybit.github.io/extension-datadog
+      version: ^1.4.11
+    - alias: extension-debug
+      condition: extension-debug.enabled
+      name: steadybit-extension-debug
+      repository: https://steadybit.github.io/extension-debug
+      version: ^1.0.2
+    - alias: extension-dynatrace
+      condition: extension-dynatrace.enabled
+      name: steadybit-extension-dynatrace
+      repository: https://steadybit.github.io/extension-dynatrace
+      version: ^1.0.0
+    - alias: extension-gatling
+      condition: extension-gatling.enabled
+      name: steadybit-extension-gatling
+      repository: https://steadybit.github.io/extension-gatling
+      version: ^1.0.3
+    - alias: extension-gcp
+      condition: extension-gcp.enabled
+      name: steadybit-extension-gcp
+      repository: https://steadybit.github.io/extension-gcp
+      version: ^1.0.2
+    - alias: extension-grafana
+      condition: extension-grafana.enabled
+      name: steadybit-extension-grafana
+      repository: https://steadybit.github.io/extension-grafana
+      version: ^1.1.8
+    - alias: extension-host
+      condition: extension-host.enabled
+      name: steadybit-extension-host
+      repository: https://steadybit.github.io/extension-host
+      version: ^1.0.18
+    - alias: extension-http
+      condition: extension-http.enabled
+      name: steadybit-extension-http
+      repository: https://steadybit.github.io/extension-http
+      version: ^1.0.8
+    - alias: extension-instana
+      condition: extension-instana.enabled
+      name: steadybit-extension-instana
+      repository: https://steadybit.github.io/extension-instana
+      version: ^1.0.0
+    - alias: extension-istio
+      condition: extension-istio.enabled
+      name: steadybit-extension-istio
+      repository: https://steadybit.github.io/extension-istio
+      version: ^1.0.11
+    - alias: extension-jenkins
+      condition: extension-jenkins.enabled
+      name: steadybit-extension-jenkins
+      repository: https://steadybit.github.io/extension-jenkins
+      version: ^1.0.0
+    - alias: extension-jmeter
+      condition: extension-jmeter.enabled
+      name: steadybit-extension-jmeter
+      repository: https://steadybit.github.io/extension-jmeter
+      version: ^1.0.3
+    - alias: extension-jvm
+      condition: extension-jvm.enabled
+      name: steadybit-extension-jvm
+      repository: https://steadybit.github.io/extension-jvm
+      version: ^1.0.25
+    - alias: extension-k6
+      condition: extension-k6.enabled
+      name: steadybit-extension-k6
+      repository: https://steadybit.github.io/extension-k6
+      version: ^1.1.8
+    - alias: extension-kafka
+      condition: extension-kafka.enabled
+      name: steadybit-extension-kafka
+      repository: https://steadybit.github.io/extension-kafka
+      version: ^1.0.13
+    - alias: extension-kong
+      condition: extension-kong.enabled
+      name: steadybit-extension-kong
+      repository: https://steadybit.github.io/extension-kong
+      version: ^1.6.10
+    - alias: extension-kubernetes
+      condition: extension-kubernetes.enabled
+      name: steadybit-extension-kubernetes
+      repository: https://steadybit.github.io/extension-kubernetes
+      version: ^1.4.47
+    - alias: extension-loadtest
+      condition: extension-loadtest.enabled
+      name: steadybit-extension-loadtest
+      repository: https://steadybit.github.io/extension-loadtest
+      version: ^1.0.17
+    - alias: extension-newrelic
+      condition: extension-newrelic.enabled
+      name: steadybit-extension-newrelic
+      repository: https://steadybit.github.io/extension-newrelic
+      version: ^1.0.0
+    - alias: extension-postman
+      condition: extension-postman.enabled
+      name: steadybit-extension-postman
+      repository: https://steadybit.github.io/extension-postman
+      version: ^1.6.29
+    - alias: extension-prometheus
+      condition: extension-prometheus.enabled
+      name: steadybit-extension-prometheus
+      repository: https://steadybit.github.io/extension-prometheus
+      version: ^1.4.9
+    - alias: extension-splunk
+      condition: extension-splunk.enabled
+      name: steadybit-extension-splunk
+      repository: https://steadybit.github.io/extension-splunk
+      version: ^1.0.4
+    - alias: extension-splunk-platform
+      condition: extension-splunk-platform.enabled
+      name: steadybit-extension-splunk-platform
+      repository: https://steadybit.github.io/extension-splunk-platform
+      version: ^1.0.0
+    - alias: extension-stackstate
+      condition: extension-stackstate.enabled
+      name: steadybit-extension-stackstate
+      repository: https://steadybit.github.io/extension-stackstate
+      version: ^1.0.5
+    description: steadybit agent Helm chart for Kubernetes.
+    digest: eed01a1e88f85d6a6b10a4690c93ac3b07ce69008389f9c1656b004d5e4be62e
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: johannes.edmeier@steadybit.com
+      name: joshiste
+    name: steadybit-agent
+    sources:
+    - https://github.com/steadybit/helm-charts
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/steadybit-agent-2.2.101/steadybit-agent-2.2.101.tgz
+    version: 2.2.101
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: steadybit website
+          url: https://www.steadybit.com
+        - name: steadybit Kubernetes Helm charts
+          url: https://github.com/steadybit/helm-charts
+    apiVersion: v2
+    appVersion: 2.1.6
     created: "2025-09-10T11:09:47.230809068Z"
     dependencies:
     - alias: extension-appdynamics
@@ -47110,4 +47276,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-10T11:09:47.231631356Z"
+generated: "2025-09-12T06:11:11.895236901Z"
