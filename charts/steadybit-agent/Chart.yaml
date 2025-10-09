@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-agent
 description: steadybit agent Helm chart for Kubernetes.
-version: 2.2.108
+version: 2.2.109
 appVersion: 2.2.0
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
