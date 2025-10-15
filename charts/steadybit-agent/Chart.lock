@@ -19,7 +19,7 @@ dependencies:
   version: 1.0.17
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
-  version: 1.1.10
+  version: 1.1.11
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
   version: 1.1.34
@@ -83,5 +83,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:e0e496e0de90ad1e585dacec82dd142b8bed7e94e8050278308aaa9d18f599eb
-generated: "2025-10-11T06:09:38.303343052Z"
+digest: sha256:917312adce784259949293c6fbbcb7cab1a4049e6aa2ab484582cf8de115ae67
+generated: "2025-10-15T06:35:55.156173029Z"
