@@ -501,6 +501,17 @@ extension-prometheus:
   # extension-prometheus.enabled -- Enable the Prometheus extension
   enabled: false
 
+# extension-rabbitmq.* -- settings for the rabbitmq extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-rabbitmq for more information.
+extension-rabbitmq:
+  # extension-rabbitmq.enabled -- Enable the rabbitmq extension
+  enabled: false
+  rabbitmq:
+    auth:
+      existingSecret: null
+      managementEndpoints: []
+
 # extension-splunk.* -- settings for the splunk extension sub chart.
 #   Further configuration not listed here may be required.
 #   See https://github.com/steadybit/extension-splunk for more information.

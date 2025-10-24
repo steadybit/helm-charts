@@ -74,6 +74,9 @@ dependencies:
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.22
+- name: steadybit-extension-rabbitmq
+  repository: https://steadybit.github.io/extension-rabbitmq
+  version: 1.0.1
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.5
@@ -83,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:1ca158ce81012499559f4d815e6b63c2068c57d70f9fac75187bafbc7f4cdc56
-generated: "2025-10-22T06:11:12.980337042Z"
+digest: sha256:e762b49e51e5cda1ce5f8c25276b2c0edf12e342aeb8be57d9c044cb81ae0b5e
+generated: "2025-10-24T15:49:22.891236+02:00"

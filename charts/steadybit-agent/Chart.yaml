@@ -145,6 +145,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-prometheus
     alias: extension-prometheus
     condition: extension-prometheus.enabled
+  - name: steadybit-extension-rabbitmq
+    version: ^1.0.1
+    repository: https://steadybit.github.io/extension-rabbitmq
+    alias: extension-rabbitmq
+    condition: extension-rabbitmq.enabled
   - name: steadybit-extension-splunk
     version: ^1.0.4
     repository: https://steadybit.github.io/extension-splunk
