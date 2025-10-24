@@ -13,7 +13,7 @@ dependencies:
   version: 1.4.4
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.11
+  version: 1.5.12
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
   version: 1.0.17
@@ -76,7 +76,7 @@ dependencies:
   version: 1.5.22
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
-  version: 1.0.1
+  version: 1.0.2
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.5
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.12
-digest: sha256:e762b49e51e5cda1ce5f8c25276b2c0edf12e342aeb8be57d9c044cb81ae0b5e
-generated: "2025-10-24T15:49:22.891236+02:00"
+digest: sha256:9e4ff6ade61a89a5a9ef1cabccd8877561d050460fbbf686c93ab24a7769fc75
+generated: "2025-10-24T14:07:12.624091722Z"
