@@ -328,8 +328,8 @@ extension-container:
   # extension-container.enabled -- Enable the container extension
   enabled: true
   container:
-    # extension-container.runtime -- The container runtime to use. Valid values: containerd, docker, cri-o. See extension-container README for more information.
-    runtime: containerd
+    # extension-container.container.engine -- The container engine to use. Valid values: containerd, docker, cri-o. See extension-container README for more information.
+    engine: containerd
 
 # extension-datadog.* -- settings for the datadog extension. See https://github.com/steadybit/extension-datadog for more information.
 extension-datadog:
