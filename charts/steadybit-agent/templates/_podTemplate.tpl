@@ -131,6 +131,13 @@
                   fieldPath: status.podIP
             - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
               value: {{ .Values.global.clusterName | quote }}
+            {{ if .Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints" -}}
+            - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+              value: "openshift"
+            {{ else -}}
+            - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+              value: "kubernetes"
+            {{ end -}}
             - name: STEADYBIT_AGENT_POD_NAME
               valueFrom:
                 fieldRef:
@@ -167,6 +174,10 @@
             - name: STEADYBIT_AGENT_PROXY_PASSWORD
               value: {{ .Values.agent.proxy.password | quote }}
             {{- end }}
+            - name: STEADYBIT_AGENT_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
             - name: STEADYBIT_AGENT_WORKING_DIR
               value: /tmp/steadybit-agent
             {{ if .Values.agent.aws.accountId -}}

@@ -80,6 +80,8 @@ using oauth2 with mtls from containerPath and token uri:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: test
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -90,6 +92,10 @@ using oauth2 with mtls from containerPath and token uri:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_AUTH_PROVIDER
@@ -246,6 +252,8 @@ using oauth2 with mtls from secrets:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: test
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -256,6 +264,10 @@ using oauth2 with mtls from secrets:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_AUTH_PROVIDER
