@@ -43,6 +43,35 @@ using oauth2 with mtls from containerPath and token uri:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: POD_IP
@@ -80,6 +109,8 @@ using oauth2 with mtls from containerPath and token uri:
                       name: RELEASE-NAME-steadybit-agent
                 - name: STEADYBIT_AGENT_AUTH_OAUTH2_SERVER_CERT
                   value: /etc/ssl/certs/server.crt
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -178,6 +209,35 @@ using oauth2 with mtls from secrets:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: POD_IP
@@ -222,6 +282,8 @@ using oauth2 with mtls from secrets:
                       name: some-secret
                 - name: STEADYBIT_AGENT_AUTH_OAUTH2_SERVER_CERT
                   value: /opt/steadybit/agent/etc/oauth2/server/tls.crt
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:

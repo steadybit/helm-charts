@@ -52,21 +52,9 @@ You can get the logs for all of the agents with `kubectl logs`:
 
 {{- end }}
 
-{{- if .Values.agent.extensions.autodiscovery.matchLabels }}
+{{- if .Values.agent.extensions.autoregistration.useInternalAutoregistration }}
 
-#### WARNING: agent.extensions.autodiscovery.matchLabels is deprecated please use agent.extensions.autoregistration.matchLabels instead. ####
-
-{{- end }}
-
-{{- if .Values.agent.extensions.autodiscovery.matchLabelsExclude }}
-
-#### WARNING: agent.extensions.autodiscovery.matchLabelsExclude is deprecated please use agent.extensions.autoregistration.matchLabelsExclude instead. ####
-
-{{- end }}
-
-{{- if .Values.agent.extensions.autodiscovery.namespace }}
-
-#### WARNING: agent.extensions.autodiscovery.namespace is deprecated please use agent.extensions.autoregistration.namespace instead. ####
+#### WARNING: agent.extensions.autoregistration.useInternalAutoregistration is set to true. The internal autoregistration is deprecated and will be removed in future releases. ####
 
 {{- end }}
 

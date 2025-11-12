@@ -35,7 +35,7 @@ tests:
           provider: agent-key
     asserts:
       - matchSnapshot: {}
-  - it: should warn about deprecated values
+  - it: should warn about internal extension autoregistration
     set:
       global:
         clusterName: test
@@ -44,12 +44,8 @@ tests:
         auth:
           provider: agent-key
         extensions:
-          autodiscovery:
-            matchLabels:
-              app: test
-            matchLabelsExclude:
-              app: testexclude
-            namespace: nice-one
+          autoregistration:
+            useInternalAutoregistration: true
     asserts:
       - matchSnapshot: {}
   - it: should inform about missing limits

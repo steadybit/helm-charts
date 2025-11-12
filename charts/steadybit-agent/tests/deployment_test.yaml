@@ -4,6 +4,12 @@ templates:
 chart:
   appVersion: 0.0.0
   version: 0.0.0
+set:
+  agent:
+    extensions:
+      autoregistration:
+        image:
+          tag: v0.0.0
 tests:
   - it: manifest should match snapshot
     set:
@@ -126,28 +132,7 @@ tests:
     asserts:
       - matchSnapshot: { }
 
-  - it: should add match labels from deprecated property
-    set:
-      agent:
-        identifier: abcdefg
-        persistence:
-          provider: redis
-          redis:
-            host: 127.0.0.1
-        key: abcdefg
-        extensions:
-          autodiscovery:
-            matchLabels:
-              some-label: some-value
-              another-label: another-value
-            matchLabelsExclude:
-              exclude-me: true
-              exclude-me-too: true
-            namespace: test
-    asserts:
-      - matchSnapshot: { }
-
-  - it: should add match labels from new property
+  - it: should add match labels
     set:
       agent:
         identifier: abcdefg
@@ -165,37 +150,6 @@ tests:
               exclude-me: true
               exclude-me-too: true
             namespace: test
-    asserts:
-      - matchSnapshot: { }
-
-  - it: should add match labels from new property if both are specified
-    set:
-      agent:
-        identifier: abcdefg
-        persistence:
-          provider: redis
-          redis:
-            host: 127.0.0.1
-        key: abcdefg
-        extensions:
-          autodiscovery:
-            matchLabels:
-              some-label: should-not-be-used
-              another-label: should-not-be-used
-            matchLabelsExclude:
-              exclude-me: should-not-be-used
-              exclude-me-too: should-not-be-used
-            namespace: should-not-be-used
-          autoregistration:
-            matchLabels:
-              some-label: some-value
-              another-label: another-value
-              one-more: this-is-new
-            matchLabelsExclude:
-              exclude-me: true
-              exclude-me-too: true
-              one-more: this-is-new
-            namespace: new-namespace
     asserts:
       - matchSnapshot: { }
 
@@ -294,5 +248,22 @@ tests:
         identifier: abcdefg
         persistence:
           provider: hostPath
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should use old internal extension autoregistration
+    set:
+      global:
+        clusterName: test
+      agent:
+        identifier: abcdefg
+        key: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        extensions:
+          autoregistration:
+            useInternalAutoregistration: true
     asserts:
       - matchSnapshot: { }
