@@ -228,7 +228,11 @@ postgresql:
   auth:
     username: steadybit
     database: steadybit
+  global:
+    security:
+      allowInsecureImages: true
   image:
+    repository: bitnamilegacy/postgresql
     tag: 15
   service:
     ports:
