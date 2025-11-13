@@ -166,7 +166,7 @@ agent:
         # agent.extensions.autoregistration.image.name -- The container image to use of the steadybit extension-auto-registration-kubernetes.
         name: ghcr.io/steadybit/extension-auto-registration-kubernetes
         # agent.extensions.autoregistration.image.tag -- tag name of the extension-auto-registration-kubernetes image to use.
-        tag: v0.0.1
+        tag: v0.0.2
         # agent.extensions.autoregistration.image.pullPolicy -- Specifies when to pull the image container.
         pullPolicy: Always
       resources:
