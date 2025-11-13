@@ -31,7 +31,7 @@ should warn about internal extension autoregistration:
 
           kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
 
-      #### WARNING: agent.extensions.autoregistration.useInternalAutoregistration is set to true. The internal autoregistration is deprecated and will be removed in future releases. ####
+      #### WARNING: agent.extensions.autoregistration.useLegacyAutoregistration is set to true. The internal autoregistration is deprecated and will be removed in future releases. ####
 should warn about missing agent key:
   1: |
     raw: |-

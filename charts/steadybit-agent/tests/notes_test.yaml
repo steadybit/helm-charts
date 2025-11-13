@@ -45,7 +45,7 @@ tests:
           provider: agent-key
         extensions:
           autoregistration:
-            useInternalAutoregistration: true
+            useLegacyAutoregistration: true
     asserts:
       - matchSnapshot: {}
   - it: should inform about missing limits

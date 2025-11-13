@@ -264,6 +264,6 @@ tests:
             host: 127.0.0.1
         extensions:
           autoregistration:
-            useInternalAutoregistration: true
+            useLegacyAutoregistration: true
     asserts:
       - matchSnapshot: { }

@@ -158,12 +158,10 @@ agent:
       matchLabels: {}
       # agent.extensions.autoregistration.matchLabelsExclude -- optional - extension-pods which match these labels will be excluded from extension discovery.
       matchLabelsExclude: {}
-      # agent.extensions.autoregistration.namespace -- optional - the namespace in which the extension-pods are discovered. If no namespace is specified, the Release.Namespace is used.
+      # agent.extensions.autoregistration.namespace -- optional - the namespace in which the extension-pods are discovered. If namespace is `null`, the Release.Namespace is used. If namespace is `"*"`, all namespaces are used.
       namespace: null
-      # agent.extensions.autoregistration.useAllNamespaces -- optional - if set to true, extensions are discovered in all namespaces. Overrides agent.extensions.autoregistration.namespace.
-      useAllNamespaces: false
-      # agent.extensions.autoregistration.useInternalAutoregistration -- DEPRECATED: use the internal autoregistration mechanism of the steadybit agent instead of the extension-auto-registration-kubernetes sidecar.
-      useInternalAutoregistration: false
+      # agent.extensions.autoregistration.useLegacyAutoregistration -- DEPRECATED: use the internal autoregistration mechanism of the steadybit agent instead of the extension-auto-registration-kubernetes sidecar.
+      useLegacyAutoregistration: false
       image:
         # agent.extensions.autoregistration.image.name -- The container image to use of the steadybit extension-auto-registration-kubernetes.
         name: ghcr.io/steadybit/extension-auto-registration-kubernetes

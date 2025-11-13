@@ -183,7 +183,7 @@ tests:
         key: abcdefg
         extensions:
           autoregistration:
-            useInternalAutoregistration: true
+            useLegacyAutoregistration: true
             matchLabels:
               some-label: some-value
               another-label: another-value
@@ -199,8 +199,8 @@ tests:
         key: abcdefg
         extensions:
           autoregistration:
-            useInternalAutoregistration: true
-            useAllNamespaces: true
+            useLegacyAutoregistration: true
+            namespace: "*"
     asserts:
       - matchSnapshot: { }
 
@@ -210,7 +210,7 @@ tests:
         key: abcdefg
         extensions:
           autoregistration:
-            useAllNamespaces: true
+            namespace: "*"
     asserts:
       - matchSnapshot: { }
 

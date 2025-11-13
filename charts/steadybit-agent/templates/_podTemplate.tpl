@@ -30,7 +30,7 @@
             {{- toYaml .Values.podSecurityContext | nindent 8 }}
         {{- end }}
       containers:
-        {{- if not .Values.agent.extensions.autoregistration.useInternalAutoregistration }}
+        {{- if not .Values.agent.extensions.autoregistration.useLegacyAutoregistration }}
         - name: "steadybit-agent-kubernetes-autoregistration"
           image: "{{ .Values.agent.extensions.autoregistration.image.name }}:{{ .Values.agent.extensions.autoregistration.image.tag }}"
           imagePullPolicy: {{ .Values.agent.extensions.autoregistration.image.pullPolicy }}
@@ -65,11 +65,11 @@
             {{ end -}}
             - name: STEADYBIT_EXTENSION_AGENT_PORT
               value: {{ .Values.agent.port | quote }}
-            {{ if and (not .Values.agent.extensions.autoregistration.useAllNamespaces) .Values.agent.extensions.autoregistration.namespace -}}
+            {{ if and (not (eq .Values.agent.extensions.autoregistration.namespace "*")) .Values.agent.extensions.autoregistration.namespace -}}
             - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
               value: {{ .Values.agent.extensions.autoregistration.namespace | quote }}
             {{ end -}}
-            {{ if and (not .Values.agent.extensions.autoregistration.useAllNamespaces) (not .Values.agent.extensions.autoregistration.namespace) -}}
+            {{ if not .Values.agent.extensions.autoregistration.namespace -}}
             - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
               valueFrom:
                 fieldRef:
@@ -190,7 +190,7 @@
             {{- include "oauth2Env" . | nindent 12 }}
             {{- include "extensionEnv" . | nindent 12 }}
             {{- include "extraCertificatesEnv" . | nindent 12 }}
-            {{ if .Values.agent.extensions.autoregistration.useInternalAutoregistration -}}
+            {{ if .Values.agent.extensions.autoregistration.useLegacyAutoregistration -}}
             {{ $matchLabelCounter := 0 | int }}
             {{- range $key, $value := .Values.agent.extensions.autoregistration.matchLabels }}
             - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_{{$matchLabelCounter}}_KEY
@@ -207,18 +207,18 @@
               value: {{ $value }}
             {{ $matchLabelExcludeCounter = add1 $matchLabelExcludeCounter }}
             {{- end }}
-            {{ if and .Values.agent.extensions.autoregistration.namespace (not .Values.agent.extensions.autoregistration.useAllNamespaces) -}}
+            {{ if and (not (eq .Values.agent.extensions.autoregistration.namespace "*")) .Values.agent.extensions.autoregistration.namespace -}}
             - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
-              value: "{{.Values.agent.extensions.autoregistration.namespace}}"
+              value: {{ .Values.agent.extensions.autoregistration.namespace | quote }}
             {{ end -}}
-            {{ if and (not .Values.agent.extensions.autoregistration.namespace) (not .Values.agent.extensions.autoregistration.useAllNamespaces) -}}
+            {{ if not .Values.agent.extensions.autoregistration.namespace -}}
             - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
             {{ end -}}
             {{ end -}}
-            {{ if not .Values.agent.extensions.autoregistration.useInternalAutoregistration -}}
+            {{ if not .Values.agent.extensions.autoregistration.useLegacyAutoregistration -}}
             - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
               value: "true"
             {{ end -}}
