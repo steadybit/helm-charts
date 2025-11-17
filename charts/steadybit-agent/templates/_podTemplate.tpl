@@ -62,6 +62,12 @@
                 secretKeyRef:
                   name: {{ template "steadybit-agent.fullname" . }}
                   key: key
+            {{ else if .Values.agent.keyFrom.name -}}
+            - name: STEADYBIT_EXTENSION_AGENT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.agent.keyFrom.name }}
+                  key: {{ .Values.agent.keyFrom.key }}
             {{ end -}}
             - name: STEADYBIT_EXTENSION_AGENT_PORT
               value: {{ .Values.agent.port | quote }}
@@ -124,6 +130,12 @@
                 secretKeyRef:
                   name: {{ template "steadybit-agent.fullname" . }}
                   key: key
+            {{ else if .Values.agent.keyFrom.name -}}
+            - name: STEADYBIT_AGENT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.agent.keyFrom.name }}
+                  key: {{ .Values.agent.keyFrom.key }}
             {{ end -}}
             - name: POD_IP
               valueFrom:

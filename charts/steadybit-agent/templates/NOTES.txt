@@ -1,4 +1,4 @@
-{{- if (and (and (not .Values.agent.key) (eq "agent-key" .Values.agent.auth.provider)) (not .Values.global.clusterName)) }}
+{{- if (and (and (and (not .Values.agent.key) (not .Values.agent.keyFrom.name)) (eq "agent-key" .Values.agent.auth.provider)) (not .Values.global.clusterName)) }}
 ##############################################################################
 ####    ERROR: You did not specify your secret agent key.                 ####
 ####    ERROR: You also did not specify a name for this cluster.          ####
@@ -6,8 +6,15 @@
 
 This agent deployment will be incomplete until you set your agent key and a name for this cluster:
 
+Option 1 - Set the key value directly:
     helm upgrade {{ .Release.Name }} --reuse-values \
         --set agent.key=$(YOUR_SECRET_AGENT_KEY) \
+        --set global.clusterName=$(YOUR_CLUSTER_NAME) steadybit/steadybit-agent
+
+Option 2 - Reference an existing secret:
+    helm upgrade {{ .Release.Name }} --reuse-values \
+        --set agent.keyFrom.name=my-secret \
+        --set agent.keyFrom.key=agent-key \
         --set global.clusterName=$(YOUR_CLUSTER_NAME) steadybit/steadybit-agent
 
 - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
@@ -28,15 +35,21 @@ This agent deployment will be incomplete until you set your agent key and a name
 - YOUR_CLUSTER_NAME should be the custom name of your cluster.
 
 This cluster will be reported as 'unknown' unless you specify a cluster name.
-{{- else if and (not .Values.agent.key) (eq "agent-key" .Values.agent.auth.provider) -}}
+{{- else if and (and (not .Values.agent.key) (not .Values.agent.keyFrom.name)) (eq "agent-key" .Values.agent.auth.provider) -}}
 ##############################################################################
 ####    ERROR: You did not specify your secret agent key.                 ####
 ##############################################################################
 
 This agent deployment will be incomplete until you set your agent key:
 
+Option 1 - Set the key value directly:
     helm upgrade {{ .Release.Name }} --reuse-values \
         --set agent.key=$(STEADYBIT_AGENT_KEY) steadybit/steadybit-agent
+
+Option 2 - Reference an existing secret:
+    helm upgrade {{ .Release.Name }} --reuse-values \
+        --set agent.keyFrom.name=my-secret \
+        --set agent.keyFrom.key=agent-key steadybit/steadybit-agent
 
 - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
 

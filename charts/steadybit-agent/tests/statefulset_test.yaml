@@ -20,6 +20,17 @@ tests:
     asserts:
       - matchSnapshot: { }
 
+  - it: manifest should use existing secret for agent key
+    set:
+      global:
+        clusterName: test
+      agent:
+        keyFrom:
+          name: my-existing
+          key: agent-key
+    asserts:
+      - matchSnapshot: { }
+
   - it: should apply extra pod labels
     set:
       global:

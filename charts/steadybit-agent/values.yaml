@@ -9,7 +9,15 @@ global:
 agent:
   # agent.key -- The secret token which your agent uses to authenticate to steadybit's servers.
   #   Get it from https://platform.steadybit.com/settings/agents/setup.
+  #   Either specify the value directly here or use keyFrom to reference an existing secret.
   key: null
+  # agent.keyFrom -- Reference to an existing secret containing the agent key.
+  #   Use this instead of agent.key to reference a pre-existing secret.
+  keyFrom:
+    # agent.keyFrom.name -- The name of the secret which contains the agent key.
+    name: null
+    # agent.keyFrom.key -- The key in the secret which contains the agent key.
+    key: key
   # agent.identifier -- The unique identifier of the agent. If not set, the agent will use "{{.Values.global.clusterName}}/{{.Release.Namespace}}/%HOSTNAME%". Required for persistence provider "redis".
   identifier: null
   auth:
