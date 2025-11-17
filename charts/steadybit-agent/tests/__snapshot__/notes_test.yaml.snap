@@ -20,7 +20,7 @@ should inform about missing limits:
           kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
 
       #### WARNING: Consider defining resource limits to prevent potential resource exhaustion. (.Values.resources.limits.memory / .Values.resources.limits.cpu)
-should warn about deprecated values:
+should warn about internal extension autoregistration:
   1: |
     raw: |-
       It may take a few moments for the agents to fully deploy. You can see what agents are running by listing resources in the NAMESPACE namespace:
@@ -31,11 +31,7 @@ should warn about deprecated values:
 
           kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
 
-      #### WARNING: agent.extensions.autodiscovery.matchLabels is deprecated please use agent.extensions.autoregistration.matchLabels instead. ####
-
-      #### WARNING: agent.extensions.autodiscovery.matchLabelsExclude is deprecated please use agent.extensions.autoregistration.matchLabelsExclude instead. ####
-
-      #### WARNING: agent.extensions.autodiscovery.namespace is deprecated please use agent.extensions.autoregistration.namespace instead. ####
+      #### WARNING: agent.extensions.autoregistration.useLegacyAutoregistration is set to true. The internal autoregistration is deprecated and will be removed in future releases. ####
 should warn about missing agent key:
   1: |
     raw: |-
@@ -45,8 +41,14 @@ should warn about missing agent key:
 
       This agent deployment will be incomplete until you set your agent key:
 
+      Option 1 - Set the key value directly:
           helm upgrade RELEASE-NAME --reuse-values \
               --set agent.key=$(STEADYBIT_AGENT_KEY) steadybit/steadybit-agent
+
+      Option 2 - Reference an existing secret:
+          helm upgrade RELEASE-NAME --reuse-values \
+              --set agent.keyFrom.name=my-secret \
+              --set agent.keyFrom.key=agent-key steadybit/steadybit-agent
 
       - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup
 should warn about missing agent key and cluster name:
@@ -59,8 +61,15 @@ should warn about missing agent key and cluster name:
 
       This agent deployment will be incomplete until you set your agent key and a name for this cluster:
 
+      Option 1 - Set the key value directly:
           helm upgrade RELEASE-NAME --reuse-values \
               --set agent.key=$(YOUR_SECRET_AGENT_KEY) \
+              --set global.clusterName=$(YOUR_CLUSTER_NAME) steadybit/steadybit-agent
+
+      Option 2 - Reference an existing secret:
+          helm upgrade RELEASE-NAME --reuse-values \
+              --set agent.keyFrom.name=my-secret \
+              --set agent.keyFrom.key=agent-key \
               --set global.clusterName=$(YOUR_CLUSTER_NAME) steadybit/steadybit-agent
 
       - STEADYBIT_AGENT_KEY can be obtained from here: https://platform.steadybit.io/settings/agents/setup

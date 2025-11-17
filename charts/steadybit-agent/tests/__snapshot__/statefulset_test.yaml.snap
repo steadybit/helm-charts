@@ -60,6 +60,40 @@ manifest should match snapshot:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -73,6 +107,8 @@ manifest should match snapshot:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: test
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -83,8 +119,195 @@ manifest should match snapshot:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1500m
+                  memory: 1500Mi
+                requests:
+                  cpu: 500m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+manifest should use existing secret for agent key:
+  1: |
+    apiVersion: v1
+    data: null
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: agent-key
+                      name: my-existing
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: agent-key
+                      name: my-existing
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: test
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -200,6 +423,40 @@ should add aws account id from values:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -213,6 +470,8 @@ should add aws account id from values:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -223,10 +482,16 @@ should add aws account id from values:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_AWS_ACCOUNT_ID
                   value: "123456789012"
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -341,6 +606,35 @@ should add extra volumes and mount:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: POD_IP
@@ -349,6 +643,8 @@ should add extra volumes and mount:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -359,8 +655,14 @@ should add extra volumes and mount:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -481,6 +783,42 @@ should add match labels:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  value: test
+                - name: STEADYBIT_EXTENSION_MATCH_LABELS
+                  value: '[{"key":"another-label","value":"another-value"},{"key":"some-label","value":"some-value"}]'
+                - name: STEADYBIT_EXTENSION_MATCH_LABELS_EXCLUDE
+                  value: '[{"key":"exclude-me","value":"true"},{"key":"exclude-me-too","value":"true"}]'
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -494,6 +832,8 @@ should add match labels:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -504,26 +844,14 @@ should add match labels:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_KEY
-                  value: another-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_VALUE
-                  value: another-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_KEY
-                  value: some-label
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_1_VALUE
-                  value: some-value
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_KEY
-                  value: exclude-me
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_0_VALUE
-                  value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_KEY
-                  value: exclude-me-too
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_VALUE
-                  value: true
-                - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
-                  value: test
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -639,6 +967,40 @@ should add proxy configuration:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -652,6 +1014,8 @@ should add proxy configuration:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -672,8 +1036,14 @@ should add proxy configuration:
                   value: user
                 - name: STEADYBIT_AGENT_PROXY_PASSWORD
                   value: pass
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -790,6 +1160,40 @@ should apply extra pod labels:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -803,6 +1207,8 @@ should apply extra pod labels:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: test
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -813,8 +1219,14 @@ should apply extra pod labels:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -929,6 +1341,35 @@ should not render fsgroup/seccompProfile on openbshift:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: POD_IP
@@ -937,6 +1378,8 @@ should not render fsgroup/seccompProfile on openbshift:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: openshift
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -947,8 +1390,14 @@ should not render fsgroup/seccompProfile on openbshift:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1061,6 +1510,40 @@ should not render resource limits if set to null:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -1074,6 +1557,8 @@ should not render resource limits if set to null:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -1084,8 +1569,14 @@ should not render resource limits if set to null:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1198,6 +1689,40 @@ should set agent port:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "41470"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -1211,6 +1736,8 @@ should set agent port:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -1223,8 +1750,14 @@ should set agent port:
                   value: /NAMESPACE/%HOSTNAME%
                 - name: SERVER_PORT
                   value: "41470"
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1278,7 +1811,7 @@ should set agent port:
             resources:
               requests:
                 storage: 200Mi
-should use beta kubernetes autoregistration:
+should use extension kubernetes autoregistration with all namespaces:
   1: |
     apiVersion: v1
     data:
@@ -1347,16 +1880,16 @@ should use beta kubernetes autoregistration:
                       name: RELEASE-NAME-steadybit-agent
                 - name: STEADYBIT_EXTENSION_AGENT_PORT
                   value: "42899"
-              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:main
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
               imagePullPolicy: Always
               name: steadybit-agent-kubernetes-autoregistration
               resources:
                 limits:
-                  cpu: 500m
-                  memory: 100Mi
-                requests:
                   cpu: 250m
                   memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
               securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:
@@ -1383,6 +1916,8 @@ should use beta kubernetes autoregistration:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -1393,6 +1928,10 @@ should use beta kubernetes autoregistration:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
@@ -1450,7 +1989,7 @@ should use beta kubernetes autoregistration:
             resources:
               requests:
                 storage: 200Mi
-should use beta kubernetes autoregistration with extended configuration:
+should use old kubernetes autoregistration:
   1: |
     apiVersion: v1
     data:
@@ -1512,42 +2051,6 @@ should use beta kubernetes autoregistration with extended configuration:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
-                  valueFrom:
-                    secretKeyRef:
-                      key: key
-                      name: RELEASE-NAME-steadybit-agent
-                - name: STEADYBIT_EXTENSION_AGENT_PORT
-                  value: "42899"
-                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
-                  value: test
-                - name: STEADYBIT_EXTENSION_MATCH_LABELS
-                  value: '[{"key":"another-label","value":"another-value"},{"key":"some-label","value":"some-value"}]'
-                - name: STEADYBIT_EXTENSION_MATCH_LABELS_EXCLUDE
-                  value: '[{"key":"exclude-me","value":"true"},{"key":"exclude-me-too","value":"true"}]'
-              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:main
-              imagePullPolicy: Always
-              name: steadybit-agent-kubernetes-autoregistration
-              resources:
-                limits:
-                  cpu: 500m
-                  memory: 100Mi
-                requests:
-                  cpu: 250m
-                  memory: 50Mi
-              securityContext:
-                allowPrivilegeEscalation: false
-                capabilities:
-                  drop:
-                    - ALL
-                readOnlyRootFilesystem: true
-                runAsNonRoot: true
-                runAsUser: 10000
-            - env:
-                - name: STEADYBIT_LOG_LEVEL
-                  value: INFO
-                - name: STEADYBIT_LOG_FORMAT
-                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -1561,6 +2064,8 @@ should use beta kubernetes autoregistration with extended configuration:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -1571,6 +2076,10 @@ should use beta kubernetes autoregistration with extended configuration:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELS_0_KEY
@@ -1590,9 +2099,155 @@ should use beta kubernetes autoregistration with extended configuration:
                 - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_MATCHLABELSEXCLUDE_1_VALUE
                   value: true
                 - name: STEADYBIT_AGENT_EXTENSIONS_AUTOREGISTRATION_NAMESPACE
-                  value: test
-                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
-                  value: "true"
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1500m
+                  memory: 1500Mi
+                requests:
+                  cpu: 500m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+should use old kubernetes autoregistration with all namespaces:
+  1: |
+    apiVersion: v1
+    data:
+      key: YWJjZGVmZw==
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: STEADYBIT_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1709,6 +2364,40 @@ using extensions with mtls from containerpath:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -1722,6 +2411,8 @@ using extensions with mtls from containerpath:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: test
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -1732,6 +2423,10 @@ using extensions with mtls from containerpath:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
@@ -1749,6 +2444,8 @@ using extensions with mtls from containerpath:
                   value: strict
                 - name: STEADYBIT_AGENT_EXTRA_CERTS_PATH
                   value: /etc/ssl/extra-certs
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1864,6 +2561,40 @@ using extensions with mtls from secrets:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
+                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-agent
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: STEADYBIT_AGENT_KEY
@@ -1877,6 +2608,8 @@ using extensions with mtls from secrets:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: test
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -1887,6 +2620,10 @@ using extensions with mtls from secrets:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_EXTENSIONS_CLIENT_CERT_CHAIN_FILE
@@ -1900,6 +2637,8 @@ using extensions with mtls from secrets:
                       name: some-secret
                 - name: STEADYBIT_AGENT_EXTENSIONS_SERVER_CERT
                   value: /opt/steadybit/agent/etc/extensions/server/tls.crt
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -2031,6 +2770,35 @@ using image pull secrets with debug json log:
                   value: debug
                 - name: STEADYBIT_LOG_FORMAT
                   value: json
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: debug
+                - name: STEADYBIT_LOG_FORMAT
+                  value: json
                 - name: STEADYBIT_AGENT_REGISTER_URL
                   value: https://platform.steadybit.io
                 - name: POD_IP
@@ -2039,6 +2807,8 @@ using image pull secrets with debug json log:
                       fieldPath: status.podIP
                 - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
                   value: test
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
                 - name: STEADYBIT_AGENT_POD_NAME
                   valueFrom:
                     fieldRef:
@@ -2049,8 +2819,14 @@ using image pull secrets with debug json log:
                       fieldPath: metadata.namespace
                 - name: STEADYBIT_AGENT_IDENTIFIER
                   value: test/NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:

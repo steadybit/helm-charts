@@ -4,6 +4,12 @@ templates:
 chart:
   appVersion: 0.0.0
   version: 0.0.0
+set:
+  agent:
+    extensions:
+      autoregistration:
+        image:
+          tag: v0.0.0
 tests:
   - it: manifest should match snapshot
     set:
@@ -11,6 +17,17 @@ tests:
         clusterName: test
       agent:
         key: abcdefg
+    asserts:
+      - matchSnapshot: { }
+
+  - it: manifest should use existing secret for agent key
+    set:
+      global:
+        clusterName: test
+      agent:
+        keyFrom:
+          name: my-existing
+          key: agent-key
     asserts:
       - matchSnapshot: { }
 
@@ -100,7 +117,7 @@ tests:
       agent:
         key: abcdefg
         extensions:
-          autodiscovery:
+          autoregistration:
             matchLabels:
               some-label: some-value
               another-label: another-value
@@ -171,32 +188,40 @@ tests:
     asserts:
       - matchSnapshot: { }
 
-  - it: should use beta kubernetes autoregistration
+  - it: should use old kubernetes autoregistration
     set:
       agent:
         key: abcdefg
         extensions:
           autoregistration:
-            beta:
-              enabled: true
-    asserts:
-      - matchSnapshot: { }
-
-  - it: should use beta kubernetes autoregistration with extended configuration
-    set:
-      agent:
-        key: abcdefg
-        extensions:
-          autoregistration:
-            namespace: test
+            useLegacyAutoregistration: true
             matchLabels:
               some-label: some-value
               another-label: another-value
             matchLabelsExclude:
               exclude-me: true
               exclude-me-too: true
-            beta:
-              enabled: true
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should use old kubernetes autoregistration with all namespaces
+    set:
+      agent:
+        key: abcdefg
+        extensions:
+          autoregistration:
+            useLegacyAutoregistration: true
+            namespace: "*"
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should use extension kubernetes autoregistration with all namespaces
+    set:
+      agent:
+        key: abcdefg
+        extensions:
+          autoregistration:
+            namespace: "*"
     asserts:
       - matchSnapshot: { }
 

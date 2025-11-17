@@ -3,6 +3,12 @@ templates:
 chart:
   appVersion: 0.0.0
   version: 0.0.0
+set:
+  agent:
+    extensions:
+      autoregistration:
+        image:
+          tag: v0.0.0
 tests:
   - it: using oauth2 should require issuerUri or tokenUri
     set:
