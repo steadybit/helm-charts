@@ -23,6 +23,7 @@ using oauth2 with mtls from containerPath and token uri:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -195,6 +196,7 @@ using oauth2 with mtls from secrets:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"

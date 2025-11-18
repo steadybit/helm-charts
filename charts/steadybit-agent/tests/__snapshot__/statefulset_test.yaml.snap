@@ -40,6 +40,7 @@ manifest should match snapshot:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -221,6 +222,7 @@ manifest should use existing secret for agent key:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -403,6 +405,7 @@ should add aws account id from values:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -586,6 +589,7 @@ should add extra volumes and mount:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -763,6 +767,7 @@ should add match labels:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -947,6 +952,7 @@ should add proxy configuration:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -1139,6 +1145,7 @@ should apply extra pod labels:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -1321,6 +1328,7 @@ should not render fsgroup/seccompProfile on openbshift:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -1490,6 +1498,7 @@ should not render resource limits if set to null:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -1669,6 +1678,7 @@ should set agent port:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "41470"
@@ -1853,6 +1863,7 @@ should use extension kubernetes autoregistration with all namespaces:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -2031,6 +2042,7 @@ should use old kubernetes autoregistration:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -2197,6 +2209,7 @@ should use old kubernetes autoregistration with all namespaces:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -2344,6 +2357,7 @@ using extensions with mtls from containerpath:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -2541,6 +2555,7 @@ using extensions with mtls from secrets:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"
@@ -2750,6 +2765,7 @@ using image pull secrets with debug json log:
       template:
         metadata:
           annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
             oneagent.dynatrace.com/injection: "false"
             prometheus.io/path: /prometheus
             prometheus.io/port: "42899"

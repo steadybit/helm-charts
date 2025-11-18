@@ -10,6 +10,7 @@
         {{- toYaml . | nindent 8 }}
         {{- end }}
       annotations:
+        kubectl.kubernetes.io/default-container: "steadybit-agent"
         prometheus.io/scrape: "{{ .Values.agent.prometheus.scrape }}"
         prometheus.io/path: "/prometheus"
         prometheus.io/port: "{{ .Values.agent.port }}"
