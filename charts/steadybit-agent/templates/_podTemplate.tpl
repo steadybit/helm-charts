@@ -26,7 +26,7 @@
       {{- end }}
       securityContext:
         {{- if .Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints"}}
-            {{- toYaml (omit .Values.podSecurityContext "fsGroup" "seccompProfile") | nindent 8 }}
+            {{- toYaml (omit .Values.podSecurityContext "seccompProfile") | nindent 8 }}
         {{- else -}}
             {{- toYaml .Values.podSecurityContext | nindent 8 }}
         {{- end }}

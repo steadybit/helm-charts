@@ -1439,6 +1439,7 @@ should not render fsgroup/seccompProfile on openbshift:
                 - mountPath: /tmp
                   name: tmp-dir
           securityContext:
+            fsGroup: 1000
             runAsNonRoot: true
           serviceAccountName: steadybit-agent
           volumes:
