@@ -33,7 +33,7 @@
       containers:
         {{- if not .Values.agent.extensions.autoregistration.useLegacyAutoregistration }}
         - name: "steadybit-agent-kubernetes-autoregistration"
-          image: "{{ .Values.agent.extensions.autoregistration.image.name }}:{{ .Values.agent.extensions.autoregistration.image.tag }}"
+          image: "{{ if .Values.agent.extensions.autoregistration.image.registry }}{{ .Values.agent.extensions.autoregistration.image.registry }}/{{ end }}{{ .Values.agent.extensions.autoregistration.image.name }}:{{ .Values.agent.extensions.autoregistration.image.tag }}"
           imagePullPolicy: {{ .Values.agent.extensions.autoregistration.image.pullPolicy }}
           resources:
             requests:
@@ -92,7 +92,7 @@
             {{- end }}
         {{- end }}
         - name: steadybit-agent
-          image: "{{ .Values.image.name }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          image: "{{ if .Values.image.registry }}{{ .Values.image.registry }}/{{ end }}{{ .Values.image.name }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             requests:

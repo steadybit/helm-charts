@@ -128,7 +128,7 @@ manifest should match snapshot:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -310,7 +310,7 @@ manifest should use existing secret for agent key:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -495,7 +495,7 @@ should add aws account id from values:
                   value: "123456789012"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -667,7 +667,7 @@ should add extra volumes and mount:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -857,7 +857,7 @@ should add match labels:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1050,7 +1050,7 @@ should add proxy configuration:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1234,7 +1234,7 @@ should apply extra pod labels:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1406,6 +1406,176 @@ should not render fsgroup/seccompProfile on openbshift:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+              image: ghcr.io/steadybit/agent:0.0.0
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /health
+                  port: 42899
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-agent
+              resources:
+                limits:
+                  cpu: 1500m
+                  memory: 1500Mi
+                requests:
+                  cpu: 500m
+                  memory: 250Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+              volumeMounts:
+                - mountPath: /var/lib/steadybit-agent
+                  name: steadybit-agent-state
+                - mountPath: /tmp
+                  name: tmp-dir
+          securityContext:
+            fsGroup: 1000
+            runAsNonRoot: true
+          serviceAccountName: steadybit-agent
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: tmp-dir
+      updateStrategy:
+        type: RollingUpdate
+      volumeClaimTemplates:
+        - metadata:
+            name: steadybit-agent-state
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 200Mi
+should not render image registry:
+  1: |
+    apiVersion: v1
+    data: null
+    kind: Secret
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    type: Opaque
+  2: |
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: RELEASE-NAME-steadybit-agent
+      namespace: NAMESPACE
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-agent
+      serviceName: steadybit-agent
+      template:
+        metadata:
+          annotations:
+            kubectl.kubernetes.io/default-container: steadybit-agent
+            oneagent.dynatrace.com/injection: "false"
+            prometheus.io/path: /prometheus
+            prometheus.io/port: "42899"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-agent
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-agent-0.0.0
+            steadybit.com/agent: "true"
+            steadybit.com/discovery-disabled: "true"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_AGENT_PORT
+                  value: "42899"
+                - name: STEADYBIT_EXTENSION_NAMESPACE_FILTER
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              image: steadybit/extension-auto-registration-kubernetes:v0.0.0
+              imagePullPolicy: Always
+              name: steadybit-agent-kubernetes-autoregistration
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 50Mi
+                requests:
+                  cpu: 100m
+                  memory: 10Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10000
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_AGENT_REGISTER_URL
+                  value: https://platform.steadybit.io
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: STEADYBIT_KUBERNETES_CLUSTER_NAME
+                  value: null
+                - name: STEADYBIT_KUBERNETES_DISTRIBUTION
+                  value: kubernetes
+                - name: STEADYBIT_AGENT_POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: STEADYBIT_AGENT_POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_IDENTIFIER
+                  value: /NAMESPACE/%HOSTNAME%
+                - name: STEADYBIT_AGENT_NODE_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
+                - name: STEADYBIT_AGENT_WORKING_DIR
+                  value: /tmp/steadybit-agent
+                - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
+                  value: "true"
               image: steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1441,6 +1611,8 @@ should not render fsgroup/seccompProfile on openbshift:
           securityContext:
             fsGroup: 1000
             runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
           serviceAccountName: steadybit-agent
           volumes:
             - emptyDir:
@@ -1587,7 +1759,7 @@ should not render resource limits if set to null:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1769,7 +1941,7 @@ should set agent port:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1948,7 +2120,7 @@ should use extension kubernetes autoregistration with all namespaces:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -2115,7 +2287,7 @@ should use old kubernetes autoregistration:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -2262,7 +2434,7 @@ should use old kubernetes autoregistration with all namespaces:
                       fieldPath: spec.nodeName
                 - name: STEADYBIT_AGENT_WORKING_DIR
                   value: /tmp/steadybit-agent
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -2461,7 +2633,7 @@ using extensions with mtls from containerpath:
                   value: /etc/ssl/extra-certs
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -2655,7 +2827,7 @@ using extensions with mtls from secrets:
                   value: /opt/steadybit/agent/etc/extensions/server/tls.crt
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -2844,7 +3016,7 @@ using image pull secrets with debug json log:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5

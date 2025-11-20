@@ -116,7 +116,7 @@ manifest should match snapshot:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -293,7 +293,7 @@ should add aws account id from values:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -458,7 +458,7 @@ should add extra volumes and mount:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -639,7 +639,7 @@ should add match labels:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -824,7 +824,7 @@ should add proxy configuration:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1000,7 +1000,7 @@ should apply extra pod labels:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1173,7 +1173,7 @@ should render redis settings:
                   value: "true"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1331,7 +1331,7 @@ should use deployment with hostPath provider:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1479,7 +1479,7 @@ should use old internal extension autoregistration:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1669,7 +1669,7 @@ using extensions with mtls from containerpath:
                   value: /etc/ssl/extra-certs
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -1856,7 +1856,7 @@ using extensions with mtls from secrets:
                   value: /opt/steadybit/agent/etc/extensions/server/tls.crt
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -2038,7 +2038,7 @@ using image pull secrets with debug json log:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
