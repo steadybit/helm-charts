@@ -10,7 +10,7 @@ dependencies:
   version: 1.1.22
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.4.9
+  version: 1.4.10
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.13
@@ -52,7 +52,7 @@ dependencies:
   version: 1.2.7
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.16
+  version: 1.2.17
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
   version: 1.0.27
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.13
-digest: sha256:45d3d9a5ff6650a4c31e17c46707a8a467fb34c017938e1c2eb5396271610701
-generated: "2025-11-21T06:11:42.585129607Z"
+digest: sha256:a315e6e612a197c5acc86a2f87ead72addb8e01e05b1df8762fe2e9c35396630
+generated: "2025-11-22T06:09:55.628832758Z"
