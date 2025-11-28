@@ -64,13 +64,13 @@ dependencies:
   version: 1.6.2
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
-  version: 1.0.47
+  version: 1.0.48
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
   version: 1.1.9
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.18
+  version: 1.7.19
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.23
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.13
-digest: sha256:c2b72415387f8c5999381e43cd79e2018c56c1a580636028a1c01120c3829ca8
-generated: "2025-11-28T06:11:58.741379951Z"
+digest: sha256:02ccf8d634d9f0d673cea77b542927413e011c402a6f1924492ff74eb4bf64fa
+generated: "2025-11-28T15:52:14.949325347Z"
