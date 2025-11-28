@@ -76,7 +76,7 @@ dependencies:
   version: 1.5.23
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
-  version: 1.0.5
+  version: 1.0.7
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.6
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.13
-digest: sha256:b7213354c0bb5ae8a1d8cdce30fbe255e710855d561cac8f14594c41ef7a2466
-generated: "2025-11-25T06:11:53.249563842Z"
+digest: sha256:c2b72415387f8c5999381e43cd79e2018c56c1a580636028a1c01120c3829ca8
+generated: "2025-11-28T06:11:58.741379951Z"
