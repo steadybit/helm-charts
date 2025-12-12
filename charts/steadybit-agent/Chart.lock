@@ -22,7 +22,7 @@ dependencies:
   version: 1.1.18
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.1.38
+  version: 1.1.39
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
   version: 1.1.23
@@ -46,7 +46,7 @@ dependencies:
   version: 1.0.6
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.21
+  version: 1.1.22
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.2.9
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.14
-digest: sha256:d1c2f8420a28348af7c5d3181ea7ca046a5a9093526af9efeb626ce8bdbedb12
-generated: "2025-12-10T06:12:14.435032968Z"
+digest: sha256:c61cb5729f55330416b38cf9c921daaeef3c6632a716cb82a6b12196872676a9
+generated: "2025-12-12T06:12:18.06869296Z"
