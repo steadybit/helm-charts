@@ -49,7 +49,7 @@ dependencies:
   version: 1.1.22
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.2.9
+  version: 1.2.11
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.2.18
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.14
-digest: sha256:c61cb5729f55330416b38cf9c921daaeef3c6632a716cb82a6b12196872676a9
-generated: "2025-12-12T06:12:18.06869296Z"
+digest: sha256:bcd50b72696e33ba04069b71c6c1cea0f266afc84c8cc34516996e4750725e74
+generated: "2025-12-18T06:12:07.589581541Z"
