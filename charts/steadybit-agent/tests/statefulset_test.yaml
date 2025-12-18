@@ -258,3 +258,14 @@ tests:
         - "security.openshift.io/v1/SecurityContextConstraints"
     asserts:
       - matchSnapshot: { }
+  - it: should not render image registry
+    set:
+      image:
+        registry: null
+      agent:
+        extensions:
+          autoregistration:
+            image:
+              registry: null
+    asserts:
+      - matchSnapshot: { }

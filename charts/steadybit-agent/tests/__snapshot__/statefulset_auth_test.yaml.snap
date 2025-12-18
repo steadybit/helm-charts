@@ -118,7 +118,7 @@ using oauth2 with mtls from containerPath and token uri:
                   value: /etc/ssl/certs/server.crt
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
@@ -298,7 +298,7 @@ using oauth2 with mtls from secrets:
                   value: /opt/steadybit/agent/etc/oauth2/server/tls.crt
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5
