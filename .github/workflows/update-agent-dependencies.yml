@@ -28,9 +28,9 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Install Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
         with:
-          version: v3.13.3
+          version: v4.0.4
 
       # this commit will effectively cause another run of the workflow which then actually performs the helm chart release
       - run: |
