@@ -55,7 +55,7 @@ dependencies:
   version: 1.2.18
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.28
+  version: 1.0.29
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
   version: 1.7.12
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.14
-digest: sha256:114917837f29f3bca2efa32b319e46ee5af6b881067de671a4c0630c2f4d0e83
-generated: "2026-01-13T06:12:36.798650869Z"
+digest: sha256:e543861db71c90e58c1dffe2de4a9dd73e68c240059ffc4f0888b2ea136aee7c
+generated: "2026-01-15T13:21:56.37185857Z"
