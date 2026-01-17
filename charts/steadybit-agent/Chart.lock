@@ -55,7 +55,7 @@ dependencies:
   version: 1.2.18
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.29
+  version: 1.0.30
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
   version: 1.7.12
@@ -70,7 +70,7 @@ dependencies:
   version: 1.1.10
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.20
+  version: 1.7.21
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.24
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.14
-digest: sha256:e543861db71c90e58c1dffe2de4a9dd73e68c240059ffc4f0888b2ea136aee7c
-generated: "2026-01-15T13:21:56.37185857Z"
+digest: sha256:e2e2d11242aa47be2863798f6ddf128b277fad4945c0b9e075075d05c4901531
+generated: "2026-01-17T06:11:15.601671505Z"
