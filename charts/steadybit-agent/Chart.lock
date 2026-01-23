@@ -70,7 +70,7 @@ dependencies:
   version: 1.1.10
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.21
+  version: 1.7.22
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.24
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.14
-digest: sha256:a8c791705bc6c8f1abb758a47cc930e8c7eb202f51bed4a5bb6de22ee6dcb0a3
-generated: "2026-01-20T06:14:05.009116596Z"
+digest: sha256:8499a75817798d70cdd3c64fa6eb64354c5fa632ea10ba5f716a7fd629042cb2
+generated: "2026-01-23T06:13:15.659367734Z"
