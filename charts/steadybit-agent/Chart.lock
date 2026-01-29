@@ -1,22 +1,22 @@
 dependencies:
 - name: steadybit-extension-appdynamics
   repository: https://steadybit.github.io/extension-appdynamics
-  version: 1.2.8
+  version: 1.2.9
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.9
+  version: 2.2.10
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.23
+  version: 1.1.24
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
   version: 1.4.12
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.14
+  version: 1.5.15
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
-  version: 1.0.20
+  version: 1.0.21
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
   version: 1.1.18
@@ -25,25 +25,25 @@ dependencies:
   version: 1.1.40
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.1.23
+  version: 1.1.24
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
-  version: 1.2.11
+  version: 1.2.12
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
   version: 1.2.12
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.31
+  version: 1.1.32
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
   version: 1.1.13
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.1.13
+  version: 1.1.14
 - name: steadybit-extension-jenkins
   repository: https://steadybit.github.io/extension-jenkins
-  version: 1.0.6
+  version: 1.0.7
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
   version: 1.1.23
@@ -52,13 +52,13 @@ dependencies:
   version: 1.2.11
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.18
+  version: 1.2.19
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.31
+  version: 1.0.33
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.12
+  version: 1.7.13
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
   version: 1.6.4
@@ -73,18 +73,18 @@ dependencies:
   version: 1.7.22
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.24
+  version: 1.5.25
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
-  version: 1.0.8
+  version: 1.0.9
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
-  version: 1.0.7
+  version: 1.0.8
 - name: steadybit-extension-splunk-platform
   repository: https://steadybit.github.io/extension-splunk-platform
   version: 1.0.6
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.14
-digest: sha256:c39f70da7207a4b35c9c68c0e8ec55f38834a6fe243287a9e8d8f036832dabf0
-generated: "2026-01-29T06:22:13.592095445Z"
+  version: 1.1.15
+digest: sha256:0b2c9c52ecd60a8cc423c7818c83084a4e3a4f0516fccc563275b365ed60d065
+generated: "2026-01-29T10:42:26.083268282Z"
