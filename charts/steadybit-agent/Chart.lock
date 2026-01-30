@@ -19,7 +19,7 @@ dependencies:
   version: 1.0.21
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
-  version: 1.1.18
+  version: 1.1.19
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
   version: 1.1.40
@@ -28,7 +28,7 @@ dependencies:
   version: 1.1.24
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
-  version: 1.2.12
+  version: 1.2.13
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
   version: 1.2.12
@@ -37,7 +37,7 @@ dependencies:
   version: 1.1.32
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
-  version: 1.1.13
+  version: 1.1.14
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
   version: 1.1.14
@@ -61,13 +61,13 @@ dependencies:
   version: 1.7.13
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.6.4
+  version: 1.6.5
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.50
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
-  version: 1.1.10
+  version: 1.1.11
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.7.22
@@ -82,9 +82,9 @@ dependencies:
   version: 1.0.8
 - name: steadybit-extension-splunk-platform
   repository: https://steadybit.github.io/extension-splunk-platform
-  version: 1.0.6
+  version: 1.0.7
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.15
-digest: sha256:0b2c9c52ecd60a8cc423c7818c83084a4e3a4f0516fccc563275b365ed60d065
-generated: "2026-01-29T10:42:26.083268282Z"
+digest: sha256:a4647784c1b7b71517d88e2c12a9e608677635681d8f0db45b40c826a0597d13
+generated: "2026-01-30T06:22:40.742605945Z"
