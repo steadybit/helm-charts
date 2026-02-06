@@ -49,10 +49,10 @@ dependencies:
   version: 1.1.24
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.2.11
+  version: 1.2.12
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.19
+  version: 1.2.20
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
   version: 1.0.33
@@ -70,7 +70,7 @@ dependencies:
   version: 1.1.11
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.23
+  version: 1.7.24
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.25
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.15
-digest: sha256:39b0af0ea208bca2e5cae90b2571bf9c0cf6133071d17a5a8d59a75b93aef2f0
-generated: "2026-02-05T06:28:04.145986193Z"
+digest: sha256:9b001063f1110ac2b2d7bffa0d8c94c075cfc8ca7e1220b4df4e802de933da71
+generated: "2026-02-06T06:25:33.430298598Z"
