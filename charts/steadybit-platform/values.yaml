@@ -130,19 +130,13 @@ platform:
   experimentExecutionShutdownCheckInterval: 10
   lifecycle:
     preStop:
-      exec:
-        command:
-          - /bin/sh
-          - -c
-          - sleep 20
+      sleep:
+        seconds: 20
   portsplitter:
     lifecycle:
       preStop:
-        exec:
-          command:
-            - /bin/sh
-            - -c
-            - sleep 20
+        sleep:
+          seconds: 20
 
 image:
   # image.name -- The container image  to use of the steadybit platform.

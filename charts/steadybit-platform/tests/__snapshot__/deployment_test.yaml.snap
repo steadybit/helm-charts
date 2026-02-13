@@ -74,11 +74,8 @@ manifest should not set terminationGracePeriodSeconds:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -209,11 +206,8 @@ manifest should render image data urls:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -344,11 +338,8 @@ manifest should render image urls:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -475,11 +466,8 @@ manifest should set terminationGracePeriodSeconds:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -605,11 +593,8 @@ manifest should support Recreate strategy:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -737,11 +722,8 @@ manifest should support RollingUpdate strategy:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -866,11 +848,8 @@ manifest should support extra certificate volume:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -999,11 +978,8 @@ manifest should support extra volumes and mounts:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -1135,11 +1111,8 @@ manifest should support init container:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -1315,11 +1288,8 @@ manifest should support various variables:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -1449,11 +1419,8 @@ should not fail with missing license for version >= 2.2.0:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
@@ -1569,11 +1536,8 @@ should not fail with missing license for version >= 2.2.0 for saas mode:
               imagePullPolicy: Always
               lifecycle:
                 preStop:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - sleep 20
+                  sleep:
+                    seconds: 20
               livenessProbe:
                 failureThreshold: 5
                 httpGet:
