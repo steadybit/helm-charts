@@ -267,3 +267,46 @@ tests:
             useLegacyAutoregistration: true
     asserts:
       - matchSnapshot: { }
+
+  - it: should fail if deprecated priorityClassName.use is used
+    set:
+      agent:
+        identifier: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+      priorityClassName:
+        use: true
+        name: high-priority
+    asserts:
+      - template: deployment.yaml
+        failedTemplate:
+          errorMessage: ".Values.priorityClassName.use/.Values.priorityClassName.name has been removed. Please use .Values.priorityClassName as a simple string (e.g. priorityClassName: high-priority) or set .Values.global.priorityClassName"
+
+  - it: should set priorityClassName from simple string
+    set:
+      agent:
+        identifier: abcdefg
+        key: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+      priorityClassName: high-priority
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should set priorityClassName from global
+    set:
+      global:
+        priorityClassName: steadybit-agent-critical
+      agent:
+        identifier: abcdefg
+        key: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+    asserts:
+      - matchSnapshot: { }
