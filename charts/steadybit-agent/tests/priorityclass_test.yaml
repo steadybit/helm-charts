@@ -9,14 +9,16 @@ tests:
       - hasDocuments:
           count: 0
 
-  - it: should render priorityclass when enabled
+  - it: should render priorityclass with name from global.priorityClassName
     set:
+      global:
+        priorityClassName: steadybit-agent-critical
       priorityClass:
         create: true
     asserts:
       - matchSnapshot: { }
 
-  - it: should render priorityclass with custom values
+  - it: should render priorityclass with explicit name
     set:
       priorityClass:
         create: true

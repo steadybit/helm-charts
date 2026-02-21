@@ -222,8 +222,8 @@ priorityClassName: null
 priorityClass:
   # priorityClass.create -- Create a PriorityClass resource
   create: false
-  # priorityClass.name -- The name of the PriorityClass
-  name: steadybit-agent-critical
+  # priorityClass.name -- The name of the PriorityClass. Defaults to global.priorityClassName if set.
+  name: null
   # priorityClass.value -- The priority value
   value: 999900
   # priorityClass.preemptionPolicy -- The preemption policy

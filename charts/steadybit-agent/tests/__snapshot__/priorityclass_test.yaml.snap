@@ -1,22 +1,4 @@
-should render priorityclass when enabled:
-  1: |
-    apiVersion: scheduling.k8s.io/v1
-    description: Priority class for Steadybit agent and extensions
-    globalDefault: false
-    kind: PriorityClass
-    metadata:
-      labels:
-        app.kubernetes.io/instance: RELEASE-NAME
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: steadybit-agent
-        app.kubernetes.io/version: 0.0.0
-        helm.sh/chart: steadybit-agent-0.0.0
-        steadybit.com/agent: "true"
-        steadybit.com/discovery-disabled: "true"
-      name: steadybit-agent-critical
-    preemptionPolicy: PreemptLowerPriority
-    value: 999900
-should render priorityclass with custom values:
+should render priorityclass with explicit name:
   1: |
     apiVersion: scheduling.k8s.io/v1
     description: Priority class for Steadybit agent and extensions
@@ -34,3 +16,21 @@ should render priorityclass with custom values:
       name: my-custom-priority
     preemptionPolicy: Never
     value: 500000
+should render priorityclass with name from global.priorityClassName:
+  1: |
+    apiVersion: scheduling.k8s.io/v1
+    description: Priority class for Steadybit agent and extensions
+    globalDefault: false
+    kind: PriorityClass
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-agent
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-agent-0.0.0
+        steadybit.com/agent: "true"
+        steadybit.com/discovery-disabled: "true"
+      name: steadybit-agent-critical
+    preemptionPolicy: PreemptLowerPriority
+    value: 999900

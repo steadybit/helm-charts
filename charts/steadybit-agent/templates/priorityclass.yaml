@@ -2,7 +2,7 @@
 apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
-  name: {{ .Values.priorityClass.name }}
+  name: {{ .Values.priorityClass.name | default .Values.global.priorityClassName }}
   labels:
     {{- include "steadybit-agent.commonLabels" . | nindent 4 }}
 value: {{ .Values.priorityClass.value }}
