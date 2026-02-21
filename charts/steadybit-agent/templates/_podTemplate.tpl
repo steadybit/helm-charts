@@ -21,8 +21,11 @@
     spec:
       serviceAccountName: {{ template "steadybit-agent.serviceAccountName" . }}
       automountServiceAccountToken: true
-      {{- if .Values.priorityClassName.use }}
-      priorityClassName: {{ .Values.priorityClassName.name }}
+      {{- if and (kindIs "map" .Values.priorityClassName) .Values.priorityClassName.use }}
+      {{- fail ".Values.priorityClassName.use/.Values.priorityClassName.name has been removed. Please use .Values.priorityClassName as a simple string (e.g. priorityClassName: high-priority) or set .Values.global.priorityClassName" }}
+      {{- end }}
+      {{- with (.Values.priorityClassName | default .Values.global.priorityClassName) }}
+      priorityClassName: {{ . }}
       {{- end }}
       securityContext:
         {{- if .Capabilities.APIVersions.Has "security.openshift.io/v1/SecurityContextConstraints"}}

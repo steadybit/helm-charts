@@ -1,0 +1,12 @@
+{{- if .Values.priorityClass.create }}
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: {{ .Values.priorityClass.name | default .Values.global.priorityClassName }}
+  labels:
+    {{- include "steadybit-agent.commonLabels" . | nindent 4 }}
+value: {{ .Values.priorityClass.value }}
+preemptionPolicy: {{ .Values.priorityClass.preemptionPolicy }}
+globalDefault: false
+description: "Priority class for Steadybit agent and extensions"
+{{- end }}

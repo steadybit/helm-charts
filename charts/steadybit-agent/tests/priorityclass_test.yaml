@@ -1,0 +1,29 @@
+templates:
+  - priorityclass.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: should not render priorityclass by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render priorityclass with name from global.priorityClassName
+    set:
+      global:
+        priorityClassName: steadybit-agent-critical
+      priorityClass:
+        create: true
+    asserts:
+      - matchSnapshot: { }
+
+  - it: should render priorityclass with explicit name
+    set:
+      priorityClass:
+        create: true
+        name: my-custom-priority
+        value: 500000
+        preemptionPolicy: Never
+    asserts:
+      - matchSnapshot: { }

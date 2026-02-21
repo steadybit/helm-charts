@@ -5,6 +5,8 @@
 global:
   # global.clusterName -- Represents the name that will be assigned to this Kubernetes cluster in steadybit.
   clusterName: null
+  # global.priorityClassName -- If set, this priorityClassName is used for the agent and all extension pods.
+  priorityClassName: null
 
 agent:
   # agent.key -- The secret token which your agent uses to authenticate to steadybit's servers.
@@ -214,11 +216,18 @@ image:
   pullPolicy: Always
   pullSecrets: []
 
-priorityClassName:
-  # priorityClassName.use -- use a priorityClassName
-  use: false
-  # priorityClassName.name -- The name of the priority class to be used
-  name: high-priority
+# priorityClassName -- The name of an existing PriorityClass to assign to agent pods. Overrides global.priorityClassName for the agent.
+priorityClassName: null
+
+priorityClass:
+  # priorityClass.create -- Create a PriorityClass resource
+  create: false
+  # priorityClass.name -- The name of the PriorityClass. Defaults to global.priorityClassName if set.
+  name: null
+  # priorityClass.value -- The priority value
+  value: 999900
+  # priorityClass.preemptionPolicy -- The preemption policy
+  preemptionPolicy: PreemptLowerPriority
 
 resources:
   requests:
