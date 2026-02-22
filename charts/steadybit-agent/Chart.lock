@@ -31,7 +31,7 @@ dependencies:
   version: 1.2.16
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.2.14
+  version: 1.2.16
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.36
@@ -86,5 +86,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.18
-digest: sha256:78559167780cd90f14d79df4bba1ec18c35f3fcbc86aa5bbc555a1b775d99376
-generated: "2026-02-21T13:38:50.109683+01:00"
+digest: sha256:abd3d9b4bcc9cb56557672b6273415ad653655690cf061057ae5d38fd3e14e9e
+generated: "2026-02-22T06:22:34.163434516Z"
