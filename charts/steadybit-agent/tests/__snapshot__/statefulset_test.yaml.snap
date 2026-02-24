@@ -1525,7 +1525,7 @@ should not render image registry:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
-              image: steadybit/extension-auto-registration-kubernetes:v0.0.0
+              image: ghcr.io/steadybit/extension-auto-registration-kubernetes:v0.0.0
               imagePullPolicy: Always
               name: steadybit-agent-kubernetes-autoregistration
               resources:
@@ -1576,7 +1576,7 @@ should not render image registry:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
-              image: steadybit/agent:0.0.0
+              image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 5

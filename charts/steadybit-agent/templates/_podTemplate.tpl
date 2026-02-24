@@ -35,7 +35,7 @@
         {{- end }}
       containers:
         {{- if not .Values.agent.extensions.autoregistration.useLegacyAutoregistration }}
-        {{- $globalImage := dig "image" dict (.Values.global | default dict) -}}
+        {{- $globalImage := dig "image" dict (.Values.global | default dict) }}
         - name: "steadybit-agent-kubernetes-autoregistration"
           image: "{{ .Values.agent.extensions.autoregistration.image.registry | default (dig "registry" "ghcr.io" $globalImage) }}/{{ .Values.agent.extensions.autoregistration.image.name }}:{{ .Values.agent.extensions.autoregistration.image.tag }}"
           imagePullPolicy: {{ .Values.agent.extensions.autoregistration.image.pullPolicy | default (dig "pullPolicy" "Always" $globalImage) }}
