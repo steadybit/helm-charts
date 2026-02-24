@@ -35,9 +35,10 @@
         {{- end }}
       containers:
         {{- if not .Values.agent.extensions.autoregistration.useLegacyAutoregistration }}
+        {{- $globalImage := dig "image" dict (.Values.global | default dict) -}}
         - name: "steadybit-agent-kubernetes-autoregistration"
-          image: "{{ if .Values.agent.extensions.autoregistration.image.registry }}{{ .Values.agent.extensions.autoregistration.image.registry }}/{{ end }}{{ .Values.agent.extensions.autoregistration.image.name }}:{{ .Values.agent.extensions.autoregistration.image.tag }}"
-          imagePullPolicy: {{ .Values.agent.extensions.autoregistration.image.pullPolicy }}
+          image: "{{ .Values.agent.extensions.autoregistration.image.registry | default (dig "registry" "ghcr.io" $globalImage) }}/{{ .Values.agent.extensions.autoregistration.image.name }}:{{ .Values.agent.extensions.autoregistration.image.tag }}"
+          imagePullPolicy: {{ .Values.agent.extensions.autoregistration.image.pullPolicy | default (dig "pullPolicy" "Always" $globalImage) }}
           resources:
             requests:
               memory: {{ .Values.agent.extensions.autoregistration.resources.requests.memory }}
@@ -95,8 +96,8 @@
             {{- end }}
         {{- end }}
         - name: steadybit-agent
-          image: "{{ if .Values.image.registry }}{{ .Values.image.registry }}/{{ end }}{{ .Values.image.name }}:{{ default .Chart.AppVersion .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: {{ include "extensionlib.image" . }}
+          imagePullPolicy: {{ include "extensionlib.imagePullPolicy" . }}
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }}
@@ -270,12 +271,7 @@
       tolerations:
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.image.pullSecrets }}
-      imagePullSecrets:
-        {{- range .Values.image.pullSecrets }}
-        - name: {{ . }}
-        {{- end }}
-      {{- end }}
+      {{- include "extensionlib.imagePullSecrets" . | nindent 6 }}
       volumes:
         - name: tmp-dir
           emptyDir:

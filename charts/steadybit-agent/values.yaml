@@ -7,6 +7,13 @@ global:
   clusterName: null
   # global.priorityClassName -- If set, this priorityClassName is used for the agent and all extension pods.
   priorityClassName: null
+  image:
+    # global.image.registry -- The container registry to use for all images. Can be overridden per image.
+    registry: ghcr.io
+    # global.image.pullPolicy -- Default pull policy for all images. Can be overridden per image.
+    pullPolicy: null
+    # global.image.pullSecrets -- Default pull secrets for all images. Can be overridden per image.
+    pullSecrets: []
 
 agent:
   # agent.key -- The secret token which your agent uses to authenticate to steadybit's servers.
@@ -206,14 +213,15 @@ logging:
   format: text
 
 image:
-  # image.name -- the container registry to use for the steadybit agent.
-  registry: ghcr.io
+  # image.registry -- The container registry to use for the steadybit agent. Defaults to global.image.registry or ghcr.io.
+  registry: null
   # image.name -- The container image to use of the steadybit agent.
   name: steadybit/agent
   # image.tag -- tag name of the agent container image to use. Defaults to appVersion of this chart.
   tag: null
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
+  # image.pullSecrets -- List of image pull secret names.
   pullSecrets: []
 
 # priorityClassName -- The name of an existing PriorityClass to assign to agent pods. Overrides global.priorityClassName for the agent.
