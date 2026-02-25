@@ -52,6 +52,8 @@ repositories:
     url: https://steadybit.github.io/extension-prometheus
   - name: steadybit-extension-rabbitmq
     url: https://steadybit.github.io/extension-rabbitmq
+  - name: steadybit-extension-redis
+    url: https://steadybit.github.io/extension-redis
   - name: steadybit-extension-splunk
     url: https://steadybit.github.io/extension-splunk
   - name: steadybit-extension-splunk-platform

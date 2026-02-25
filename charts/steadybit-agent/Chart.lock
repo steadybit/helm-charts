@@ -80,6 +80,9 @@ dependencies:
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
   version: 1.0.15
+- name: steadybit-extension-redis
+  repository: https://steadybit.github.io/extension-redis
+  version: 1.0.2
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.11
@@ -88,6 +91,6 @@ dependencies:
   version: 1.0.10
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.19
-digest: sha256:6fcbd1ef51b22826e027c08cb149c051c30181be8d5130178666c719117695a1
-generated: "2026-02-25T06:31:59.647522582Z"
+  version: 1.1.14
+digest: sha256:87971999ddeca6e5b350a2678802c8c4fe415796142295605c8c5a0aa77e2238
+generated: "2026-02-25T15:11:31.078247+01:00"

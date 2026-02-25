@@ -533,6 +533,26 @@ extension-rabbitmq:
       existingSecret: null
       managementEndpoints: []
 
+# extension-redis.* -- settings for the redis extension sub chart.
+#   Further configuration not listed here may be required.
+#   See https://github.com/steadybit/extension-redis for more information.
+extension-redis:
+  # extension-redis.enabled -- Enable the redis extension
+  enabled: false
+  redis:
+    # Redis authentication configuration
+    auth:
+      # Use an existing secret for management endpoints JSON
+      # The secret must contain a key 'endpoints-json' with the JSON array
+      existingSecret: ""
+      # Inline management endpoints configuration (ignored if existingSecret is set)
+      # Example:
+      # managementEndpoints:
+      #   - url: "redis://redis:6379"
+      #     password: "secret"
+      #     name: "my-redis"
+      managementEndpoints: []
+
 # extension-splunk.* -- settings for the splunk extension sub chart.
 #   Further configuration not listed here may be required.
 #   See https://github.com/steadybit/extension-splunk for more information.

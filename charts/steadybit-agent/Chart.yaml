@@ -1,7 +1,7 @@
 apiVersion: v2
 name: steadybit-agent
 description: steadybit agent Helm chart for Kubernetes.
-version: 3.1.50
+version: 3.1.51
 appVersion: 2.2.10
 home: https://www.steadybit.com/
 icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
@@ -153,6 +153,11 @@ dependencies:
     repository: https://steadybit.github.io/extension-rabbitmq
     alias: extension-rabbitmq
     condition: extension-rabbitmq.enabled
+  - name: steadybit-extension-redis
+    version: ^1.0.0
+    repository: https://steadybit.github.io/extension-redis
+    alias: extension-redis
+    condition: extension-redis.enabled
   - name: steadybit-extension-splunk
     version: ^1.0.4
     repository: https://steadybit.github.io/extension-splunk
