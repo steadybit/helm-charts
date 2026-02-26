@@ -79,7 +79,7 @@ dependencies:
   version: 1.5.29
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
-  version: 1.0.15
+  version: 1.0.17
 - name: steadybit-extension-redis
   repository: https://steadybit.github.io/extension-redis
   version: 1.0.2
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.19
-digest: sha256:8ce60cf689cc435c6391311b49841376aa419406e95e490cea2498f4526def4f
-generated: "2026-02-26T06:29:10.962074069Z"
+digest: sha256:a404b88f737c581b8907f98415fd4c224c0968b2eddca8a5f8408cbcf6760dfd
+generated: "2026-02-26T12:45:26.430296769Z"
