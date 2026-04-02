@@ -34,7 +34,7 @@ dependencies:
   version: 1.2.18
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.2.18
+  version: 1.3.0
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.39
@@ -49,7 +49,7 @@ dependencies:
   version: 1.0.11
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.29
+  version: 1.1.30
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.2.16
@@ -73,7 +73,7 @@ dependencies:
   version: 1.1.16
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.29
+  version: 1.7.30
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
   version: 1.5.30
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.20
-digest: sha256:f27d5520e90fa3bd341257352632163f91d8d255da624361a9a0814c05740b2b
-generated: "2026-04-01T06:45:14.33400639Z"
+digest: sha256:480b38bef85d09c2c3d3b33f1bc1a245c6e5f86f4affa57ea5195add20b275e4
+generated: "2026-04-02T06:36:16.446118193Z"
