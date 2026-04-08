@@ -168,6 +168,30 @@ ingress:
   hosts: [ ]
   # - platform.steadybit.local
 
+# -- HTTPRoute configuration properties for Gateway API
+httpRoute:
+  # httpRoute.enabled -- Set to true to create HTTPRoute resources (Gateway API).
+  enabled: false
+  # httpRoute.annotations -- Annotations applied to both HTTPRoute resources. Can be overridden per route.
+  annotations: { }
+  # httpRoute.parentRefs -- Default Gateway references for both HTTPRoute resources. Can be overridden per route. See https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ParentReference
+  parentRefs: [ ]
+  # - name: my-gateway
+  #   namespace: gateway-ns
+  # httpRoute.hostnames -- Default hostnames for both HTTPRoute resources. Can be overridden per route. See https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname
+  hostnames: [ ]
+  # - platform.steadybit.local
+  # httpRoute.ws -- Per-route overrides for the WebSocket HTTPRoute (agent traffic). Falls back to shared values above when not set.
+  ws:
+    parentRefs: [ ]
+    hostnames: [ ]
+    annotations: { }
+  # httpRoute.ui -- Per-route overrides for the UI HTTPRoute (user traffic). Falls back to shared values above when not set.
+  ui:
+    parentRefs: [ ]
+    hostnames: [ ]
+    annotations: { }
+
 # -- Route configuration properties for openshift
 route:
   # route.enabled -- Set to true to create a route (OpenShift). Defaults to true on openshift, false otherwise.

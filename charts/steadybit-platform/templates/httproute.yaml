@@ -1,0 +1,74 @@
+{{- if .Values.httpRoute.enabled -}}
+  {{- $fullName := include "steadybit-platform.fullname" . -}}
+  {{- $wsPort := ternary 8082 (.Values.platform.websocketPort | int) .Values.platform.portSplit.enabled -}}
+  {{- $uiPort := ternary 8081 (.Values.platform.uiPort | int) .Values.platform.portSplit.enabled -}}
+  {{- $wsParentRefs := .Values.httpRoute.ws.parentRefs | default .Values.httpRoute.parentRefs -}}
+  {{- $uiParentRefs := .Values.httpRoute.ui.parentRefs | default .Values.httpRoute.parentRefs -}}
+  {{- $wsHostnames := .Values.httpRoute.ws.hostnames | default .Values.httpRoute.hostnames -}}
+  {{- $uiHostnames := .Values.httpRoute.ui.hostnames | default .Values.httpRoute.hostnames -}}
+  {{- $wsAnnotations := .Values.httpRoute.ws.annotations | default .Values.httpRoute.annotations -}}
+  {{- $uiAnnotations := .Values.httpRoute.ui.annotations | default .Values.httpRoute.annotations -}}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ $fullName }}-ws
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "steadybit-platform.commonLabels" . | nindent 4 }}
+  {{- range $key, $value := .Values.platform.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+  {{- with $wsAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with $wsParentRefs }}
+  parentRefs:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $wsHostnames }}
+  hostnames:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ws
+      backendRefs:
+        - name: {{ $fullName }}
+          port: {{ $wsPort }}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ $fullName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "steadybit-platform.commonLabels" . | nindent 4 }}
+  {{- range $key, $value := .Values.platform.extraLabels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+  {{- with $uiAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with $uiParentRefs }}
+  parentRefs:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $uiHostnames }}
+  hostnames:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: {{ $fullName }}
+          port: {{ $uiPort }}
+{{- end }}

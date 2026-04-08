@@ -1,0 +1,69 @@
+templates:
+  - httproute.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: should not create httproutes by default
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should create httproutes with shared config
+    set:
+      httpRoute:
+        enabled: true
+        annotations:
+          example.com/foo: bar
+        parentRefs:
+          - name: my-gateway
+            namespace: gateway-ns
+        hostnames:
+          - platform.steadybit.example.com
+    asserts:
+      - matchSnapshot: { }
+  - it: should create httproutes with port splitting
+    set:
+      httpRoute:
+        enabled: true
+        parentRefs:
+          - name: my-gateway
+      platform:
+        portSplit:
+          enabled: true
+        ingressOrigin: https://platform.steadybit.example.com
+    asserts:
+      - matchSnapshot: { }
+  - it: should allow per-route parentRefs for split ALB
+    set:
+      httpRoute:
+        enabled: true
+        hostnames:
+          - platform.steadybit.example.com
+        ws:
+          parentRefs:
+            - name: internal-gateway
+              namespace: gateway-ns
+        ui:
+          parentRefs:
+            - name: external-gateway
+              namespace: gateway-ns
+    asserts:
+      - matchSnapshot: { }
+  - it: should allow per-route hostnames and annotations
+    set:
+      httpRoute:
+        enabled: true
+        parentRefs:
+          - name: my-gateway
+        ws:
+          hostnames:
+            - ws.steadybit.example.com
+          annotations:
+            example.com/ws: "true"
+        ui:
+          hostnames:
+            - ui.steadybit.example.com
+          annotations:
+            example.com/ui: "true"
+    asserts:
+      - matchSnapshot: { }
