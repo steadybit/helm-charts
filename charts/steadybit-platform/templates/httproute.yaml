@@ -2,6 +2,7 @@
   {{- $fullName := include "steadybit-platform.fullname" . -}}
   {{- $wsPort := ternary 8082 (.Values.platform.websocketPort | int) .Values.platform.portSplit.enabled -}}
   {{- $uiPort := ternary 8081 (.Values.platform.uiPort | int) .Values.platform.portSplit.enabled -}}
+  {{- $wsPath := ternary "/" "/ws" .Values.platform.portSplit.enabled -}}
   {{- $wsParentRefs := .Values.httpRoute.ws.parentRefs | default .Values.httpRoute.parentRefs -}}
   {{- $uiParentRefs := .Values.httpRoute.ui.parentRefs | default .Values.httpRoute.parentRefs -}}
   {{- $wsHostnames := .Values.httpRoute.ws.hostnames | default .Values.httpRoute.hostnames -}}
@@ -35,7 +36,7 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /ws
+            value: {{ $wsPath }}
       backendRefs:
         - name: {{ $fullName }}
           port: {{ $wsPort }}

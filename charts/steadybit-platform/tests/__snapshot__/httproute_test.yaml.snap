@@ -129,7 +129,7 @@ should create httproutes with port splitting:
           matches:
             - path:
                 type: PathPrefix
-                value: /ws
+                value: /
   2: |
     apiVersion: gateway.networking.k8s.io/v1
     kind: HTTPRoute
