@@ -1,5 +1,6 @@
 templates:
   - httproute.yaml
+  - httproute-redirect.yaml
 chart:
   appVersion: 0.0.0
   version: 0.0.0
@@ -49,6 +50,19 @@ tests:
               namespace: gateway-ns
     asserts:
       - matchSnapshot: { }
+  - it: should not create redirect when disabled
+    set:
+      httpRoute:
+        enabled: true
+        parentRefs:
+          - name: my-gateway
+    asserts:
+      - hasDocuments:
+          count: 2
+        template: httproute.yaml
+      - hasDocuments:
+          count: 0
+        template: httproute-redirect.yaml
   - it: should allow per-route hostnames and annotations
     set:
       httpRoute:
@@ -66,4 +80,23 @@ tests:
           annotations:
             example.com/ui: "true"
     asserts:
+      - matchSnapshot: { }
+  - it: should create redirect route when enabled
+    set:
+      httpRoute:
+        enabled: true
+        parentRefs:
+          - name: my-gateway
+        httpRedirect:
+          enabled: true
+          parentRefs:
+            - name: my-gateway
+              sectionName: http
+    asserts:
+      - hasDocuments:
+          count: 2
+        template: httproute.yaml
+      - hasDocuments:
+          count: 1
+        template: httproute-redirect.yaml
       - matchSnapshot: { }

@@ -210,3 +210,72 @@ should create httproutes with shared config:
             - path:
                 type: PathPrefix
                 value: /
+should create redirect route when enabled:
+  1: |
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: HTTPRoute
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform-http-redirect
+      namespace: NAMESPACE
+    spec:
+      parentRefs:
+        - name: my-gateway
+          sectionName: http
+      rules:
+        - filters:
+            - requestRedirect:
+                scheme: https
+                statusCode: 301
+              type: RequestRedirect
+  2: |
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: HTTPRoute
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform-ws
+      namespace: NAMESPACE
+    spec:
+      parentRefs:
+        - name: my-gateway
+      rules:
+        - backendRefs:
+            - name: RELEASE-NAME-steadybit-platform
+              port: 7878
+          matches:
+            - path:
+                type: PathPrefix
+                value: /ws
+  3: |
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: HTTPRoute
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      parentRefs:
+        - name: my-gateway
+      rules:
+        - backendRefs:
+            - name: RELEASE-NAME-steadybit-platform
+              port: 80
+          matches:
+            - path:
+                type: PathPrefix
+                value: /

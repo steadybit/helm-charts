@@ -191,6 +191,15 @@ httpRoute:
     parentRefs: [ ]
     hostnames: [ ]
     annotations: { }
+  # httpRoute.httpRedirect -- Creates an HTTPRoute that redirects HTTP to HTTPS (301). Requires a Gateway listener on HTTP.
+  httpRedirect:
+    # httpRoute.httpRedirect.enabled -- Set to true to create the HTTP-to-HTTPS redirect HTTPRoute.
+    enabled: false
+    # httpRoute.httpRedirect.parentRefs -- Gateway references for the redirect route. Should target the HTTP listener via sectionName.
+    parentRefs: [ ]
+    # - name: my-gateway
+    #   namespace: gateway-ns
+    #   sectionName: http
 
 # -- Route configuration properties for openshift
 route:
