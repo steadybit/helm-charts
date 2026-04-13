@@ -118,10 +118,15 @@ manifest should not set terminationGracePeriodSeconds:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 manifest should render image data urls:
   1: |
     apiVersion: apps/v1
@@ -250,10 +255,15 @@ manifest should render image data urls:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 manifest should render image urls:
   1: |
     apiVersion: apps/v1
@@ -382,10 +392,15 @@ manifest should render image urls:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 manifest should set terminationGracePeriodSeconds:
   1: |
     apiVersion: apps/v1
@@ -510,11 +525,16 @@ manifest should set terminationGracePeriodSeconds:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
           terminationGracePeriodSeconds: 43200
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 manifest should support Recreate strategy:
   1: |
     apiVersion: apps/v1
@@ -637,10 +657,15 @@ manifest should support Recreate strategy:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 manifest should support RollingUpdate strategy:
   1: |
     apiVersion: apps/v1
@@ -766,10 +791,15 @@ manifest should support RollingUpdate strategy:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 manifest should support extra certificate volume:
   1: |
     apiVersion: apps/v1
@@ -892,11 +922,15 @@ manifest should support extra certificate volume:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
+            - emptyDir: {}
+              name: work-dir
             - configMap:
                 name: self-signed-ca
               name: extra-cert
@@ -1023,12 +1057,16 @@ manifest should support extra volumes and mounts:
                 successThreshold: 1
                 timeoutSeconds: 5
               volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
                 - mountPath: /test
                   name: test-volume
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
+            - emptyDir: {}
+              name: work-dir
             - hostPath: /test
               name: test-volume
 manifest should support init container:
@@ -1155,7 +1193,9 @@ manifest should support init container:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           initContainers:
@@ -1204,6 +1244,9 @@ manifest should support init container:
                   cpu: 2000m
                   memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 manifest should support various variables:
   1: |
     apiVersion: apps/v1
@@ -1332,10 +1375,15 @@ manifest should support various variables:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 should not fail with missing license for version >= 2.2.0:
   1: |
     apiVersion: apps/v1
@@ -1463,10 +1511,15 @@ should not fail with missing license for version >= 2.2.0:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
 should not fail with missing license for version >= 2.2.0 for saas mode:
   1: |
     apiVersion: apps/v1
@@ -1580,7 +1633,12 @@ should not fail with missing license for version >= 2.2.0 for saas mode:
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
-              volumeMounts: null
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
           serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir

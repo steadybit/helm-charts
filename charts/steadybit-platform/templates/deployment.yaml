@@ -117,6 +117,8 @@ spec:
               containerPort: 7878
               protocol: TCP
           volumeMounts:
+            - name: work-dir
+              mountPath: /opt/steadybit/platform/data
           {{- if eq (include "steadybit-platform.hasVolumeExtraCerts" . ) "true" }}
             - name: extra-certs
               mountPath: /opt/steadybit/platform/etc/extra-certs
@@ -283,8 +285,10 @@ spec:
             - name: PLATFORM_WS_ORIGIN
               value: "http://127.0.0.1:7878"
         {{- end }}
-      {{- with .Values.platform.extraVolumes }}
       volumes:
+        - name: work-dir
+          emptyDir: {}
+      {{- with .Values.platform.extraVolumes }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
