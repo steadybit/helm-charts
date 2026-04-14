@@ -1,0 +1,20 @@
+{{- if .Values.httpRoute.enabled -}}
+{{- $fullName := include "steadybit-platform.fullname" . -}}
+{{- $healthCheckPort := ternary "ingress-port" "ui-port" .Values.platform.portSplit.enabled -}}
+apiVersion: gateway.k8s.aws/v1beta1
+kind: TargetGroupConfiguration
+metadata:
+  name: {{ $fullName }}-tgc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "steadybit-platform.commonLabels" . | nindent 4 }}
+spec:
+  targetReference:
+    name: {{ $fullName }}
+    kind: Service
+  defaultConfiguration:
+    healthCheckConfig:
+      healthCheckPath: /api/health/liveness
+      healthCheckPort: {{ $healthCheckPort }}
+      healthCheckProtocol: HTTP
+{{- end -}}
