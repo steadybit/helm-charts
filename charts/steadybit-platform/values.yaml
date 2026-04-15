@@ -200,6 +200,16 @@ httpRoute:
     # - name: my-gateway
     #   namespace: gateway-ns
     #   sectionName: http
+  # httpRoute.targetGroupAttributes -- ALB target group attributes (key/value pairs) applied to the platform service's target groups via TargetGroupConfiguration. Use to configure stickiness, deregistration delay, etc. See https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#target-group-attributes
+  targetGroupAttributes: [ ]
+  # - key: stickiness.enabled
+  #   value: "true"
+  # - key: stickiness.type
+  #   value: app_cookie
+  # - key: stickiness.app_cookie.cookie_name
+  #   value: SESSION
+  # - key: deregistration_delay.timeout_seconds
+  #   value: "3600"
 
 # -- Route configuration properties for openshift
 route:

@@ -17,4 +17,8 @@ spec:
       healthCheckPath: /api/health/liveness
       healthCheckPort: {{ $healthCheckPort }}
       healthCheckProtocol: HTTP
+    {{- with .Values.httpRoute.targetGroupAttributes }}
+    targetGroupAttributes:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
 {{- end -}}
