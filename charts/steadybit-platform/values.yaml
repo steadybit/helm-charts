@@ -192,6 +192,10 @@ httpRoute:
     hostnames: [ ]
     annotations: { }
   # httpRoute.httpRedirect -- Creates an HTTPRoute that redirects HTTP to HTTPS (301). Requires a Gateway listener on HTTP.
+  # When enabling, use the dedicated-listener pattern: scope ws/ui parentRefs to the HTTPS listener via `sectionName: https`,
+  # and scope this redirect to the HTTP listener via `sectionName: http`. Otherwise the ws/ui routes will also bind to the HTTP
+  # listener and produce duplicate rules that compete with the redirect (Gateway API spec orders by match specificity, and the
+  # catch-all redirect is the least specific — it will lose to any ws/ui rule on the same listener).
   httpRedirect:
     # httpRoute.httpRedirect.enabled -- Set to true to create the HTTP-to-HTTPS redirect HTTPRoute.
     enabled: false
