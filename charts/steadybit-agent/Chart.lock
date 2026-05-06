@@ -19,7 +19,7 @@ dependencies:
   version: 1.5.22
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
-  version: 1.0.29
+  version: 1.0.30
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
   version: 1.1.26
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.21
-digest: sha256:6aa2664b7ed7dee54e04ad675abd5d3798e0533b19c44ca26fc98b0e8600b79c
-generated: "2026-04-29T07:00:49.006878458Z"
+digest: sha256:ce8c5a43dbf502fd3f4e4c52b2ac879cb4a8af0e681a4f64a785d1d4515db948
+generated: "2026-05-06T07:06:47.885072577Z"
