@@ -34,6 +34,14 @@ NOTE: It may take a few minutes for the LoadBalancer IP to be available.
 
 {{- end }}
 
+{{- $ingressEnabled := or .Values.ingress.enabled (and (eq .Values.ingress.enabled nil) (not (.Capabilities.APIVersions.Has "route.openshift.io/v1"))) -}}
+{{- $routeEnabled := or .Values.route.enabled (and (eq .Values.route.enabled nil) (.Capabilities.APIVersions.Has "route.openshift.io/v1")) -}}
+{{- if and $ingressEnabled $routeEnabled }}
+
+#### WARNING: Both an Ingress and an OpenShift Route are being created. This usually leads to duplicate routing rules. Set either 'ingress.enabled: false' or 'route.enabled: false' to keep only one. ####
+
+{{- end }}
+
 
 {{- end }}
 

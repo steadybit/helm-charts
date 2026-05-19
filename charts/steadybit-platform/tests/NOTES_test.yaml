@@ -21,3 +21,42 @@ tests:
           type: NodePort
     asserts:
       - matchSnapshot: { }
+  - it: should warn when both ingress and route are enabled (openshift cluster)
+    capabilities:
+      apiVersions:
+        - route.openshift.io/v1
+    set:
+      ingress:
+        enabled: true
+      route:
+        enabled: true
+    asserts:
+      - matchRegexRaw:
+          pattern: "Both an Ingress and an OpenShift Route are being created"
+      - matchSnapshot: { }
+  - it: should warn when ingress is forced on top of openshift auto-route
+    capabilities:
+      apiVersions:
+        - route.openshift.io/v1
+    set:
+      ingress:
+        enabled: true
+    asserts:
+      - matchRegexRaw:
+          pattern: "Both an Ingress and an OpenShift Route are being created"
+  - it: should not warn when only ingress is enabled
+    set:
+      ingress:
+        enabled: true
+      route:
+        enabled: false
+    asserts:
+      - notMatchRegexRaw:
+          pattern: "Both an Ingress and an OpenShift Route are being created"
+  - it: should not warn when only route is enabled (openshift default)
+    capabilities:
+      apiVersions:
+        - route.openshift.io/v1
+    asserts:
+      - notMatchRegexRaw:
+          pattern: "Both an Ingress and an OpenShift Route are being created"
