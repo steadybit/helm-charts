@@ -18,6 +18,10 @@ metadata:
   {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- with .Values.ingress.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   rules:
     {{- if .Values.ingress.hosts }}
     {{- range .Values.ingress.hosts }}

@@ -24,6 +24,18 @@ tests:
   - it: should enable ingress in plain kubernetes
     asserts:
       - matchSnapshot: { }
+  - it: should render tls section when tls is configured
+    set:
+      ingress:
+        enabled: true
+        tls:
+          - secretName: tls-secret
+            hosts:
+              - example.steadybit.com
+        hosts:
+          - example.steadybit.com
+    asserts:
+      - matchSnapshot: { }
   - it: should disable ingress in openshift
     capabilities:
       apiVersions:
