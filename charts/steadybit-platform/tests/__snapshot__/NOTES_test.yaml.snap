@@ -15,6 +15,20 @@ should not warn on new service type:
 
       For more information on next steps with steadybit, check out:
       https://docs.steadybit.io/getting-started
+should print route url when route is enabled with host:
+  1: |
+    raw: |-
+      The steadybit platform server can be accessed via port 80 on the following DNS name from within your cluster:
+      RELEASE-NAME-steadybit-platform.NAMESPACE.svc.cluster.local
+
+
+      From outside the cluster, the server URL is:
+      https://platform.example.com
+
+      #### WARNING: postgresql is enabled. This is not recommended for production environments. Please use an external database instead. ####
+
+      For more information on next steps with steadybit, check out:
+      https://docs.steadybit.io/getting-started
 should warn on deprecated service type:
   1: |
     raw: |-

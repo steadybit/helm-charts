@@ -60,3 +60,64 @@ tests:
     asserts:
       - notMatchRegexRaw:
           pattern: "Both an Ingress and an OpenShift Route are being created"
+  - it: should print route url when route is enabled with host
+    capabilities:
+      apiVersions:
+        - route.openshift.io/v1
+    set:
+      route:
+        host: platform.example.com
+    asserts:
+      - matchRegexRaw:
+          pattern: "From outside the cluster, the server URL is:\nhttps://platform.example.com"
+      - matchSnapshot: { }
+  - it: should print route url with http when route.tls is cleared
+    capabilities:
+      apiVersions:
+        - route.openshift.io/v1
+    set:
+      route:
+        host: platform.example.com
+        tls: null
+    asserts:
+      - matchRegexRaw:
+          pattern: "From outside the cluster, the server URL is:\nhttp://platform.example.com"
+  - it: should print ingress url when ingress.enabled is unset on plain kubernetes
+    set:
+      ingress:
+        hosts:
+          - platform.example.com
+    asserts:
+      - matchRegexRaw:
+          pattern: "http://platform\\.example\\.com"
+  - it: should print ingress url with https when ingress.tls is configured
+    set:
+      ingress:
+        enabled: true
+        hosts:
+          - platform.example.com
+        tls:
+          - secretName: tls-secret
+            hosts:
+              - platform.example.com
+    asserts:
+      - matchRegexRaw:
+          pattern: "https://platform.example.com"
+      - notMatchRegexRaw:
+          pattern: "http://platform.example.com"
+  - it: should prefer ingress url when both ingress hosts and route host are set
+    capabilities:
+      apiVersions:
+        - route.openshift.io/v1
+    set:
+      ingress:
+        enabled: true
+        hosts:
+          - ingress.example.com
+      route:
+        host: route.example.com
+    asserts:
+      - matchRegexRaw:
+          pattern: "http://ingress.example.com"
+      - notMatchRegexRaw:
+          pattern: "route.example.com"
