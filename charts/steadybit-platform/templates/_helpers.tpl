@@ -105,6 +105,30 @@ checks the platform.tenant.mode for valid values
 {{/*
 checks if a volumne extra-cert is avaiable
 */}}
+{{/*
+returns "true" when an Ingress should be rendered: explicit ingress.enabled,
+or unset on a cluster without the OpenShift Route API.
+*/}}
+{{- define "steadybit-platform.ingressEnabled" -}}
+  {{- if or .Values.ingress.enabled (and (eq .Values.ingress.enabled nil) (not (.Capabilities.APIVersions.Has "route.openshift.io/v1"))) -}}
+true
+  {{- else -}}
+false
+  {{- end -}}
+{{- end -}}
+
+{{/*
+returns "true" when an OpenShift Route should be rendered: explicit route.enabled,
+or unset on a cluster with the OpenShift Route API.
+*/}}
+{{- define "steadybit-platform.routeEnabled" -}}
+  {{- if or .Values.route.enabled (and (eq .Values.route.enabled nil) (.Capabilities.APIVersions.Has "route.openshift.io/v1")) -}}
+true
+  {{- else -}}
+false
+  {{- end -}}
+{{- end -}}
+
 {{- define "steadybit-platform.hasVolumeExtraCerts" -}}
   {{- $result := "false" -}}
   {{- range $vol := .Values.platform.extraVolumes -}}

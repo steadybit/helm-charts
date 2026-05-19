@@ -1,4 +1,4 @@
-{{- if (or (.Values.route.enabled) (and (eq .Values.route.enabled nil) (.Capabilities.APIVersions.Has "route.openshift.io/v1") ) ) -}}
+{{- if eq (include "steadybit-platform.routeEnabled" .) "true" -}}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
