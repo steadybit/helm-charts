@@ -227,6 +227,22 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/extensionlib-1.0.0/extensionlib-1.0.0.tgz
     version: 1.0.0
+  extensionlib-test:
+  - apiVersion: v2
+    appVersion: 0.0.0
+    created: "2026-05-20T12:39:34.695805553Z"
+    dependencies:
+    - name: extensionlib
+      repository: file://../extensionlib
+      version: '>=0.0.0-0'
+    description: Test wrapper chart for snapshot testing the extensionlib library
+      helpers.
+    digest: cdf0e8ceed24ec69de3b12866fe6a8c4e4de473aad73378080d293dfb7a9b33a
+    name: extensionlib-test
+    type: application
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/extensionlib-test-0.0.0/extensionlib-test-0.0.0.tgz
+    version: 0.0.0
   steadybit-agent:
   - annotations:
       artifacthub.io/images: |
@@ -68445,4 +68461,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2026-05-20T12:26:32.55232311Z"
+generated: "2026-05-20T12:39:34.697482306Z"
