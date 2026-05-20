@@ -1,0 +1,245 @@
+client TLS CAs from paths:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
+                  value: /etc/ca-one.crt,/etc/ca-two.crt
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+client TLS CAs from secrets:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
+                  value: /etc/extension/certificates/ca-one/tls.crt,/etc/extension/certificates/ca-two/tls.crt
+              image: test:latest
+              name: extension
+              volumeMounts:
+                - mountPath: /etc/extension/certificates/ca-one
+                  name: certificate-ca-one
+                  readOnly: true
+                - mountPath: /etc/extension/certificates/ca-two
+                  name: certificate-ca-two
+                  readOnly: true
+          volumes:
+            - name: certificate-ca-one
+              secret:
+                optional: false
+                secretName: ca-one
+            - name: certificate-ca-two
+              secret:
+                optional: false
+                secretName: ca-two
+custom log level and format:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: debug
+                - name: STEADYBIT_LOG_FORMAT
+                  value: json
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+discovery section present but no group set — no GROUP env var:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+discovery.group set — STEADYBIT_EXTENSION_DISCOVERY_GROUP is added:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+                  value: prod-eu
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+renders defaults without any TLS or discovery.group:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+server TLS from path:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_TLS_SERVER_CERT
+                  value: /etc/ext/tls.crt
+                - name: STEADYBIT_EXTENSION_TLS_SERVER_KEY
+                  value: /etc/ext/tls.key
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+server TLS from secret:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_TLS_SERVER_CERT
+                  value: /etc/extension/certificates/server-tls/tls.crt
+                - name: STEADYBIT_EXTENSION_TLS_SERVER_KEY
+                  value: /etc/extension/certificates/server-tls/tls.key
+                - name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+                  value: g1
+              image: test:latest
+              name: extension
+              volumeMounts:
+                - mountPath: /etc/extension/certificates/server-tls
+                  name: certificate-server-tls
+                  readOnly: true
+          volumes:
+            - name: certificate-server-tls
+              secret:
+                optional: false
+                secretName: server-tls

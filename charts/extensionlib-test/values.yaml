@@ -1,0 +1,16 @@
+# Defaults mirror the minimum surface that extensionlib helpers expect from a consumer chart.
+logging:
+  level: INFO
+  format: text
+
+tls:
+  server:
+    certificate:
+      fromSecret: null
+      path: null
+      key:
+        path: null
+  client:
+    certificates:
+      fromSecrets: []
+      paths: []

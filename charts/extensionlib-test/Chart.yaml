@@ -1,0 +1,10 @@
+apiVersion: v2
+name: extensionlib-test
+description: Test wrapper chart for snapshot testing the extensionlib library helpers.
+type: application
+version: 0.0.0
+appVersion: 0.0.0
+dependencies:
+  - name: extensionlib
+    version: ">=0.0.0-0"
+    repository: "file://../extensionlib"

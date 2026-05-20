@@ -44,5 +44,6 @@ jobs:
         if: ${{ startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main' }}
         with:
           mark_as_latest: ${{ github.ref == 'refs/heads/main' }}
+          config: cr.yaml
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -1,0 +1,121 @@
+suite: extensionlib.deployment.env
+templates:
+  - deployment.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: renders defaults without any TLS or discovery.group
+    asserts:
+      - matchSnapshot: {}
+
+  - it: discovery section present but no group set — no GROUP env var
+    set:
+      discovery:
+        attributes:
+          excludes: []
+    asserts:
+      - matchSnapshot: {}
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+
+  - it: discovery.group set — STEADYBIT_EXTENSION_DISCOVERY_GROUP is added
+    set:
+      discovery:
+        group: prod-eu
+    asserts:
+      - matchSnapshot: {}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+            value: prod-eu
+
+  - it: server TLS from secret
+    set:
+      tls:
+        server:
+          certificate:
+            fromSecret: server-tls
+      discovery:
+        group: g1
+    asserts:
+      - matchSnapshot: {}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_TLS_SERVER_CERT
+            value: /etc/extension/certificates/server-tls/tls.crt
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_TLS_SERVER_KEY
+            value: /etc/extension/certificates/server-tls/tls.key
+
+  - it: server TLS from path
+    set:
+      tls:
+        server:
+          certificate:
+            path: /etc/ext/tls.crt
+            key:
+              path: /etc/ext/tls.key
+    asserts:
+      - matchSnapshot: {}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_TLS_SERVER_CERT
+            value: /etc/ext/tls.crt
+
+  - it: client TLS CAs from secrets
+    set:
+      tls:
+        client:
+          certificates:
+            fromSecrets:
+              - ca-one
+              - ca-two
+    asserts:
+      - matchSnapshot: {}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
+            value: /etc/extension/certificates/ca-one/tls.crt,/etc/extension/certificates/ca-two/tls.crt
+
+  - it: client TLS CAs from paths
+    set:
+      tls:
+        client:
+          certificates:
+            paths:
+              - /etc/ca-one.crt
+              - /etc/ca-two.crt
+    asserts:
+      - matchSnapshot: {}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
+            value: /etc/ca-one.crt,/etc/ca-two.crt
+
+  - it: custom log level and format
+    set:
+      logging:
+        level: debug
+        format: json
+    asserts:
+      - matchSnapshot: {}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_LOG_LEVEL
+            value: debug
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_LOG_FORMAT
+            value: json

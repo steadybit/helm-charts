@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: extensionlib-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: extensionlib-test
+  template:
+    metadata:
+      labels:
+        app: extensionlib-test
+    spec:
+      containers:
+        - name: extension
+          image: test:latest
+          env:
+            {{- include "extensionlib.deployment.env" (list .) | nindent 12 }}
+          volumeMounts:
+            {{- include "extensionlib.deployment.volumeMounts" (list .) | nindent 12 }}
+      volumes:
+        {{- include "extensionlib.deployment.volumes" (list .) | nindent 8 }}
