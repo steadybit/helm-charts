@@ -28,6 +28,11 @@ This takes an array of these values:
 - name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
   value: "{{ join "," $top.Values.tls.client.certificates.paths }}"
 {{ end -}}
+{{- $group := dig "discovery" "group" "" $top.Values -}}
+{{ if $group -}}
+- name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+  value: {{ $group | quote }}
+{{ end -}}
 {{- end -}}
 
 {{- /*
