@@ -10,7 +10,7 @@ dependencies:
   version: 2.2.35
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.34
+  version: 1.1.35
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
   version: 1.5.11
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.24
-digest: sha256:cf0dd7ebed59215238ea88ce3297447e04b4425cd81433cbe742478de53a2dd8
-generated: "2026-06-02T07:53:00.761964808Z"
+digest: sha256:6b978e2f32b94b057ec6597755afb3f42f6431b61f171c11eee4f72d9490f2ef
+generated: "2026-06-05T07:42:48.149262498Z"
