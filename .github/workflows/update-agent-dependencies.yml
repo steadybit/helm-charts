@@ -33,9 +33,18 @@ jobs:
           version: v4.0.4
 
       # this commit will effectively cause another run of the workflow which then actually performs the helm chart release
-      - run: |
+      - env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
           helm dependency update charts/steadybit-agent
-          if git diff --quiet charts/steadybit-agent/Chart.lock; then
+
+          # update the extension-auto-registration-kubernetes sidecar image to the latest release
+          # (surgical edit anchored to the helm-docs comment so the rest of values.yaml is left untouched)
+          tag=$(gh release view --repo steadybit/extension-auto-registration-kubernetes --json tagName --jq '.tagName')
+          echo "Latest extension-auto-registration-kubernetes release: $tag"
+          tag="$tag" perl -0pi -e 's/(# agent\.extensions\.autoregistration\.image\.tag --[^\n]*\n\s*tag: )\S+/$1$ENV{tag}/' charts/steadybit-agent/values.yaml
+
+          if git diff --quiet charts/steadybit-agent/Chart.lock charts/steadybit-agent/values.yaml; then
             echo "No changes in dependencies"
             echo "No changes in dependencies" >> $GITHUB_STEP_SUMMARY
             exit 0
