@@ -4,7 +4,7 @@ dependencies:
   version: 1.5.2
 - name: steadybit-extension-appdynamics
   repository: https://steadybit.github.io/extension-appdynamics
-  version: 1.2.19
+  version: 1.2.20
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
   version: 2.2.36
@@ -40,7 +40,7 @@ dependencies:
   version: 1.1.45
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
-  version: 1.1.24
+  version: 1.1.25
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
   version: 1.1.25
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.25
-digest: sha256:0a8ceca2ec0ee95d86b2994f944050c18d7350899871e6ed7f115d2779cafb8d
-generated: "2026-06-13T07:29:55.425811386Z"
+digest: sha256:55934f04bdd04664c19a6372db369dcb4671e4e8a17640a7680b29dd11daf310
+generated: "2026-06-15T08:18:26.602730718Z"
