@@ -63,8 +63,8 @@ platform:
     scrape: true
   database:
     migration:
-      # platform.database.migration.useInitContainer -- Should database migration be executed in an init container? (you may want to reduce `platform.startupProbe.initialDelaySeconds` (10) and `platform.startupProbe.failureThreshold` (12) in this case)
-      useInitContainer: false
+      # platform.database.migration.useInitContainer -- Should database migration be executed in an init container? Enabled by default. When disabled, the migration runs in the main container during startup, so you should increase `platform.startupProbe.initialDelaySeconds` and `platform.startupProbe.failureThreshold` again to allow enough time for the migration to complete.
+      useInitContainer: true
   uiImages:
     # platform.uiImages.cspDomains -- Additional domains to add to the Content-Security-Policy header for loading images
     cspDomains: [ ]
@@ -99,13 +99,13 @@ platform:
     failureThreshold: 3
     successThreshold: 1
 
-  ## platform.startupProbe.* -- Configuration of the Kubernetes startup probe for the platform deployment
+  ## platform.startupProbe.* -- Configuration of the Kubernetes startup probe for the platform deployment. The defaults assume the database migration runs in an init container (`platform.database.migration.useInitContainer`). When that is disabled, increase `initialDelaySeconds` and `failureThreshold` to allow enough time for the migration to complete during startup.
   startupProbe:
     enabled: true
-    initialDelaySeconds: 60
+    initialDelaySeconds: 10
     periodSeconds: 10
     timeoutSeconds: 5
-    failureThreshold: 200
+    failureThreshold: 12
     successThreshold: 1
 
   ## platform.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the platform deployment

@@ -63,6 +63,8 @@ manifest should not set terminationGracePeriodSeconds:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static
                 - name: STEADYBIT_AUTH_STATIC_0_USERNAME
@@ -110,11 +112,11 @@ manifest should not set terminationGracePeriodSeconds:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -123,6 +125,51 @@ manifest should not set terminationGracePeriodSeconds:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}
@@ -194,6 +241,8 @@ manifest should render image data urls:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_UI_IMAGES_NAVIGATION
                   value: data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgaWQ9IlNWR1JlcG9fYmdDYXJyaWVyIiBzdHJva2Utd2lkdGg9IjAiPjwvZz48ZyBpZD0iU1ZHUmVwb190cmFjZXJDYXJyaWVyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvZz48ZyBpZD0iU1ZHUmVwb19pY29uQ2FycmllciI+IDxwYXRoIGQ9Ik0xMS4yNjkxIDQuNDExMTVDMTEuNTAwNiAzLjg5MTc3IDExLjYxNjQgMy42MzIwOCAxMS43Nzc2IDMuNTUyMTFDMTEuOTE3NiAzLjQ4MjYzIDEyLjA4MiAzLjQ4MjYzIDEyLjIyMiAzLjU1MjExQzEyLjM4MzIgMy42MzIwOCAxMi40OTkgMy44OTE3NyAxMi43MzA1IDQuNDExMTVMMTQuNTc0NSA4LjU0ODA4QzE0LjY0MyA4LjcwMTYyIDE0LjY3NzIgOC43NzgzOSAxNC43MzAyIDguODM3MThDMTQuNzc3IDguODg5MiAxNC44MzQzIDguOTMwODEgMTQuODk4MiA4Ljk1OTI5QzE0Ljk3MDUgOC45OTE0OSAxNS4wNTQxIDkuMDAwMzEgMTUuMjIxMyA5LjAxNzk1TDE5LjcyNTYgOS40OTMzNkMyMC4yOTExIDkuNTUzMDQgMjAuNTczOCA5LjU4Mjg4IDIwLjY5OTcgOS43MTE0N0MyMC44MDkgOS44MjMxNiAyMC44NTk4IDkuOTc5NTYgMjAuODM3IDEwLjEzNDJDMjAuODEwOCAxMC4zMTIyIDIwLjU5OTYgMTAuNTAyNSAyMC4xNzcyIDEwLjg4MzJMMTYuODEyNSAxMy45MTU0QzE2LjY4NzcgMTQuMDI3OSAxNi42MjUyIDE0LjA4NDIgMTYuNTg1NyAxNC4xNTI3QzE2LjU1MDcgMTQuMjEzNCAxNi41Mjg4IDE0LjI4MDcgMTYuNTIxNSAxNC4zNTAzQzE2LjUxMzIgMTQuNDI5IDE2LjUzMDYgMTQuNTExMiAxNi41NjU1IDE0LjY3NTdMMTcuNTA1MyAxOS4xMDY0QzE3LjYyMzMgMTkuNjYyNyAxNy42ODIzIDE5Ljk0MDggMTcuNTk4OSAyMC4xMDAyQzE3LjUyNjQgMjAuMjM4OCAxNy4zOTM0IDIwLjMzNTQgMTcuMjM5MyAyMC4zNjE1QzE3LjA2MTkgMjAuMzkxNSAxNi44MTU2IDIwLjI0OTUgMTYuMzIzIDE5Ljk2NTRMMTIuMzk5NSAxNy43MDI0QzEyLjI1MzkgMTcuNjE4NCAxMi4xODExIDE3LjU3NjUgMTIuMTAzNyAxNy41NkMxMi4wMzUyIDE3LjU0NTUgMTEuOTY0NCAxNy41NDU1IDExLjg5NTkgMTcuNTZDMTEuODE4NSAxNy41NzY1IDExLjc0NTcgMTcuNjE4NCAxMS42MDAxIDE3LjcwMjRMNy42NzY2MiAxOS45NjU0QzcuMTg0MDQgMjAuMjQ5NSA2LjkzNzc1IDIwLjM5MTUgNi43NjAzNCAyMC4zNjE1QzYuNjA2MjMgMjAuMzM1NCA2LjQ3MzE5IDIwLjIzODggNi40MDA3NSAyMC4xMDAyQzYuMzE3MzYgMTkuOTQwOCA2LjM3NjM1IDE5LjY2MjcgNi40OTQzNCAxOS4xMDY0TDcuNDM0MSAxNC42NzU3QzcuNDY4OTggMTQuNTExMiA3LjQ4NjQyIDE0LjQyOSA3LjQ3ODE0IDE0LjM1MDNDNy40NzA4MSAxNC4yODA3IDcuNDQ4OTQgMTQuMjEzNCA3LjQxMzk0IDE0LjE1MjdDNy4zNzQzOSAxNC4wODQyIDcuMzExOTUgMTQuMDI3OSA3LjE4NzA4IDEzLjkxNTRMMy44MjI0NiAxMC44ODMyQzMuNDAwMDUgMTAuNTAyNSAzLjE4ODg0IDEwLjMxMjIgMy4xNjI1OCAxMC4xMzQyQzMuMTM5NzggOS45Nzk1NiAzLjE5MDU5IDkuODIzMTYgMy4yOTk5MyA5LjcxMTQ3QzMuNDI1ODEgOS41ODI4OCAzLjcwODU2IDkuNTUzMDQgNC4yNzQwNiA5LjQ5MzM2TDguNzc4MzUgOS4wMTc5NUM4Ljk0NTUzIDkuMDAwMzEgOS4wMjkxMSA4Ljk5MTQ5IDkuMTAxMzkgOC45NTkyOUM5LjE2NTM0IDguOTMwODEgOS4yMjI2IDguODg5MiA5LjI2OTQ2IDguODM3MThDOS4zMjI0MSA4Ljc3ODM5IDkuMzU2NjMgOC43MDE2MiA5LjQyNTA4IDguNTQ4MDhMMTEuMjY5MSA0LjQxMTE1WiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PC9wYXRoPjwvZz48L3N2Zz4=
                 - name: STEADYBIT_UI_IMAGES_NAVIGATIONLOGO
@@ -247,11 +296,11 @@ manifest should render image data urls:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -260,6 +309,51 @@ manifest should render image data urls:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}
@@ -331,6 +425,8 @@ manifest should render image urls:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_UI_IMAGES_NAVIGATION
                   value: https://example.com/navigation.png
                 - name: STEADYBIT_UI_IMAGES_NAVIGATIONLOGO
@@ -384,11 +480,11 @@ manifest should render image urls:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -397,6 +493,51 @@ manifest should render image urls:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}
@@ -470,6 +611,8 @@ manifest should set terminationGracePeriodSeconds:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static
                 - name: STEADYBIT_AUTH_STATIC_0_USERNAME
@@ -517,11 +660,11 @@ manifest should set terminationGracePeriodSeconds:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -530,6 +673,51 @@ manifest should set terminationGracePeriodSeconds:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           terminationGracePeriodSeconds: 43200
           volumes:
@@ -602,6 +790,8 @@ manifest should support Recreate strategy:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static
                 - name: STEADYBIT_AUTH_STATIC_0_USERNAME
@@ -649,11 +839,11 @@ manifest should support Recreate strategy:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -662,6 +852,51 @@ manifest should support Recreate strategy:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}
@@ -736,6 +971,8 @@ manifest should support RollingUpdate strategy:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static
                 - name: STEADYBIT_AUTH_STATIC_0_USERNAME
@@ -783,11 +1020,187 @@ manifest should support RollingUpdate strategy:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              volumeMounts:
+                - mountPath: /opt/steadybit/platform/data
+                  name: work-dir
+          imagePullSecrets:
+            - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
+          serviceAccountName: RELEASE-NAME-steadybit-platform
+          volumes:
+            - emptyDir: {}
+              name: work-dir
+manifest should support disabling init container:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: steadybit-platform
+        app.kubernetes.io/version: 0.0.0
+        helm.sh/chart: steadybit-platform-0.0.0
+      name: RELEASE-NAME-steadybit-platform
+      namespace: NAMESPACE
+    spec:
+      minReadySeconds: 60
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: steadybit-platform
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: /actuator/prometheus
+            prometheus.io/port: "9090"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: steadybit-platform
+            app.kubernetes.io/version: 0.0.0
+            helm.sh/chart: steadybit-platform-0.0.0
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_EXPERIMENT_EXECUTION_SHUTDOWN_CHECK_INTERVAL
+                  value: 10s
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: INSTANCE_GROUP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.labels['pod-template-hash']
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: STEADYBIT_WEB_PUBLIC_EXPERIMENT_PORT
+                  value: "80"
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              lifecycle:
+                preStop:
+                  sleep:
+                    seconds: 20
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: /api/health/liveness
+                  port: ui-port
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: steadybit-platform
+              ports:
+                - containerPort: 8080
+                  name: ui-port
+                  protocol: TCP
+                - containerPort: 7878
+                  name: websocket-port
+                  protocol: TCP
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /api/health/readiness
+                  port: ui-port
+                initialDelaySeconds: 10
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
+              startupProbe:
+                failureThreshold: 12
+                httpGet:
+                  path: /api/health/liveness
+                  port: ui-port
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -867,6 +1280,8 @@ manifest should support extra certificate volume:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static
                 - name: STEADYBIT_AUTH_STATIC_0_USERNAME
@@ -914,11 +1329,11 @@ manifest should support extra certificate volume:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -927,6 +1342,51 @@ manifest should support extra certificate volume:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}
@@ -1001,6 +1461,8 @@ manifest should support extra volumes and mounts:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static
                 - name: STEADYBIT_AUTH_STATIC_0_USERNAME
@@ -1048,11 +1510,11 @@ manifest should support extra volumes and mounts:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -1063,6 +1525,51 @@ manifest should support extra volumes and mounts:
                   name: test-volume
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}
@@ -1185,11 +1692,11 @@ manifest should support init container:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -1318,6 +1825,8 @@ manifest should support various variables:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_PLATFORM_NAME
                   value: test-stage
                 - name: STEADYBIT_AUTH_PROVIDER
@@ -1367,11 +1876,11 @@ manifest should support various variables:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -1380,6 +1889,51 @@ manifest should support various variables:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:0.0.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}
@@ -1456,6 +2010,8 @@ should not fail with missing license for version >= 2.2.0:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static
                 - name: STEADYBIT_AUTH_STATIC_0_USERNAME
@@ -1503,11 +2059,11 @@ should not fail with missing license for version >= 2.2.0:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -1516,6 +2072,51 @@ should not fail with missing license for version >= 2.2.0:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: ONPREM
+                - name: STEADYBIT_TENANT_AGENTKEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: key
+                      name: RELEASE-NAME-steadybit-platform
+                - name: STEADYBIT_TENANT_KEY
+                  value: onprem
+                - name: STEADYBIT_TENANT_NAME
+                  value: onprem
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:2.2.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}
@@ -1578,6 +2179,8 @@ should not fail with missing license for version >= 2.2.0 for saas mode:
                     secretKeyRef:
                       key: password
                       name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_TENANT_DDL_MODE_STARTUP
+                  value: none
                 - name: STEADYBIT_AUTH_PROVIDER
                   value: static
                 - name: STEADYBIT_AUTH_STATIC_0_USERNAME
@@ -1625,11 +2228,11 @@ should not fail with missing license for version >= 2.2.0 for saas mode:
                   cpu: 2000m
                   memory: 2Gi
               startupProbe:
-                failureThreshold: 200
+                failureThreshold: 12
                 httpGet:
                   path: /api/health/liveness
                   port: ui-port
-                initialDelaySeconds: 60
+                initialDelaySeconds: 10
                 periodSeconds: 10
                 successThreshold: 1
                 timeoutSeconds: 5
@@ -1638,6 +2241,42 @@ should not fail with missing license for version >= 2.2.0 for saas mode:
                   name: work-dir
           imagePullSecrets:
             - name: RELEASE-NAME-steadybit-platform-pull-secrets
+          initContainers:
+            - env:
+                - name: JAVA_TOOL_OPTIONS
+                  value: -XX:+DisableAttachMechanism
+                - name: SPRING_PROFILES_ACTIVE
+                  value: db-migration
+                - name: LOGGING_FORMAT
+                  value: text
+                - name: STEADYBIT_TENANT_MODE
+                  value: SAAS
+                - name: SPRING_DATASOURCE_USERNAME
+                  value: steadybit
+                - name: SPRING_DATASOURCE_URL
+                  value: jdbc:postgresql://RELEASE-NAME-postgresql:5432/steadybit
+                - name: SPRING_DATASOURCE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: RELEASE-NAME-postgresql
+                - name: STEADYBIT_AUTH_PROVIDER
+                  value: static
+                - name: STEADYBIT_AUTH_STATIC_0_USERNAME
+                  value: admin
+                - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
+                  value: '{noop}admin'
+              envFrom: []
+              image: docker.steadybit.io/steadybit/platform:2.2.0
+              imagePullPolicy: Always
+              name: steadybit-platform-db-migration
+              resources:
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
           serviceAccountName: RELEASE-NAME-steadybit-platform
           volumes:
             - emptyDir: {}

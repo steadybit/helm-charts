@@ -41,6 +41,14 @@ tests:
             useInitContainer: true
     asserts:
       - matchSnapshot: {}
+  - it: manifest should support disabling init container
+    set:
+      platform:
+        database:
+          migration:
+            useInitContainer: false
+    asserts:
+      - matchSnapshot: {}
   - it: manifest should support various variables
     set:
       platform:
