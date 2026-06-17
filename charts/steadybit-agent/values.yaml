@@ -180,9 +180,9 @@ agent:
       # agent.extensions.autoregistration.useLegacyAutoregistration -- DEPRECATED: use the internal autoregistration mechanism of the steadybit agent instead of the extension-auto-registration-kubernetes sidecar.
       useLegacyAutoregistration: false
       image:
-        # agent.extensions.autoregistration.image.registry -- The container registry to use of the steadybit extension-auto-registration-kubernetes.
-        registry: ghcr.io
-        # agent.extensions.autoregistration.image.name -- The container image to use of the steadybit extension-auto-registration-kubernetes.
+        # agent.extensions.autoregistration.image.registry -- The container registry to use of the steadybit extension-auto-registration-kubernetes. Defaults to global.image.registry or ghcr.io.
+        registry: null
+        # agent.extensions.autoregistration.image.name -- The container image to use of the steadybit extension-auto-registration-kubernetes. May contain a registry prefix (e.g. "my.registry.local/steadybit/extension-auto-registration-kubernetes"), in which case image.registry is ignored.
         name: steadybit/extension-auto-registration-kubernetes
         # agent.extensions.autoregistration.image.tag -- tag name of the extension-auto-registration-kubernetes image to use.
         tag: v1.0.5
