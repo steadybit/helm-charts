@@ -48,7 +48,7 @@ spec:
       {{- if .Values.platform.database.migration.useInitContainer }}
       initContainers:
         - name: {{ include "steadybit-platform.name" . }}-db-migration
-          image: "{{ .Values.image.name }}:{{ template "validContainerImageTag" . }}"
+          image: "{{ include "steadybit-platform.imageRef" (dict "name" .Values.image.name "ctx" .) }}:{{ template "validContainerImageTag" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             requests:
@@ -99,7 +99,7 @@ spec:
       {{- end }}
       containers:
         - name: {{ include "steadybit-platform.name" . }}
-          image: "{{ .Values.image.name }}:{{ template "validContainerImageTag" . }}"
+          image: "{{ include "steadybit-platform.imageRef" (dict "name" .Values.image.name "ctx" .) }}:{{ template "validContainerImageTag" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           lifecycle: {{ include "steadybit-platform.lifecycle" (dict "lifecycle" .Values.platform.lifecycle "root" .) | nindent 12 }}
           resources:
@@ -262,7 +262,7 @@ spec:
 {{- end }}
         {{- if .Values.platform.portSplit.enabled }}
         - name: {{ include "steadybit-platform.name" . }}-port-splitter
-          image: "{{ .Values.image.name }}-port-splitter:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ include "steadybit-platform.imageRef" (dict "name" (printf "%s-port-splitter" .Values.image.name) "ctx" .) }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           lifecycle: {{ include "steadybit-platform.lifecycle" (dict "lifecycle" .Values.platform.portsplitter.lifecycle "root" .) | nindent 12 }}
           ports:

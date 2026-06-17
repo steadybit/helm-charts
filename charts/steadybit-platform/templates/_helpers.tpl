@@ -91,6 +91,26 @@ Generates the dockerconfig for the credentials to pull from docker.steadybit.io.
 {{- end }}
 
 {{/*
+steadybit-platform.imageRef renders a registry-qualified image repository (without tag).
+  - If the name already contains a registry (first path segment has "." or ":"), it is
+    used as-is, so a full image.name stays backwards compatible.
+  - Otherwise global.image.registry (default "docker.steadybit.io") is prepended.
+Note: image.registry is reserved for pull-secret credentials on this chart, so the
+per-image registry override is expressed by putting a registry in image.name.
+Usage: {{ include "steadybit-platform.imageRef" (dict "name" .Values.image.name "ctx" .) }}
+*/}}
+{{- define "steadybit-platform.imageRef" -}}
+{{- $name := .name -}}
+{{- $globalImage := dig "image" dict (.ctx.Values.global | default dict) -}}
+{{- $firstSegment := (split "/" $name)._0 -}}
+{{- if or (contains "." $firstSegment) (contains ":" $firstSegment) -}}
+{{- $name -}}
+{{- else -}}
+{{- printf "%s/%s" (dig "registry" "docker.steadybit.io" $globalImage) $name -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 checks the platform.tenant.mode for valid values
 */}}
 {{- define "validTenantMode" -}}

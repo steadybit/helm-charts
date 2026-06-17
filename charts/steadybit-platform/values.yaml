@@ -1,6 +1,11 @@
 # Default values for steadybit-platform.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+global:
+  image:
+    # global.image.registry -- The container registry to use for all platform images. Can be overridden per image by including a registry in image.name.
+    registry: docker.steadybit.io
+
 platform:
   # platform.name -- Used to identify the platform when running multiple installations (e.g. in a multi-stage setup). Should be omitted when using a single installation.
   name: null
@@ -145,12 +150,13 @@ platform:
           seconds: 20
 
 image:
-  # image.name -- The container image  to use of the steadybit platform.
-  name: docker.steadybit.io/steadybit/platform
+  # image.name -- The container image to use of the steadybit platform. May contain a registry prefix (e.g. "docker.steadybit.io/steadybit/platform"), in which case global.image.registry is ignored.
+  name: steadybit/platform
   # image.tag -- Tag name of the platform container image to use.
   tag: null
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
+  # image.registry -- Credentials used to generate the image pull secret (url/user/password). Not a registry prefix; use global.image.registry for that.
   registry: {}
   pullSecrets: []
 
