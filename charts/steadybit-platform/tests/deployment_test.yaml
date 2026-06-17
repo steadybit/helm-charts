@@ -180,3 +180,39 @@ tests:
           value:
             - sleep
             - "20"
+  - it: should apply global.image.registry to the platform and init container images
+    set:
+      global:
+        image:
+          registry: my.registry.local
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: my.registry.local/steadybit/platform:0.0.0
+      - equal:
+          path: spec.template.spec.initContainers[0].image
+          value: my.registry.local/steadybit/platform:0.0.0
+  - it: should apply global.image.registry to the port-splitter image
+    set:
+      global:
+        image:
+          registry: my.registry.local
+      platform:
+        portSplit:
+          enabled: true
+        ingressOrigin: https://example.ingress.steadybit.com
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[1].image
+          value: my.registry.local/steadybit/platform-port-splitter:0.0.0
+  - it: should use a registry-prefixed image.name as-is and ignore global.image.registry
+    set:
+      global:
+        image:
+          registry: my.registry.local
+      image:
+        name: other.registry.io/steadybit/platform
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: other.registry.io/steadybit/platform:0.0.0
