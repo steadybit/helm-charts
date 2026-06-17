@@ -270,6 +270,56 @@ tests:
     asserts:
       - matchSnapshot: { }
 
+  - it: should override the autoregistration image individually with a full registry-prefixed name
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+        extensions:
+          autoregistration:
+            image:
+              name: my.registry.local/steadybit/extension-auto-registration-kubernetes
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: my.registry.local/steadybit/extension-auto-registration-kubernetes:v0.0.0
+        template: statefulset.yaml
+
+  - it: should apply a per-image registry override to the autoregistration image
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+        extensions:
+          autoregistration:
+            image:
+              registry: my.registry.local
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: my.registry.local/steadybit/extension-auto-registration-kubernetes:v0.0.0
+        template: statefulset.yaml
+
+  - it: should apply the global registry to the autoregistration image
+    set:
+      global:
+        clusterName: test
+        image:
+          registry: my.registry.local
+      agent:
+        key: abcdefg
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: my.registry.local/steadybit/extension-auto-registration-kubernetes:v0.0.0
+        template: statefulset.yaml
+      - equal:
+          path: spec.template.spec.containers[1].image
+          value: my.registry.local/steadybit/agent:0.0.0
+        template: statefulset.yaml
+
   - it: should fail if deprecated priorityClassName.use is used
     set:
       priorityClassName:
