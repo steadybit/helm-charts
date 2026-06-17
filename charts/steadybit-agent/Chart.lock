@@ -4,7 +4,7 @@ dependencies:
   version: 1.5.2
 - name: steadybit-extension-appdynamics
   repository: https://steadybit.github.io/extension-appdynamics
-  version: 1.2.20
+  version: 1.2.21
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
   version: 2.2.37
@@ -46,10 +46,10 @@ dependencies:
   version: 1.1.25
 - name: steadybit-extension-jenkins
   repository: https://steadybit.github.io/extension-jenkins
-  version: 1.0.17
+  version: 1.0.18
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.37
+  version: 1.1.38
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.2.22
@@ -64,7 +64,7 @@ dependencies:
   version: 1.7.24
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.6.22
+  version: 1.6.23
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.62
@@ -85,12 +85,12 @@ dependencies:
   version: 1.0.13
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
-  version: 1.0.17
+  version: 1.0.18
 - name: steadybit-extension-splunk-platform
   repository: https://steadybit.github.io/extension-splunk-platform
-  version: 1.0.16
+  version: 1.0.17
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.26
-digest: sha256:f0cf9b7d26e71015afa773fdca077b7028f44e4f0d8a31064ae0b3b0498adf2c
-generated: "2026-06-16T14:24:32.816738919Z"
+  version: 1.1.27
+digest: sha256:1ff9aa5d99e5f8f64453aa05ba71e8bd86368de534ef5e384b5fe2229457f9be
+generated: "2026-06-17T15:14:41.42869374Z"
