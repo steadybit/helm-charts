@@ -3,6 +3,12 @@ templates:
 chart:
   appVersion: 0.0.0
   version: 0.0.0
+# Pin a modern Kubernetes version so snapshots reflect the native `sleep`
+# preStop handler. The exec fallback for older clusters (< 1.29) is covered by
+# dedicated tests that override these capabilities.
+capabilities:
+  majorVersion: 1
+  minorVersion: 29
 tests:
   - it: manifest should support Recreate strategy
     asserts:
@@ -134,3 +140,43 @@ tests:
           mode: "SAAS"
     asserts:
       - matchSnapshot: {}
+  - it: should use native sleep preStop handler on Kubernetes >= 1.29
+    capabilities:
+      majorVersion: 1
+      minorVersion: 29
+    set:
+      platform:
+        portSplit:
+          enabled: true
+        ingressOrigin: https://example.ingress.steadybit.com
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].lifecycle.preStop.sleep.seconds
+          value: 20
+      - notExists:
+          path: spec.template.spec.containers[0].lifecycle.preStop.exec
+      - equal:
+          path: spec.template.spec.containers[1].lifecycle.preStop.sleep.seconds
+          value: 20
+  - it: should fall back to exec sleep preStop handler on Kubernetes < 1.29
+    capabilities:
+      majorVersion: 1
+      minorVersion: 27
+    set:
+      platform:
+        portSplit:
+          enabled: true
+        ingressOrigin: https://example.ingress.steadybit.com
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].lifecycle.preStop.exec.command
+          value:
+            - sleep
+            - "20"
+      - notExists:
+          path: spec.template.spec.containers[0].lifecycle.preStop.sleep
+      - equal:
+          path: spec.template.spec.containers[1].lifecycle.preStop.exec.command
+          value:
+            - sleep
+            - "20"

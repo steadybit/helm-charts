@@ -128,11 +128,17 @@ platform:
   terminationGracePeriodSeconds: 0  # default is 0, that means no grace period and all experiments are canceled immediately during shutdown.
   ## The interval in seconds to check for experiment executions during shutdown
   experimentExecutionShutdownCheckInterval: 10
+  ## platform.lifecycle -- Container lifecycle hooks for the platform container.
+  ## On Kubernetes < 1.29 the native `sleep` preStop handler is not available and
+  ## is automatically rendered as an `exec` ["sleep", "<seconds>"] handler instead.
   lifecycle:
     preStop:
       sleep:
         seconds: 20
   portsplitter:
+    ## platform.portsplitter.lifecycle -- Container lifecycle hooks for the port-splitter sidecar.
+    ## On Kubernetes < 1.29 the native `sleep` preStop handler is automatically
+    ## rendered as an `exec` ["sleep", "<seconds>"] handler instead.
     lifecycle:
       preStop:
         sleep:

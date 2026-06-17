@@ -140,6 +140,32 @@ false
 {{- end -}}
 
 
+{{/*
+Renders a container `lifecycle` block, converting any `sleep` preStop/postStart
+handler to an `exec` ["sleep", "<seconds>"] handler on Kubernetes < 1.29.
+The native `sleep` lifecycle handler was introduced as alpha in 1.29 and is not
+recognized by older API servers, which drop it and leave an empty handler that
+fails validation ("must specify a handler type").
+Usage: {{ include "steadybit-platform.lifecycle" (dict "lifecycle" .Values.platform.lifecycle "root" .) | nindent 12 }}
+*/}}
+{{- define "steadybit-platform.lifecycle" -}}
+{{- $lifecycle := .lifecycle | default dict -}}
+{{- if not (semverCompare ">=1.29.0-0" .root.Capabilities.KubeVersion.Version) -}}
+{{- $lifecycle = deepCopy $lifecycle -}}
+{{- range $hook := list "preStop" "postStart" -}}
+{{- if hasKey $lifecycle $hook -}}
+{{- $handler := index $lifecycle $hook -}}
+{{- if hasKey $handler "sleep" -}}
+{{- $seconds := default 0 (index $handler "sleep" "seconds") -}}
+{{- $_ := unset $handler "sleep" -}}
+{{- $_ := set $handler "exec" (dict "command" (list "sleep" (printf "%v" $seconds))) -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{ $lifecycle | toYaml }}
+{{- end -}}
+
 {{- define "steadybit-platform.postgresql.fullname" -}}
 {{- $name := default "postgresql" .Values.postgresql.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
