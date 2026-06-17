@@ -31,7 +31,7 @@ platform:
   # platform.ingressOrigin -- Should be set to the ingress origin, e.g., https://ingress.steadybit.example.com. Will be used to construct URLs in HTTP responses to agents. This configuration will overwrite the port defined in platform.publicWebsocketPort
   ingressOrigin: null
   # -- Use this to set additional environment variables See https://docs.steadybit.com/install-and-configure/install-on-prem-platform/advanced-configuration
-  envFrom: [ ]
+  envFrom: []
   env:
     - name: STEADYBIT_AUTH_PROVIDER
       value: "static"
@@ -40,11 +40,11 @@ platform:
     - name: STEADYBIT_AUTH_STATIC_0_PASSWORD
       value: "{noop}admin"
   # platform.extraLabels -- Additional labels
-  extraLabels: { }
+  extraLabels: {}
   # platform.extraVolumes -- Additional volumes to which the platform container will be mounted.
-  extraVolumes: [ ]
+  extraVolumes: []
   # platform.extraVolumeMounts -- Additional volumeMounts to which the platform container will be mounted.
-  extraVolumeMounts: [ ]
+  extraVolumeMounts: []
   logging:
     format: text
   service:
@@ -67,7 +67,7 @@ platform:
       useInitContainer: true
   uiImages:
     # platform.uiImages.cspDomains -- Additional domains to add to the Content-Security-Policy header for loading images
-    cspDomains: [ ]
+    cspDomains: []
     navigation:
       # platform.uiImages.navigation.url -- URL to a custom navigation image; takes preference over data
       url: null
@@ -128,11 +128,17 @@ platform:
   terminationGracePeriodSeconds: 0  # default is 0, that means no grace period and all experiments are canceled immediately during shutdown.
   ## The interval in seconds to check for experiment executions during shutdown
   experimentExecutionShutdownCheckInterval: 10
+  ## platform.lifecycle -- Container lifecycle hooks for the platform container.
+  ## On Kubernetes < 1.29 the native `sleep` preStop handler is not available and
+  ## is automatically rendered as an `exec` ["sleep", "<seconds>"] handler instead.
   lifecycle:
     preStop:
       sleep:
         seconds: 20
   portsplitter:
+    ## platform.portsplitter.lifecycle -- Container lifecycle hooks for the port-splitter sidecar.
+    ## On Kubernetes < 1.29 the native `sleep` preStop handler is automatically
+    ## rendered as an `exec` ["sleep", "<seconds>"] handler instead.
     lifecycle:
       preStop:
         sleep:
@@ -145,8 +151,8 @@ image:
   tag: null
   # image.pullPolicy -- Specifies when to pull the image container.
   pullPolicy: Always
-  registry: { }
-  pullSecrets: [ ]
+  registry: {}
+  pullSecrets: []
 
 serviceAccount:
   # serviceAccount.create -- Specifies whether a ServiceAccount should be created.
@@ -155,17 +161,17 @@ serviceAccount:
   # If not set and `create` is true, a name is generated using the fullname template.
   name: null
   # serviceAccount.annotations.* -- Annotations for the service account
-  annotations: { }
+  annotations: {}
 
 # podAnnotations -- Additional annotations to be added to the platform pod.
-podAnnotations: { }
+podAnnotations: {}
 
 # -- Ingress configuration properties
 ingress:
   # ingress.enabled -- Set to true to create an ingress. Defaults to false on openshift, true otherwise.
   enabled: null
-  annotations: { }
-  hosts: [ ]
+  annotations: {}
+  hosts: []
   # - platform.steadybit.local
 
 # -- HTTPRoute configuration properties for Gateway API
@@ -173,24 +179,24 @@ httpRoute:
   # httpRoute.enabled -- Set to true to create HTTPRoute resources (Gateway API).
   enabled: false
   # httpRoute.annotations -- Annotations applied to both HTTPRoute resources. Can be overridden per route.
-  annotations: { }
+  annotations: {}
   # httpRoute.parentRefs -- Default Gateway references for both HTTPRoute resources. Can be overridden per route. See https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ParentReference
-  parentRefs: [ ]
+  parentRefs: []
   # - name: my-gateway
   #   namespace: gateway-ns
   # httpRoute.hostnames -- Default hostnames for both HTTPRoute resources. Can be overridden per route. See https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname
-  hostnames: [ ]
+  hostnames: []
   # - platform.steadybit.local
   # httpRoute.ws -- Per-route overrides for the WebSocket HTTPRoute (agent traffic). Falls back to shared values above when not set.
   ws:
-    parentRefs: [ ]
-    hostnames: [ ]
-    annotations: { }
+    parentRefs: []
+    hostnames: []
+    annotations: {}
   # httpRoute.ui -- Per-route overrides for the UI HTTPRoute (user traffic). Falls back to shared values above when not set.
   ui:
-    parentRefs: [ ]
-    hostnames: [ ]
-    annotations: { }
+    parentRefs: []
+    hostnames: []
+    annotations: {}
   # httpRoute.httpRedirect -- Creates an HTTPRoute that redirects HTTP to HTTPS (301). Requires a Gateway listener on HTTP.
   # When enabling, use the dedicated-listener pattern: scope ws/ui parentRefs to the HTTPS listener via `sectionName: https`,
   # and scope this redirect to the HTTP listener via `sectionName: http`. Otherwise the ws/ui routes will also bind to the HTTP
@@ -200,12 +206,12 @@ httpRoute:
     # httpRoute.httpRedirect.enabled -- Set to true to create the HTTP-to-HTTPS redirect HTTPRoute.
     enabled: false
     # httpRoute.httpRedirect.parentRefs -- Gateway references for the redirect route. Should target the HTTP listener via sectionName.
-    parentRefs: [ ]
+    parentRefs: []
     # - name: my-gateway
     #   namespace: gateway-ns
     #   sectionName: http
   # httpRoute.targetGroupAttributes -- ALB target group attributes (key/value pairs) applied to the platform service's target groups via TargetGroupConfiguration. Use to configure stickiness, deregistration delay, etc. See https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#target-group-attributes
-  targetGroupAttributes: [ ]
+  targetGroupAttributes: []
   # - key: stickiness.enabled
   #   value: "true"
   # - key: stickiness.type
@@ -219,7 +225,7 @@ httpRoute:
 route:
   # route.enabled -- Set to true to create a route (OpenShift). Defaults to true on openshift, false otherwise.
   enabled: null
-  annotations: { }
+  annotations: {}
   host: null
   subdomain: null
   tls:
@@ -229,20 +235,20 @@ route:
 # -- Service configuration properties
 service:
   type: null
-  annotations: { }
+  annotations: {}
 
 # nodeSelector -- Node labels for pod assignment
-nodeSelector: { }
+nodeSelector: {}
 
 # tolerations -- Tolerations to influence platform pod assignment.
-tolerations: [ ]
+tolerations: []
 
 # topologySpreadConstraints -- Spread constraints to influence platform pod assignment.
 # https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
-topologySpreadConstraints: [ ]
+topologySpreadConstraints: []
 
 # affinity -- Affinities to influence platform pod assignment.
-affinity: { }
+affinity: {}
 
 
 resources:
