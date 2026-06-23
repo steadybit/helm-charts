@@ -207,6 +207,7 @@
             {{- include "oauth2Env" . | nindent 12 }}
             {{- include "extensionEnv" . | nindent 12 }}
             {{- include "extraCertificatesEnv" . | nindent 12 }}
+            {{- include "tlsEnv" . | nindent 12 }}
             {{ if .Values.agent.extensions.autoregistration.useLegacyAutoregistration -}}
             {{ $matchLabelCounter := 0 | int }}
             {{- range $key, $value := .Values.agent.extensions.autoregistration.matchLabels }}
