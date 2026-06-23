@@ -185,7 +185,7 @@ agent:
         # agent.extensions.autoregistration.image.name -- The container image to use of the steadybit extension-auto-registration-kubernetes. May contain a registry prefix (e.g. "my.registry.local/steadybit/extension-auto-registration-kubernetes"), in which case image.registry is ignored.
         name: steadybit/extension-auto-registration-kubernetes
         # agent.extensions.autoregistration.image.tag -- tag name of the extension-auto-registration-kubernetes image to use.
-        tag: v1.0.5
+        tag: v1.0.6
         # agent.extensions.autoregistration.image.pullPolicy -- Specifies when to pull the image container.
         pullPolicy: Always
       resources:
