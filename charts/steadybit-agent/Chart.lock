@@ -13,7 +13,7 @@ dependencies:
   version: 1.1.39
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.5.15
+  version: 1.5.16
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.27
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.28
-digest: sha256:898206528fb5e497ca1536fc2bf56b934b14e6d27da594e95039e847ff52278d
-generated: "2026-06-24T07:23:46.66105562Z"
+digest: sha256:e99e073bc0b620d77c53c8a1ad7cd3597c0b1e95e37b89e7aa22bef7335cc2f6
+generated: "2026-06-25T07:24:35.618164973Z"
