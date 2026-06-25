@@ -71,6 +71,29 @@ agent:
     container-path: /path/to/certificates
 ```
 
+### Disabling TLS certificate verification (testing only)
+
+> **:warning: DANGEROUS — never enable this in production.** These options disable TLS certificate **and**
+> hostname verification, which removes protection against man-in-the-middle attacks. Prefer importing your own
+> certificates (see above). Use this only for local testing against self-signed certificates.
+
+Disable verification for the connection to the steadybit platform (registration, experiments and the OAuth2 token endpoint):
+
+```yaml
+agent:
+  tls:
+    insecureSkipVerify: true
+```
+
+Disable verification for the connections from the agent to its extensions:
+
+```yaml
+agent:
+  extensions:
+    tls:
+      insecureSkipVerify: true
+```
+
 ### Configuring Additional Volumes
 
 You may want to have additional volumes to be mounted to the agent container, e.g. for SSL certificates.

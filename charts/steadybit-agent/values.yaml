@@ -71,6 +71,11 @@ agent:
           fromSecret: null
   # agent.registerUrl -- The URL of the steadybit server your agents will connect to.
   registerUrl: https://platform.steadybit.io
+  tls:
+    # agent.tls.insecureSkipVerify -- DANGEROUS. Disables TLS certificate and hostname verification for the
+    #   connection to the steadybit platform (registration, experiments and the OAuth2 token endpoint).
+    #   Only intended for testing against self-signed certificates - never enable this in production.
+    insecureSkipVerify: false
   # agent.extraCertificates -- Specify a containerPath where the agent loads additional certificates from.
   extraCertificates:
     path: null
@@ -170,6 +175,10 @@ agent:
       #   unsafe_ip_addresses: validates only hostnames but not ip addresses with the SAN field of the certificate
       #   unsafe: no hostname validation
       hostnameVerification: null
+      # agent.extensions.tls.insecureSkipVerify -- DANGEROUS. Disables TLS certificate and hostname verification
+      #   for the connections from the agent to its extensions. Only intended for testing against self-signed
+      #   certificates - never enable this in production.
+      insecureSkipVerify: false
     autoregistration:
       # agent.extensions.autoregistration.matchLabels -- optional - extension-pods which match these labels will be included in the extension discovery. If not specified, all extension-pods are considered.
       matchLabels: {}

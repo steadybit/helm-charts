@@ -56,6 +56,20 @@ environment variables for extension kit configuration
 - name: STEADYBIT_AGENT_EXTENSIONS_HOSTNAME_VERIFICATION
   value: {{ .Values.agent.extensions.tls.hostnameVerification | quote }}
 {{ end -}}
+{{ if .Values.agent.extensions.tls.insecureSkipVerify -}}
+- name: STEADYBIT_AGENT_EXTENSIONS_INSECURE_SKIP_VERIFY
+  value: "true"
+{{ end -}}
+{{- end -}}
+
+{{/*
+environment variables for the platform connection tls settings
+*/}}
+{{- define "tlsEnv" -}}
+{{ if .Values.agent.tls.insecureSkipVerify -}}
+- name: STEADYBIT_AGENT_TLS_INSECURE_SKIP_VERIFY
+  value: "true"
+{{ end -}}
 {{- end -}}
 
 {{/*

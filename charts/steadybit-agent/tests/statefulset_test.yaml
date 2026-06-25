@@ -346,3 +346,48 @@ tests:
         key: abcdefg
     asserts:
       - matchSnapshot: { }
+
+  - it: should disable tls verification for platform and extensions when insecureSkipVerify is enabled
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+        tls:
+          insecureSkipVerify: true
+        extensions:
+          tls:
+            insecureSkipVerify: true
+    asserts:
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_TLS_INSECURE_SKIP_VERIFY
+            value: "true"
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_EXTENSIONS_INSECURE_SKIP_VERIFY
+            value: "true"
+
+  - it: should not render tls insecureSkipVerify env vars by default
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+    asserts:
+      - template: statefulset.yaml
+        notContains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_TLS_INSECURE_SKIP_VERIFY
+            value: "true"
+      - template: statefulset.yaml
+        notContains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_EXTENSIONS_INSECURE_SKIP_VERIFY
+            value: "true"
