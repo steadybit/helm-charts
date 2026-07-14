@@ -56,10 +56,14 @@ tests:
         contains:
           path: requiredDropCapabilities
           content: ALL
-  - it: does not grant SYS_RESOURCE by default on openshift
+  - it: does not grant SYS_RESOURCE when disabled on openshift
     capabilities:
       apiVersions:
         - "security.openshift.io/v1/SecurityContextConstraints"
+    set:
+      agent:
+        oomScoreAdj:
+          enabled: false
     asserts:
       - template: scc.yaml
         notExists:

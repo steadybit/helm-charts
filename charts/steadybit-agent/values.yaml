@@ -92,9 +92,11 @@ agent:
     # agent.oomScoreAdj.enabled -- Lower the agent container's oom_score_adj so the kernel OOM
     # killer terminates it last. This adds CAP_SYS_RESOURCE and allowPrivilegeEscalation=true to
     # the agent container (and to the SecurityContextConstraint on OpenShift); the container stays
-    # non-root. Disabled by default. A cheaper alternative without extra privileges is to raise
-    # resources.requests.memory, which already lowers the score for Burstable pods.
-    enabled: false
+    # non-root. Enabled by default. NOTE: because it adds a capability and allows privilege
+    # escalation, the agent namespace cannot run under the `baseline`/`restricted` Pod Security
+    # Standard while this is on - disable it there. A cheaper alternative without extra privileges
+    # is to raise resources.requests.memory, which already lowers the score for Burstable pods.
+    enabled: true
     # agent.oomScoreAdj.value -- The oom_score_adj value to apply (-1000..1000). -997 matches the
     # value Kubernetes assigns to Guaranteed QoS pods.
     value: -997

@@ -96,8 +96,8 @@ agent:
 
 ### Protecting the agent from the OOM killer
 
-On memory pressure the Linux OOM killer may terminate the agent. To have it picked last, you can lower the
-agent container's `oom_score_adj`:
+On memory pressure the Linux OOM killer may terminate the agent. To have it picked last, the agent container's
+`oom_score_adj` is lowered to `-997` by default:
 
 ```yaml
 agent:
@@ -106,10 +106,20 @@ agent:
     value: -997 # -1000..1000; -997 matches the value Kubernetes assigns to Guaranteed QoS pods
 ```
 
-The agent container stays non-root, but enabling this adds `CAP_SYS_RESOURCE` and
-`allowPrivilegeEscalation: true` to it (and, on OpenShift, to the generated SecurityContextConstraint). The
-namespace therefore cannot run under the `baseline`/`restricted` Pod Security Standard. If the capability is
-not granted at runtime the agent still starts and logs a warning.
+The agent container stays non-root, but this adds `CAP_SYS_RESOURCE` and `allowPrivilegeEscalation: true` to it
+(and, on OpenShift, to the generated SecurityContextConstraint). If the capability is not granted at runtime the
+agent still starts and logs a warning.
+
+> **:warning:** Because it adds a capability and allows privilege escalation, the agent namespace **cannot** run
+> under the `baseline` or `restricted` [Pod Security Standard](https://kubernetes.io/docs/concepts/security/pod-security-standards/)
+> while this is enabled. If your cluster enforces one of those, either run the agent in a `privileged`-level
+> namespace or disable this feature:
+
+```yaml
+agent:
+  oomScoreAdj:
+    enabled: false
+```
 
 A cheaper alternative that needs no extra privileges is to raise `resources.requests.memory`, which already
 lowers the score the kubelet assigns to Burstable pods.

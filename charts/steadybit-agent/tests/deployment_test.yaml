@@ -310,7 +310,7 @@ tests:
             host: 127.0.0.1
     asserts:
       - matchSnapshot: { }
-  - it: should not grant oom_score_adj privileges by default
+  - it: should not grant oom_score_adj privileges when disabled
     set:
       agent:
         identifier: abcdefg
@@ -319,6 +319,8 @@ tests:
           provider: redis
           redis:
             host: 127.0.0.1
+        oomScoreAdj:
+          enabled: false
     asserts:
       - template: deployment.yaml
         notExists:

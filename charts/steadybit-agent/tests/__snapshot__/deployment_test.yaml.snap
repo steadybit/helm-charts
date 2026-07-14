@@ -116,6 +116,8 @@ manifest should match snapshot:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -136,8 +138,10 @@ manifest should match snapshot:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -293,6 +297,8 @@ should add aws account id from values:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -313,8 +319,10 @@ should add aws account id from values:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -458,6 +466,8 @@ should add extra volumes and mount:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -478,8 +488,10 @@ should add extra volumes and mount:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -639,6 +651,8 @@ should add match labels:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -659,8 +673,10 @@ should add match labels:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -824,6 +840,8 @@ should add proxy configuration:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -844,8 +862,10 @@ should add proxy configuration:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -1000,6 +1020,8 @@ should apply extra pod labels:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1020,8 +1042,10 @@ should apply extra pod labels:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -1173,6 +1197,8 @@ should render redis settings:
                   value: "true"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1193,8 +1219,10 @@ should render redis settings:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -1347,6 +1375,8 @@ should set priorityClassName from global:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1367,8 +1397,10 @@ should set priorityClassName from global:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -1523,6 +1555,8 @@ should set priorityClassName from simple string:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1543,8 +1577,10 @@ should set priorityClassName from simple string:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -1683,6 +1719,8 @@ should use deployment with hostPath provider:
                   value: /tmp/steadybit-agent
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1703,8 +1741,10 @@ should use deployment with hostPath provider:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -1831,6 +1871,8 @@ should use old internal extension autoregistration:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -1851,8 +1893,10 @@ should use old internal extension autoregistration:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -2021,6 +2065,8 @@ using extensions with mtls from containerpath:
                   value: /etc/ssl/extra-certs
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -2041,8 +2087,10 @@ using extensions with mtls from containerpath:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -2208,6 +2256,8 @@ using extensions with mtls from secrets:
                   value: /opt/steadybit/agent/etc/extensions/server/tls.crt
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -2228,8 +2278,10 @@ using extensions with mtls from secrets:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
@@ -2390,6 +2442,8 @@ using image pull secrets with debug json log:
                   value: "6379"
                 - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
                   value: "true"
+                - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+                  value: "-997"
               image: ghcr.io/steadybit/agent:0.0.0
               imagePullPolicy: Always
               livenessProbe:
@@ -2410,8 +2464,10 @@ using image pull secrets with debug json log:
                   cpu: 500m
                   memory: 250Mi
               securityContext:
-                allowPrivilegeEscalation: false
+                allowPrivilegeEscalation: true
                 capabilities:
+                  add:
+                    - SYS_RESOURCE
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
