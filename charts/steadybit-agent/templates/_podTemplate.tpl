@@ -240,12 +240,25 @@
             - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
               value: "true"
             {{ end -}}
+            {{- if .Values.agent.oomScoreAdj.enabled }}
+            - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+              value: {{ .Values.agent.oomScoreAdj.value | quote }}
+            {{- end }}
             {{- with .Values.agent.env }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           securityContext:
+            {{- if .Values.agent.oomScoreAdj.enabled }}
+            {{- $sc := deepCopy (.Values.containerSecurityContext | default dict) }}
+            {{- $_ := set $sc "allowPrivilegeEscalation" true }}
+            {{- $caps := deepCopy (get $sc "capabilities" | default dict) }}
+            {{- $_ := set $caps "add" (append (get $caps "add" | default list) "SYS_RESOURCE" | uniq) }}
+            {{- $_ := set $sc "capabilities" $caps }}
+            {{- toYaml $sc | nindent 12 }}
+            {{- else }}
             {{- with .Values.containerSecurityContext }}
             {{- toYaml . | nindent 12 }}
+            {{- end }}
             {{- end }}
           volumeMounts:
             {{- if or (eq .Values.agent.persistence.provider "filesystem") (eq .Values.agent.persistence.provider "hostPath")}}

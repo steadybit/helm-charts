@@ -28,11 +28,16 @@ forced rendering on kubernetes:
         name: steadybit-agent
         namespace: NAMESPACE
   3: |
+    allowPrivilegeEscalation: true
+    allowedCapabilities:
+      - SYS_RESOURCE
     apiVersion: security.openshift.io/v1
     kind: SecurityContextConstraints
     metadata:
       name: my-scc
     priority: null
+    requiredDropCapabilities:
+      - ALL
     runAsUser:
       type: MustRunAs
       uid: 10000
@@ -68,11 +73,16 @@ rendering by default on openshift:
         name: steadybit-agent
         namespace: NAMESPACE
   3: |
+    allowPrivilegeEscalation: true
+    allowedCapabilities:
+      - SYS_RESOURCE
     apiVersion: security.openshift.io/v1
     kind: SecurityContextConstraints
     metadata:
       name: steadybit-agent
     priority: null
+    requiredDropCapabilities:
+      - ALL
     runAsUser:
       type: MustRunAs
       uid: 10000

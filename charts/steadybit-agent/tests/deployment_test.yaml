@@ -310,3 +310,87 @@ tests:
             host: 127.0.0.1
     asserts:
       - matchSnapshot: { }
+  - it: should not grant oom_score_adj privileges when disabled
+    set:
+      agent:
+        identifier: abcdefg
+        key: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        oomScoreAdj:
+          enabled: false
+    asserts:
+      - template: deployment.yaml
+        notExists:
+          path: spec.template.spec.containers[1].env[?(@.name=="STEADYBIT_AGENT_OOM_SCORE_ADJ")]
+      - template: deployment.yaml
+        equal:
+          path: spec.template.spec.containers[1].securityContext.allowPrivilegeEscalation
+          value: false
+      - template: deployment.yaml
+        equal:
+          path: spec.template.spec.containers[1].securityContext.capabilities
+          value:
+            drop:
+              - ALL
+
+  - it: should grant oom_score_adj privileges to the agent container only when enabled
+    set:
+      agent:
+        identifier: abcdefg
+        key: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        oomScoreAdj:
+          enabled: true
+    asserts:
+      - template: deployment.yaml
+        contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+            value: "-997"
+      - template: deployment.yaml
+        equal:
+          path: spec.template.spec.containers[1].securityContext.allowPrivilegeEscalation
+          value: true
+      - template: deployment.yaml
+        contains:
+          path: spec.template.spec.containers[1].securityContext.capabilities.add
+          content: SYS_RESOURCE
+      - template: deployment.yaml
+        contains:
+          path: spec.template.spec.containers[1].securityContext.capabilities.drop
+          content: ALL
+      # the autoregistration sidecar must stay unprivileged
+      - template: deployment.yaml
+        equal:
+          path: spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation
+          value: false
+      - template: deployment.yaml
+        notExists:
+          path: spec.template.spec.containers[0].securityContext.capabilities.add
+
+  - it: should honor a custom oom_score_adj value
+    set:
+      agent:
+        identifier: abcdefg
+        key: abcdefg
+        persistence:
+          provider: redis
+          redis:
+            host: 127.0.0.1
+        oomScoreAdj:
+          enabled: true
+          value: -500
+    asserts:
+      - template: deployment.yaml
+        contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_OOM_SCORE_ADJ
+            value: "-500"

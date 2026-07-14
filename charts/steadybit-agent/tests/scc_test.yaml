@@ -35,3 +35,36 @@ tests:
     asserts:
       - hasDocuments:
           count: 0
+  - it: grants SYS_RESOURCE when oomScoreAdj is enabled on openshift
+    capabilities:
+      apiVersions:
+        - "security.openshift.io/v1/SecurityContextConstraints"
+    set:
+      agent:
+        oomScoreAdj:
+          enabled: true
+    asserts:
+      - template: scc.yaml
+        equal:
+          path: allowPrivilegeEscalation
+          value: true
+      - template: scc.yaml
+        contains:
+          path: allowedCapabilities
+          content: SYS_RESOURCE
+      - template: scc.yaml
+        contains:
+          path: requiredDropCapabilities
+          content: ALL
+  - it: does not grant SYS_RESOURCE when disabled on openshift
+    capabilities:
+      apiVersions:
+        - "security.openshift.io/v1/SecurityContextConstraints"
+    set:
+      agent:
+        oomScoreAdj:
+          enabled: false
+    asserts:
+      - template: scc.yaml
+        notExists:
+          path: allowedCapabilities
