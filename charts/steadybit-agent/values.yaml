@@ -88,6 +88,16 @@ agent:
   port: 42899
   # agent.env -- Additional environment variables for the steadybit agent
   env: []
+  oomScoreAdj:
+    # agent.oomScoreAdj.enabled -- Lower the agent container's oom_score_adj so the kernel OOM
+    # killer terminates it last. This adds CAP_SYS_RESOURCE and allowPrivilegeEscalation=true to
+    # the agent container (and to the SecurityContextConstraint on OpenShift); the container stays
+    # non-root. Disabled by default. A cheaper alternative without extra privileges is to raise
+    # resources.requests.memory, which already lowers the score for Burstable pods.
+    enabled: false
+    # agent.oomScoreAdj.value -- The oom_score_adj value to apply (-1000..1000). -997 matches the
+    # value Kubernetes assigns to Guaranteed QoS pods.
+    value: -997
   # agent.extraLabels -- Additional labels added to all agent kubernetes resources.
   extraLabels: {}
   # agent.livenessProbe.* -- Configuration of the Kubernetes liveness probe for the agent daemonset

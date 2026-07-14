@@ -94,6 +94,26 @@ agent:
       insecureSkipVerify: true
 ```
 
+### Protecting the agent from the OOM killer
+
+On memory pressure the Linux OOM killer may terminate the agent. To have it picked last, you can lower the
+agent container's `oom_score_adj`:
+
+```yaml
+agent:
+  oomScoreAdj:
+    enabled: true
+    value: -997 # -1000..1000; -997 matches the value Kubernetes assigns to Guaranteed QoS pods
+```
+
+The agent container stays non-root, but enabling this adds `CAP_SYS_RESOURCE` and
+`allowPrivilegeEscalation: true` to it (and, on OpenShift, to the generated SecurityContextConstraint). The
+namespace therefore cannot run under the `baseline`/`restricted` Pod Security Standard. If the capability is
+not granted at runtime the agent still starts and logs a warning.
+
+A cheaper alternative that needs no extra privileges is to raise `resources.requests.memory`, which already
+lowers the score the kubelet assigns to Burstable pods.
+
 ### Configuring Additional Volumes
 
 You may want to have additional volumes to be mounted to the agent container, e.g. for SSL certificates.

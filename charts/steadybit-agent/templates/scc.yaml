@@ -9,4 +9,11 @@ runAsUser:
   uid: 10000
 seLinuxContext:
   type: MustRunAs
+{{- if .Values.agent.oomScoreAdj.enabled }}
+allowPrivilegeEscalation: true
+allowedCapabilities:
+  - SYS_RESOURCE
+requiredDropCapabilities:
+  - ALL
+{{- end }}
 {{- end -}}
