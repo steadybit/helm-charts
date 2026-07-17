@@ -28,7 +28,7 @@ dependencies:
   version: 1.1.55
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.1.43
+  version: 1.2.1
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.26
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.29
-digest: sha256:53c8b1e8a2bb2685a1be40b06080bee406aabeacb9acd5a202c856650087b1c4
-generated: "2026-07-16T06:57:49.216773097Z"
+digest: sha256:3b28d1ed3f6b2086c2418c7e9f4d36113e926246fbe915e5dd786951c16a4ba3
+generated: "2026-07-17T12:26:20.725595947Z"
