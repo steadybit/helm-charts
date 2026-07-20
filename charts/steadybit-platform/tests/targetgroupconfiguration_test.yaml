@@ -1,0 +1,65 @@
+templates:
+  - targetgroupconfiguration.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: should not create a TargetGroupConfiguration by default
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should set only defaultConfiguration when no ws override is given
+    set:
+      httpRoute:
+        enabled: true
+        targetGroupAttributes:
+          - key: stickiness.type
+            value: app_cookie
+          - key: stickiness.app_cookie.cookie_name
+            value: SESSION
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: spec.defaultConfiguration.targetGroupAttributes[0].value
+          value: app_cookie
+      - notExists:
+          path: spec.routeConfigurations
+  - it: should add a per-route lb_cookie override for the ws route, leaving the default untouched
+    set:
+      httpRoute:
+        enabled: true
+        targetGroupAttributes:
+          - key: stickiness.type
+            value: app_cookie
+          - key: stickiness.app_cookie.cookie_name
+            value: SESSION
+        ws:
+          targetGroupAttributes:
+            - key: stickiness.enabled
+              value: "true"
+            - key: stickiness.type
+              value: lb_cookie
+            - key: stickiness.lb_cookie.duration_seconds
+              value: "3600"
+    asserts:
+      # UI/default stickiness stays app_cookie, and the default health check still applies to every target group
+      - equal:
+          path: spec.defaultConfiguration.targetGroupAttributes[0].value
+          value: app_cookie
+      - equal:
+          path: spec.defaultConfiguration.healthCheckConfig.healthCheckPath
+          value: /api/health/liveness
+      # exactly one per-route override, targeting the -ws HTTPRoute with lb_cookie
+      - lengthEqual:
+          path: spec.routeConfigurations
+          count: 1
+      - equal:
+          path: spec.routeConfigurations[0].routeIdentifier.kind
+          value: HTTPRoute
+      - matchRegex:
+          path: spec.routeConfigurations[0].routeIdentifier.name
+          pattern: -ws$
+      - equal:
+          path: spec.routeConfigurations[0].targetGroupProps.targetGroupAttributes[1].value
+          value: lb_cookie
