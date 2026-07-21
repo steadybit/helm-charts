@@ -198,6 +198,19 @@ httpRoute:
     parentRefs: []
     hostnames: []
     annotations: {}
+    # httpRoute.ws.targetGroupAttributes -- ALB target group attributes for the WebSocket (agent) route's target group,
+    # emitted as a per-route routeConfigurations entry on the TargetGroupConfiguration and merged over
+    # httpRoute.targetGroupAttributes (keys set here win; other default keys still apply). Use this to give the agent
+    # channel duration-based (lb_cookie) stickiness independently of the UI: the agent channel never sets a SESSION
+    # cookie, so the shared app_cookie stickiness is inert for it, and RSocket session resume needs reconnects to land
+    # on the same pod.
+    targetGroupAttributes: []
+    # - key: stickiness.enabled
+    #   value: "true"
+    # - key: stickiness.type
+    #   value: lb_cookie
+    # - key: stickiness.lb_cookie.duration_seconds
+    #   value: "3600"
   # httpRoute.ui -- Per-route overrides for the UI HTTPRoute (user traffic). Falls back to shared values above when not set.
   ui:
     parentRefs: []

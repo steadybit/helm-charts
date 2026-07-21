@@ -21,4 +21,14 @@ spec:
     targetGroupAttributes:
       {{- toYaml . | nindent 6 }}
     {{- end }}
+  {{- with .Values.httpRoute.ws.targetGroupAttributes }}
+  routeConfigurations:
+    - routeIdentifier:
+        kind: HTTPRoute
+        namespace: {{ $.Release.Namespace }}
+        name: {{ $fullName }}-ws
+      targetGroupProps:
+        targetGroupAttributes:
+          {{- toYaml . | nindent 10 }}
+  {{- end }}
 {{- end -}}
