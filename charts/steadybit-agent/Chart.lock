@@ -4,10 +4,10 @@ dependencies:
   version: 1.5.2
 - name: steadybit-extension-appdynamics
   repository: https://steadybit.github.io/extension-appdynamics
-  version: 1.2.22
+  version: 1.2.23
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.40
+  version: 2.2.41
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
   version: 1.1.41
@@ -76,7 +76,7 @@ dependencies:
   version: 1.7.39
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.39
+  version: 1.5.40
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
   version: 1.0.26
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.29
-digest: sha256:e8e801e7679da13b6b1f93da92917703b31a34d370e1d59356b03871016b14e6
-generated: "2026-07-24T06:59:34.738692855Z"
+digest: sha256:9fcb78a57dc3126c44bd6d939603e6e3bb7aeb9ff7e18082b30b86ba85ba4df4
+generated: "2026-07-27T07:20:49.361233308Z"
