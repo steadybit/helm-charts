@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   extensionlib:
   - apiVersion: v2
+    created: "2026-07-30T08:32:07.47799463Z"
+    description: Helm library for Steadybit extensions.
+    digest: cf97a387655b0fa50959776d032dfd2fc2a01f424b44598bf100dce28fc80128
+    maintainers:
+    - email: daniel.reuter@steadybit.com
+      name: reuda
+    - email: ansgar.schulte@steadybit.com
+      name: ansgarschulte
+    name: extensionlib
+    type: library
+    urls:
+    - https://github.com/steadybit/helm-charts/releases/download/extensionlib-1.5.4/extensionlib-1.5.4.tgz
+    version: 1.5.4
+  - apiVersion: v2
     created: "2026-05-20T12:26:32.551537398Z"
     description: Helm library for Steadybit extensions.
     digest: 9e6a7b6b7ed962343f015838c99a897ff46072fc07583a2dd45d2402be3774d1
@@ -77771,4 +77785,4 @@ entries:
     urls:
     - https://github.com/steadybit/helm-charts/releases/download/steadybit-platform-0.1.0/steadybit-platform-0.1.0.tgz
     version: 0.1.0
-generated: "2026-07-30T07:03:05.711652785Z"
+generated: "2026-07-30T08:32:07.479147677Z"
