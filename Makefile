@@ -6,8 +6,8 @@
 .PHONY: charttesting
 charttesting:
 	@set -e; \
-	helm dependency update charts/extensionlib-test >/dev/null; \
-	for dir in charts/steadybit-* charts/extensionlib-test; do \
+	helm dependency update tests/extensionlib-test >/dev/null; \
+	for dir in charts/steadybit-* tests/extensionlib-test; do \
 		echo "Unit Testing $$dir"; \
 		helm unittest $$dir; \
 	done

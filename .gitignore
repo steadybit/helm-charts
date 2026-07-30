@@ -6,5 +6,5 @@ steadybit-values*.yml
 .idea
 
 # Resolved dependencies for the extensionlib test wrapper chart
-charts/extensionlib-test/charts/
-charts/extensionlib-test/Chart.lock
+tests/extensionlib-test/charts/
+tests/extensionlib-test/Chart.lock
