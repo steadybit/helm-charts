@@ -33,6 +33,14 @@ This takes an array of these values:
 - name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
   value: {{ .group | quote }}
 {{- end }}
+{{- if .excludeQuery }}
+- name: STEADYBIT_EXTENSION_DISCOVERY_EXCLUDE_QUERY
+  value: {{ .excludeQuery | quote }}
+{{- end }}
+{{- if .includeQuery }}
+- name: STEADYBIT_EXTENSION_DISCOVERY_INCLUDE_QUERY
+  value: {{ .includeQuery | quote }}
+{{- end }}
 {{- end }}
 {{- end -}}
 

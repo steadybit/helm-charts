@@ -120,6 +120,34 @@ discovery section present but no group set — no GROUP env var:
               name: extension
               volumeMounts: null
           volumes: null
+discovery.excludeQuery set — STEADYBIT_EXTENSION_DISCOVERY_EXCLUDE_QUERY is added:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_DISCOVERY_EXCLUDE_QUERY
+                  value: k8s.namespace IN (kube-system, istio-system)
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
 discovery.group set — STEADYBIT_EXTENSION_DISCOVERY_GROUP is added:
   1: |
     apiVersion: apps/v1
@@ -144,6 +172,66 @@ discovery.group set — STEADYBIT_EXTENSION_DISCOVERY_GROUP is added:
                   value: text
                 - name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
                   value: prod-eu
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+discovery.includeQuery set — STEADYBIT_EXTENSION_DISCOVERY_INCLUDE_QUERY is added:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_DISCOVERY_INCLUDE_QUERY
+                  value: k8s.namespace~"prod"
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+group and both queries combine:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+                  value: prod-eu
+                - name: STEADYBIT_EXTENSION_DISCOVERY_EXCLUDE_QUERY
+                  value: k8s.label.tier="canary"
+                - name: STEADYBIT_EXTENSION_DISCOVERY_INCLUDE_QUERY
+                  value: k8s.namespace~"prod"
               image: test:latest
               name: extension
               volumeMounts: null
