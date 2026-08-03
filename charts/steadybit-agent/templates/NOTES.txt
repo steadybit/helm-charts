@@ -76,3 +76,9 @@ You can get the logs for all of the agents with `kubectl logs`:
 #### WARNING: Consider defining resource limits to prevent potential resource exhaustion. (.Values.resources.limits.memory / .Values.resources.limits.cpu)
 
 {{- end }}
+
+{{- if and (kindIs "invalid" .Values.agent.oomScoreAdj.enabled) (include "steadybit-agent.isGkeAutopilot" .) }}
+
+#### NOTICE: GKE Autopilot detected (auto.gke.io API group) - the oom_score_adj protection (agent.oomScoreAdj) was disabled automatically because Autopilot's admission webhook rejects CAP_SYS_RESOURCE. Under memory pressure the OOM killer may terminate the agent earlier. If this cluster has a workload allowlist exemption for the agent - or is not actually an Autopilot cluster - set agent.oomScoreAdj.enabled=true to restore it.
+
+{{- end }}

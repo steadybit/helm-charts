@@ -20,6 +20,28 @@ should inform about missing limits:
           kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
 
       #### WARNING: Consider defining resource limits to prevent potential resource exhaustion. (.Values.resources.limits.memory / .Values.resources.limits.cpu)
+should not notify about oomScoreAdj when explicitly disabled on GKE Autopilot:
+  1: |
+    raw: |-
+      It may take a few moments for the agents to fully deploy. You can see what agents are running by listing resources in the NAMESPACE namespace:
+
+          kubectl get all -n NAMESPACE
+
+      You can get the logs for all of the agents with `kubectl logs`:
+
+          kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
+should notify when oomScoreAdj is auto-disabled on GKE Autopilot:
+  1: |
+    raw: |-
+      It may take a few moments for the agents to fully deploy. You can see what agents are running by listing resources in the NAMESPACE namespace:
+
+          kubectl get all -n NAMESPACE
+
+      You can get the logs for all of the agents with `kubectl logs`:
+
+          kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
+
+      #### NOTICE: GKE Autopilot detected (auto.gke.io API group) - the oom_score_adj protection (agent.oomScoreAdj) was disabled automatically because Autopilot's admission webhook rejects CAP_SYS_RESOURCE. Under memory pressure the OOM killer may terminate the agent earlier. If this cluster has a workload allowlist exemption for the agent - or is not actually an Autopilot cluster - set agent.oomScoreAdj.enabled=true to restore it.
 should warn about internal extension autoregistration:
   1: |
     raw: |-

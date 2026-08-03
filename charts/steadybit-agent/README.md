@@ -108,7 +108,17 @@ agent:
 
 On **GKE Autopilot** the feature is disabled automatically (detected via the `auto.gke.io` API group):
 Autopilot's admission webhook rejects workloads requesting `CAP_SYS_RESOURCE`, and no workload allowlist is
-published for the agent. Set `enabled: true` to force it on, e.g. if your cluster grants an allowlist exemption.
+published for the agent. When this happens the install/upgrade notes print a notice. Set `enabled: true` to
+force it on, e.g. if your cluster grants an allowlist exemption for the agent.
+
+> **:warning:** Auto-detection relies on Helm's cluster capabilities, so it only works when Helm talks to the
+> cluster (`helm install`/`helm upgrade`, or GitOps tools that pass the cluster's API versions to the template
+> step, as Argo CD does). A bare offline `helm template` renders the non-Autopilot default and Autopilot will
+> reject the manifests — pass `--api-versions auto.gke.io/v1` or set `agent.oomScoreAdj.enabled: false`
+> explicitly in such pipelines.
+
+`enabled` must be `null` or an unquoted boolean — quoted strings like `"false"` (e.g. from `--set-string`)
+are rejected at render time instead of being silently treated as truthy.
 
 The agent container stays non-root, but this adds `CAP_SYS_RESOURCE` and `allowPrivilegeEscalation: true` to it
 (and, on OpenShift, to the generated SecurityContextConstraint). If the capability is not granted at runtime the
