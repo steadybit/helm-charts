@@ -87,6 +87,25 @@ volume mounts for extra certificates
 {{- end -}}
 
 {{/*
+Detect GKE Autopilot clusters via the auto.gke.io API group (WorkloadAllowlist /
+AllowlistSynchronizer), which only Autopilot clusters serve. Renders "true" or "".
+*/}}
+{{- define "steadybit-agent.isGkeAutopilot" -}}
+{{- if or (.Capabilities.APIVersions.Has "auto.gke.io/v1") (.Capabilities.APIVersions.Has "auto.gke.io/v1alpha1") -}}true{{- end -}}
+{{- end -}}
+
+{{/*
+Whether the oom_score_adj feature is effectively enabled. Honors an explicit
+agent.oomScoreAdj.enabled true/false; when null, it is enabled everywhere except on GKE
+Autopilot, whose Warden admission webhook denies CAP_SYS_RESOURCE. Renders "true" or "".
+*/}}
+{{- define "steadybit-agent.oomScoreAdjEnabled" -}}
+{{- if eq .Values.agent.oomScoreAdj.enabled nil -}}
+{{- if not (include "steadybit-agent.isGkeAutopilot" .) -}}true{{- end -}}
+{{- else if .Values.agent.oomScoreAdj.enabled -}}true{{- end -}}
+{{- end -}}
+
+{{/*
 Map match labels to extension registration JSON format.
 */}}
 {{- define "matchLabelsJson" -}}

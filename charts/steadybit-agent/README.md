@@ -102,9 +102,13 @@ On memory pressure the Linux OOM killer may terminate the agent. To have it pick
 ```yaml
 agent:
   oomScoreAdj:
-    enabled: true
+    enabled: null # null = auto: enabled everywhere except GKE Autopilot; set true/false to override
     value: -997 # -1000..1000; -997 matches the value Kubernetes assigns to Guaranteed QoS pods
 ```
+
+On **GKE Autopilot** the feature is disabled automatically (detected via the `auto.gke.io` API group):
+Autopilot's admission webhook rejects workloads requesting `CAP_SYS_RESOURCE`, and no workload allowlist is
+published for the agent. Set `enabled: true` to force it on, e.g. if your cluster grants an allowlist exemption.
 
 The agent container stays non-root, but this adds `CAP_SYS_RESOURCE` and `allowPrivilegeEscalation: true` to it
 (and, on OpenShift, to the generated SecurityContextConstraint). If the capability is not granted at runtime the

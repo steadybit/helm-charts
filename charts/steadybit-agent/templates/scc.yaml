@@ -9,7 +9,7 @@ runAsUser:
   uid: 10000
 seLinuxContext:
   type: MustRunAs
-{{- if .Values.agent.oomScoreAdj.enabled }}
+{{- if include "steadybit-agent.oomScoreAdjEnabled" . }}
 allowPrivilegeEscalation: true
 allowedCapabilities:
   - SYS_RESOURCE

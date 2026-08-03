@@ -240,7 +240,7 @@
             - name: STEADYBIT_AGENT_DISABLE_KUBERNETES_ACCESS
               value: "true"
             {{ end -}}
-            {{- if .Values.agent.oomScoreAdj.enabled }}
+            {{- if include "steadybit-agent.oomScoreAdjEnabled" . }}
             - name: STEADYBIT_AGENT_OOM_SCORE_ADJ
               value: {{ .Values.agent.oomScoreAdj.value | quote }}
             {{- end }}
@@ -248,7 +248,7 @@
             {{- toYaml . | nindent 12 }}
             {{- end }}
           securityContext:
-            {{- if .Values.agent.oomScoreAdj.enabled }}
+            {{- if include "steadybit-agent.oomScoreAdjEnabled" . }}
             {{- $sc := deepCopy (.Values.containerSecurityContext | default dict) }}
             {{- $_ := set $sc "allowPrivilegeEscalation" true }}
             {{- $caps := deepCopy (get $sc "capabilities" | default dict) }}
