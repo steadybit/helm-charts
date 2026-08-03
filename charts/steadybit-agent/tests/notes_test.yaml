@@ -60,3 +60,31 @@ tests:
           cpu: null
     asserts:
       - matchSnapshot: {}
+  - it: should notify when oomScoreAdj is auto-disabled on GKE Autopilot
+    capabilities:
+      apiVersions:
+        - "auto.gke.io/v1"
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+        auth:
+          provider: agent-key
+    asserts:
+      - matchSnapshot: {}
+  - it: should not notify about oomScoreAdj when explicitly disabled on GKE Autopilot
+    capabilities:
+      apiVersions:
+        - "auto.gke.io/v1"
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+        auth:
+          provider: agent-key
+        oomScoreAdj:
+          enabled: false
+    asserts:
+      - matchSnapshot: {}

@@ -87,6 +87,31 @@ volume mounts for extra certificates
 {{- end -}}
 
 {{/*
+Detect GKE Autopilot clusters via the auto.gke.io API group (WorkloadAllowlist /
+AllowlistSynchronizer), which only Autopilot clusters serve. Renders "true" or "".
+*/}}
+{{- define "steadybit-agent.isGkeAutopilot" -}}
+{{- if or (.Capabilities.APIVersions.Has "auto.gke.io/v1") (.Capabilities.APIVersions.Has "auto.gke.io/v1alpha1") -}}true{{- end -}}
+{{- end -}}
+
+{{/*
+Whether the oom_score_adj feature is effectively enabled. Honors an explicit
+agent.oomScoreAdj.enabled true/false; when null, it is enabled everywhere except on GKE
+Autopilot, whose Warden admission webhook denies CAP_SYS_RESOURCE. Renders "true" or "".
+Fails on non-boolean values (e.g. the string "false" from quoted YAML or --set-string),
+which would otherwise be truthy and silently invert the user's intent.
+*/}}
+{{- define "steadybit-agent.oomScoreAdjEnabled" -}}
+{{- $enabled := .Values.agent.oomScoreAdj.enabled -}}
+{{- if not (or (kindIs "invalid" $enabled) (kindIs "bool" $enabled)) -}}
+{{- fail (printf "agent.oomScoreAdj.enabled must be null, true or false - got the %s %q. Use an unquoted boolean (--set, not --set-string)." (kindOf $enabled) (toString $enabled)) -}}
+{{- end -}}
+{{- if kindIs "invalid" $enabled -}}
+{{- if not (include "steadybit-agent.isGkeAutopilot" .) -}}true{{- end -}}
+{{- else if $enabled -}}true{{- end -}}
+{{- end -}}
+
+{{/*
 Map match labels to extension registration JSON format.
 */}}
 {{- define "matchLabelsJson" -}}
