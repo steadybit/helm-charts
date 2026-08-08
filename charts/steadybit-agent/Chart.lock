@@ -13,7 +13,7 @@ dependencies:
   version: 1.1.45
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.5.23
+  version: 1.5.24
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.30
@@ -28,7 +28,7 @@ dependencies:
   version: 1.1.60
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.2.2
+  version: 1.2.3
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.29
@@ -37,7 +37,7 @@ dependencies:
   version: 1.3.25
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.53
+  version: 1.1.54
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
   version: 1.1.31
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.31
-digest: sha256:cf621fed764d0cf2a4e4b0877c0b5b393acffffa590238e54acda437d84144b2
-generated: "2026-08-06T07:02:35.587071726Z"
+digest: sha256:cf42295f4a4df59feb79bac9a1eafb09656bcf6a221d73467e2e0f7b88f94a1c
+generated: "2026-08-08T06:20:18.117871221Z"
