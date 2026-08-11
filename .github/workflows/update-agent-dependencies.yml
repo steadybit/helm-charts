@@ -49,6 +49,7 @@ jobs:
             echo "No changes in dependencies" >> $GITHUB_STEP_SUMMARY
             exit 0
           fi
+          npm install -g npm@12
           npm install -g semver
           make chart-bump-version CHART="steadybit-agent"
           git config user.name "$GITHUB_ACTOR"

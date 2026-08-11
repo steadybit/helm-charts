@@ -40,6 +40,7 @@ jobs:
 
       # this commit will effectively cause another run of the workflow which then actually performs the helm chart release
       - run: |
+          npm install -g npm@12
           npm install -g semver
           make chart-set-app-version CHART="${{ inputs.chart }}" APP_VERSION="${{ inputs.app_version }}"
           if git diff --quiet charts/${{ inputs.chart }}/Chart.yaml; then
