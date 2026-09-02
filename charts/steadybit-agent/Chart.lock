@@ -25,7 +25,7 @@ dependencies:
   version: 1.1.40
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.1.61
+  version: 1.1.62
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
   version: 1.2.8
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.34
-digest: sha256:bb377d497c3931311c9866629fecdef0c09a1e22244f093ab08d78d0e8123e77
-generated: "2026-09-01T06:32:01.123731409Z"
+digest: sha256:adb3f14302b5b0decec295cd149b9adb60e2e3273990561675bcb53cbc62b17b
+generated: "2026-09-02T06:35:18.464907732Z"
