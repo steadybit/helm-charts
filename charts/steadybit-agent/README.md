@@ -63,12 +63,12 @@ agent:
 
 -OR-
 
-You can also reference a path in the container use `agent.extraCertificates.containerPath`
+If the certificates are already in the container by some other means, reference the directory with `agent.extraCertificates.path` instead:
 
 ```yaml
 agent:
   extraCertificates:
-    container-path: /path/to/certificates
+    path: /path/to/certificates
 ```
 
 ### Disabling TLS certificate verification (testing only)
