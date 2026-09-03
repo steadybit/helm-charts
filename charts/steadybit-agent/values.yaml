@@ -76,7 +76,7 @@ agent:
     #   connection to the steadybit platform (registration, experiments and the OAuth2 token endpoint).
     #   Only intended for testing against self-signed certificates - never enable this in production.
     insecureSkipVerify: false
-  # agent.extraCertificates -- Specify a containerPath where the agent loads additional certificates from.
+  # agent.extraCertificates -- Load additional certificates: either mount a volume and name it in `fromVolume`, or set `path` to a directory that is already in the container.
   extraCertificates:
     path: null
     fromVolume: null
