@@ -7,13 +7,13 @@ dependencies:
   version: 1.2.30
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.48
+  version: 2.2.49
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.47
+  version: 1.1.48
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.5.26
+  version: 1.5.27
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.32
@@ -31,7 +31,7 @@ dependencies:
   version: 1.2.8
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
-  version: 1.2.31
+  version: 1.2.32
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
   version: 1.3.27
@@ -46,13 +46,13 @@ dependencies:
   version: 1.1.34
 - name: steadybit-extension-jenkins
   repository: https://steadybit.github.io/extension-jenkins
-  version: 1.0.26
+  version: 1.0.27
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
   version: 1.1.46
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.2.30
+  version: 1.2.31
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
   version: 1.2.44
@@ -61,7 +61,7 @@ dependencies:
   version: 1.0.53
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.33
+  version: 1.7.34
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
   version: 1.6.31
@@ -70,27 +70,27 @@ dependencies:
   version: 1.0.65
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
-  version: 1.1.30
+  version: 1.1.31
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.7.44
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.47
+  version: 1.5.48
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
   version: 1.0.35
 - name: steadybit-extension-redis
   repository: https://steadybit.github.io/extension-redis
-  version: 1.0.23
+  version: 1.0.24
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
-  version: 1.0.25
+  version: 1.0.26
 - name: steadybit-extension-splunk-platform
   repository: https://steadybit.github.io/extension-splunk-platform
   version: 1.0.24
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.34
-digest: sha256:adb3f14302b5b0decec295cd149b9adb60e2e3273990561675bcb53cbc62b17b
-generated: "2026-09-02T06:35:18.464907732Z"
+digest: sha256:37bd2e99e1494ae1ed1c4887a2b7c527cf3487a20f970c2a168880599828e89f
+generated: "2026-09-07T06:39:30.829733074Z"
