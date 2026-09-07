@@ -16,25 +16,25 @@ dependencies:
   version: 1.5.27
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.32
+  version: 1.5.33
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
   version: 1.0.45
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
-  version: 1.1.40
+  version: 1.1.41
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
   version: 1.1.62
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.2.8
+  version: 1.2.9
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.32
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.3.27
+  version: 1.3.28
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.57
@@ -43,7 +43,7 @@ dependencies:
   version: 1.1.34
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.1.34
+  version: 1.1.35
 - name: steadybit-extension-jenkins
   repository: https://steadybit.github.io/extension-jenkins
   version: 1.0.27
@@ -55,7 +55,7 @@ dependencies:
   version: 1.2.31
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.44
+  version: 1.2.45
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
   version: 1.0.53
@@ -64,7 +64,7 @@ dependencies:
   version: 1.7.34
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.6.31
+  version: 1.6.32
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.65
@@ -88,9 +88,9 @@ dependencies:
   version: 1.0.26
 - name: steadybit-extension-splunk-platform
   repository: https://steadybit.github.io/extension-splunk-platform
-  version: 1.0.24
+  version: 1.0.25
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.34
-digest: sha256:37bd2e99e1494ae1ed1c4887a2b7c527cf3487a20f970c2a168880599828e89f
-generated: "2026-09-07T06:39:30.829733074Z"
+digest: sha256:098cbcb0fb94b68980034fd2910fc91ef64a2be152d723bc1811f9db9a9dd074
+generated: "2026-09-07T07:37:19.717268623Z"
