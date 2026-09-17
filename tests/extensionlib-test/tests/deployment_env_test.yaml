@@ -33,6 +33,34 @@ tests:
             name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
             value: prod-eu
 
+  - it: global.discovery.group set — inherited by the extension
+    set:
+      global:
+        discovery:
+          group: global-group
+    asserts:
+      - matchSnapshot: {}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+            value: global-group
+
+  - it: local discovery.group takes precedence over global.discovery.group
+    set:
+      global:
+        discovery:
+          group: global-group
+      discovery:
+        group: local-group
+    asserts:
+      - matchSnapshot: {}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+            value: local-group
+
   - it: discovery.excludeQuery set — STEADYBIT_EXTENSION_DISCOVERY_EXCLUDE_QUERY is added
     set:
       discovery:

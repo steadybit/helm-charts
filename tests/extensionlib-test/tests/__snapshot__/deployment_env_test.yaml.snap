@@ -204,6 +204,34 @@ discovery.includeQuery set — STEADYBIT_EXTENSION_DISCOVERY_INCLUDE_QUERY is ad
               name: extension
               volumeMounts: null
           volumes: null
+global.discovery.group set — inherited by the extension:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+                  value: global-group
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
 group and both queries combine:
   1: |
     apiVersion: apps/v1
@@ -232,6 +260,34 @@ group and both queries combine:
                   value: k8s.label.tier="canary"
                 - name: STEADYBIT_EXTENSION_DISCOVERY_INCLUDE_QUERY
                   value: k8s.namespace~"prod"
+              image: test:latest
+              name: extension
+              volumeMounts: null
+          volumes: null
+local discovery.group takes precedence over global.discovery.group:
+  1: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: extensionlib-test
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: extensionlib-test
+      template:
+        metadata:
+          labels:
+            app: extensionlib-test
+        spec:
+          containers:
+            - env:
+                - name: STEADYBIT_LOG_LEVEL
+                  value: INFO
+                - name: STEADYBIT_LOG_FORMAT
+                  value: text
+                - name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
+                  value: local-group
               image: test:latest
               name: extension
               volumeMounts: null

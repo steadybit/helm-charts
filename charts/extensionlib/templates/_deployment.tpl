@@ -28,19 +28,20 @@ This takes an array of these values:
 - name: STEADYBIT_EXTENSION_TLS_CLIENT_CAS
   value: "{{ join "," $top.Values.tls.client.certificates.paths }}"
 {{ end -}}
-{{- with $top.Values.discovery -}}
-{{- if .group }}
+{{- $discovery := $top.Values.discovery | default dict -}}
+{{- $globalDiscovery := (dig "discovery" dict ($top.Values.global | default dict)) | default dict -}}
+{{- $group := $discovery.group | default (dig "group" "" $globalDiscovery) -}}
+{{- if $group }}
 - name: STEADYBIT_EXTENSION_DISCOVERY_GROUP
-  value: {{ .group | quote }}
+  value: {{ $group | quote }}
 {{- end }}
-{{- if .excludeQuery }}
+{{- if $discovery.excludeQuery }}
 - name: STEADYBIT_EXTENSION_DISCOVERY_EXCLUDE_QUERY
-  value: {{ .excludeQuery | quote }}
+  value: {{ $discovery.excludeQuery | quote }}
 {{- end }}
-{{- if .includeQuery }}
+{{- if $discovery.includeQuery }}
 - name: STEADYBIT_EXTENSION_DISCOVERY_INCLUDE_QUERY
-  value: {{ .includeQuery | quote }}
-{{- end }}
+  value: {{ $discovery.includeQuery | quote }}
 {{- end }}
 {{- end -}}
 
