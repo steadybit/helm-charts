@@ -7,6 +7,9 @@ global:
   clusterName: null
   # global.priorityClassName -- If set, this priorityClassName is used for the agent and all extension pods.
   priorityClassName: null
+  discovery:
+    # global.discovery.group -- If set, all extensions report their discovered targets to this discovery group. Can be overridden per extension via <extension>.discovery.group.
+    group: null
   image:
     # global.image.registry -- The container registry to use for all images. Can be overridden per image.
     registry: ghcr.io
