@@ -199,3 +199,104 @@ tests:
           content:
             name: STEADYBIT_LOG_FORMAT
             value: json
+
+  - it: emits nothing for OpenTelemetry when no endpoint is configured
+    asserts:
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_EXPORTER_OTLP_ENDPOINT
+          any: true
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_SERVICE_NAME
+          any: true
+
+  - it: renders the OpenTelemetry endpoint and defaults the service name
+    set:
+      otel:
+        endpoint: "http://collector:4318"
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: "http://collector:4318"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_SERVICE_NAME
+            value: "RELEASE-NAME-extensionlib-test"
+
+  - it: an explicit service name wins over the default
+    set:
+      otel:
+        endpoint: "http://collector:4318"
+        serviceName: "my-extension"
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_SERVICE_NAME
+            value: "my-extension"
+
+  - it: a global endpoint applies without per-chart configuration
+    set:
+      global:
+        otel:
+          endpoint: "http://shared-collector:4317"
+          protocol: "grpc"
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: "http://shared-collector:4317"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_EXPORTER_OTLP_PROTOCOL
+            value: "grpc"
+
+  - it: a chart-level endpoint overrides the global one
+    set:
+      global:
+        otel:
+          endpoint: "http://shared-collector:4318"
+      otel:
+        endpoint: "http://dedicated-collector:4318"
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: "http://dedicated-collector:4318"
+
+  - it: the traces-specific endpoint alone is enough to configure tracing
+    set:
+      otel:
+        tracesEndpoint: "http://collector:4318/v1/traces"
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+            value: "http://collector:4318/v1/traces"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_SERVICE_NAME
+            value: "RELEASE-NAME-extensionlib-test"
+
+  - it: disabled renders OTEL_SDK_DISABLED
+    set:
+      otel:
+        endpoint: "http://collector:4318"
+        disabled: true
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OTEL_SDK_DISABLED
+            value: "true"
