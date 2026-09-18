@@ -43,6 +43,42 @@ This takes an array of these values:
 - name: STEADYBIT_EXTENSION_DISCOVERY_INCLUDE_QUERY
   value: {{ $discovery.includeQuery | quote }}
 {{- end }}
+{{- /*
+OpenTelemetry. Chart-level values win over global ones, so a collector can be
+configured once for every extension and overridden where it differs. Nothing is
+emitted unless an endpoint is set, which is what keeps tracing off by default.
+*/}}
+{{- $otel := $top.Values.otel | default dict -}}
+{{- $globalOtel := (dig "otel" dict ($top.Values.global | default dict)) | default dict -}}
+{{- $endpoint := $otel.endpoint | default (dig "endpoint" "" $globalOtel) -}}
+{{- $tracesEndpoint := $otel.tracesEndpoint | default (dig "tracesEndpoint" "" $globalOtel) -}}
+{{- $protocol := $otel.protocol | default (dig "protocol" "" $globalOtel) -}}
+{{- $serviceName := $otel.serviceName | default (dig "serviceName" "" $globalOtel) -}}
+{{- $disabled := $otel.disabled | default (dig "disabled" false $globalOtel) -}}
+{{- if $endpoint }}
+- name: OTEL_EXPORTER_OTLP_ENDPOINT
+  value: {{ $endpoint | quote }}
+{{- end }}
+{{- if $tracesEndpoint }}
+- name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+  value: {{ $tracesEndpoint | quote }}
+{{- end }}
+{{- if $protocol }}
+- name: OTEL_EXPORTER_OTLP_PROTOCOL
+  value: {{ $protocol | quote }}
+{{- end }}
+{{- if or $endpoint $tracesEndpoint }}
+{{- /*
+Without a service name every extension reports as unknown_service:<binary>, so
+default it to the release name rather than leaving traces unattributable.
+*/}}
+- name: OTEL_SERVICE_NAME
+  value: {{ $serviceName | default (include "extensionlib.names.fullname" $top) | quote }}
+{{- end }}
+{{- if $disabled }}
+- name: OTEL_SDK_DISABLED
+  value: "true"
+{{- end }}
 {{- end -}}
 
 {{- /*
