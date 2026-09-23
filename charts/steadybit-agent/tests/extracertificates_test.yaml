@@ -1,0 +1,60 @@
+templates:
+  - statefulset.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+set:
+  global:
+    clusterName: test
+  agent:
+    key: abcdefg
+    extensions:
+      autoregistration:
+        image:
+          tag: v0.0.0
+tests:
+  - it: should set the extra certificates path env var
+    set:
+      agent:
+        extraCertificates:
+          path: /my/certs
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_EXTRA_CERTS_PATH
+            value: /my/certs
+
+  - it: should mount the extra certificates volume
+    set:
+      agent:
+        extraCertificates:
+          fromVolume: extra-certs
+        extraVolumes:
+          - name: extra-certs
+            configMap:
+              name: self-signed-ca
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[1].volumeMounts
+          content:
+            name: extra-certs
+            mountPath: /opt/steadybit/agent/etc/extra-certs
+
+  - it: should reject containerPath instead of path
+    set:
+      agent:
+        extraCertificates:
+          containerPath: /my/certs
+    asserts:
+      - failedTemplate:
+          errorPattern: "containerPath"
+
+  - it: should reject container-path instead of path
+    set:
+      agent:
+        extraCertificates:
+          container-path: /my/certs
+    asserts:
+      - failedTemplate:
+          errorPattern: "container-path"
