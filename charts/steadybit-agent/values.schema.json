@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "agent": {
+      "type": "object",
+      "properties": {
+        "extraCertificates": {
+          "type": "object",
+          "description": "Additional certificates for the agent: either mount a volume and name it in fromVolume, or set path to a directory that is already in the container.",
+          "additionalProperties": false,
+          "properties": {
+            "path": {
+              "type": ["string", "null"],
+              "description": "Directory in the container the agent loads additional certificates from (sets STEADYBIT_AGENT_EXTRA_CERTS_PATH)."
+            },
+            "fromVolume": {
+              "type": ["string", "null"],
+              "description": "Name of a volume (see agent.extraVolumes) mounted at the agent's default extra-certs directory."
+            }
+          }
+        }
+      }
+    }
+  }
+}
