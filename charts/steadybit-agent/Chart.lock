@@ -34,7 +34,7 @@ dependencies:
   version: 1.2.36
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.3.32
+  version: 1.3.33
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.61
@@ -64,7 +64,7 @@ dependencies:
   version: 1.7.38
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.6.34
+  version: 1.6.35
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.67
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.38
-digest: sha256:f2b81a52642820603cf4b024b061c82105e84e8261db7bd6f2b3f9d517fbd665
-generated: "2026-09-22T06:30:48.631907076Z"
+digest: sha256:22c685c92325e59e39bb489dff2a794721728b088d974d3d64180f1f03c1b19f
+generated: "2026-09-23T06:31:44.936070488Z"
