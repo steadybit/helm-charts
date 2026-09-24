@@ -64,7 +64,7 @@ dependencies:
   version: 1.7.38
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.6.35
+  version: 1.6.36
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.67
@@ -82,7 +82,7 @@ dependencies:
   version: 1.0.39
 - name: steadybit-extension-redis
   repository: https://steadybit.github.io/extension-redis
-  version: 1.0.28
+  version: 1.0.29
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.30
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.38
-digest: sha256:22c685c92325e59e39bb489dff2a794721728b088d974d3d64180f1f03c1b19f
-generated: "2026-09-23T06:31:44.936070488Z"
+digest: sha256:d41b48b6a411cd9c11b6118fd9820cee467c366d24f729e16c98f1d93a543ad6
+generated: "2026-09-24T06:31:23.820358289Z"
