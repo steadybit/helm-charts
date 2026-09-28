@@ -4,10 +4,10 @@ dependencies:
   version: 1.6.0
 - name: steadybit-extension-appdynamics
   repository: https://steadybit.github.io/extension-appdynamics
-  version: 1.2.34
+  version: 1.2.35
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.52
+  version: 2.2.53
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
   version: 1.1.52
@@ -40,7 +40,7 @@ dependencies:
   version: 1.1.61
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
-  version: 1.1.37
+  version: 1.1.38
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
   version: 1.1.39
@@ -49,7 +49,7 @@ dependencies:
   version: 1.0.31
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.51
+  version: 1.1.52
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.2.35
@@ -58,10 +58,10 @@ dependencies:
   version: 1.2.49
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.57
+  version: 1.0.58
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.38
+  version: 1.7.39
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
   version: 1.6.36
@@ -73,10 +73,10 @@ dependencies:
   version: 1.1.34
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.48
+  version: 1.7.49
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.52
+  version: 1.5.53
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
   version: 1.0.39
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.38
-digest: sha256:d41b48b6a411cd9c11b6118fd9820cee467c366d24f729e16c98f1d93a543ad6
-generated: "2026-09-24T06:31:23.820358289Z"
+digest: sha256:51d1336942bf91251a458b86348be09fb9be843bcaffc0f23cbeb1649956b131
+generated: "2026-09-28T06:44:13.2110512Z"
