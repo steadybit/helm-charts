@@ -16,19 +16,19 @@ dependencies:
   version: 1.5.32
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.37
+  version: 1.5.38
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
-  version: 1.0.49
+  version: 1.0.50
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
-  version: 1.1.44
+  version: 1.1.45
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
   version: 1.1.67
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.2.13
+  version: 1.2.14
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
   version: 1.2.36
@@ -37,7 +37,7 @@ dependencies:
   version: 1.3.33
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.61
+  version: 1.1.62
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
   version: 1.1.38
@@ -55,7 +55,7 @@ dependencies:
   version: 1.2.35
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.49
+  version: 1.2.50
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
   version: 1.0.58
@@ -79,7 +79,7 @@ dependencies:
   version: 1.5.53
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
-  version: 1.0.39
+  version: 1.0.40
 - name: steadybit-extension-redis
   repository: https://steadybit.github.io/extension-redis
   version: 1.0.29
@@ -91,6 +91,6 @@ dependencies:
   version: 1.0.29
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.38
-digest: sha256:51d1336942bf91251a458b86348be09fb9be843bcaffc0f23cbeb1649956b131
-generated: "2026-09-28T06:44:13.2110512Z"
+  version: 1.1.39
+digest: sha256:a49dfa951f784d9eea3329639912e2ee916488d5a29c9cc6a53a02e218a8301a
+generated: "2026-09-29T06:32:45.132632277Z"
