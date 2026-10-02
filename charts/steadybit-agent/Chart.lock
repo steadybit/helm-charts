@@ -82,7 +82,7 @@ dependencies:
   version: 1.0.40
 - name: steadybit-extension-redis
   repository: https://steadybit.github.io/extension-redis
-  version: 1.0.29
+  version: 1.0.30
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.30
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.39
-digest: sha256:a49dfa951f784d9eea3329639912e2ee916488d5a29c9cc6a53a02e218a8301a
-generated: "2026-09-29T06:32:45.132632277Z"
+digest: sha256:5e639b116754030c2eea2ca3c7f158c0c98eeeec85384d3b4b9aecbd03693b2d
+generated: "2026-10-02T06:32:03.977533499Z"
