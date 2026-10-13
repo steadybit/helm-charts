@@ -4,93 +4,93 @@ dependencies:
   version: 1.6.0
 - name: steadybit-extension-appdynamics
   repository: https://steadybit.github.io/extension-appdynamics
-  version: 1.2.35
+  version: 1.2.36
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.55
+  version: 2.2.56
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.53
+  version: 1.1.54
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.5.32
+  version: 1.5.33
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
-  version: 1.5.39
+  version: 1.5.40
 - name: steadybit-extension-debug
   repository: https://steadybit.github.io/extension-debug
   version: 1.0.50
 - name: steadybit-extension-dynatrace
   repository: https://steadybit.github.io/extension-dynatrace
-  version: 1.1.45
+  version: 1.1.46
 - name: steadybit-extension-gatling
   repository: https://steadybit.github.io/extension-gatling
-  version: 1.1.67
+  version: 1.1.68
 - name: steadybit-extension-gcp
   repository: https://steadybit.github.io/extension-gcp
-  version: 1.2.15
+  version: 1.2.17
 - name: steadybit-extension-grafana
   repository: https://steadybit.github.io/extension-grafana
-  version: 1.2.37
+  version: 1.2.38
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.3.34
+  version: 1.3.36
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
-  version: 1.1.63
+  version: 1.1.64
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
-  version: 1.1.38
+  version: 1.1.39
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
-  version: 1.1.40
+  version: 1.1.41
 - name: steadybit-extension-jenkins
   repository: https://steadybit.github.io/extension-jenkins
-  version: 1.0.32
+  version: 1.0.33
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.52
+  version: 1.1.53
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
-  version: 1.2.37
+  version: 1.2.38
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.51
+  version: 1.2.52
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.59
+  version: 1.0.60
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.39
+  version: 1.7.40
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.6.37
+  version: 1.6.38
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.67
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
-  version: 1.1.35
+  version: 1.1.36
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
-  version: 1.7.50
+  version: 1.7.51
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.54
+  version: 1.5.55
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
-  version: 1.0.40
+  version: 1.0.41
 - name: steadybit-extension-redis
   repository: https://steadybit.github.io/extension-redis
-  version: 1.0.31
+  version: 1.0.32
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
-  version: 1.0.31
+  version: 1.0.32
 - name: steadybit-extension-splunk-platform
   repository: https://steadybit.github.io/extension-splunk-platform
-  version: 1.0.30
+  version: 1.0.31
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.39
-digest: sha256:5c9065a904677348647344f802b41784b46666487bf6b40c1d6f20a80a628bfa
-generated: "2026-10-12T06:47:50.310135026Z"
+  version: 1.1.40
+digest: sha256:d558d302a3bf0d9382f6bc9a103a04873232fc36da099329d73b078826bee29c
+generated: "2026-10-13T06:35:48.405136563Z"
