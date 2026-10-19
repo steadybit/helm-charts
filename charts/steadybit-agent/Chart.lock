@@ -7,10 +7,10 @@ dependencies:
   version: 1.2.36
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
-  version: 2.2.56
+  version: 2.2.57
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.54
+  version: 1.1.55
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
   version: 1.5.33
@@ -49,7 +49,7 @@ dependencies:
   version: 1.0.33
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.53
+  version: 1.1.54
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.2.38
@@ -58,10 +58,10 @@ dependencies:
   version: 1.2.52
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.60
+  version: 1.0.61
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.40
+  version: 1.7.41
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
   version: 1.6.38
@@ -76,13 +76,13 @@ dependencies:
   version: 1.7.51
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.55
+  version: 1.5.56
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
   version: 1.0.41
 - name: steadybit-extension-redis
   repository: https://steadybit.github.io/extension-redis
-  version: 1.0.32
+  version: 1.0.33
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.32
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.40
-digest: sha256:d558d302a3bf0d9382f6bc9a103a04873232fc36da099329d73b078826bee29c
-generated: "2026-10-13T06:35:48.405136563Z"
+digest: sha256:3bfc937909c80551b8986f05025a23c5778513e9ad1c07ad6a68793fcd784ebf
+generated: "2026-10-19T06:40:19.167566227Z"
