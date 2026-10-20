@@ -55,7 +55,7 @@ dependencies:
   version: 1.2.39
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.52
+  version: 1.2.53
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
   version: 1.0.61
@@ -64,7 +64,7 @@ dependencies:
   version: 1.7.41
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.6.38
+  version: 1.6.39
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.67
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.40
-digest: sha256:48ec33b3394dca92e97f86f418b35f58d6287fa4d8888247040d7df5c48a05ea
-generated: "2026-10-20T06:29:21.044900156Z"
+digest: sha256:1a34ccb1076f13d85db1cb16d3b731e68abacf1570b4e6296ac8b74661d95588
+generated: "2026-10-20T12:59:13.341596293Z"
