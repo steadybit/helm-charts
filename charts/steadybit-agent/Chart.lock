@@ -4,7 +4,7 @@ dependencies:
   version: 1.6.0
 - name: steadybit-extension-appdynamics
   repository: https://steadybit.github.io/extension-appdynamics
-  version: 1.2.36
+  version: 1.2.37
 - name: steadybit-extension-aws
   repository: https://steadybit.github.io/extension-aws
   version: 2.2.57
@@ -13,7 +13,7 @@ dependencies:
   version: 1.1.55
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
-  version: 1.5.33
+  version: 1.5.35
 - name: steadybit-extension-datadog
   repository: https://steadybit.github.io/extension-datadog
   version: 1.5.41
@@ -34,7 +34,7 @@ dependencies:
   version: 1.2.39
 - name: steadybit-extension-host
   repository: https://steadybit.github.io/extension-host
-  version: 1.3.36
+  version: 1.3.38
 - name: steadybit-extension-http
   repository: https://steadybit.github.io/extension-http
   version: 1.1.64
@@ -55,16 +55,16 @@ dependencies:
   version: 1.2.39
 - name: steadybit-extension-k6
   repository: https://steadybit.github.io/extension-k6
-  version: 1.2.53
+  version: 1.2.54
 - name: steadybit-extension-kafka
   repository: https://steadybit.github.io/extension-kafka
-  version: 1.0.61
+  version: 1.0.62
 - name: steadybit-extension-kong
   repository: https://steadybit.github.io/extension-kong
-  version: 1.7.41
+  version: 1.7.42
 - name: steadybit-extension-kubernetes
   repository: https://steadybit.github.io/extension-kubernetes
-  version: 1.6.39
+  version: 1.6.40
 - name: steadybit-extension-loadtest
   repository: https://steadybit.github.io/extension-loadtest
   version: 1.0.67
@@ -79,10 +79,10 @@ dependencies:
   version: 1.5.56
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
-  version: 1.0.41
+  version: 1.0.43
 - name: steadybit-extension-redis
   repository: https://steadybit.github.io/extension-redis
-  version: 1.0.33
+  version: 1.0.34
 - name: steadybit-extension-splunk
   repository: https://steadybit.github.io/extension-splunk
   version: 1.0.32
@@ -91,6 +91,6 @@ dependencies:
   version: 1.0.31
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
-  version: 1.1.40
-digest: sha256:4ab9af2b9597ed224430c51d99eef6b6af68a0a70f2426e56803c5d7119a47b6
-generated: "2026-10-21T06:29:44.634297989Z"
+  version: 1.1.41
+digest: sha256:20d5551d89c8ece4c2bc6b2cee234eb142ed403a5196534819dc629d6aeee5f3
+generated: "2026-10-21T15:23:03.673164362Z"
