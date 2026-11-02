@@ -10,7 +10,7 @@ dependencies:
   version: 2.2.58
 - name: steadybit-extension-azure
   repository: https://steadybit.github.io/extension-azure
-  version: 1.1.56
+  version: 1.1.57
 - name: steadybit-extension-container
   repository: https://steadybit.github.io/extension-container
   version: 1.5.36
@@ -76,7 +76,7 @@ dependencies:
   version: 1.7.52
 - name: steadybit-extension-prometheus
   repository: https://steadybit.github.io/extension-prometheus
-  version: 1.5.57
+  version: 1.5.58
 - name: steadybit-extension-rabbitmq
   repository: https://steadybit.github.io/extension-rabbitmq
   version: 1.0.44
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.42
-digest: sha256:1077e08e7a32987eb56bf652683933d8237b87ee0441e853309a5a1c57c1023a
-generated: "2026-10-28T06:22:06.15286727Z"
+digest: sha256:d1baa810faacd6587069269f280aecb218f2ce2b16fa1f460512b784128e1cbc
+generated: "2026-11-02T06:26:18.995245008Z"
