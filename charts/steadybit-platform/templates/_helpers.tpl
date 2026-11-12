@@ -162,15 +162,16 @@ false
 
 {{/*
 Renders a container `lifecycle` block, converting any `sleep` preStop/postStart
-handler to an `exec` ["sleep", "<seconds>"] handler on Kubernetes < 1.29.
-The native `sleep` lifecycle handler was introduced as alpha in 1.29 and is not
-recognized by older API servers, which drop it and leave an empty handler that
-fails validation ("must specify a handler type").
+handler to an `exec` ["sleep", "<seconds>"] handler on Kubernetes < 1.30.
+The native `sleep` lifecycle handler was introduced as alpha in 1.29 (behind the
+PodLifecycleSleepAction feature gate, off by default) and only became enabled by
+default in 1.30. API servers without it drop the field and leave an empty handler
+that fails validation ("must specify a handler type").
 Usage: {{ include "steadybit-platform.lifecycle" (dict "lifecycle" .Values.platform.lifecycle "root" .) | nindent 12 }}
 */}}
 {{- define "steadybit-platform.lifecycle" -}}
 {{- $lifecycle := .lifecycle | default dict -}}
-{{- if not (semverCompare ">=1.29.0-0" .root.Capabilities.KubeVersion.Version) -}}
+{{- if not (semverCompare ">=1.30.0-0" .root.Capabilities.KubeVersion.Version) -}}
 {{- $lifecycle = deepCopy $lifecycle -}}
 {{- range $hook := list "preStop" "postStart" -}}
 {{- if hasKey $lifecycle $hook -}}
