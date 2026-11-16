@@ -40,16 +40,16 @@ dependencies:
   version: 1.1.66
 - name: steadybit-extension-instana
   repository: https://steadybit.github.io/extension-instana
-  version: 1.1.41
+  version: 1.1.42
 - name: steadybit-extension-istio
   repository: https://steadybit.github.io/extension-istio
   version: 1.1.44
 - name: steadybit-extension-jenkins
   repository: https://steadybit.github.io/extension-jenkins
-  version: 1.0.35
+  version: 1.0.36
 - name: steadybit-extension-jmeter
   repository: https://steadybit.github.io/extension-jmeter
-  version: 1.1.56
+  version: 1.1.57
 - name: steadybit-extension-jvm
   repository: https://steadybit.github.io/extension-jvm
   version: 1.2.41
@@ -70,7 +70,7 @@ dependencies:
   version: 1.0.68
 - name: steadybit-extension-newrelic
   repository: https://steadybit.github.io/extension-newrelic
-  version: 1.1.40
+  version: 1.1.41
 - name: steadybit-extension-postman
   repository: https://steadybit.github.io/extension-postman
   version: 1.7.55
@@ -92,5 +92,5 @@ dependencies:
 - name: steadybit-extension-stackstate
   repository: https://steadybit.github.io/extension-stackstate
   version: 1.1.43
-digest: sha256:c732319f78e6d15dd170d93761be9e50e6630116dac5f7b4114b67110dcd9df1
-generated: "2026-11-14T06:16:58.920962585Z"
+digest: sha256:aaa7def928b0c0fe0156d14ec73b0168b60a8e5e1efeb10571727ea8bb4165fa
+generated: "2026-11-16T06:30:01.334087356Z"
