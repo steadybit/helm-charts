@@ -89,6 +89,20 @@ agent:
   extraVolumeMounts: []
   # agent.port -- configure the port of the agent's HTTP endpoints (expose health and debugging information)
   port: 42899
+  api:
+    auth:
+      # agent.api.auth.enabled -- Whether calls to the agent API from other hosts require basic authentication.
+      #   Set to `false` only if the network already restricts who can reach the agent's port.
+      enabled: true
+      # agent.api.auth.username -- Username for basic authentication at the agent API, also used by the
+      #   auto-registration sidecar. Defaults to `_`.
+      username: null
+      # agent.api.auth.password -- Password for basic authentication at the agent API, also used by the
+      #   auto-registration sidecar. Set `value` to store it in the chart's secret, or `valueFrom` to reference an
+      #   existing secret (e.g. `secretKeyRef: {name: my-secret, key: password}`). Defaults to the agent key.
+      password:
+        value: null
+        valueFrom: null
   # agent.env -- Additional environment variables for the steadybit agent
   env: []
   oomScoreAdj:
