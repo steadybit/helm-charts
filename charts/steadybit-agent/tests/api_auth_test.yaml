@@ -14,13 +14,22 @@ set:
         image:
           tag: v0.0.0
 tests:
-  - it: should not set api credentials by default
+  - it: should pass the agent key as the sidecar's api password by default
     asserts:
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: RELEASE-NAME-steadybit-agent
+                key: key
       - template: statefulset.yaml
         notContains:
           path: spec.template.spec.containers[0].env
           content:
-            name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
+            name: STEADYBIT_EXTENSION_AGENT_KEY
           any: true
       - template: statefulset.yaml
         notContains:
@@ -37,6 +46,24 @@ tests:
       - template: secrets.yaml
         notExists:
           path: data.apiAuthPassword
+
+  - it: should pass the agent key from an existing secret as the sidecar's api password
+    set:
+      agent:
+        key: null
+        keyFrom:
+          name: my-agent-key-secret
+          key: agent-key
+    asserts:
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-agent-key-secret
+                key: agent-key
 
   - it: should pass username and password from the chart's secret to the agent and the sidecar
     set:

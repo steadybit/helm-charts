@@ -122,10 +122,12 @@ environment variables for proxy configuration
 
 {{/*
 basic-auth credentials for the agent API, rendered for the agent and the auto-registration sidecar under their own
-variable names so both always use the same values
+variable names so both always use the same values. The agent itself defaults the password to its agent key; the
+sidecar needs that default spelled out (fallbackToAgentKey).
 */}}
 {{- define "apiAuthEnv" -}}
-{{- with .root.Values.agent.api.auth -}}
+{{- $root := .root -}}
+{{- with $root.Values.agent.api.auth -}}
 {{ if .username -}}
 - name: {{ $.usernameEnv }}
   value: {{ .username | quote }}
@@ -134,12 +136,24 @@ variable names so both always use the same values
 - name: {{ $.passwordEnv }}
   valueFrom:
     secretKeyRef:
-      name: {{ include "steadybit-agent.fullname" $.root }}
+      name: {{ include "steadybit-agent.fullname" $root }}
       key: apiAuthPassword
 {{ else if .password.valueFrom -}}
 - name: {{ $.passwordEnv }}
   valueFrom:
     {{- toYaml .password.valueFrom | nindent 4 }}
+{{ else if and $.fallbackToAgentKey $root.Values.agent.key -}}
+- name: {{ $.passwordEnv }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "steadybit-agent.fullname" $root }}
+      key: key
+{{ else if and $.fallbackToAgentKey $root.Values.agent.keyFrom.name -}}
+- name: {{ $.passwordEnv }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ $root.Values.agent.keyFrom.name }}
+      key: {{ $root.Values.agent.keyFrom.key }}
 {{ end -}}
 {{- end -}}
 {{- end -}}
