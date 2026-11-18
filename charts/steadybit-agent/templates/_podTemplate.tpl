@@ -61,19 +61,7 @@
               value: {{ .Values.logging.level | quote }}
             - name: STEADYBIT_LOG_FORMAT
               value: {{ .Values.logging.format | quote }}
-            {{ if .Values.agent.key -}}
-            - name: STEADYBIT_EXTENSION_AGENT_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "steadybit-agent.fullname" . }}
-                  key: key
-            {{ else if .Values.agent.keyFrom.name -}}
-            - name: STEADYBIT_EXTENSION_AGENT_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.agent.keyFrom.name }}
-                  key: {{ .Values.agent.keyFrom.key }}
-            {{ end -}}
+            {{- include "apiAuthEnv" (dict "root" . "usernameEnv" "STEADYBIT_EXTENSION_AGENT_API_USERNAME" "passwordEnv" "STEADYBIT_EXTENSION_AGENT_API_PASSWORD" "fallbackToAgentKey" true) | nindent 12 }}
             - name: STEADYBIT_EXTENSION_AGENT_PORT
               value: {{ .Values.agent.port | quote }}
             {{ if and (not (eq .Values.agent.extensions.autoregistration.namespace "*")) .Values.agent.extensions.autoregistration.namespace -}}
@@ -208,6 +196,11 @@
             {{- include "extensionEnv" . | nindent 12 }}
             {{- include "extraCertificatesEnv" . | nindent 12 }}
             {{- include "tlsEnv" . | nindent 12 }}
+            {{- include "apiAuthEnv" (dict "root" . "usernameEnv" "STEADYBIT_AGENT_API_AUTH_USERNAME" "passwordEnv" "STEADYBIT_AGENT_API_AUTH_PASSWORD") | nindent 12 }}
+            {{- if not .Values.agent.api.auth.enabled }}
+            - name: STEADYBIT_AGENT_API_AUTH_ENABLED
+              value: "false"
+            {{- end }}
             {{ if .Values.agent.extensions.autoregistration.useLegacyAutoregistration -}}
             {{ $matchLabelCounter := 0 | int }}
             {{- range $key, $value := .Values.agent.extensions.autoregistration.matchLabels }}

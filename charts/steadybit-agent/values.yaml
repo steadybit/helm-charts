@@ -89,6 +89,20 @@ agent:
   extraVolumeMounts: []
   # agent.port -- configure the port of the agent's HTTP endpoints (expose health and debugging information)
   port: 42899
+  api:
+    auth:
+      # agent.api.auth.enabled -- Whether calls to the agent API from other hosts require basic authentication.
+      #   Set to `false` only if the network already restricts who can reach the agent's port.
+      enabled: true
+      # agent.api.auth.username -- Username for basic authentication at the agent API, also used by the
+      #   auto-registration sidecar. Defaults to `_`.
+      username: null
+      # agent.api.auth.password -- Password for basic authentication at the agent API, also used by the
+      #   auto-registration sidecar. Set `value` to store it in the chart's secret, or `valueFrom` to reference an
+      #   existing secret (e.g. `secretKeyRef: {name: my-secret, key: password}`). Defaults to the agent key.
+      password:
+        value: null
+        valueFrom: null
   # agent.env -- Additional environment variables for the steadybit agent
   env: []
   oomScoreAdj:
@@ -214,7 +228,7 @@ agent:
         # agent.extensions.autoregistration.image.name -- The container image to use of the steadybit extension-auto-registration-kubernetes. May contain a registry prefix (e.g. "my.registry.local/steadybit/extension-auto-registration-kubernetes"), in which case image.registry is ignored.
         name: steadybit/extension-auto-registration-kubernetes
         # agent.extensions.autoregistration.image.tag -- tag name of the extension-auto-registration-kubernetes image to use.
-        tag: v1.0.22
+        tag: v1.1.0
         # agent.extensions.autoregistration.image.pullPolicy -- Specifies when to pull the image container.
         pullPolicy: Always
       resources:

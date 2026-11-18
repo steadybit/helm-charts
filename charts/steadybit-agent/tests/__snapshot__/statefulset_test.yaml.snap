@@ -61,7 +61,7 @@ manifest should match snapshot:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -247,7 +247,7 @@ manifest should use existing secret for agent key:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: agent-key
@@ -434,7 +434,7 @@ should add aws account id from values:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -804,7 +804,7 @@ should add match labels:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -993,7 +993,7 @@ should add proxy configuration:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -1191,7 +1191,7 @@ should apply extra pod labels:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -1728,7 +1728,7 @@ should not render resource limits if set to null:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -1912,7 +1912,7 @@ should set agent port:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -2101,7 +2101,7 @@ should set priorityClassName from global:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -2289,7 +2289,7 @@ should set priorityClassName from simple string:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -2477,7 +2477,7 @@ should use extension kubernetes autoregistration with all namespaces:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -2983,7 +2983,7 @@ using extensions with mtls from containerpath:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key
@@ -3185,7 +3185,7 @@ using extensions with mtls from secrets:
                   value: INFO
                 - name: STEADYBIT_LOG_FORMAT
                   value: text
-                - name: STEADYBIT_EXTENSION_AGENT_KEY
+                - name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: key

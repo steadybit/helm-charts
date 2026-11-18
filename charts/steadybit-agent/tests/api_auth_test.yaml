@@ -1,0 +1,163 @@
+templates:
+  - statefulset.yaml
+  - secrets.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+set:
+  global:
+    clusterName: test
+  agent:
+    key: some-agent-key
+    extensions:
+      autoregistration:
+        image:
+          tag: v0.0.0
+tests:
+  - it: should pass the agent key as the sidecar's api password by default
+    asserts:
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: RELEASE-NAME-steadybit-agent
+                key: key
+      - template: statefulset.yaml
+        notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_AGENT_KEY
+          any: true
+      - template: statefulset.yaml
+        notContains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_API_AUTH_PASSWORD
+          any: true
+      - template: statefulset.yaml
+        notContains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_API_AUTH_ENABLED
+          any: true
+      - template: secrets.yaml
+        notExists:
+          path: data.apiAuthPassword
+
+  - it: should pass the agent key from an existing secret as the sidecar's api password
+    set:
+      agent:
+        key: null
+        keyFrom:
+          name: my-agent-key-secret
+          key: agent-key
+    asserts:
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-agent-key-secret
+                key: agent-key
+
+  - it: should pass username and password from the chart's secret to the agent and the sidecar
+    set:
+      agent:
+        api:
+          auth:
+            username: registrar
+            password:
+              value: api-secret
+    asserts:
+      - template: secrets.yaml
+        equal:
+          path: data.apiAuthPassword
+          value: YXBpLXNlY3JldA==
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_AGENT_API_USERNAME
+            value: registrar
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: RELEASE-NAME-steadybit-agent
+                key: apiAuthPassword
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_API_AUTH_USERNAME
+            value: registrar
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_API_AUTH_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: RELEASE-NAME-steadybit-agent
+                key: apiAuthPassword
+
+  - it: should pass the password from an existing secret to the agent and the sidecar
+    set:
+      agent:
+        api:
+          auth:
+            password:
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: password
+    asserts:
+      - template: secrets.yaml
+        notExists:
+          path: data.apiAuthPassword
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_EXTENSION_AGENT_API_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-secret
+                key: password
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_API_AUTH_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-secret
+                key: password
+
+  - it: should disable api authentication on the agent only
+    set:
+      agent:
+        api:
+          auth:
+            enabled: false
+    asserts:
+      - template: statefulset.yaml
+        contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: STEADYBIT_AGENT_API_AUTH_ENABLED
+            value: "false"
+      - template: statefulset.yaml
+        notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: STEADYBIT_AGENT_API_AUTH_ENABLED
+          any: true
