@@ -4,6 +4,7 @@ should enable ingress:
     kind: Ingress
     metadata:
       annotations:
+        alb.ingress.kubernetes.io/tags: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
         this: that
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
@@ -37,6 +38,8 @@ should enable ingress in plain kubernetes:
     apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
+      annotations:
+        alb.ingress.kubernetes.io/tags: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
@@ -68,6 +71,8 @@ should render tls section when tls is configured:
     apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
+      annotations:
+        alb.ingress.kubernetes.io/tags: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm

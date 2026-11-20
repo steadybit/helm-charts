@@ -24,3 +24,51 @@ tests:
           this: that
     asserts:
       - matchSnapshot: { }
+  - it: should tag a load balancer service with the AWS partner tag
+    set:
+      service:
+        type: LoadBalancer
+    asserts:
+      - equal:
+          path: metadata.annotations["service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags"]
+          value: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should keep the user's load balancer tags and add the AWS partner tag
+    set:
+      service:
+        type: LoadBalancer
+        annotations:
+          service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: team=sre,env=prod
+    asserts:
+      - equal:
+          path: metadata.annotations["service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags"]
+          value: team=sre,env=prod,aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should not add the AWS partner tag twice
+    set:
+      service:
+        type: LoadBalancer
+        annotations:
+          service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+    asserts:
+      - equal:
+          path: metadata.annotations["service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags"]
+          value: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should not tag a service that is no load balancer
+    set:
+      service:
+        type: ClusterIP
+    asserts:
+      - notExists:
+          path: metadata.annotations
+  - it: should not tag a load balancer service when opted out
+    set:
+      service:
+        type: LoadBalancer
+        annotations:
+          this: that
+      awsPartnerRevenueMeasurement:
+        enabled: false
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            this: that
