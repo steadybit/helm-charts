@@ -138,6 +138,28 @@ false
 {{- end -}}
 
 {{/*
+returns the given annotations with the AWS Partner Revenue Measurement tag added to the tag annotation `key` of the
+AWS Load Balancer Controller, keeping any tags the user already set there. Returns them unchanged when `enabled` is
+false. Renders nothing when the result is empty.
+Expects a dict with `annotations`, `key` and `enabled`.
+*/}}
+{{- define "steadybit-platform.annotationsWithAwsPartnerTag" -}}
+  {{- $annotations := deepCopy (.annotations | default dict) -}}
+  {{- if .enabled -}}
+    {{- $tag := "aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk" -}}
+    {{- $tags := get $annotations .key | toString | trim -}}
+    {{- if not $tags -}}
+      {{- $_ := set $annotations .key $tag -}}
+    {{- else if not (contains "aws-apn-id-942553020120=" $tags) -}}
+      {{- $_ := set $annotations .key (printf "%s,%s" $tags $tag) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $annotations -}}
+    {{- toYaml $annotations -}}
+  {{- end -}}
+{{- end -}}
+
+{{/*
 returns "true" when an OpenShift Route should be rendered: explicit route.enabled,
 or unset on a cluster with the OpenShift Route API.
 */}}

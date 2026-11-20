@@ -13,9 +13,9 @@ metadata:
   {{- range $key, $value := .Values.platform.extraLabels }}
     {{ $key }}: {{ $value }}
   {{- end }}
-  {{- with .Values.ingress.annotations }}
+  {{- with include "steadybit-platform.annotationsWithAwsPartnerTag" (dict "annotations" .Values.ingress.annotations "key" "alb.ingress.kubernetes.io/tags" "enabled" .Values.awsPartnerRevenueMeasurement.enabled) }}
   annotations:
-  {{- toYaml . | nindent 4 }}
+  {{- . | nindent 4 }}
   {{- end }}
 spec:
   {{- with .Values.ingress.tls }}

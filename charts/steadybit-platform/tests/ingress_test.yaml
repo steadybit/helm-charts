@@ -36,6 +36,46 @@ tests:
           - example.steadybit.com
     asserts:
       - matchSnapshot: { }
+  - it: should tag the load balancer with the AWS partner tag
+    set:
+      ingress:
+        enabled: true
+    asserts:
+      - equal:
+          path: metadata.annotations["alb.ingress.kubernetes.io/tags"]
+          value: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should keep the user's load balancer tags and add the AWS partner tag
+    set:
+      ingress:
+        enabled: true
+        annotations:
+          alb.ingress.kubernetes.io/tags: team=sre,env=prod
+          this: that
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            alb.ingress.kubernetes.io/tags: team=sre,env=prod,aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+            this: that
+  - it: should not add the AWS partner tag twice
+    set:
+      ingress:
+        enabled: true
+        annotations:
+          alb.ingress.kubernetes.io/tags: env=prod,aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+    asserts:
+      - equal:
+          path: metadata.annotations["alb.ingress.kubernetes.io/tags"]
+          value: env=prod,aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should not tag the load balancer when opted out
+    set:
+      ingress:
+        enabled: true
+      awsPartnerRevenueMeasurement:
+        enabled: false
+    asserts:
+      - notExists:
+          path: metadata.annotations
   - it: should disable ingress in openshift
     capabilities:
       apiVersions:

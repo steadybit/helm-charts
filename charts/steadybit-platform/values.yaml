@@ -256,6 +256,15 @@ service:
   type: null
   annotations: {}
 
+# -- AWS Partner Revenue Measurement
+awsPartnerRevenueMeasurement:
+  # awsPartnerRevenueMeasurement.enabled -- Tags the AWS load balancers that the AWS Load Balancer Controller creates for
+  # this chart with aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk, so AWS can attribute their usage to Steadybit
+  # (https://docs.aws.amazon.com/PRM/latest/aws-prm-onboarding-guide/resource-tagging.html). Applies to the Ingress, and to
+  # the Service when its type is LoadBalancer. Tags already set in the annotations are kept. Has no effect outside AWS or
+  # with other ingress controllers. Set to false to opt out.
+  enabled: true
+
 # nodeSelector -- Node labels for pod assignment
 nodeSelector: {}
 
