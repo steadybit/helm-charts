@@ -1,5 +1,5 @@
 {{- $serviceType := coalesce .Values.platform.service.type .Values.service.type -}}
-{{- $tagLoadBalancer := and .Values.awsPartnerRevenueMeasurement.enabled (eq (toString $serviceType) "LoadBalancer") -}}
+{{- $tagLoadBalancer := and (eq (include "steadybit-platform.awsPartnerTagEnabled" .) "true") (eq (toString $serviceType) "LoadBalancer") -}}
 apiVersion: v1
 kind: Service
 metadata:

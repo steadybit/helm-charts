@@ -13,7 +13,9 @@ metadata:
   {{- range $key, $value := .Values.platform.extraLabels }}
     {{ $key }}: {{ $value }}
   {{- end }}
-  {{- with include "steadybit-platform.annotationsWithAwsPartnerTag" (dict "annotations" .Values.ingress.annotations "key" "alb.ingress.kubernetes.io/tags" "enabled" .Values.awsPartnerRevenueMeasurement.enabled) }}
+  {{- /* A load balancer shared through an IngressGroup also serves other workloads, so it is not tagged. */}}
+  {{- $tagLoadBalancer := and (eq (include "steadybit-platform.awsPartnerTagEnabled" .) "true") (not (hasKey (.Values.ingress.annotations | default dict) "alb.ingress.kubernetes.io/group.name")) }}
+  {{- with include "steadybit-platform.annotationsWithAwsPartnerTag" (dict "annotations" .Values.ingress.annotations "key" "alb.ingress.kubernetes.io/tags" "enabled" $tagLoadBalancer) }}
   annotations:
   {{- . | nindent 4 }}
   {{- end }}
