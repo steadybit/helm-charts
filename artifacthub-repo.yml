@@ -1,4 +1,5 @@
 # Artifact Hub repository metadata, see https://artifacthub.io/docs/topics/repositories/#repository-metadata-file
+repositoryID: 0b15e918-c2c7-42d7-ab6d-7d6037da32dd
 ignore:
   - name: extensionlib
   - name: extensionlib-test
