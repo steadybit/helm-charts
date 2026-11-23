@@ -1,0 +1,4 @@
+# Artifact Hub repository metadata, see https://artifacthub.io/docs/topics/repositories/#repository-metadata-file
+ignore:
+  - name: extensionlib
+  - name: extensionlib-test
