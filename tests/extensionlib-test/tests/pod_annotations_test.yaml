@@ -1,0 +1,73 @@
+suite: extensionlib.podAnnotations
+templates:
+  - pod.yaml
+chart:
+  appVersion: 0.0.0
+  version: 0.0.0
+tests:
+  - it: opts out of the Dynatrace injection by default
+    asserts:
+      - matchSnapshot: {}
+      - equal:
+          path: metadata.annotations
+          value:
+            dynatrace.com/inject: "false"
+            metadata-enrichment.dynatrace.com/inject: "false"
+            oneagent.dynatrace.com/inject: "false"
+
+  - it: adds podAnnotations next to the opt out
+    set:
+      podAnnotations:
+        some-annotation: some-value
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            dynatrace.com/inject: "false"
+            metadata-enrichment.dynatrace.com/inject: "false"
+            oneagent.dynatrace.com/inject: "false"
+            some-annotation: some-value
+
+  - it: dynatrace.inject=true removes the opt out
+    set:
+      dynatrace:
+        inject: true
+      podAnnotations:
+        some-annotation: some-value
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            some-annotation: some-value
+
+  - it: dynatrace.inject=true without podAnnotations renders no annotations
+    set:
+      dynatrace:
+        inject: true
+    asserts:
+      - notExists:
+          path: metadata.annotations
+
+  - it: a string "false" for dynatrace.inject keeps the opt out
+    set:
+      dynatrace:
+        inject: "false"
+    asserts:
+      - equal:
+          path: metadata.annotations["dynatrace.com/inject"]
+          value: "false"
+
+  - it: podAnnotations override the opt out and non-string values are quoted
+    set:
+      podAnnotations:
+        dynatrace.com/inject: true
+        oneagent.dynatrace.com/inject: ""
+        some-number: 42
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            dynatrace.com/inject: "true"
+            metadata-enrichment.dynatrace.com/inject: "false"
+            oneagent.dynatrace.com/inject: ""
+            some-number: "42"
