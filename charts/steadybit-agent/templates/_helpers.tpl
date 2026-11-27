@@ -129,3 +129,20 @@ templates can tell the chart's default apart from a user-supplied tag (see stead
 {{- define "steadybit-agent.autoregistration.defaultTag" -}}
 {{- index .Chart.Annotations "steadybit.com/autoregistration-version" | required "Chart.yaml annotation steadybit.com/autoregistration-version is missing" -}}
 {{- end -}}
+
+{{/*
+steadybit-agent.isOutdatedTag renders "true" if .tag is at least one minor version older than .default; patch
+differences are ignored. Tags which are not plain semver (e.g. latest, a commit sha or a digest) are never reported.
+*/}}
+{{- define "steadybit-agent.isOutdatedTag" -}}
+{{- $pattern := `^v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$` -}}
+{{- $tag := toString .tag -}}
+{{- $default := .default -}}
+{{- if and (regexMatch $pattern $tag) (regexMatch $pattern $default) -}}
+{{- $t := semver $tag -}}
+{{- $d := semver $default -}}
+{{- if or (lt $t.Major $d.Major) (and (eq $t.Major $d.Major) (lt $t.Minor $d.Minor)) -}}
+true
+{{- end -}}
+{{- end -}}
+{{- end -}}

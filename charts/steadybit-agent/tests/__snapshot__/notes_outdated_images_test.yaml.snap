@@ -1,0 +1,19 @@
+should warn about an agent image one minor version older than appVersion:
+  1: |
+    raw: |-
+      It may take a few moments for the agents to fully deploy. You can see what agents are running by listing resources in the NAMESPACE namespace:
+
+          kubectl get all -n NAMESPACE
+
+      You can get the logs for all of the agents with `kubectl logs`:
+
+          kubectl logs -l app.kubernetes.io/name=RELEASE-NAME -n NAMESPACE -c steadybit-agent
+
+      ##############################################################################
+      ####    WARNING: You are using outdated container images.                 ####
+      ##############################################################################
+
+      The following images are at least one minor version older than the defaults of this chart version:
+          - steadybit/agent:2.3.10 (default: 2.4.12, set via image.tag)
+
+      Remove the tag overrides to use the defaults, or set them to a current version.
