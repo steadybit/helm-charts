@@ -122,3 +122,44 @@ Map match labels to extension registration JSON format.
 {{- end -}}
 {{- $result | toJson -}}
 {{- end -}}
+{{/*
+The default tag of the autoregistration sidecar lives in a Chart.yaml annotation instead of values.yaml, so that
+templates can tell the chart's default apart from a user-supplied tag (see steadybit-agent.isOutdatedTag).
+*/}}
+{{- define "steadybit-agent.autoregistration.defaultTag" -}}
+{{- index .Chart.Annotations "steadybit.com/autoregistration-version" | required "Chart.yaml annotation steadybit.com/autoregistration-version is missing" -}}
+{{- end -}}
+
+{{/*
+steadybit-agent.images lists the images checked by steadybit-agent.isOutdatedTag, with the values key that sets each tag.
+*/}}
+{{- define "steadybit-agent.images" -}}
+- name: {{ .Values.image.name | quote }}
+  tag: {{ .Values.image.tag | default .Chart.AppVersion | quote }}
+  default: {{ .Chart.AppVersion | quote }}
+  value: image.tag
+{{- if not .Values.agent.extensions.autoregistration.useLegacyAutoregistration }}
+{{- $default := include "steadybit-agent.autoregistration.defaultTag" . }}
+- name: {{ .Values.agent.extensions.autoregistration.image.name | quote }}
+  tag: {{ .Values.agent.extensions.autoregistration.image.tag | default $default | quote }}
+  default: {{ $default | quote }}
+  value: agent.extensions.autoregistration.image.tag
+{{- end }}
+{{- end -}}
+
+{{/*
+steadybit-agent.isOutdatedTag renders "true" if .tag is at least one minor version older than .default; patch
+differences are ignored. Tags which are not plain semver (e.g. latest, a commit sha or a digest) are never reported.
+*/}}
+{{- define "steadybit-agent.isOutdatedTag" -}}
+{{- $pattern := `^v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$` -}}
+{{- $tag := toString .tag -}}
+{{- $default := .default -}}
+{{- if and (regexMatch $pattern $tag) (regexMatch $pattern $default) -}}
+{{- $t := semver $tag -}}
+{{- $d := semver $default -}}
+{{- if or (lt $t.Major $d.Major) (and (eq $t.Major $d.Major) (lt $t.Minor $d.Minor)) -}}
+true
+{{- end -}}
+{{- end -}}
+{{- end -}}

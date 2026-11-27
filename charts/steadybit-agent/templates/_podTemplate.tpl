@@ -36,8 +36,12 @@
       containers:
         {{- if not .Values.agent.extensions.autoregistration.useLegacyAutoregistration }}
         {{- $globalImage := dig "image" dict (.Values.global | default dict) }}
+        {{- $autoregistrationImage := .Values.agent.extensions.autoregistration.image }}
+        {{- $autoregistrationChart := dict "AppVersion" (include "steadybit-agent.autoregistration.defaultTag" .) }}
         - name: "steadybit-agent-kubernetes-autoregistration"
-          image: "{{ include "extensionlib.image" (dict "Values" (dict "image" .Values.agent.extensions.autoregistration.image "global" .Values.global) "Chart" .Chart) }}"
+          image: "{{ include "extensionlib.image" (dict
+                "Values" (dict "image" $autoregistrationImage "global" .Values.global)
+                "Chart" $autoregistrationChart) }}"
           imagePullPolicy: {{ .Values.agent.extensions.autoregistration.image.pullPolicy | default (dig "pullPolicy" "Always" $globalImage) }}
           resources:
             requests:

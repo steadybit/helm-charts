@@ -1,0 +1,84 @@
+templates:
+  - NOTES.txt
+chart:
+  appVersion: 2.4.12
+set:
+  global:
+    clusterName: test
+  agent:
+    key: abcdefg
+tests:
+  - it: should warn about an agent image one minor version older than appVersion
+    set:
+      image:
+        tag: 2.3.10
+    asserts:
+      - matchSnapshot: {}
+  - it: should warn about an agent image one major version older than appVersion
+    set:
+      image:
+        tag: 1.9.0
+    asserts:
+      - matchRegex:
+          path: raw
+          pattern: "steadybit/agent:1.9.0 \\(default: 2.4.12, set via image.tag\\)"
+  - it: should warn about an outdated agent prerelease image
+    set:
+      image:
+        tag: 2.3.0-rc.1
+    asserts:
+      - matchRegex:
+          path: raw
+          pattern: "steadybit/agent:2.3.0-rc.1 "
+  - it: should not warn about an agent image which only differs in the patch version
+    set:
+      image:
+        tag: 2.4.0
+    asserts:
+      - notMatchRegex:
+          path: raw
+          pattern: outdated container images
+  - it: should not warn about an agent image newer than appVersion
+    set:
+      image:
+        tag: 2.5.0
+    asserts:
+      - notMatchRegex:
+          path: raw
+          pattern: outdated container images
+  - it: should not warn about agent image tags which are not semver
+    set:
+      image:
+        tag: latest
+    asserts:
+      - notMatchRegex:
+          path: raw
+          pattern: outdated container images
+  - it: should warn about an outdated autoregistration image
+    set:
+      agent:
+        extensions:
+          autoregistration:
+            image:
+              tag: v0.0.1
+    asserts:
+      - matchRegex:
+          path: raw
+          pattern: "steadybit/extension-auto-registration-kubernetes:v0.0.1 \\(default: v[0-9.]+, set via agent.extensions.autoregistration.image.tag\\)"
+  - it: should not warn about the autoregistration image when the legacy autoregistration is used
+    set:
+      agent:
+        extensions:
+          autoregistration:
+            useLegacyAutoregistration: true
+            image:
+              tag: v0.0.1
+    asserts:
+      - notMatchRegex:
+          path: raw
+          pattern: outdated container images
+  - it: should not warn when the default images are used
+    asserts:
+      - notMatchRegex:
+          path: raw
+          pattern: outdated container images

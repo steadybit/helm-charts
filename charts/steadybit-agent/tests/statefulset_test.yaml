@@ -391,3 +391,18 @@ tests:
           content:
             name: STEADYBIT_AGENT_EXTENSIONS_INSECURE_SKIP_VERIFY
             value: "true"
+  - it: should default the autoregistration image tag to the chart annotation
+    set:
+      global:
+        clusterName: test
+      agent:
+        key: abcdefg
+        extensions:
+          autoregistration:
+            image:
+              tag: null
+    asserts:
+      - matchRegex:
+          path: spec.template.spec.containers[0].image
+          pattern: ^ghcr.io/steadybit/extension-auto-registration-kubernetes:v[0-9]+\.[0-9]+\.[0-9]+$
+        template: statefulset.yaml

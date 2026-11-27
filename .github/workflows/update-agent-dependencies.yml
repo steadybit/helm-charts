@@ -39,12 +39,11 @@ jobs:
           helm dependency update charts/steadybit-agent
 
           # update the extension-auto-registration-kubernetes sidecar image to the latest release
-          # (surgical edit anchored to the helm-docs comment so the rest of values.yaml is left untouched)
           tag=$(gh release view --repo steadybit/extension-auto-registration-kubernetes --json tagName --jq '.tagName')
           echo "Latest extension-auto-registration-kubernetes release: $tag"
-          tag="$tag" perl -0pi -e 's/(# agent\.extensions\.autoregistration\.image\.tag --[^\n]*\n\s*tag: )\S+/$1$ENV{tag}/' charts/steadybit-agent/values.yaml
+          tag="$tag" yq -i '.annotations["steadybit.com/autoregistration-version"] = strenv(tag)' charts/steadybit-agent/Chart.yaml
 
-          if git diff --quiet charts/steadybit-agent/Chart.lock charts/steadybit-agent/values.yaml; then
+          if git diff --quiet charts/steadybit-agent/Chart.lock charts/steadybit-agent/Chart.yaml; then
             echo "No changes in dependencies"
             echo "No changes in dependencies" >> $GITHUB_STEP_SUMMARY
             exit 0
