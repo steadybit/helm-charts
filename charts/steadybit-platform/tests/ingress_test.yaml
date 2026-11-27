@@ -36,6 +36,86 @@ tests:
           - example.steadybit.com
     asserts:
       - matchSnapshot: { }
+  - it: should tag the load balancer with the AWS partner tag
+    set:
+      ingress:
+        enabled: true
+    asserts:
+      - equal:
+          path: metadata.annotations["alb.ingress.kubernetes.io/tags"]
+          value: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should keep the user's load balancer tags and add the AWS partner tag
+    set:
+      ingress:
+        enabled: true
+        annotations:
+          alb.ingress.kubernetes.io/tags: team=sre,env=prod
+          this: that
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            alb.ingress.kubernetes.io/tags: team=sre,env=prod,aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+            this: that
+  - it: should not add the AWS partner tag twice
+    set:
+      ingress:
+        enabled: true
+        annotations:
+          alb.ingress.kubernetes.io/tags: env=prod,aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+    asserts:
+      - equal:
+          path: metadata.annotations["alb.ingress.kubernetes.io/tags"]
+          value: env=prod,aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should not tag the load balancer when opted out
+    set:
+      ingress:
+        enabled: true
+      awsPartnerRevenueMeasurement:
+        enabled: false
+    asserts:
+      - notExists:
+          path: metadata.annotations
+  - it: should tag the load balancer when the setting is missing from reused values
+    set:
+      ingress:
+        enabled: true
+      awsPartnerRevenueMeasurement: null
+    asserts:
+      - equal:
+          path: metadata.annotations["alb.ingress.kubernetes.io/tags"]
+          value: aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should keep a partner tag value the user set
+    set:
+      ingress:
+        enabled: true
+        annotations:
+          alb.ingress.kubernetes.io/tags: " aws-apn-id-942553020120 =pc:other"
+    asserts:
+      - equal:
+          path: metadata.annotations["alb.ingress.kubernetes.io/tags"]
+          value: " aws-apn-id-942553020120 =pc:other"
+  - it: should not treat a longer key as the partner tag
+    set:
+      ingress:
+        enabled: true
+        annotations:
+          alb.ingress.kubernetes.io/tags: xaws-apn-id-942553020120=foo
+    asserts:
+      - equal:
+          path: metadata.annotations["alb.ingress.kubernetes.io/tags"]
+          value: xaws-apn-id-942553020120=foo,aws-apn-id-942553020120=pc:egaiyzlc2fa84pb03ml3c4hnk
+  - it: should not tag a load balancer shared through an ingress group
+    set:
+      ingress:
+        enabled: true
+        annotations:
+          alb.ingress.kubernetes.io/group.name: shared
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            alb.ingress.kubernetes.io/group.name: shared
   - it: should disable ingress in openshift
     capabilities:
       apiVersions:

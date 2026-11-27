@@ -138,6 +138,47 @@ false
 {{- end -}}
 
 {{/*
+returns "true" when the AWS Partner Revenue Measurement tag is enabled. Read with dig, so values reused from a release
+installed before the setting existed (helm upgrade --reuse-values) fall back to the default instead of failing.
+*/}}
+{{- define "steadybit-platform.awsPartnerTagEnabled" -}}
+  {{- if dig "awsPartnerRevenueMeasurement" "enabled" true .Values.AsMap -}}
+true
+  {{- else -}}
+false
+  {{- end -}}
+{{- end -}}
+
+{{/*
+returns the given annotations with the AWS Partner Revenue Measurement tag added to the tag annotation `key` of the
+AWS Load Balancer Controller, keeping any tags the user already set there. A tag with the partner key the user set
+wins, whatever its value. Returns them unchanged when `enabled` is false. Renders nothing when the result is empty.
+Expects a dict with `annotations`, `key` and `enabled`.
+*/}}
+{{- define "steadybit-platform.annotationsWithAwsPartnerTag" -}}
+  {{- $annotations := deepCopy (.annotations | default dict) -}}
+  {{- if .enabled -}}
+    {{- $key := "aws-apn-id-942553020120" -}}
+    {{- $tag := printf "%s=pc:egaiyzlc2fa84pb03ml3c4hnk" $key -}}
+    {{- $tags := get $annotations .key | toString | trim -}}
+    {{- $present := false -}}
+    {{- range splitList "," $tags -}}
+      {{- if eq (splitList "=" . | first | trim) $key -}}
+        {{- $present = true -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if not $tags -}}
+      {{- $_ := set $annotations .key $tag -}}
+    {{- else if not $present -}}
+      {{- $_ := set $annotations .key (printf "%s,%s" $tags $tag) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $annotations -}}
+    {{- toYaml $annotations -}}
+  {{- end -}}
+{{- end -}}
+
+{{/*
 returns "true" when an OpenShift Route should be rendered: explicit route.enabled,
 or unset on a cluster with the OpenShift Route API.
 */}}
