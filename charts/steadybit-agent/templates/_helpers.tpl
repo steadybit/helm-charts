@@ -122,3 +122,10 @@ Map match labels to extension registration JSON format.
 {{- end -}}
 {{- $result | toJson -}}
 {{- end -}}
+{{/*
+The default tag of the autoregistration sidecar lives in a Chart.yaml annotation instead of values.yaml, so that
+templates can tell the chart's default apart from a user-supplied tag (see steadybit-agent.isOutdatedTag).
+*/}}
+{{- define "steadybit-agent.autoregistration.defaultTag" -}}
+{{- index .Chart.Annotations "steadybit.com/autoregistration-version" | required "Chart.yaml annotation steadybit.com/autoregistration-version is missing" -}}
+{{- end -}}

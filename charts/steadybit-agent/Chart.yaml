@@ -11,6 +11,7 @@ maintainers:
 sources:
   - https://github.com/steadybit/helm-charts
 annotations:
+  steadybit.com/autoregistration-version: v1.1.0
   artifacthub.io/images: |
     - name: logo
       image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
