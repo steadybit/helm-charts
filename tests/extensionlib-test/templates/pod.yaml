@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: extensionlib-test
+  {{- with (include "extensionlib.podAnnotations" (list .)) }}
+  annotations:
+    {{- . | nindent 4 }}
+  {{- end }}
+spec:
+  containers:
+    - name: extension
+      image: test:latest

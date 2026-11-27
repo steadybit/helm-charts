@@ -1,0 +1,14 @@
+opts out of the Dynatrace injection by default:
+  1: |
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      annotations:
+        dynatrace.com/inject: "false"
+        metadata-enrichment.dynatrace.com/inject: "false"
+        oneagent.dynatrace.com/inject: "false"
+      name: extensionlib-test
+    spec:
+      containers:
+        - image: test:latest
+          name: extension
