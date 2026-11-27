@@ -82,13 +82,8 @@ You can get the logs for all of the agents with `kubectl logs`:
 #### NOTICE: GKE Autopilot detected (auto.gke.io API group) - the oom_score_adj protection (agent.oomScoreAdj) was disabled automatically because Autopilot's admission webhook rejects CAP_SYS_RESOURCE. Under memory pressure the OOM killer may terminate the agent earlier. If this cluster has a workload allowlist exemption for the agent - or is not actually an Autopilot cluster - set agent.oomScoreAdj.enabled=true to restore it.
 
 {{- end }}
-{{- $images := list (dict "name" .Values.image.name "tag" (.Values.image.tag | default .Chart.AppVersion) "default" .Chart.AppVersion "value" "image.tag") }}
-{{- if not .Values.agent.extensions.autoregistration.useLegacyAutoregistration }}
-{{- $default := include "steadybit-agent.autoregistration.defaultTag" . }}
-{{- $images = append $images (dict "name" .Values.agent.extensions.autoregistration.image.name "tag" (.Values.agent.extensions.autoregistration.image.tag | default $default) "default" $default "value" "agent.extensions.autoregistration.image.tag") }}
-{{- end }}
 {{- $outdated := list }}
-{{- range $images }}
+{{- range include "steadybit-agent.images" . | fromYamlArray }}
 {{- if include "steadybit-agent.isOutdatedTag" . }}
 {{- $outdated = append $outdated . }}
 {{- end }}
